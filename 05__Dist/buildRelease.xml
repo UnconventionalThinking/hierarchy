@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project name="Build Samples release" default="all" basedir=".">
+
+
+	<property name="samples.main.dir" value="../03__Samples/SampleProjects"/>
+	<property name="samples.bin.dir" value="${samples.main.dir}/bin"/>
+	<property name="samples.dist.dir" value="${samples.main.dir}/dist"/>
+
+	<property name="hierarchy.mainproject.dir" value="../Code/Hierarchy"/>
+	<property name="dist.main.dir" value="Hierarchy_beta2"/>
+	<property name="dist.bin.dir" value="${dist.main.dir}/bin"/>
+
+	<property name="documentation.dir" value="../04__ProductDocs/release"/>
+
+
+	<target name="all" depends="prepare, release-samples, release"/>
+	
+	
+	<target name="prepare">
+		<!--  Clean old dist dir -->
+		<delete dir="${dist.main.dir}" failonerror="true"/>
+		
+		<mkdir dir="${dist.main.dir}"/>
+		
+	</target>
+
+
+	<target name="release-samples">
+	
+        <subant target="all">
+            <fileset dir="${samples.main.dir}" includes="buildSamplesRelease.xml"/>
+        </subant>
+        
+        <!--  Copy the samples over -->
+		<mkdir dir="${dist.main.dir}/SampleProjects"/>
+		<copy todir="${dist.main.dir}/SampleProjects" failonerror="true" overwrite="true">
+			<fileset dir="${samples.dist.dir}"/>
+		</copy>
+        
+	</target>
+
+
+	<target name="release">
+	
+        <!--  Copy the hierarchy.jar over.  -->
+		<mkdir dir="${dist.bin.dir}"/>
+		<copy todir="${dist.bin.dir}" failonerror="true" overwrite="true">
+			<fileset dir="${hierarchy.mainproject.dir}/dist"/>
+		</copy>
+        
+        <!--  Copy over the documentation -->
+		<copy todir="${dist.main.dir}" failonerror="true" overwrite="true">
+			<fileset dir="${documentation.dir}/" />
+		</copy>
+        
+	</target>
+    
+    
+</project>
