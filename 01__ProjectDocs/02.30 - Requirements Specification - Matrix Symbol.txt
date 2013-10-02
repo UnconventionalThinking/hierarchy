@@ -1,0 +1,294 @@
+Programming Language Syntax Doc - 1.5
+_______________________________________________________________________________________________________________________
+
+Requirements:  Matrix Symbols Specification
+_______________________________________________________________________________________________________________________
+
+Purpose - The purpose of this doc is to describe the syntax for Symbols.
+
+_______________________________________________________________________________________________________________________
+
+
+Symbol Specification:
+
+	There are 4 ways of using a symbol:
+
+		1) `First Name` - place between back tiks. The reason you'd use this is typically for symbols with spaces in the name
+	
+		2) :IS_REQUIRED - with Colon after 
+			a. The convention is that symbols are in all CAPS
+		
+		3) :"First Name" - is also possible
+		
+	
+		4) FORM.REQUIRED:IsRequired  (notice, no ':' on either FORM.REQUIRED or IsRequired) 
+			this is a descriptor access (through tag-name and label-name). You don't need the ":" to access Matrix members using symbols
+			
+			NOTE: The "Colon after" operator does not indicate a symbol. It indicates that child elements will follow.
+
+	
+	
+	
+
+Symbols Syntax in more detail:
+
+	o Reason for symbol syntax:
+		
+		- Reason for symbols using ':' is because symbols are different from variables and constants and objects. They are a special type, and it needs to be shown when you are using one. Also, symbols are often options or used for matrices or passed into functions. The ":" shows	that this is a symbol, probably being used as a setting for something.
+		
+		- Reason for symbols using the back-tik is because I need to create symbol names using strings everywhere. this syntax is really messy - :"my symbol"  not very nice looking, when you have to do it like 100 times.
+		
+	o Child Symbols
+		
+		- A symbol can have nested symbols, like: :TABLES.Person, :DB.COLUMN and :FORM.SELECT (note, field descriptor names are symbols). You use nested child symbols to group symbols together (like TABLES.* for all the tables in your DB)
+		
+		* There is a huge difference between a "symbol with child symbols" and a "set of symbols assigned to a set-of-symbols var" (see way below)
+	
+		
+	o Abbreviated Symbol names and Symbol scope
+		
+		- Symbols must be unique names, so there fully qualified names are actually pretty long. FORM.LABEL is probably something like: PARTITA.HTML.FORM.LABEL. But, the matrix schema defines what symbols can be used, and in the schema, you can define abbreviated Symbol names for the scope of the matrix (probably will have some sort of default abbreviated name for each descriptor).
+		
+		- if there is a conflict in your schema or matrix, it is an error (and should be handled in, well, pretty obvious ways, don't allow it and some name must be more qualified).
+
+
+
+	o Special Symbols - Matrix Descriptor Label-Names and Descriptor tag-names
+	
+		- Descriptor label-names 
+			o label name creation:
+				- label names passed into a descriptor are typically newly created symbols, but, for this special situation, you do not have to use symbol creation notation (the '+' is optional) to create them. 
+				The reason is because when you pass in a label name symbol, it's most often a newly created symbol, and, it get's kind of ugly to use it in this situation.
+				
+					* BUT, IMPORTANT, this '+' is only optional in convenience format. Required in strict format.
+					
+					* Also, notice, symbol notation still required for label name, even in convenience format,
+						EXCEPT in schema convenience format, there is an exception. For DESCRIPTOR definition, you don't need the symbol notation:
+					
+			 			DESCRIPTOR TAG.NAME
+			 				OR
+			 			DESCRIPTOR :TAG.NAME
+			 	
+			 	
+			o Accessing a descriptor by its label name:
+					
+				- using braces - you need to use the symbol notation. Why? because braces is a lower level accessor. It's like your accessing the Matrix like it was a data structure, passing in the hash key:
+				
+					ex. myMatrix@[`item 1`]
+							OR
+						myMatrix@[:"item 1"]
+				
+				- using member access - no symbol notation is needed, except if you have spaces or special characters, then use the `` notation
+				
+					// IsRequired the label name for a FIELD descriptor
+					ex. myMatrix@[`item 1`]->FORM.REQUIRED->IsRequired  
+	
+					why? because the symbol you pass into the schema for the descriptor label is NOT the 
+						descriptor, it's now just a property of the descriptor. And, it's used to generate
+						the descriptor accessor.
+							
+		
+		- Descriptor tag-names
+				
+			o Tag-name creation
+				- descriptor tag-names are actually created using Descriptor Label Names. so see above!
+				
+			
+			o Accessing descriptors by tag name.
+				
+				- using braces - like label names, must use the symbol notation:
+				
+					ex. myMatrix@[`item 1`][:FORM.REQUIRED]
+					
+					*** BUT, maybe the ':' for tag names should be optional to be more consistent with how descriptor
+					tag names used in matrix creation. should we allow this? 
+					
+						myMatrix@[`item 1`][FORM.REQUIRED] // notice no ':'
+					
+					* ANSWER: NO, do not allow not using the ':'. The braces are lower level accessor, so should be more low level in that full symbol notation is used to access things. If this is too inconvenient, might changes this.
+	
+				- Using member access - just like using label-names to access descriptors, no symbol notation is needed, except if you have spaces or special char in the name, use ``.
+				
+					ex. myMatrix@[`item 1`].FORM.REQUIRED
+						myMatrix@[`item 1`]->FORM.REQUIRED
+						myMatrix@[`item 1`]->FORM.SELECT->OPTIONS
+				
+		
+			
+			
+In Matrix creation, the way these are used are:
+
+	1) Item name
+		Item name are often done as symbols in back-tiks. The reason is because item names are often used in as titles for things, and is often used as a value in its own entry.
+		for example, if you have an html form, the item, "First Name" will be used as the Label text in the form. To see how this is done, look at the "field value operators" in the Operators Spec.
+		
+	2) Descriptor names - are actually symbols, but are a special case in that they don't have to have the colon-before
+	3) Symbol in an expression or as a field value – can be any symbol syntax.
+	
+	
+	In field values, is the preference to use the :"asdf" syntax or `asdf`?
+		o :"asdf" 
+			Here, the `asdf` syntax is only used for creating a new symbol??? 
+			The nice part about the :"asdf" syntax is that it's consistent, all symbols in expressions or field values are the same.
+		
+			The problem is that it's kind of ugly.
+		
+		o `asdf` - nice part about this is it's actually nicer to read.
+		
+			The problem is it's inconsistent, tacking on a new (and redudant syntax for symbols).
+
+
+		
+		
+
+Creating Symbols:
+
+	
+	I think symbols must be created before they are used (actually, they can be created and used at the same time, because the symbol creation opertor returns the created symbol). The reason is because I hate how in Ruby, you can just create variables without declaring them first. The problem is sometimes you misspell a variable name and end up trying to access the wrong thing. I'd hate for something similar to happen with Symbols.
+	
+	To create symbols, you use the create symbol operators: 
+			+: ,   +:" " ,  +` `
+		
+		Examples:
+			+`Is Required`
+			+:Image
+			+:"First Name"
+
+
+			
+	To create a subset from a set of symbols (for details, see "Sets" specification!!):
+	
+		Examples:
+	
+			SET<SYMBOLS> requiredSymbols = ${ :REQUIRED, :NOT_REQUIRED };
+				//  But, actually, you don't normally set it to
+				//  a symbol group var like. it's normally
+				//  set in a schema field
+
+		To access a single symbol from this set of symbols:
+		
+			:requiredSymbols.REQUIRED
+			
+		To access multiple values of symbols from this set defintion:
+		
+			:requiredSymbols.${:REQUIRED, :NOT_REQUIRED} // note, you are creating a subset instance!
+		
+		To create a new symbol with a set of child symbols:
+			
+			+:parentSymbol = { +:childsym1, +:childsym2 }
+			
+			
+															 
+		
+
+
+	String Variables and symbols:
+		- I wonder if symbols though are much more widely used in a create and use aspect. not sure. hmmm. But, to address that, here's how to get a string from the user and use it to access a matrix item:
+	
+			ex. MyPeopleMatrix@[+:nameString].`PERSON.INFO`.address 
+			
+	
+	
+			So strings are autoconverted to symbol references, using the +: operator. 
+		
+			NOTE: if the symbol already exists, no new symbol is created, it simply returns the original symbol.
+
+
+	
+	
+
+	
+	
+	
+How do you use a Symbol?:
+
+	o A symbol is used in three ways: as a constant (like a java constant), as string (the name of the symbol can be returned as a string), or as an index (for example, it can be used for constant time
+	access to matrix items, and item descriptors (and descriptor elements): 
+	
+	o Constant – As a constant, a symbol is like an enumerated type. Usually, you want to use an enumerated type in situations where it is possible to specify possible values for something, like the predefined color choices in a color picker (COLORS:  :RED, :BLUE, :YELLOW, :BLACK...)
+	
+	o Index or Key – A symbol will also be used extensively in matrices as a key or index to pick items, descriptors... Think of a symbol as storing the index value for a item. So, for a matrix used for an HTML form for user registration, the `Last Name` symbol  might refer to the second item in the matrix (right after `First Name`).
+	
+	o String Value – you can also use the symbol as a string value, simply converting the name of it to a string. The reason you might want to do this is because, for example, in a matrix, you can use a item’s name symbol as a value for field values in the item’s entry.
+
+
+What is syntax for using a symbol as a string?
+
+
+
+
+_______________________________________________________________________________________________________________________
+
+Symbol child access & Child creation
+_______________________________________________________________________________________________________________________
+
+	o Accessing	symbol children
+	
+		- Just use the . or .``
+		
+				ex. :sym1.`symbol 2`.sym3.sym4
+				
+		- What about .: or .:""  ?
+		
+				ex. :sym1.:"symbol 2".:sym3.:sym4
+		
+			NOT ALLOWED FOR NOW. Let's keep down the number of syntax options.		
+			
+			
+	o Creating symbol children:
+		- To create a new symbol with three levels of child symbols, you must create each one individually:
+		
+				ex. +:sym1.+:sym2.+:sym3.+:sym4
+			
+			
+		- Once you've started creating child symbols, can only add new children:
+		
+				ex. :sym1.sym2.+:sym3.+:sym4
+			
+			Why? because how can you access a child symbol that's supposed to already be existing from a parent that's just been created?
+			
+				ex. +:sym1.sym2 // WRONG!!
+			
+		- Why don't you just allow putting the "+" on the first symbol and letting creation happen automatically for the rest of them? (meaning you don't need the "+" for the rest) 
+		
+				ex. :sym1.sym2.+:sym3.sym4  // where sym4 is assumed to be a created symbol
+				
+			ALLOWED! It's just to ugly the other way. And also, sometimes you just want to create a lot of child
+						symbols very simply:
+						
+						${ +:BOLD, +:ITALIC, +:UNDERLINED, +:TEXT.SIZE.LARGE, +:TEXT.SIZE.MEDIUM, 
+								+:TEXT.SIZE.SMALL...  }  
+	
+	
+	o Creating a set of child symbols 
+	
+				ex. +:sym1 = $:{ +:sym2, +:sym3, +:sym4 }
+			
+		- What does this mean?
+			
+			It means that you have created three child symbols attached to :sym1
+			
+			
+	o *** What is the difference between:
+		1. "symbol with child symbols"
+		2. "set of symbols" assigned to a "set-of-symbols var" 
+		
+		-A symbol is actually a sumbol with an optional set of child symbols
+		
+			to add a set of children to a symbol, see the example directly above!
+			
+		
+				ex. +:sym1 = $:{ +:sym2, +:sym3, +:sym4 }
+		
+			to create a subst for this symbol, just use the subset creation operator
+			
+				ex. :sym2.$:{ :sym2, :sym3 };
+				
+		- this is different than a set of symbols assigned to a set var:
+		
+				SET<SYMBOLS> symset = $:{ :sym10, :sym11 }
+			
+			you would create a subset for this symbol using different syntax (look, no ':' at beginning)
+			
+				symset.${ :sym10 }
+			

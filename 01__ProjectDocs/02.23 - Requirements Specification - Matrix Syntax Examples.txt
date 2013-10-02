@@ -1,0 +1,117 @@
+Programming Language Description Doc 1.3
+
+____________________________________________________
+
+Requirements - Matrix Syntax Example 2 - larger matrices
+____________________________________________________
+
+Description: Here are the two formats for matrices: 
+  1. No brackets, strict indention
+  2. with brackets, free indention
+
+____________________________________________________
+
+
+
+// Strict Indention, no Body Brackets
+
+`First Name` 
+	FORM.REQUIRED: :IS_REQUIRED, "*"   
+	FORM.LABEL:		FIRSTNAME_LABEL, "Enter your first name"
+	FORM.INPUT:		:TEXT, FIELD_MAXCHARS #max chars#         				
+	DB.COLUMN:		STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+`Last Name` 
+	FORM.REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM.LABEL:		LASTNAME_LABEL, "Enter your last name"
+	FORM.INPUT:		:TEXT, FIELD_MAXCHARS #max chars#         				
+	DB.COLUMN:		STRING, :TABLES.Person 
+
+`Address 1` 
+	FORM.REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM.LABEL:		"Address 1", "Enter your address"
+	FORM.INPUT:		:TEXT, FIELD_MAXCHARS #max chars#         				
+	DB.COLUMN:		STRING, :TABLES.Person 
+
+`Address 2` 
+	FORM.REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM.LABEL:		"Address 2", "Enter your address"
+	FORM.INPUT:		:TEXT, FIELD_MAXCHARS #max chars#         				
+	DB.COLUMN:		STRING, :TABLES.Person 
+
+`City` 
+	FORM.REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM.LABEL:		"City", "Enter your city"
+	FORM.INPUT:		:TEXT, FIELD_MAXCHARS #max chars#         				
+	DB.COLUMN:		STRING, :TABLES.Person 
+
+`States` 
+	FORM.REQUIRED:	`Is Required`, "*"
+	FORM.LABEL:		"State", "Choose your state"
+	
+	FORM.SELECT:	"StateSelector" #name of html select tag# 
+	SELECT_OPTIONS:
+			OPTION:  "AL", "Alaska", :SELECTED 
+			OPTION:  "AZ", "Arizona"
+		
+	DB.COLUMN:		 STRING, :TABLES.Person
+
+
+//  Ex of Descriptors that use labels and USES schema
+`First Name` 
+	FORM.REQUIRED(:first) USES (WEB.FORM):    :IS_REQUIRED, "*"   
+	FORM.LABEL(`first` in mypackage.com):		FIRSTNAME_LABEL, "Enter your first name"
+
+
+
+
+//  Here is version with brackets and free indention. 
+//  The item and descriptor-child brackets are required
+
+`First Name` {
+	FORM.REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM.LABEL:		FIRSTNAME_LABEL, "Enter your first name"
+	FORM.INPUT:		:TEXT, FIELD_MAXCHARS #max chars#         				
+	DB.COLUMN:		STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+}
+
+`Last Name` {
+	FORM.REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM.LABEL:		LASTNAME_LABEL, "Enter your last name"
+	FORM.INPUT:		:TEXT, FIELD_MAXCHARS #max chars#         				
+	DB.COLUMN:		STRING, :TABLES.Person 
+}
+
+`Address 1` {
+	FORM.REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM.LABEL:		"Address 1", "Enter your address"
+	FORM.INPUT:		:TEXT, FIELD_MAXCHARS #max chars#         				
+	DB.COLUMN:		STRING, :TABLES.Person 
+}
+
+`Address 2` {
+	FORM.REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM.LABEL:		"Address 2", "Enter your address"
+	FORM.INPUT:		:TEXT, FIELD_MAXCHARS #max chars#         				
+	DB.COLUMN:		STRING, :TABLES.Person 
+}
+
+`City` {
+	FORM.REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM.LABEL:		"City", "Enter your city"
+	FORM.INPUT:		:TEXT, FIELD_MAXCHARS #max chars#         				
+	DB.COLUMN:		STRING, :TABLES.Person 
+}
+
+`States` {
+	FORM.REQUIRED:	`Is Required`, "*"
+	FORM.LABEL:		"State", "Choose your state"
+	
+	FORM.SELECT:	"StateSelector" #name of html select tag# {
+		SELECT_OPTIONS {
+			OPTION:  { "AL", "Alaska", :SELECTED } // Notice, optional descriptor body brackets
+			OPTION:  "AZ", "Arizona"
+		}
+	}
+	DB.COLUMN:		 STRING, :TABLES.Person
+}

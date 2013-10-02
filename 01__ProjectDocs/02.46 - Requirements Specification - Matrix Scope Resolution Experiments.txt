@@ -1,0 +1,27 @@
+Experiment #1 ---  scope-resolution for everything
+________________________________
+import SCHEMA another.package::MY.IMPORTED.SCHEMA;
+
+
+MATRIX MyMatrix USES (com.abstractsytems.schemas::WEB.FORM, some.package::SCHEMA.WITH.SAME.NAME, another.package::SCHEMA.WITH.SAME.NAME, MY.IMPORTED.SCHEMA) { 
+
+	WEB.FORM::FORM.REQUIRED { }
+	
+	some.package::SCHEMA.WITH.SAME.NAME::SOME:DESCRIPTOR {}
+	
+}
+
+
+Experiment #2 ---  IN <Package>
+________________________________
+
+import SCHEMA MY.IMPORTED.SCHEMA IN another.package;
+
+
+MATRIX MyMatrix USES (WEB.FORM IN com.abstractsytems.schemas, SCHEMA.WITH.SAME.NAME IN some.package, SCHEMA.WITH.SAME.NAME IN another.package) { 
+
+	WEB.FORM::FORM.REQUIRED { }
+	
+	some.package::SCHEMA.WITH.SAME.NAME::SOME:DESCRIPTOR {}
+
+}

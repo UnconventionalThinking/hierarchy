@@ -1,0 +1,113 @@
+
+
+Programming Language Syntax Doc - 2.41
+_______________________________________________________________________________________________________________________
+
+Requirements Specification:  Matrix Schema - How to create the SchemaInfo set when adding a Child descriptor 
+
+_______________________________________________________________________________________________________________________
+
+Purpose - The purpose of this doc is to describe how to define the "Add Child Schema-Info" when adding a child descriptor to its parent.
+
+This "Add Child Schema-Info" set is used during this add child operation to determine what child descriptors are allowed to be added to a parent descriptor.
+
+_______________________________________________________________________________________________________________________
+
+Example Schema used in this doc
+
+SCHEMA WEB.FORMS {
+
+	ITEMS:
+		DESCRIPTOR FORM.REQUIRED:
+	
+			FIELD.NAMES: 	+`IsRequiredField`, +`RequiredImagePath`, +`ImageHeight`, +`ImageWidth`
+			FIELD.DESC:  	"Is this field required?", "What is the path to the image that marks required fields", 
+							"The height of the image", "The width of the image"
+			FIELD.TYPES:  	${ +:REQUIRED, +:NOT_REQUIRED }, {String}ING, INT, INT
+		
+			FIELD.DEFAULTS:	:NOT_REQUIRED, "/images/required.gif", 5, 6
+		
+	
+		DESCRIPTOR FORM.SELECT:
+			DESCRIPTOR OPTION:
+				FIELD.NAMES: 	+`Name`, +`Value`, +`Selected`
+				FIELD.TYPES:  	String, String, ${ +:SELECTED, +:NOT_SELECTED}  // {String} is alias for {String}ING
+	
+				FIELD.DEFAULTS:	-, -, :NOT_SELECTED
+
+	// To define descriptors that are not apart of items, but are directly apart of the Matrix, (meaning, you
+	// access these descriptors without going through an item first. For example:
+	//
+	//     MyMatrix:FORM.MAIN_SETTINGS:Title
+	//
+	MATRIX.DESCRIPTOR WEBFORM.SETTINGS:
+		FIELD.NAMES: 	+:Title, +:Title.Style
+		FIELD.TYPES:  	String, FONT_STYLE_SET  
+		
+}
+
+
+
+
+Example Matrix
+
+MATRIX MyMatrix USES WEB.FORM {
+
+	`STATE`:
+		FORM.SELECT USES TEST.SCHEMA:
+			OPTION: { ..... }
+				OPTION.DETAILS: { ...... }  // this is NOT a real descriptor used in web.forms, 
+										    // but just here for this example		
+				TEST.DESCRIPTOR
+				
+		FORM.REQUIRED: { ..... }
+
+}
+
+
+
+
+
+
+Main Question: When adding a child descriptor to a parent descriptor, what places do you look for schemaInfo objects that determine what descriptor's can be added? (again, this is the "AddChild SchemaInfo set")
+_____________________________________________________________________________________________
+
+1. Look at the parent descriptor's SchemaInfo obj, and add its child schemaInfo_Descriptors to the set.
+
+	ex. if the parent is FORM.SELECT, and you want to add the child OPTION, you look at the FORM.SELECT's schemaInfo Obj, and add any child SchemaInfo objects to the child set. The end result will be you'll check the parent, FORM.SELECT for a schemaInfo_Descriptor called OPTION.
+
+
+2. Look at the Matrix's Schemas, and only at the ROOT schemaInfo_Descriptors (meaning, you do NOT need to look at the nested schemaInfo Descriptors). For example:
+	
+	If your parent is FORM.REQUIRED, you can add the root schemaInfo-descriptors from WEB.FORM, FORM.SELECT. But, you cannot add the nested schemaInfo descriptor, OPTION from FORM.SELECT. So:
+
+    Good:
+		MATRIX MyMatrix_2 uses WEB.FORM
+			FORM.REQUIRED
+				FORM.SELECT
+
+	Bad:
+		MATRIX MyMatrix_3 uses WEB.FORM
+			FORM.REQUIRED
+				OPTION
+				
+3. Look at al the ancestors' "Uses Schema-Sets" of the parent (and again, only the root schemaInfo Descriptors or each parent)
+
+
+
+
+Performance and Caching of the addChild schemaInfo Set
+________________________________________
+We may want to cache the look up of the addChild set. This may be a little tough to do with an actual performance increase. Why? because the cache key for the set will be based on first the parent descriptor's location along with with each ancestor's USES schemasets:
+
+ 	So if the OPTION descriptor is the parent descriptor:
+ 	
+ 		MATRIX->FORM.SELECT USES TEST.SCHEMA->OPTION
+ 
+ The problem is that is a very long key to construct, and maybe constructing the key will take about just as long as search through the ancestor's manually. 
+ 
+ *** BUT, we should take advantage of the fact that most addChild descriptors happen in bunches at the same level. the cache and the addChild_Descriptor() method should work together to quickly determine if we are doing the same add to the same parent as before.
+ 
+ 
+
+	

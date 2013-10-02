@@ -1,0 +1,78 @@
+Matrix Access and Annotations Examples
+______________________________________
+
+
+MyMatrix-<*1>`State`->FORM.REQUIRED:>Name
+MyMatrix-<*2>`State`->FORM.REQUIRED:<*3>Name
+
+MyMatrix@<*4>:ITEM{*5}->FORM.SELECT->OPTION:>Name // returns all the Name fields for the select options
+
+
+Annotations {
+
+	FILTERS {
+		// notice a filter has an automatic error annotation. it is still apart of the accessor annotation numbering
+		// but if it's defined, it's *5 error handler takes precdence over it's *4.1 error annotation
+		*5 {
+			
+			from ITEM where ITEM.Label ~= \address.*\;
+			
+			ERRORS {
+				currAccessor.return null;
+			}
+		}
+	}
+
+
+
+	*1 { 
+		*1.2 { throw new MyAccess_Exception("failed access at...", e); } // e may be null. Is okay?
+		DEFAULT { // *1.0 + *1.1
+			// the first param is set of exceptions. if e's type in set, then rethrow e 
+			checkAndLogExceptions(${ +:com.myproj.CriticalException }, e);
+			access.return "";
+		}
+	}
+	
+	
+	${ *2, *3 } {
+		
+	}
+
+	// wraps entire method body in try, catch
+	EXCEPTIONS {
+		java.file.IOException {
+		}
+		Exception {
+		}
+	}
+	
+	${ EXCEPTIONS, EMPTY } {
+		*1 {
+		}
+		*2, *3 {
+		}
+	}
+
+	
+	
+	
+	// for multiple item selection, catching empty is really useful
+	EMPTY {
+		*4 {
+			accessor.return null; // this is the default behavoir anyways
+		}
+	}
+	
+}
+
+
+Annotation Methods:
+___________________
+- Each matrix access handler gets its own annotation method. Here's the signature:
+
+	public Object annotationHandler_0(ExecutionInfo executeInfo, boolean annotationReference_Exists, Symbol annotationReference, 
+		int childAccessIndex, Matrix matrix, Descriptor currAccessors_ParentDescriptor, 
+		com.abstractsystems.matrix.Set<Descriptor> currAccessors_ParentDescriptorSet, 
+		boolean passingInException, Exception e, Pair<Object, Object>... childAccessor_Pairs);
+

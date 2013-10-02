@@ -1,0 +1,145 @@
+Still trying to figure out symbol syntax. There are two situations were symbol syntax need to be resolved:
+
+	1. In Matrix, item name creation, the real operation for the item names is:
+	
+			+:"My Item"   -  //  But this syntax is too cumbersome
+			
+		I would like
+			
+			`My Item`   
+			
+			and still have it be consistent with operator syntax without having to resort to special cases
+		
+		Or, maybe
+			"My Item"
+		
+	2. In symbol-member access - where symbol is a symbol with multiple parts:
+	
+			MyMatrix[`item`].:"FORM.REQUIRED".IS_REQUIRED
+		
+		
+		I would like to be able to use:
+			
+			MyMatrix[`item`].`FORM.REQUIRED`.IS_REQUIRED
+	
+			And, have it throw a syntax error if `FORM.REQUIRED` is misspelled (meaning, `x` doesn't mean create and use symbol).
+			
+
+
+			
+	
+
+3 Options
+
+	o OPTION 1 - `symbol` means create and use -
+		- In matrix creation, item name - works well and is very consistent with no special cases
+		- In symbol-member access - works, but causes a problem. 
+			PROBLEM: misspelled symbol names will not be caught!
+	
+			ex. MyMatrix[`item`].`my descrrrriptorr`   // will not throw a compilaiton error, because `x` is same as +:"x"
+	
+	
+	o OPTION 2 - for item names, dev enters strings "my item", which are auto converted to symbols.
+	  And, in places were symbols are used, if you pass in a string, it's auto converted into a "create and "use"
+	
+			ex. MyMatrix["string"] is autoconverted into MyMatrix[+:"string"]
+			
+		PROBLEM: the "item name" does not convey that it is a symbol!
+		
+			
+	o OPTION 3 - `symbol` means just symbol,
+		- In Matrix creation, item names like `my item` are autoconverted into +`my item` 
+		
+	o OPTION 4 - get rid of `symbol`, and follow strict symbol notation
+
+	o OPTION 5 - keep `symbol`, and follow strict symbol notation
+
+	
+//_________________________________________________________________
+//
+//  OPTION 2 - item names with "x"
+//_________________________________________________________________
+
+"First Name" 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		FIRSTNAME_LABEL, "Enter your first name"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+"Last Name" 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		LASTNAME_LABEL, "Enter your last name"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+"Address 1" 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		"Address 1", "Enter your address"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+
+
+	//  member access:
+	
+	MyMatrix["item"].`FORM.REQUIRED`.IS_REQUIRED
+		OR
+	MyMatrix[`item`].`FORM.REQUIRED`.IS_REQUIRED
+		
+
+	MyMatrix["item"].FORM.REQUIRED.IS_REQUIRED
+
+
+
+			
+//_________________________________________________________________
+//			
+//  OPTION 4 - item names with +:"x"
+//_________________________________________________________________
+
++:"First Name" 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		FIRSTNAME_LABEL, "Enter your first name"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
++:"Last Name" 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		LASTNAME_LABEL, "Enter your last name"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
++:"Address 1" 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		"Address 1", "Enter your address"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+
+			
+//_________________________________________________________________
+//			
+//  OPTION 5 - item names with +`x`
+//_________________________________________________________________
+
++`Address`
+
++`First Name` 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		FIRSTNAME_LABEL, "Enter your first name"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
++`Last Name` 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		LASTNAME_LABEL, "Enter your last name"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
++`Address 1` 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		"Address 1", "Enter your address"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+

@@ -1,0 +1,72 @@
+Programming Language Syntax Doc - 1.2
+_________________________________________________________________________________________
+
+Requirements Specification:  Matrix Structure
+_________________________________________________________________________________________
+
+Purpose - The purpose of this doc is to describe the structure of a matrix. This goes a little into the design of a matrix, but not by much.
+
+_________________________________________________________________________________________
+
+
+Sets
+____
+A matrix is nested ordered-sets. There are only two real parts to a matrix
+	
+	1. Ordered Set with Hash
+		- Ordered sets are Matrices, and the Items' set of child descriptors
+		- Also has a Hash for constant time access to items 
+	
+	2. Tuple with optional nested Ordered Set.
+		- Tuples are the Items with its Field Values
+		- Two types of Tuples:
+			1. Ordered Set with schema (field mapping) - used with regular descriptor field sets 
+			2. Key-Value Pairs - used for field value sets that use Parameter Maps. This may be implemented as an Ordered-Set with Hash, just like the Matrix.
+		
+
+Where is each used?
+
+	- The MATRIX itself is just an ORDERED-SET
+	- The MATRIX contains TUPLES w/ an OPTIONAL NESTED ORDERED-SET. But, the matrix has a specialized TUPLE w/ SET called a DESCRIPTOR
+	
+	- BASIC DESCRIPTORS have:
+		o DESCRIPTOR NAME (does not have to be unique, and is most often not )
+		o Optional UNIQUE DESCRIPTOR LABEL
+		o TUPLE FIELD VALUES (probably implemented as an ordered set with some reference to the schema, not sure though)
+		o SCHEMA - which tells you how to map the field values
+		o Optional ORDERED-SET of CHILD DESCRIPTORS		
+
+Details of Structure:
+	- A Matrix is just a specialized Descriptor	with childern
+	- A field is a descriptor, whose field name is the tagname, and whose value is the only item in the field set
+
+
+Class Diagram of Parts of Matrices
+
+	Two_OrderedSets
+		 ^
+		 |
+	   ELEMENT
+		 ^
+		 |
+	  DESCRIPTOR
+	 ^    ^    ^
+	 |    |    |
+   MATRIX |  FIELD	  
+	     ITEM
+	  
+
+
+      OrderedSet_with_Hash  (has settins for allowing mutlples with the same key)
+	  ^         ^       ^
+	  |         |       |
+ChildDescriptor |		-------- Tuple   (OrderedSet_using_Schema)
+     Set        |                   ^
+                |                   |
+      FieldSet_ParameterMap         |
+                              FieldSet_with_Schema
+                              
+                              
+                              
+                   Both FieldSets implement the interface, FieldSet
+                   

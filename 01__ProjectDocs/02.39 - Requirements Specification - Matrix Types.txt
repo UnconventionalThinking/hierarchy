@@ -1,0 +1,64 @@
+Programming Language Syntax Doc - 3.2
+_________________________________________________________________________________________
+
+Requirements Specification:  Matrix Types
+_________________________________________________________________________________________
+
+Purpose - The purpose of this doc is to describe the new types introduced by matrices
+
+_________________________________________________________________________________________
+
+
+o VAR - a general var that can be set to hold any type of object
+	- REQUIREMENTS:
+		o when a var is accessed it is auto casted to its real type (meaning you don't have to cast it)
+		o when primitives are assigned to a var type, they are auto boxed. When the var is accessed, it is unboxed and cast
+		o VAR can be an array!, 
+			- and can always call the size() method on a var, even if it's just a single variable, to check the number of elements it has.
+	- QUESTION: what is implementation of a VAR?
+	
+		#1) Is it set to its actual type the first time its used? which means the type never changes again, which means we can use generics in the implementation of var
+			- Pros: easy to implement, simple, and easy to keep from getting too complex
+			- Cons: a little heavy weight. you are creating a wrapper object around the real object. it doesn't contain anything else but the real object, but still, you have to access it through a wrapper method or wrapper member var (probably wrapper member var). Also, all objects have it's own general object data attachted to it, making it somewhat heavy
+			
+			
+		#2) Is var of type Object (as in java object), and when ever a var is accessed, the compilier inserts its type. 
+			- Pros: not bad, will have a table that contains all the vars, and when you access a var, the compiler will look up the var it the table and cast it to its type. not bad, but there seems like there may be situations that can get messy.
+			
+			- Cons: ah, here's one, it's harder to use in IDE's and tools. If the IDE wants to do auto complete on a var type, giving the option of what methods you can use, the IDE needs to build a type table of its own for all the vars, parsing your source to figure out what object type has been assigned to the var.
+		
+		#3) a var can be cast to a SET (so you can do things like compare the var with a set). a new set object is created and the var is put into it.
+		
+		
+	- I think it's #1. The actual var variable and the var object is of the class, Var<Type>
+
+
+o SET / SET<type> - * a set is just a set of something, and it's actual type many different things - an array, an arraylist, a linkedlist, a hash, a tree... 
+	The purpose of it is to make it easier to work with groups of things and pass them around. The way this will be implemented is a set will have a set interface with a standard set of methods. Then, through a SET reference, you can call these methods on the set. through reflection, the actual collection type will be determined, and translate the set method call to the collection's method call.
+
+o ${ ...} - a set instance
+
+o CLOSURE myCode = *{ if (true) x=2; }* - a code closure;
+
+o SYMBOL / +: / +:"" / +`` - symbols can be declared using variable like syntax, but usually, you use the +: operator
+
+o MATRIX - obviously, we have matrices which can be NEW'ed
+
+X REF - a reference to something inside a matrix. used as a shortcut to things like nested descriptors.
+        UNNEEDED - use a DESCRIPTOR variable
+
+o ELEMENT - I think item's field's and descriptor's inherit from element. This is an abstract type
+o ITEM
+o DESCRIPTOR
+o FIELD
+
+o SCHEMA
+
+
+
+o $<pre-defined var>  - When accessing a pre-defined var (like $ITEM or $DITTO), the $ is mandatory
+o $<var useage>       - When accesing a user var, the $ is optional. The $ is useful in situations where you want ot show it's a var, not something else. for ex, using a schema set var after a USES:
+
+		ex. MATRIX.NEW USES $schemas {...}
+		
+	if you just had the var name it gets confusing. is it a var or a schema!

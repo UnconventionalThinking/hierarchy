@@ -1,0 +1,72 @@
+
+Prog.Lang Syntax Doc – 4.2
+________________________________________________________________________________________________________________________
+
+Requirements Specification:  Matrix Real World Example - OCME - p3 - Meta Programming Page
+
+________________________________________________________________________________________________________________________
+
+OCME Example of Creating a Form - Investigation Intake - Meta-Programming Page
+________________________________________________________________________________________________________________________
+
+
+//  When you first setup OUTPUT, it remembers the settings you used, and everytime afterwards, uses the same settings
+//  You can also create a name for the output and refer to it that way:  <*OUTPUT `jspBuffer`: .../*>
+<*OUTPUT: `JSP`: StringBufferAppend=> "myStringBuffer" /*> 
+ITEM item = Matrix[currItem];
+
+
+
+<*OUTPUT*> // OUTPUT already setup earlier
+	<TD>
+		*DESCRIPTOR ir = item->REQUIRED;
+		*if (ir->IsRequired == :REQUIRED) {
+
+			<img src="<$ ir->RequiredImagePath $>"
+				*IF.VALID (ir->ImageHeight) {% height="<$IT$>" %}
+				*IF.VALID (ir->imageWidth) {% width="<$IT$>" %}
+			>
+		*} else {% &nbsp; %}
+	</TD>
+	<TD> &nbsp;&nbsp; </TD>
+	
+	<TD>
+		*DESCRIPTOR il = item->FORM.LABEL;
+		<SPAN <* IF.EXISTS(il->CSS_Class) {% class=<$IT$> %} *> >
+			<$ ir->Labelname $>
+		</SPAN>
+	</TD>
+	<TD> &nbsp;&nbsp; </TD>
+	
+	<TD>
+		*IF.EXISTS(item->FORM.INPUT) {
+			*DESCRIPTOR ii = item->FORM.INPUT;
+			<INPUT type="<$ ii->InputType $>" name="<$ item->DB.COLUMN $>"
+				value="<$ SWITCH.VALID {currValue; ii->defaultValue; DEF:;} $>"
+			>
+		
+		*} ELSE IF.EXISTS(item->FORM.SELECT) {
+			*DESCRIPTOR is = item->FORM.SELECT;
+			
+			<SELECT name="<$ is->name $>" <* IF.EXISTS(is->OnChange) {% onChange="<$IT$>" %} >
+				*FOR (var option: is_>OPTION) {
+					<OPTION value = "<$option->value$>"	<* IF.EXISTS(option->Selected) {% selected %} *> >
+						<$ option->Label $>
+					</OPTION>
+				*}
+			</SELECT>
+		
+		*}
+	</TD>
+<*/OUTPUT*>
+
+				
+				
+	
+		
+		
+		
+		
+		
+		
+				

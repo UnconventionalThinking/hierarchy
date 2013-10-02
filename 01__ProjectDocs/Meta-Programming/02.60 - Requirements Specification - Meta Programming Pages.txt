@@ -1,0 +1,272 @@
+
+Meta-Programming Language Syntax Description 1
+_______________________________________________________________________________________________________________________
+
+Requirements Specification: Meta Programming
+
+_______________________________________________________________________________________________________________________
+
+
+*NOTE: Also, take a look at the OCME Real World example, MPP. it's really useful for meta programming pages.
+
+_______________________________________________________________________________________________________________________
+
+o Example 1 -  Using reflection to Generate Methods
+_______________________________________________________________________________________________________________________
+
+
+outMethodsList = CLASS_INFO<DepthFirstAdaptor>.getMethods("outA.*");
+
+FOR (method : outMethodsList) {
+	var noteType = method.getParameter(1).getName();
+	var singleGetMethod = classInfo(package, nodeType).getMethods("get.*" except "getClass.*");
+	
+	IF (singleGetMethod.size() > 1) ERROR();
+
+	<* OUTPUT:"Java 1.5" *>
+	
+		@Override
+		public void <$method$>(<$nodeType$>, node) {
+			Node_Utilities.setCurrentAndParent_Code(node,
+				node.<$singleGetMethod$>.code()
+		} // end of method
+	
+	<* /OUTPUT *>	
+}
+
+
+
+
+
+
+
+
+_______________________________________________________________________________________________________________________
+
+o Example 2 -  Using codeSnippet array to create methods
+_______________________________________________________________________________________________________________________
+
+Description - the reason you'd want to use a code snippet array is because you want to have a default method. So, what you do is you set a default method on the codesnippet array, and then if you want to override it, you set some code for the method in the array.
+_______________________________________________________________________________________________________________________
+
+outMethodsList = CLASS_INFO<DepthFirstAdaptor>.getMethods("outA.*");
+
+CODE_SNIPPET_ARRAY nodeOutMethods = new CODE_SNIPPET_ARRAY(); //  CODE_SNIPPET_ARRAY is both a hash and an array!!
+
+
+//  Default Method
+<* OUTPUT:"Java 1.5", :Destination => nodeOutMethods.default *>
+	// Hmm, these needs work... 
+
+<* /OUTPUT *>	
+
+FOR (method : outMethodsList) {
+	var noteType = method.getParameter(1).getName();
+	var singleGetMethod = classInfo(package, nodeType).getMethods("get.*" except "getClass.*");
+	
+	IF (singleGetMethod.size() > 1) ERROR();
+
+	<* OUTPUT:"Java 1.5", :Destination => nodeOutMethods.put(method, $OUTPUT) *>
+	
+		@Override
+		public void <$method$>(<$nodeType$>, node) {
+			Node_Utilities.setCurrentAndParent_Code(node,
+				node.<$singleGetMethod$>.code()
+		} // end of method
+	
+	<* /OUTPUT *>	
+}
+
+
+
+
+
+
+
+
+
+_______________________________________________________________________________________________________________________
+
+o Example 3 - Using a Matrix to generate methods 
+_______________________________________________________________________________________________________________________
+
+Here, we're going to generate the "Out" methods for a the SableCC action class that derives from DefaultMethodAdaptor
+It has all the action methods for the class. We'll have a matrix that holds all the info for each method (actually, for each Production Alternative).
+
+
+_______________________________
+
+Matrix with info the for the method:
+____________________________________
+
+MATRIX.NEW ProductionMatrix {
+
+"<ProductionName>" 
+							/* prodName,  methodType */
+	PRODUCTION.INFO:		"ANormalClassDesclaration", "OUT"
+	
+	PRODUCTION.ELEMENTS: 	:ORDERED_LIST {
+		TOKEN: 			"class"
+		TOKEN: 			"identifier" 
+		NON_TERMINAL:	"classBody" 
+	}
+
+}
+
+
+
+_______________________________
+
+Processing loop for the matrix:
+_______________________________
+
+FOREACH (production : ProductionMatrix) {
+	CREATE_PRODUCTION_ACTION(production);
+}
+
+
+
+
+
+
+_______________________________________
+
+The Processing Function for the Matrix:
+_______________________________________
+
+	
+//   PRODUCTION MATRIX is defined in the schema for the above Production Matrix, which I left off
+
+CREATE_PRODUCTION_ACTION(PRODUCTION_MATRIX.ITEM prod) {
+	
+	// This is so I don't have to preface everything with 'prod.'
+	USE prod;
+	
+	<* OUTPUT:"Java 1.5" *>
+	
+		@Override
+		public void <$prodName$>(<$production.prodName.substring(3,END)$>, node) {
+			Node_Utilities.setCurrentAndParent_Code(node,
+	
+			*FOR<int i>(VAR elem :  prod.PRODUCTION.ELEMENTS ) { 		
+				
+				*SWITCH {
+				*(i == 0):
+					node.get<$elem.name$>.code().append(
+				*!LAST:
+						node.get<$elem.name$>.code(),
+				*LAST:
+						node.get<$elem.name$>.code()
+					) // end of append
+				*}
+			*}
+			
+			);  // end of setCurrentAndParent
+		} // end of method
+	<* /OUTPUT *>
+		
+}
+
+
+
+
+
+// example of a processing function using 'IF'
+
+
+CREATE_PRODUCTION_ACTION(PRODUCTION_MATRIX.ITEM prod) {
+
+	// This is so I don't have to preface everything with 'prod.'
+	USE prod;
+
+
+	<* OUTPUT:"Java 1.5" *>
+	
+		@Override
+		public void <$prodName$>(<$prodName.substring(3,END)$>, node) {
+			Node_Utilities.setCurrentAndParent_Code(node,
+	
+			*FOREACH(i)(elem :  prod:PRODUCTION.ELEMENTS ) { 		
+
+				*IF (i == 0) {
+					node.get<$elem.name$>.code().append(
+				*} ELSE IF (!LAST) {
+						node.get<$elem.name$>.code(),
+				*} ELSE {
+						node.get<$elem.name$>.code()
+					) // end of append
+				*}
+			*}
+			);  // end of setCurrentAndParent
+		} // end of method
+		
+	
+	<* /OUTPUT *>
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+_______________________________________________________________________________________________________________________
+
+o Example 4 -  Use an IF to figure out whether to generate from the Matrix or to use default method func
+_______________________________________________________________________________________________________________________
+
+Description - Use an IF stmt to select a method to generate. If there exists an entry for it in the matrix, then use the matrix info to create it. Else, use the default method generate
+
+
+
+outMethodsList = CLASS_INFO<DepthFirstAdaptor>.getMethods("outA.*");
+
+FOR (method : outMethodsList) {
+
+	// Is there an Matrix entry for it? If so, use the example 3, CREATE_PRODUCTION_ACTION() method.
+	IF EXISTS(ProductionMatrix[+:method]) CREATE_PRODUCTION_ACTION(IT);  // IT is the last object used.
+	
+	ELSE CREATE_PRODUCTION_ACTION_DEFAULT(method);
+
+}
+
+
+
+
+_______________________________________________________________________________________________________________________
+
+o Example 5 -  "Body, Code-Cut" back to generated language: {% %}
+_______________________________________________________________________________________________________________________
+
+
+	<TD>
+		*REF il = item->FORM.LABEL;
+		<SPAN <* IF.EXISTS(il->CSS_Class) {% class=<$IT$> %} *> >
+			<$ ir->Labelname $>
+		</SPAN>
+	</TD>
+	
+	
+
+_______________________________________________________________________________________________________________________
+
+o "Text Place-holder" and "Replacement\Modification Text Place holder"  _______________________________________________________________________________________________________________________
+
+- Description - you need to be able to generate some code (like java code) and insert into another file (like a java file) that has place-holders for where the text should go. The best example of this is the Matrix Grammar and the Java Grammar. I'll be putting the Matrix grammar in a separate file (so, it's all together) and I want to be able to insert it into the java grammar file. There should be two ways of doing this. 
+
+	1. MPP Page generating code snippets for a template file - a MPP page generates the code snippets and then maybe has a java file that is just a template, with placeholders for where text should go, and then generates the actual java file
+	2. Control page, "sectioned-off" insert file, and template file - you section off the insertion-text file (for ex, the matrix grammar file), probably using xml like tags, then insert the sections into the template file and generate the actual java file).
+	3. a mix of the two - *probably want the control code easily be either in it's own page or actually in the sectioned-off insertion-text file.
+	
+- Also, want to be able to mark a section in the Java Grammar file for replacement\modification, meaning there may be a section of text in the template file that you want to modify, or complete replace with different text
+
+* actually implement all of this with the Matrix and Java Grammar files.
+
+
+

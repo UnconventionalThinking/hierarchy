@@ -1,0 +1,40 @@
+Matrix Access Experiments - Continuation and the second access parameter
+_____________________________
+
+The ones I like:
+DescTest->[descTagVar, labelVar]
+DescTest:>[fieldNameVar, indexVar]
+(DescTest->DescTag `Label`).get_FieldSet()  // no [] shows that this is static access!
+DescTest->DescTag[labelVar]  // *** still static access - allowed to have a dyn label with static access
+
+
+//  Continuation
+testMethod(DescTest:>MyField[1]);
+testMethod(DescTest:>MyField[indexVar + 1]);
+DescTest:>MyField[1].get_SomeValue()
+
+//  Access a Method off of standard descriptor or field access 
+(MyMatrix->DescTest).get_FieldSet()
+(MyMatrix->DescTest:>MyField).get_SomeValue()
+
+
+
+_________________________________
+
+DescTest->DescTag `Label`
+DescTest->[descTagVar labelVar]
+DescTest->[descTagVar, labelVar]
+
+(DescTest->DescTag `Label`).get_FieldSet()
+DescTest->DescTag(`Label`).get_FieldSet()
+DescTest->DescTag[`Label`].get_FieldSet()
+(DestTest->DescTag).get_FieldSet()
+(DescTest->`Label`).get_FieldSet()
+
+testMethod(DescTest:>MyField 1);
+testMethod(DescTest:>MyField(1));
+
+DescTest:>MyField(1).get_SomeValue()
+(DescTest:>MyField 1).get_SomeValue()
+DescTest:>MyField[1].get_SomeValue()
+

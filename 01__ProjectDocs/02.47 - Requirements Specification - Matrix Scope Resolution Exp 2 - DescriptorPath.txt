@@ -1,0 +1,77 @@
+
+
+~ ` @ % : \ 
+
+"\"
+	
+  option 1 : always start with a "\" 
+  	** This one makes more sense and has better usability (but is often a little ugly). Use this.
+	MyMatrix->FORM.SELECTOR->WEB.FORM::\FORM.SELECTOR\OPTION:>Name
+	MyMatrix->FORM.SELECTOR->com.abstractsystems.schemas::WEB.FORM::\FORM.SELECTOR\OPTION:>Name
+	MyMatrix->FORM.SELECTOR->\FORM.SELECTOR\OPTION:>Name
+
+	DESCRIPTOR<MyMatrix->ITEM->WEB.FORM::\FORM.REQUIRED> descVar;
+
+	
+    ** MyMatrix->FORM.SELECTOR->\OPTION:>someField  // this OPTION desctag is off the rootlevel of a schema
+	
+  option 2 : use ":::" to show we're using a descpath
+	MyMatrix->WEB.FORM:::FORM.SELECTOR\OPTION:>Name
+	MyMatrix->com.abstractsystems.schemas::WEB.FORM:::FORM.SELECTOR\OPTION:>Name
+	MyMatrix->FORM.SELECTOR\OPTION:>Name
+
+	DESCRIPTOR<MyMatrix:::ITEM\FORM.REQUIRED> descVar;
+
+
+
+	
+	MATRIX MyMatrix {
+		FORM.SELECTOR {
+			WEB.FORM:::FORM.SELECTOR\OPTION: {}
+		}
+	}
+
+
+//
+	MyMatrix->WEB.FORM:::FORM.SELECTOR//OPTION:>Name
+	MyMatrix->com.abstractsystems.schemas::WEB.FORM:::FORM.SELECTOR//OPTION:>Name
+	MyMatrix->FORM.SELECTOR//OPTION:>Name
+	
+	MATRIX MyMatrix {
+		FORM.SELECTOR {
+			WEB.FORM:::FORM.SELECTOR//OPTION: {}
+		}
+	}
+
+.>
+	MyMatrix->WEB.FORM:::FORM.SELECTOR.>OPTION:>Name
+	MyMatrix->com.abstractsystems.schemas::WEB.FORM:::FORM.SELECTOR.>OPTION:>Name
+	MyMatrix->FORM.SELECTOR.>OPTION:>Name
+	
+	MATRIX MyMatrix {
+		FORM.SELECTOR {
+			WEB.FORM:::FORM.SELECTOR.>OPTION: {}
+		}
+	}
+
+
+
+
+">" Would this work? I don't think so. It's a conflict with the "greater than" operator
+MyMatrix->WEB.FORM::FORM.SELECTOR>OPTION:>Name
+
+
+
+
+":" won't work with matrix definition, because of existing ":" in desc defn
+	MyMatrix->WEB.FORM:::FORM.SELECTOR:OPTION:>Name
+	MyMatrix->com.abstractsystems.schemas::WEB.FORM:::FORM.SELECTOR:OPTION:>Name
+	MyMatrix->FORM.SELECTOR:OPTION:>Name
+	
+	MATRIX MyMatrix {
+		FORM.SELECTOR {          // V      V   **** 2 colons, which conflict!!!
+			WEB.FORM:::FORM.SELECTOR:OPTION: {}
+		}
+	}
+	
+

@@ -1,0 +1,17 @@
+
+
+Virtual-Space Persistence
+_________________________
+o Design Matrix Persistence to have option to work like Virtual Space persistence. Developers work tranparently on a matrix. But, underneath, it's hierarchical storage! meaning, the top level is the stuff in memory. Then, it pulls info from local disk. Then, it goes to the server.
+
+   - this is very good for data that doesn't change often, or is only changed by one writer!!!! - Read data
+   - must be able to control manually too.
+   
+   - this is bad for data that is changed by multiple writers!!!
+   
+   
+   - whether things get pulled in and out of different levels is done by rules setup by devs.
+   
+   - question, how hard are the rules to program so that the Virtual-Space Persistence works extremely efficently?
+   
+   - need tools to make it so it's easy to debug the rules, self monitoring to see when faults happen.

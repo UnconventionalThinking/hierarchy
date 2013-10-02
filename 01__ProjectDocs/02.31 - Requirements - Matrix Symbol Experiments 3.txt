@@ -1,0 +1,147 @@
+Symbol experiments:
+
+
+
+// Symbols with ":"!
+// Strict Indention, no Body Brackets
+
+`First Name` 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		FIRSTNAME_LABEL, "Enter your first name"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+`Last Name` 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		LASTNAME_LABEL, "Enter your last name"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+`Address 1` 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		"Address 1", "Enter your address"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+`Address 2` 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		"Address 2", "Enter your address"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+`City` 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		"City", "Enter your city"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+`States` 
+	FORM_REQUIRED:	`Is Required`, "*"
+	FORM_LABEL:		"State", "Choose your state"
+	
+	FORM_SELECT:	"StateSelector" #name of html select tag# 
+		SELECT_OPTIONS:
+			OPTION:  "AL", "Alaska", :SELECTED 
+			OPTION:  "AZ", "Arizona"
+		
+	DB_COLUMN:		 :STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+
+
+
+
+
+
+
+// Symbols with ":", item names too!
+
+:"First Name" 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		FIRSTNAME_LABEL, "Enter your first name"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+:"Last Name" 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		LASTNAME_LABEL, "Enter your last name"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+:"Address 1" 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		"Address 1", "Enter your address"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+:"Address 2" 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		"Address 2", "Enter your address"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+:City 
+	FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+	FORM_LABEL:		"City", "Enter your city"
+	FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+
+:States 
+	FORM_REQUIRED:	`Is Required`, "*"
+	FORM_LABEL:		"State", "Choose your state"
+	
+	FORM_SELECT:	"StateSelector" #name of html select tag# 
+		SELECT_OPTIONS:
+			OPTION:  "AL", "Alaska", :SELECTED 
+			OPTION:  "AZ", "Arizona"
+		
+	DB_COLUMN:		 :STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+
+
+
+
+
+// Symbols just in caps
+
+`First Name` 
+	FORM_REQUIRED: 	IS_REQUIRED, "*"   
+	FORM_LABEL:		firstName_Label, "Enter your first name"
+	FORM_INPUT:		TEXT, formInput_MaxChars #max chars#         				
+	DB_COLUMN:		STRING, TABLES.Person, COL_TYPE.PRIMARY_KEY 
+
+`Last Name` 
+	FORM_REQUIRED: 	IS_REQUIRED, "*"   
+	FORM_LABEL:		lastName_Label, "Enter your last name"
+	FORM_INPUT:		TEXT, formInput_MaxChars #max chars#         				
+	DB_COLUMN:		STRING, TABLES.Person, COL_TYPE.PRIMARY_KEY 
+
+`Address 1` 
+	FORM_REQUIRED: 	IS_REQUIRED, "*"   
+	FORM_LABEL:		"Address 1", "Enter your address"
+	FORM_INPUT:		TEXT, formInput_MaxChars #max chars#         				
+	DB_COLUMN:		STRING, TABLES.Person, COL_TYPE.PRIMARY_KEY 
+
+`Address 2` 
+	FORM_REQUIRED: 	IS_REQUIRED, "*"   
+	FORM_LABEL:		"Address 2", "Enter your address"
+	FORM_INPUT:		TEXT, formInput_MaxChars #max chars#         				
+	DB_COLUMN:		STRING, TABLES.Person, COL_TYPE.PRIMARY_KEY 
+
+`City` 
+	FORM_REQUIRED: 	IS_REQUIRED, "*"   
+	FORM_LABEL:		"City", "Enter your city"
+	FORM_INPUT:		TEXT, formInput_MaxChars #max chars#         				
+	DB_COLUMN:		STRING, TABLES.Person, COL_TYPE.PRIMARY_KEY 
+
+`States` 
+	FORM_REQUIRED:	`Is Required`, "*"
+	FORM_LABEL:		"State", "Choose your state"
+	
+	FORM_SELECT:	"StateSelector" #name of html select tag# 
+		SELECT_OPTIONS:
+			OPTION:  "AL", "Alaska", SELECTED 
+			OPTION:  "AZ", "Arizona"
+		
+	DB_COLUMN:		 STRING, TABLES.Person, COL_TYPE.PRIMARY_KEY
+
+
+
+

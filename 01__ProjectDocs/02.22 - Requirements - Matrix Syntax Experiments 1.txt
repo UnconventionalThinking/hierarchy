@@ -1,0 +1,160 @@
+Requirements:
+Matrix Syntax Experiments
+____________________________
+
+
+`First Name`
+	FORM_REQUIRED:	IS_REQUIRED, "*"    
+	FORM_LABEL:		"First Name", "Enter you first name"       
+	FORM_INPUT:		TEXT, 25#max chars#,        				
+	DB_COLUMN:		STRING, TABLES.Person, COL_TYPE.PRIMARY_KEY
+	
+
+//  Symbols as just identifiers (no : ), and :CLOSE_TAG
+
+`States`
+	FORM_REQUIRED:	`Is Required`, "*" 
+	FORM_LABEL:		"State", "Choose your state"
+	
+	FORM_SELECT:	"StateSelector" #name of html select tag#:  // Notice, to specify child elements, put a colon after
+		SELECT_OPTIONS:
+			OPTION: "AL", "Alaska", SELECTED
+			OPTION: "AZ", "Arizona"
+		:SELECT_OPTIONS
+		
+	DB_COLUMN:		STRING, TABLES.Person, COL_TYPE.PRIMARY_KEY
+
+
+
+
+
+
+
+//  :SYMBOLS, and just an simple end
+
+`States`
+	FORM_REQUIRED:	`Is Required`, "*" 
+	FORM_LABEL:		"State", "Choose your state"
+	
+	FORM_SELECT:	"StateSelector" #name of html select tag#:  // Notice, to specify child elements, put a colon after
+		SELECT_OPTIONS START:
+			OPTION: "AL", "Alaska", :SELECTED
+			OPTION: "AZ", "Arizona"
+		END
+		
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+
+
+
+//  :SYMBOLS, and :CLOSE_TAG
+
+`States`
+	FORM_REQUIRED:	`Is Required`, "*" 
+	FORM_LABEL:		"State", "Choose your state"
+	
+	FORM_SELECT:	"StateSelector" #name of html select tag#:  // Notice, to specify child elements, put a colon after
+		SELECT_OPTIONS:
+			OPTION: "AL", "Alaska", :SELECTED
+			OPTION: "AZ", "Arizona"
+		:SELECT_OPTIONS
+		
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+
+
+//  $SYMBOLS, and :CLOSE_TAG
+
+`States`
+	FORM_REQUIRED:	$IS_REQUIRED, "*" 
+	FORM_LABEL:		"State", "Choose your state"
+	
+	FORM_SELECT:	"StateSelector" #name of html select tag#:  // Notice, to specify child elements, put a colon after
+		SELECT_OPTIONS:
+			OPTION: "AL", "Alaska", $SELECTED
+			OPTION: "AZ", "Arizona"
+		:SELECT_OPTIONS
+		
+	DB_COLUMN:		$STRING, $TABLES.Person, $COL_TYPE.PRIMARY_KEY
+
+
+//  
+	
+`States`
+	FORM_REQUIRED:	`Is Required`, "*" 
+	FORM_LABEL:		"State", "Choose your state"
+	
+	FORM_SELECT:	"StateSelector" #name of html select tag#:  // Notice, to specify child elements, put a colon after
+		SELECT_OPTIONS START:
+			OPTION: "AL", "Alaska", :SELECTED
+			OPTION: "AZ", "Arizona"
+		:SELECT_OPTIONS END
+		
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+
+
+
+
+//   Hmmm, '#' means comment, I think this is out for symbol
+`States`
+	FORM_REQUIRED:	#IS_REQUIRED, "*" 
+	FORM_LABEL:		"State", "Choose your state"
+	
+	FORM_SELECT:	"StateSelector":  // Notice, to specify child elements, put a colon after
+		SELECT_OPTIONS:
+			OPTION: "AL", "Alaska", #SELECTED
+			OPTION: "AZ", "Arizona"
+		:SELECT_OPTIONS
+		
+	DB_COLUMN:		#STRING, #TABLES.Person, #COL_TYPE.PRIMARY_KEY
+
+
+
+
+
+
+//  Using the :"" symbol. how does it look?
+//  ___________________________________________________________________
+
+:"First Name"
+	FORM_REQUIRED:	:"Is Required", "*"    
+	FORM_LABEL:		"First Name", "Enter you first name"    
+	FORM_INPUT:		:TEXT, 25#max chars#,        				
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+	
+
+
+//  Here it is without the optional ':' operator.
+//  ___________________________________________________________________
+
+`First Name`
+	FORM_REQUIRED:	IS_REQUIRED, "*"    
+	FORM_LABEL:		"First Name", "Enter you first name"
+	FORM_INPUT:		TEXT, 25#max chars#,        				
+	DB_COLUMN:		STRING, TABLES.Person, COL_TYPE.PRIMARY_KEY
+	
+	
+`States`
+	FORM_REQUIRED:	IS_REQUIRED, "*" 
+	FORM_LABEL:		"State", "Choose your state"
+	
+	FORM_SELECT:	"StateSelector" #name of html select tag#:  
+		SELECT_OPTIONS_START:
+			OPTION: "AL", "Alaska", SELECTED
+			OPTION: "AZ", "Arizona"
+		:SELECT_OPTIONS_END
+		
+	DB_COLUMN:		STRING, TABLES.Person, COL_TYPE.PRIMARY_KEY
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+

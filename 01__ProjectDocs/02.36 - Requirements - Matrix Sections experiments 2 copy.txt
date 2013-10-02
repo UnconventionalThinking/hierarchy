@@ -1,0 +1,77 @@
+Symbol experiments:
+
+<*DECLARATIONS*>
+
+	SYMBOLSET Myapp;
+	
+<*/DECLARATIONS*>
+
+<*MATRIX.KEY*>
+
+	`FIELD_VALUES.KEY`
+		$DASH, -			:	These are the default value oper. for the field
+		$DITTO^ , ''^		:	Both of these are Ditto, using the same value from the previous entry
+		$DITTO, '' ,
+		$DITTO< , ''<		:	All of these are ditto using the same value from the previous field
+		$ITEM				:	The string value of the item name symbol 
+		
+	`ITEM.FIELDS.KEY`
+		FORM_REQUIRED: 	`IsRequired`, `RequiredTextIndicator`    
+		FORM_LABEL:		`LabelText`, `RolloverText`  
+		FORM_INPUT:		`InputType`, `MaxChars`         				
+		DB_COLUMN:		`ColumnType`, `TableName`, `ColumnTypes` #can have multiple values#
+		
+	`DEFAULT_VALUES.KEY`
+		FORM_REQUIRED: 	:IS_NOT_REQUIRED, "*"   
+		FORM_LABEL:		$ITEM, null
+		FORM_INPUT:		:TEXT, FORM_INPUT_MAXCHARS #max chars#         				
+		DB_COLUMN:		:STRING, :TABLES.Person, null 
+
+<*/MATRIX.KEY*>
+
+<*MATRIX.NEW: MyApp.RegistrationForm>
+
+	`First Name` 
+		FORM_REQUIRED: 	:IS_REQUIRED, "*"   
+		FORM_LABEL:		- , "Enter your first name"
+		FORM_INPUT:		- , FORM_INPUT_MAXCHARS #max chars#         				
+		DB_COLUMN:		- , -, :COL_TYPE.PRIMARY_KEY 
+	
+	`Last Name` 
+		FORM_REQUIRED: 	''^ , "*"   
+		FORM_LABEL:		- , "Enter your last name"
+		FORM_INPUT:		- , FORM_INPUT_MAXCHARS #max chars#         				
+		DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+	
+	`Address 1` 
+		FORM_REQUIRED: 	- #:IS_NOT_REQUIRED#, - #"*"#   
+		FORM_LABEL:		"Address", "Enter your address"
+		FORM_INPUT:		-, FORM_INPUT_MAXCHARS #max chars#         				
+		DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+	
+	`Address 2` 
+		FORM_REQUIRED: 	-, -   
+		FORM_LABEL:		"Address 2", "Enter your address"
+		FORM_INPUT:		-, FORM_INPUT_MAXCHARS #max chars#         				
+		DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+	
+	`City` 
+		FORM_REQUIRED: 	-, ''^   
+		FORM_LABEL:		"City", "Enter your city"
+		FORM_INPUT:		-, FORM_INPUT_MAXCHARS #max chars#         				
+		DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY 
+	
+	`States` 
+		FORM_REQUIRED:	-, "*"
+		FORM_LABEL:		"State", "Choose your state"
+		
+		FORM_SELECT:	"StateSelector" #name of html select tag# 
+			SELECT_OPTIONS:
+				OPTION:  "AL", "Alaska", :SELECTED 
+				OPTION:  "AZ", "Arizona"
+			
+		DB_COLUMN:		 :STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+	
+<*/MATRIX.NEW*>
+
+

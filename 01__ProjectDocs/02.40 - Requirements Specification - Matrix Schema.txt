@@ -1,0 +1,237 @@
+
+
+Programming Language Syntax Doc - 3.3
+_______________________________________________________________________________________________________________________
+
+Requirements Specification:  Matrix Schema
+_______________________________________________________________________________________________________________________
+
+Purpose - The purpose of this doc is to describe the syntax for Matrix Schemas
+
+_______________________________________________________________________________________________________________________
+
+
+SCHEMA WEB.FORMS {
+
+	ITEMS:
+		DESCRIPTOR FORM.REQUIRED:
+	
+			FIELD.NAMES: 	+`IsRequiredField`, +`RequiredImagePath`, +`ImageHeight`, +`ImageWidth`
+			FIELD.DESC:  	"Is this field required?", "What is the path to the image that marks required fields", 
+							"The height of the image", "The width of the image"
+			FIELD.TYPES:  	${ +:REQUIRED, +:NOT_REQUIRED }, {String}ING, INT, INT
+		
+			FIELD.DEFAULTS:	:NOT_REQUIRED, "/images/required.gif", 5, 6
+		
+	
+		DESCRIPTOR FORM.SELECT:
+			DESCRIPTOR OPTION:
+				FIELD.NAMES: 	+`Name`, +`Value`, +`Selected`
+				FIELD.TYPES:  	String, String, ${ +:SELECTED, +:NOT_SELECTED}  // {String} is alias for {String}ING
+	
+				FIELD.DEFAULTS:	-, -, :NOT_SELECTED
+
+	// To define descriptors that are not apart of items, but are directly apart of the Matrix, (meaning, you
+	// access these descriptors without going through an item first. For example:
+	//
+	//     MyMatrix:FORM.MAIN_SETTINGS:Title
+	//
+	MATRIX.DESCRIPTOR WEBFORM.SETTINGS:
+		FIELD.NAMES: 	+:Title, +:Title.Style
+		FIELD.TYPES:  	String, FONT_STYLE_SET  
+		
+}
+
+SET<SYMBOLS, N> FONT_STYLE_SET = ${ +:ITALIC, +:BOLD, +:UNDERLINED, +:SIZE.LARGE, +:SIZE.MEDIUM... }
+
+
+
+
+
+
+
+/*
+	//  for WEBFORM.SETTINGS: could also do
+	MATRIX.DESCRIPTOR WEBFORM.SETTINGS:
+		FIELD.NAMES: 	+:Title, +:Title.Style
+		FIELD.TYPES:  	String, +:<N>{ +:BOLD, +:ITALIC, +:UNDERLINED ...  }  
+	
+	}
+*/
+
+
+
+
+o FIELD.TYPES - I think you pass in the actual type, not the symbol for the type (like I used to do). makes more sense 
+  
+
+
+
+
+
+________________________________________________________________________________________________________________________
+
+o Example using general field types
+
+SCHEMA WEB.FORMS {
+
+	ITEMS:
+		DESCRIPTOR FORM.REQUIRED:
+	
+			FIELD.NAMES: 	+`IsRequiredField`, +`RequiredImagePath`, +`ImageHeight`, +`ImageWidth`
+			FIELD.TYPES:  	SET<SYMBOL>, VAR, *, *, *       // default (*) is :VAR! 
+		
+			FIELD.DEFAULTS:	:NOT_REQUIRED, "/images/required.gif", 5, 6
+		
+	
+		DESCRIPTOR FORM.SELECT:
+			DESCRIPTOR OPTION:
+				FIELD.NAMES: 	+`Name`, +`Value`, +`Selected`
+				FIELD.TYPES:  	*, *, :SET<:SYMBOL>  
+	
+				FIELD.DEFAULTS:	-, -, :NOT_SELECTED
+		
+}
+
+
+________________________________________________________________________________________________________________________
+
+o Example creating a field that accepts sets of items
+
+
+SCHEMA FILES {
+
+	ITEMS:
+		DESCRIPTOR FILE:
+			FIELD.NAMES:	+`Files`
+			FIELD.TYPES: 	SET<{String}>   // so this descriptor takes a field that accepts a set of {String}ings (file names)
+		
+}
+
+
+so, to create a set of files for this field:
+
+	MATRIX.NEW MyFileMatrix {
+		`File Listing 1`
+			FILE:
+				NAMES:  ${ "file1.txt", "file2.txt" }
+
+	}
+
+________________________________________________________________________________________________________________________
+
+o Schemas Syntax in strict & convenience formats:
+
+	- DESCRIPTOR schema elements:
+		o In strict formatting, when defining new Descriptor types with the DESCRIPTOR tag, this tag takes a _label_ as the descriptor tagname. must use valid label syntax, like +`FORM`.`REQUIRED`
+		o In convenience formatting, you can pass in a descriptor tagname using descriptor tag name syntax: FORM.REQUIRED
+	
+	- Field Names:
+		o Not sure, but may do the samething with field names as we do with descriptor tag names (see examples below). May not though
+		o ANSWER - YES - why? because field names are similar to descriptor tag names in that you typically don't want to access them using spaces in the name. you want:
+		
+			MyMatrix->`First Name`->FORM.REQUIRED->IsRequired
+				you don't want:
+			MyMatrix->`First Name`->FORM.REQUIRED->`Is Required`  // looks like you're accessing a label
+				
+		
+		
+	- Types as field values
+		o In Strict formatting, types in field values using braces:  { {int}, {VAR} }
+		o In Convenience formatting, types don't need the braces:  { int, VAR }
+
+
+//  Strict Formatting
+SCHEMA WEB.FORMS {
+
+	ITEMS {
+		DESCRIPTOR +`FORM`.`REQUIRED` {
+	
+			FIELD.NAMES: 	{ +`IsRequiredField`, +`RequiredImagePath`, +`ImageHeight`, +`ImageWidth` };
+			FIELD.TYPES:  	{ {SET<SYMBOL>}, {VAR}, {int}, {int} }; 
+		
+			FIELD.DEFAULTS:	{ :NOT_REQUIRED, "/images/required.gif", 5, 6 };
+		}
+	}
+	
+}
+
+//  Convenience formatted	
+SCHEMA WEB.FORMS {
+
+	ITEMS:
+		DESCRIPTOR FORM.REQUIRED:
+	
+			FIELD.NAMES: 	IsRequiredField, RequiredImagePath, ImageHeight, ImageWidth
+			FIELD.TYPES:  	SET<SYMBOL>, VAR, int, int 
+		
+			FIELD.DEFAULTS:	:NOT_REQUIRED, "/images/required.gif", 5, 6
+		
+	
+}
+
+________________________________________________________________________________________________________________________
+
+o Example of schema that has descriptors that inherit from other descriptors
+
+SCHEMA WEB.HTML {
+
+	PUBLIC SET<SYMBOL> TEXT.STYLES = ${ :BOLD, :ITALIC, :UNDERLINED, :SUPERSCRIPT, :SUBSCRIPT... }
+	
+	DESCRIPTOR HTML.TITLE:
+		FIELD.NAMES: 	+`Text`, +`TextSize`, +`TextStyle`
+		FIELD.TYPES:  	String, int, :TEXT.STYLES.{*}
+		FIELD.DEFAULTS:	"", 16, :BOLD 
+	
+	DESCRIPTOR HTML.HEADER: 	Extends => HTML.TITLE
+		FIELD.DEFAULTS:	"", 14, :BOLD 
+		
+	DESCRIPTOR HTML.HEADER2: 	Extends => HTML.TITLE
+		FIELD.DEFAULTS:	"", 12, :BOLD 
+
+}
+
+
+________________________________________________________________________________________________________________________
+
+o Example of using schema includes:
+
+
+**** HMMM, THIS NEEDS A LOT OF WORK!!
+
+
+SCHEMA MyApp {
+
+	ITEMS:
+		USE SCHEMA WEB.FORMS 
+			WITH DESCRIPTORS: FORM.REQUIRED, FORM.LABEL, FORM.INPUT		// Optional to include this, and 
+																		// maybe not a needed feature
+		
+		USE SCHEMA DATABASE.CONNECTION
+			EXCEPT DESCRIPTORS: DB.REPLICATION   // May not keep this feature
+		
+		
+		USE DESCRIPTOR WEB.FORMS:FORM.SELECT
+	
+	
+		// Now can define your own descriptors
+		DESCRIPTOR MY.DESCRIPTOR:
+			FIELD.NAMES: ...
+	
+		
+}
+
+
+
+________________________________________________________________________________________________________________________
+
+o Defining a Named Descriptor and a Pass-through descriptor (for their definitions, see the Matrix Specification doc):
+
+SCHEMA NDA {  // This is an example from NDA
+
+	// actually these are already defaults for both
+	DESCRIPTOR SECTION.VIEW: PassThrough => :OPTIONAL, Label => :OPTIONAL
+	DESCRIPTOR SECTION.MODEL: PassThrough => :OPTIONAL, Label => :OPTIONAL  
+
+ } 
+

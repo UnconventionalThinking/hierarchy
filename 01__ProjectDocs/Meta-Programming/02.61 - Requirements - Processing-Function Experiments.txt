@@ -1,0 +1,154 @@
+Meta-Programming Language Syntax Description 1
+______________________________________________
+
+Requirements:
+Meta Programming - Matrix Processing-Function Examples
+
+______________________________________________
+
+
+CREATE_PRODUCTION_ACTION(prodName, prodType, elementList) {
+
+<* OUTPUT:"Java 1.5" *>
+
+	@Override
+	public void <$prodName$>(<$prodName.substring(3,END)$>, node) {
+		Node_Utilities.setCurrentAndParent_Code(node,
+
+		*FOREACH(i)(elem : elementList) { 		
+			
+			*SWITCH:
+			*OPTION (i == 0):
+				node.get<$elem.name$>.code().append(
+			*OPTION (!LAST):
+					node.get<$elem.name$>.code(),
+			*OPTION (LAST):
+					node.get<$elem.name$>.code()
+				) // end of append
+			*END SWITCH
+			}
+		);  // end of setCurrentAndParent
+	} // end of method
+	
+
+<* /OUTPUT *>
+
+
+
+
+CREATE_PRODUCTION_ACTION(prodName, prodType, elementList) {
+
+<* OUTPUT:"Java 1.5" *>
+
+	@Override
+	public void <$prodName$>(<$prodName.substring(3,END)$>, node) {
+		Node_Utilities.setCurrentAndParent_Code(node,
+
+		*FOREACH(i)(elem : elementList) { 		
+			*IF (i == 0) {
+				node.get<$elem.name$>.code().append(
+			*} ELSE IF (!LAST) {
+					node.get<$elem.name$>.code(),
+			*} ELSE {
+					node.get<$elem.name$>.code()
+				) // end of append
+			*}
+		*}
+		);  // end of setCurrentAndParent
+	} // end of method
+	
+
+<* /OUTPUT *>
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE_PRODUCTION_ACTION(prodName, prodType, elementList) {
+
+<* OUTPUT *>
+
+	@Override
+	public void <$prodName$>(<$prodName.substring(3,END)$>, node) {
+		Node_Utilities.setCurrentAndParent_Code(node,
+
+		FOREACH(i)(elem : elementList) { 		
+			IF (i == 0) {
+				node.get<$elem.name$>.code().append(
+			} ELSE IF (!LAST) {
+					node.get<$elem.name$>.code(),
+			} ELSE {
+					node.get<$elem.name$>.code()
+				) // end of append
+			}
+		}
+		);  // end of setCurrentAndParent
+	} // end of method
+	
+
+<* /OUTPUT *>
+
+}
+
+
+
+CREATE_PRODUCTION_ACTION(prodName, prodType, elementList) {
+
+<* OUTPUT *>
+
+~	@Override
+~	public void <$prodName$>(<$prodName.substring(3,END)$>, node) {
+~		Node_Utilities.setCurrentAndParent_Code(node,
+
+		FOREACH(i)(elem : elementList) { 		
+			IF (i == 0) {
+~				node.get<$elem.name$>.code().append(
+			} ELSE IF (!LAST) {
+~					node.get<$elem.name$>.code(),
+			} ELSE {
+~					node.get<$elem.name$>.code()
+				) // end of append
+			}
+		}
+~		);  // end of setCurrentAndParent
+~	} // end of method
+	
+
+<* /OUTPUT *>
+
+}
+
+
+
+CREATE_PRODUCTION_ACTION(prodName, prodType, elementList) {
+
+<* OUTPUT *>
+
+	@Override
+	public void <$prodName$>(<$prodName.substring(3,END)$>, node) {
+		Node_Utilities.setCurrentAndParent_Code(node,
+
+		~FOREACH(i)(elem : elementList) { 		
+			~IF (i == 0) {
+				node.get<$elem.name$>.code().append(
+			~} ELSE IF (!LAST) {
+					node.get<$elem.name$>.code(),
+			~} ELSE {
+					node.get<$elem.name$>.code()
+				) // end of append
+			~}
+		~}
+		);  // end of setCurrentAndParent
+	} // end of method
+	
+
+<* /OUTPUT *>
+
+}

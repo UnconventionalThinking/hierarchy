@@ -1,0 +1,372 @@
+Programming Language Syntax Doc - 1.3
+_________________________________________________________________________________________
+
+Requirements:  Sets & Tuples Specification
+_________________________________________________________________________________________
+
+Purpose - The purpose of this doc is to describe the syntax for Sets and Tuples.
+
+_________________________________________________________________________________________
+
+
+What is a set?
+	A set is actually an ordered set. Behind the scenes, it is an array list and a hash, which can be accessed by the name of the object or symbol, or iterating through it.
+	
+	A Set has 4 levels of useage:
+	
+	
+	
+	1. Set Class - a set class is just the set type, and is created by declaring a set variable.
+
+		SET<STR> mySet;
+		
+	  or in a schema definition:
+	  
+		FIELD.NAME:		`Files`
+		FIELD.TYPES:	SET<STR>
+		  
+	
+		For instance, a field or a var can be decarled as a set class. a set class var (or just a set var) is set to a "Set Instance", where the set instance has the same type of items as the set class.
+		
+		
+		- You cannot define a cardinialtiy to a set class. So, it can be set to set instances of any size.
+	
+	
+	
+	
+	2. Set Instance 
+		a set instance is an actual set; an actual container for the items. 
+		
+		The 3 ways you use it are:
+		
+			a) set it to a Set Var:
+			
+				SET<SYMBOLS> MyColors = +:{ :RED, :GREEN }
+				
+			b) in a matrix, you set a field of type, set-class, to a set instance:
+				
+					MATRIX.NEW MyFiles {
+						`FilesList`
+							FILE:	+{"File1.txt", "File2.txt" }
+					}
+					
+					
+					
+				NOTE: a set can be set to a single instance without the use of the +{ }:
+				
+					MATRIX.NEW MyFiles {
+						`FilesList`
+							FILE:	"File1.txt"
+					}
+					
+					
+			c) In a Matrix Schema, you can define a field of type, set instance:
+			  
+			  	SCHEMA WEB.FORM {
+			  		
+			  		DESCRIPTOR FORM.REQUIRED:
+						FIELD.NAME:		`IsRequired`
+						FIELD.TYPES:	+{ :IS_REQUIRED, :NOT_REQUIRED }
+						
+				}
+			
+				This is obviously a very common thing to do, because matrix are the center of all the settings for your app, and settings are commonly options of different symbols.
+		
+		
+		o Syntax of set instance creation:
+			- the way you create a set instances is:
+				+{ var1, var2 }
+				
+			- if you want to limit the items of set to only vars, you do this:
+				+:{ :sym1, :sym2 }
+			  But, this is unnecessary, you can just use +{ }
+			
+			- also, if you want to explicitly creation a set of vars, you do:
+			
+				+${ var1, 2, "blah" }
+		
+		o Details of Set Instances
+			- You can define a subset-cardinality to a set instance. The reason for this is to define min and max ranges for the size of subsets. The most common subset cardinalities are a max of 1 and a max of N. subset cardinality of 1 is typically used for Symbols set instances, when they are used as settings or options (color of a border, whether a field is required or not). 
+				
+				SET<:SYMBOLS, 1> MyColors = +:{ :RED, :GREEN } - can only be assigned one symbol
+				
+			
+			- Notice that a Matrix field can be of type "Set Class", or of type "Set Instance"
+		
+		
+		
+	3. Subsets-Instance 
+	
+		o A var or field that is of type, Set Instance, is assigned a Subsets-Instance (or just "Subset"). 
+		
+		
+			MyWebForm:WEBFORM.SETTINGS:TITLE.STYLE = +{ :BOLD, :ITALIC, :TEXT.SIZE.LARGE };
+			
+			
+			NOTE: the Syntax for a subset is the same as for a set-instance. The only difference is that you assign subsets to set-instance vars.
+		
+		
+		o You can assign a set-instance var just a one item subset not using the set instance operators.
+			
+			MyWebForm[`First Name`].FORM.REQUIRED:IsRequired = :REQUIRED;
+			
+		o A subset must match the cardinality defined by the set instance var. For example, the schema for the TITLE.STYLE example would be:
+		
+			MATRIX.DESCRIPTOR WEBFORM.SETTINGS:
+				FIELD.NAMES: 	+:Title, +:Title.Style
+				FIELD.TYPES:  	STR, +:<N>{ :BOLD, :ITALIC, :UNDERLINED ...  }  
+			
+			}
+	
+
+	
+	4. Set/Subset-Instance Access
+		When you access a set instance, you also create a subset of items from the set. Very often this is just a single item that you are trying to access, but you can also create multiple item access-subsets.
+		
+		For instance, here is how to access one member from a 		
+			MyMatrix[`First Name`].`FORM.REQUIRED`.REQUIRED
+			
+		To access multiple symbols from this set class (or you can say create a set instance):
+		
+			:TITLE.STYLE.{:BOLD, :ITALIC}
+
+		
+	
+	
+	
+	
+
+What is the purpose of a set of symbols?
+	The reason we need sets of symbols is because in Matrices, you have fields whose values are a set of symbols. These Symbol options are defined in the schema, and since this happens so often, we want the syntax to be very quick, and easy, and understandable.
+	
+What is the purpose of a set of object?
+	The reason we need sets of objects is again for Matrices. But, this is a little different. In 
+
+
+
+
+Syntax for creating a Set Class
+
+
+	o Object Set-Class Creation
+	
+	
+	
+	o Set-Instance and Subset-Instance creation Syntax
+	
+		- Object Set-Instances
+			+{} - create a new Set of objects (can also contain symbols). 
+					This particular syntax is used to put the set in a Matrix field or to a set var.
+			
+			<set group>.+{} - this syntax used to create a set and put the set in a Set Group
+		
+		
+			Example:
+	
+				// 'SET' is the set class, and the '+{ .. }' is the Set Instance
+				SET MySet = +{ "MyFile 1", "MyFile 2" };   
+			
+	
+		- Symbol Set-Instance Creation
+		
+			+:{} - create a new Set Instance of symbols
+			
+			:<symbol group>.+:{} - create a set and put it in a set group.
+	
+	
+			Example:
+	
+				SET<SYMBOL> TITLE.STYLE = +:{ +:REQUIRED, +:NOT_REQUIRED };   
+			
+			
+			
+			o if you create a new set-instance with _new_ symbols inside the set, you must "create" the symbols using the symbol creation operator, +: or +`` (as seen in the above example).
+			
+				This is actually pretty nice, because we want symbol creation to be strictly typed, not duck-typed like Ruby (I hate it when you make a simple spelling mistake and create a new variable or symbol when you meant to use an old one).
+				
+				and, also, not too inconvenient. most of the new symbol creation will be done in the schema, where it's meant to be done.
+				
+				
+	
+	
+
+	o Creating Set-Instances whose subsets instances have a limit on number of items (on cardinality)
+
+		- Set Instance with subsets with max cardinality of 1
+		
+		  meaning, you can only access a single set item, like: 
+		  	mySetOfFiles.{"process.jsp"}
+		  	
+		  or a single symbol like: 
+		  	:mySetOfColors.RED
+		  	
+		  	
+		  Syntax: 
+			+{ "string1", "string2" }  // default subset cardinality  is 1  
+										// Also, deffault type is Object
+			+:{ :sym1, :sym2 }			// again, default subset cardinality is 1 item
+			
+		  
+			+$<:STR>{ :"String1" } 
+			+$<1>{ }
+			+$<:STR, 1>{}
+			+{}
+			
+			+:<1>{}
+			+:{}
+			
+			
+
+		- Set-Instances where you can create subset instances with unlimited max cardinalty 
+
+			+$<N>{}
+			+:<N>{}
+			
+			+$<:INT, N>{}   
+
+
+			// ** Here's a real example of creating a set instance FILLED WITH SYMBOLS
+			//    FROM ANOTHER SET INSTANCE whose SUBSET instances have unlimited cardinality
+			
+			SCHEMA DB {
+				FIELD.NAMES: 	+`DataType`, +`ColumnName`, +`DefaultValue`, +`ColumnTypes`
+				FIELD.TYPES:  	:DB.DATA.TYPES.*, :STR, :VAR, +<N>{ :DB.COLUMN.TYPES.* } ,
+			}
+			
+			//  Notice, the first field is how to do it, but have subset instances w/ 
+			//  cardinality of 1
+
+
+		- Set-Instances where you can create subset instances with a cardinality range
+		
+			+$<:FLOAT, 1..2>{}
+			+$<1..2>{}
+			+:<2..N>{}
+	
+		
+		- Default Cardinalities for Subset-Instances is 1.
+			
+			Reason:
+				Because typically, if you define item options (like for symbols), more than like, it's used as kind of a setting or option useage, like color of a border, or whether a form field is selected or not. So, we set the default cardinality for this to be 1
+
+
+				And, typically, if we want a unlimited number of items in a set, then we don't define the var as a set-instance, but a set-class
+				
+
+Accessing a set-instance
+
+	It's really just subset creation, so much match subset cardinality.
+
+
+	o Symbols Set Member access:
+	
+		To access a single symbol from a set class:
+		
+			:`FORM.REQUIRED`.REQUIRED
+			
+		To access multiple symbols from this set class (or you can say create a set instance):
+		
+			:`FORM.REQUIRED`.:{:REQUIRED, :NOT_REQUIRED} // actually, this doesn't work,
+										// cause the subset doesn't match cardinality
+
+		*So you must still match the cardinality for subsets.
+
+
+
+
+	o Object Set access:
+	
+		To access a single object from a set class:
+		
+			PROJECT.Files.${"file1.txt"}  // where the `Files` field is 
+										  //of FIELD.TYPE, :SET<1>
+	
+	
+		To access multiple objects from this set class (or you can say create a set instance):
+		
+			PROJECT.Files.${ "file1.txt", "file2.txt" }  // where the `Files` field is of 
+												 		 // FIELD.TYPE, :SET
+			
+
+_______________________________________________________________________________________________________________________
+
+Creating a named set
+_______________________________________________________________________________________________________________________
+
+	o Creating a named set:
+	
+		- create a named set using an existing var:
+		
+			var mySet;
+			
+			$mySet${ "string1", "string2" }
+			
+			$mySet$<1>{ 1, 2, 3 }
+			
+			$mySet$<int, 1>{ 1, 2, 3 }
+		
+		
+		- create a named set and a new var:
+		
+			+$mySet${ 1, 3 }
+			
+			** QUESTION: What happens if you try to create a new named set that creates a new var, and the var  already exists? Is this an error?
+			
+			YES - we want to be strictly typed.
+			
+	o what is scope of var for set?
+		- the set exists as long as there is a reference to it. But if you using a existing var, than obviously, if the var goes away, then this name goes away
+		
+		- for named set that creates a new var:
+			could make this global scope. is this a good idea? name conflicts might happen all the time. 
+			
+			a var exists in local scope with that name.
+			
+			
+			
+_________________________________________________________________________________________
+
+Tuples
+_________________________________________________________________________________________
+(from wikipedia)
+In mathematics, a tuple is a sequence (also known as an "ordered list") of values, called the components of the tuple... 
+
+
+For, matrices (specifically, the field values in descriptors), the tuple is the ORDERED SET with PREDEFINED TYPES.
+These tuples will be used similar to Database tuples (see below), and is what a Descriptor's field values are. 
+
+BUT, behind the scenes, the field values tuple is implemented as a ORDERED SET, where the scheme for the descriptor is the mapping of the value to its type and field name!!
+
+So, one important result of a tuple being an ordered set is that a descriptor's field value tuple can be assigned an ordered set:
+
+	MyMatrix[`First Name`]:FORM.REQUIRED = +{ :IsRequired, "*" }; 
+
+* the order of the set values must match the order of the item types in the tuple (as defined by the schema).
+																
+
+
+
+
+
+
+			
+(from wikipedia)
+
+The main properties that distinguish a tuple from, for example, a set are that
+
+   1. it can contain an object more than once;
+   2. the objects appear in a certain order;
+   3. it has finite size.
+
+
+Relational model
+
+	In database theory, the relational model extends the definition of a tuple to associate a distinct name with each component[1]. A tuple in the relational model is formally defined as a finite function that maps field names to values, rather than a sequence, so its components may appear in any order.
+	
+	Its purpose is the same as in mathematics, that is, to indicate that an object consists of certain components, but the components are identified by name instead of position, which often leads to a more user-friendly and practical notation, for example:
+	
+		( player : "Harry", score : 25 )
+	
+	Tuples are typically used to represent a row in a database table or a proposition; in this case, there exists a player "Harry" with a score of 25.
+	
+		

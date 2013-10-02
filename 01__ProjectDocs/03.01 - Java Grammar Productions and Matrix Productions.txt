@@ -1,0 +1,39 @@
+Programming Language Syntax Doc - 1.1
+_______________________________________________________________________________________________________________________
+
+Java Grammar Productions:
+  A description of important aspects of the productions in relation to the matrix productions
+_______________________________________________________________________________________________________________________
+
+o The Java Expression hiearchy 
+	- expressions are really common as the non-terminal for some element of a production. for example, the field value for a matrix. but, what point in the hierarchy does your production match on?
+	
+	- background info the Java Expression:
+		o It does not contain 'identifier' as apart of the hierarchy
+			a good exampleof this si the variable_initializer production. it has three production bodies:
+				1. expression |
+				2. identifier  |
+				3. array_initializer;
+			
+			**This means if you want to include an identifier (variable reference) in your expression hierarchy, you need to include it at the same level as expression.
+		
+		o another example is method invocation: 
+
+		
+	method_invocation =
+		
+	**	{simple}     identifier [additional_identifiers]:additional_identifier* l_par argument_list? r_par |
+		{primary}    primary     dot non_wild_type_arguments? identifier l_par argument_list? r_par |
+		{super}      super_token dot non_wild_type_arguments? identifier l_par argument_list? r_par |
+		{class_name} [identifier1]:identifier [additional_identifiers]:additional_identifier* [dot1]:dot super_token 
+			[dot2]:dot non_wild_type_arguments? [identifier2]:identifier l_par argument_list? r_par |
+		{type_name}  [identifier1]:identifier [additional_identifiers]:additional_identifier*                               
+			dot non_wild_type_arguments  [identifier2]:identifier l_par argument_list? r_par;
+			
+	argument_list =
+	**	{one_ex}  expression |
+	**	{one_id}  identifier [additional_identifiers]:additional_identifier* |
+		{many_ex} argument_list comma expression |
+		{many_id} argument_list comma identifier [additional_identifiers]:additional_identifier*;
+			
+			

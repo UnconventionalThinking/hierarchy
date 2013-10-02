@@ -1,0 +1,65 @@
+Programming Language Syntax Doc - 3.7
+_______________________________________________________________________________________________________________________
+
+Requirements:  Dynamically Creating descriptors in a Matrix
+_______________________________________________________________________________________________________________________
+
+Purpose - The purpose of this doc is to describe the syntax for dynamically creating descriptors in matrices.
+
+_______________________________________________________________________________________________________________________
+
+There are three ways:
+
+1. Call a method that returns a descriptor/item or a set of descriptors/items:
+
+	
+	MATRIX.NEW m {
+		`item 1`
+			FORM.REQUIRED: { ... };
+		
+		CALL method_CreatesItem();
+		
+		`item 3`
+			CALL method_CreatesDescriptors();
+	}
+
+
+2. Call a code closure:
+
+	MATRIX.NEW m USES (WEB.FORM) {
+		`item 1`
+			FORM.REQUIRED: { ... };
+		
+		CALL *{
+			$ADD = ITEM.NEW.USES<WEB.FORM> { 
+				[new SYMBOL(itemNameString)]: { Group => :FirstItemGroup } {
+					FORM.REQUIRED: ...;
+				}
+			}
+		
+		}
+		
+		`item 3`
+			CALL * {
+				listOfNames = queryDB();
+				
+				for (String name: listOfNames {
+					$ADD = DESCRIPTOR.NEW.USES<WEB.FORM> {
+						FORM.INPUT ...;
+					}
+				}
+			
+			}
+			
+			
+	}
+
+
+3. Programmatically, by using more standard java programming method calls to create:
+	
+	MATRIX myMatrix = MATRIX.NEW;
+	ITEM   myItem = ITEM.NEW { `item 1` };
+	
+	myItem.addDescriptor(DESCRIPTOR.NEW.USES<WEB.FORM> { FORM.REQUIRED; });
+	myMatrix.addDescriptor(myItem);
+	

@@ -1,0 +1,77 @@
+Programming Language Syntax Doc - 3.2.1
+_______________________________________________________________________________________________________________________
+
+Requirements:  Creating Matrix Elements
+_______________________________________________________________________________________________________________________
+
+Purpose - The purpose of this doc is to describe the syntax for creating elements of matrices like ITEMS or DESCRIPTORS
+
+_______________________________________________________________________________________________________________________
+
+
+The syntax is:
+
+
+DESCRIPTOR.NEW.USES<WEB.FORMS> FORM.REQUIRED [`Special Required Field`] [IN `package`] [USES HTML.LAYOUT][: <field set or field parameters] {
+
+	<child descriptors>
+}
+
+OR
+
+DESCRIPTOR<WEB.FORMS:FORM.REQUIRED>.NEW ...
+
+
+
+ITEM.NEW.USES<WEB.FORMS, HTML.LAYOUT, DB> `My Item` [IN `package`] [USES <schemas>][: <field set or field parameters] {
+
+	<child descriptors>
+}
+
+
+	OR, can do this (same difference for items):
+
+
+ITEM.NEW `My Item` USES ${ WEB.FORMS, HTML.LAYOUT, DB }: <field set or field parameters {  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Field
+SCHEMA.FIELD required = WEB.FORMS.FORM.REQUIRED.IsRequired;
+
+
+FIELD myField = FIELD.NEW { required => :REQUIRED };
+   	OR
+FIELD myField = FIELD.NEW.USES<WEB.FORMS>{ FORM.REQUIRED.IsRequired => :REQUIRED };
+	OR   
+FIELD myField = FIELD.NEW.USES<WEB.FORMS>{ $required => :REQUIRED }; // $ is optional, but included for clarity
+
+
+// use the mapping operator to set a value on the field var. because, if you use assignment, it'll try to just 
+// give the var a new field object
+myField => :NotRequired;
+
+
+
+Can put body brackets around newed descriptor or item
+
+
+DESCRIPTOR.NEW.USES<WEB.FORMS> {
+	FORM.REQUIRED [`Special Required Field`] [IN `package`] [USES HTML.LAYOUT][: <field set or field parameters] {
+	
+		<child descriptors>
+	}
+}

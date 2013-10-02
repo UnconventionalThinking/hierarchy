@@ -1,0 +1,81 @@
+Matrix Symbols - Options on how to use a Matrix Symbol
+_______________________________________________
+
+`First Name`
+	FORM_REQUIRED:	`Is Required`, "*"
+	FORM_LABEL:		"First Name", "First Name" {alt txt}, "Please enter in your first name", 
+	FORM_INPUT:		TEXT, 25 {chars}
+	DB_COLUMN:		STRING, TABLES.PERSON, COL_TYPE.PRIMARY_KEY
+
+
+`First Name`
+	FORM_REQUIRED:	`Is Required`, "*"
+	FORM_LABEL:		"First Name", "First Name" #alt txt#, "Please enter in your first name", 
+	FORM_INPUT:		$TEXT, 25#chars#
+	DB_COLUMN:		$STRING, $TABLES.PERSON, $COL_TYPE.PRIMARY_KEY
+
+
+:"First Name"
+	FORM_REQUIRED:	:IS_REQUIRED, "*"
+	FORM_LABEL:		"First Name", "First Name" {alt txt}, "Please enter in your first name", 
+	FORM_INPUT:		:TEXT, 25 {chars}
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+
+`First Name`
+	FORM_REQUIRED:	:IS_REQUIRED, "*"
+	FORM_LABEL:		"First Name", "First Name" {alt txt}, "Please enter in your first name", 
+	FORM_INPUT:		:TEXT, 25 {chars}
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+
+
+\First Name/
+	FORM_REQUIRED:	\IS_REQUIRED/, "*"
+	FORM_LABEL:		"First Name", "First Name" {alt txt}, "Please enter in your first name", 
+	FORM_INPUT:		TEXT, 25 {chars}
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+/First Name\
+	FORM_REQUIRED:	/IS_REQUIRED\, "*"
+	FORM_LABEL:		"First Name", "First Name" {alt txt}, "Please enter in your first name", 
+	FORM_INPUT:		TEXT, 25 {chars}
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+
+/First Name/
+	FORM_REQUIRED:	/IS_REQUIRED/, "*"
+	FORM_LABEL:		"First Name", "First Name" {alt txt}, "Please enter in your first name", 
+	FORM_INPUT:		TEXT, 25 {chars}
+	DB_COLUMN:		:STRING, :TABLES.Person, :COL_TYPE.PRIMARY_KEY
+
+
+|First Name|
+	FORM_REQUIRED:	|Is Required|, "*"
+	FORM_LABEL:		"First Name", "First Name" {alt txt}, "Please enter in your first name", 
+	FORM_INPUT:		TEXT, 25 {chars}
+	DB_COLUMN:		STRING, TABLES.PERSON, COL_TYPE.PRIMARY_KEY
+
+[First Name]
+	FORM_REQUIRED:	[Is Required], "*"
+	FORM_LABEL:		"First Name", "First Name" {alt txt}, "Please enter in your first name", 
+	FORM_INPUT:		TEXT, 25 {chars}
+	DB_COLUMN:		STRING, TABLES.PERSON, COL_TYPE.PRIMARY_KEY
+	
+	
+	
+#First Name#
+	FORM_REQUIRED:	#Is Required#, "*"
+	FORM_LABEL:		"First Name", "First Name" {alt txt}, "Please enter in your first name", 
+	FORM_INPUT:		TEXT, 25 {chars}
+	DB_COLUMN:		STRING, TABLES.PERSON, COL_TYPE.PRIMARY_KEY
+
+
+#{First Name}
+	FORM_REQUIRED:	#{Is Required}, "*"
+	FORM_LABEL:		"First Name", "First Name" {alt txt}, "Please enter in your first name", 
+	FORM_INPUT:		TEXT, 25 {chars}
+	DB_COLUMN:		STRING, TABLES.PERSON, COL_TYPE.PRIMARY_KEY
+	
+
+	
+`First Name`.getMatrixIndex(myMatrix);
+
+:"First Name".getMatrixIndex(myMatrix);
+

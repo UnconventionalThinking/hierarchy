@@ -1,0 +1,45 @@
+Programming Language Syntax Doc - 3.5
+_______________________________________________________________________________________________________________________
+
+Requirements Specification:  Scope and Matrices
+_______________________________________________________________________________________________________________________
+
+Purpose - The purpose of this doc is to describe the scope rules for different parts of a matrix
+
+_______________________________________________________________________________________________________________________
+
+
+1. Matrix members - a member of a matrix defined at a certain level of a matrix has a scope of that level and all the child levels of that level.
+
+2. Symbols in Matrices and scope 
+	a) if you declare a set-instance of new symbols, the new symbols have ACCESS SCOPE of that level. For instances
+	
+	
+
+			SCHEMA WEB.HTML {
+			
+				PUBLIC SET<SYMBOL> TEXT.STYLES = ${ :BOLD, :ITALIC, :UNDERLINED, :SUPERSCRIPT, :SUBSCRIPT... }
+				
+				DESCRIPTOR HTML.TITLE:
+					FIELD.NAMES: 	+`Text`, +`TextSize`, +`TextStyle`
+					FIELD.TYPES:  	STRING, INT, :TEXT.STYLES.*
+			
+			}
+			
+		The set-instance that is assigned to TEXT.STYLES, all its symbols can only be _accessed_ at the level it's defined at.
+		
+			WEB.HTML:TEXT.STYLES->:BOLD  // OKAY
+		
+			WEB:TEXT.STYLES->+{ :BOLD, :ITALIC }   // ERROR
+	
+		
+	
+	b)  SCOPE OF SYMBOLS DURING ASSIGNMENT - but all symbols have global scope when it comes to assigning them to members/ sets. for example:
+	
+		
+		MyMatrix@[`item 1`]:FORM.REQUIRED:IsRequired = :REQUIRED;
+		
+		:REQUIRED has global scope when it comes to assignment. Why? because we need to easily be able to access a symbol when we assign it to things. It would be a real pain to have to go through all these parent members to get to the actual symbol. 
+		
+		Does this cause problems when two symbols with the same name are defined in two different scopes? No. In this case, you'd be using the same symbol object for assignment, for both matrices. But, this shouldn't cause any problems, because symbols don't have any properties except child symbols and indexes. If a symbol is used as an index, it will hold what scope that index is used in (meaning if a symbol is a hash key for a matrix, then that hash key can only be used with that matrix. and, if that same symbol is used as as hash key in a different matrix, this new hash key will only be valid for this other matrix).
+

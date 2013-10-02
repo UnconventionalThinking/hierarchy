@@ -1,0 +1,77 @@
+Programming Language Syntax Doc - 3.1
+_______________________________________________________________________________________________________________________
+
+Requirements Specification:  Matrix Functions
+_______________________________________________________________________________________________________________________
+
+Purpose - The purpose of this doc is to describe the syntax for calling a function in a matrices, how to create functions that return descriptors and field values
+
+_______________________________________________________________________________________________________________________
+
+o Typically, in the middle of creating a matrix, you want to be able to call a function that returns descriptors that it generates. 
+
+
+
+//  Call to the CREATE_DESCRIPTORS function from the Partita library
+"Drop Down Menu"
+	FORM.SELECT:	"My State Selector"
+	
+		OPTION: " ", "-"
+		
+		CALL CREATE_DESCRIPTORS (OPTION, new SQL("select abbreviation, fullName from states order by fullName"))
+
+"Next item"
+	...
+	
+	
+
+//  Call to a custom function
+
+"Drop Down Menu"
+	FORM.SELECT:	"My State Selector"
+	
+		OPTION: " ", "-"
+		
+		CREATE_STATE_DESCRIPTORS()
+
+"Next item"
+	...
+	
+
+o Requirements on calling Matrix functions
+	1. if a call is done at the descriptor level, the function must return descriptors
+	2. if a call is done at the field level, the function must return a value compatible with the field type
+	3. The use of 'CALL' is optional
+	
+
+_______________________________________________________________________________________________________________________
+	
+o Processing Function example:
+
+Let's use a create state descriptor call where you pass in the descriptor name and sql string - I think if you really called a custom descriptor, you probably wouldn't pass these in, but, for illustration purposes, we'll do it here.
+
+
+//  Call to state descriptor creation method:
+CALL CREATE_STATE_DESCRIPTORS (OPTION, new SQL("select abbreviation, fullName from states order by fullName"));
+
+
+//  Create State Descriptor Function definition
+SET<DESCRIPTOR> CREATE_STATE_DESCRIPTORS (SYMBOL DESCRIPTOR_NAME, String sqlStmt) {
+
+	List<DESCRIPTOR> descriptorList = new LinkedList<DESCRIPTOR>();
+	RecordSet recordset = db.select(sqlStmt);
+	
+	for (Record record : recordSet) {
+	
+		//  *Think of creating a descriptor as if it's just apart of the code for defining a Matrix. Cause, it
+		//  works the same way, and the syntax for the descriptor as it is in a full Matrix defintion
+		VAR desc = DESCRIPTOR.NEW.USES<WEB.FORMS> {
+			FORM.REQUIRED : recordset.get("Abbreviation"), recordset.get("FullName");
+		}
+		
+		descriptorList.add(desc);
+	}
+	
+	return descriptorList;
+
+}

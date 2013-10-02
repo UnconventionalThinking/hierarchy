@@ -1,0 +1,63 @@
+Programming Language Syntax Doc - 2.1
+_________________________________________________________________________________________
+
+Requirements Specification:  Sets Example
+_________________________________________________________________________________________
+
+
+
+
+
+${`States`, `Stale`}  
+	FORM.REQUIRED:	${ :asd, :sym2 }, "*"
+	FORM.LABEL:		"State", "Choose your state"
+	
+	FORM.SELECT:	"StateSelector" #name of html select tag# 
+		SELECT_OPTIONS  
+			OPTION:  ${ :asd, :sym2 }, 		"Alaska", :SELECTED  
+			OPTION:  ${ :sym1, :sdfs }, 	"Addd"
+			OPTION:  ${ :asfada, :asdf, :asdfa }, "fsdss"
+			OPTION:  ${ :sasdoweio, :dsf },	"bggg"
+			OPTION:  ${ :sd, :gggg }, 		"dsg"
+			OPTION:  ${ :sym1 }, 			"sdfasdfasd"
+		
+	DB.COLUMN:		 :STRING, :TABLES.Person
+
+
+
+
+${`States`, `Stale`}  {
+	FORM.REQUIRED:	${ :asd, :sym2 }, "*"
+	FORM.LABEL:		"State", "Choose your state"
+	
+	FORM.SELECT:	"StateSelector" #name of html select tag# {
+		SELECT_OPTIONS  {
+			OPTION:  { ${ :asd, :sym2 }, 		"Alaska", :SELECTED  }
+			OPTION:  { ${ :sym1, :sdfs }, 	"Addd" }
+			OPTION:  { ${ :asfada, :asdf, :asdfa }, "fsdss" }
+			
+			OPTION:  ${ :sasdoweio, :dsf },	"bggg"
+			OPTION:  ${ :sd, :gggg }, 		"dsg"
+			OPTION:  ${ :sym1 }, 			"sdfasdfasd"
+		}
+	}
+	DB.COLUMN:		 :STRING, :TABLES.Person
+}
+
+
+
+
+
+
+
+SCHEMA WEB.HTML {
+
+	PUBLIC SET<SYMBOL> INPUT.TYPES = ${ :BOLD, :ITALIC, :UNDERLINED, :SUPERSCRIPT, 
+		:SUBSCRIPT... }
+
+	DESCRIPTOR HTML.TITLE:
+		FIELD.NAMES: 	+`Text`, +`TextSize`, +`TextStyle`
+		FIELD.TYPES:  	STRING, INT, :TEXT.STYLES.*
+		FIELD.DEFAULTS:	"", 16, :BOLD 
+
+}

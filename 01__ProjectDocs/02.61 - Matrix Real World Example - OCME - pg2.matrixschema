@@ -1,0 +1,91 @@
+Prog.Lang Syntax Doc Ð 4.1
+___________________________________________________________________________________________
+
+Requirements Specification:  Matrix Real World Example - OCME - p2 - Matrix Schema
+___________________________________________________________________________________________
+
+
+
+SCHEMA WEB.FORMS {
+
+	MEMBER SET<SYMBOL> INPUT.TYPES = ${ +:TEXT, +:HIDDEN, +:RESET, +:SUBMIT, +:IMAGE, 
+									+:BUTTON, +:RADIO, +:CHECKBOX, +:FILE, +:PASSWORD };
+	
+
+	DESCRIPTOR :FORM.REQUIRED:
+
+		FIELD.NAMES: 	+`IsRequired`, +`RequiredImagePath`, +`ImageHeight`, +`ImageWidth`
+		
+		FIELD.DESC:  	"Is this field required?", "What is the path to the image that marks required fields", 
+						"The height of the image", "The width of the image"
+		FIELD.TYPES:  	${ +:REQUIRED, +:NOT_REQUIRED }, STRING, INT, INT
+	
+		FIELD.DEFAULTS:	:NOT_REQUIRED, "/images/required.gif", 6, 7
+	
+
+	DESCRIPTOR :FORM.SELECT:
+		FIELD.NAMES: 	+`Name`, +`onChange`
+		FIELD.TYPES:  	STRING, STRING
+		FIELD.DEFAULTS:	"", -
+		
+		DESCRIPTOR OPTION:
+			FIELD.NAMES: 	+`Value`, +`Label`, +`Selected`
+		FIELD.TYPES:  	:STR, :STR, ${ +:SELECTED, +:NOT_SELECTED}  // :STR is alias for STRING
+
+			FIELD.DEFAULTS:	-, -, :NOT_SELECTED
+
+
+	DESCRIPTOR FORM.INPUT:
+		FIELD.NAMES: 	+`InputType`, +`DefaultValue`, +`Size`, +`id`
+		FIELD.TYPES:  	:INPUT.TYPES.*, STRING, INT, STRING
+		FIELD.DEFAULTS:	:TEXT, -, -, -
+		
+	DESCRIPTOR FORM.LABEL:
+		FIELD.NAMES: 	+`Text`, +`ToolTipText`, +`WrapText`, +`id`
+		FIELD.TYPES:  	STR, STR, ${ +:WRAP_TEXT, +:NO_WRAP_TEXT }, STRING
+		FIELD.DEFAULTS:	$ITEM, -, -, -
+		
+}
+
+
+
+
+SCHEMA WEB.HTML {
+
+	PUBLIC SET<SYMBOL> INPUT.TYPES = ${ +:BOLD, +:ITALIC, +:UNDERLINED, +:SUPERSCRIPT, 
+										+:SUBSCRIPT... }
+
+	DESCRIPTOR HTML.TITLE:
+		FIELD.NAMES: 	+`Text`, +`TextSize`, +`TextStyle`
+		FIELD.TYPES:  	STRING, INT, :TEXT.STYLES.*
+		FIELD.DEFAULTS:	"", 16, :BOLD 
+	
+	DESCRIPTOR HTML.HEADER: 	Extends => HTML.TITLE
+		FIELD.DEFAULTS:	"", 14, :BOLD 
+		
+	DESCRIPTOR HTML.HEADER2: 	Extends => HTML.TITLE
+		FIELD.DEFAULTS:	"", 12, :BOLD 
+		
+	DESCRIPTOR HTML.SUBHEADER: 	Extends => HTML.TITLE
+		FIELD.DEFAULTS:	"", 10, :BOLD 
+		
+	DESCRIPTOR HTML.SUBHEADER2: 	Extends => HTML.TITLE
+		FIELD.DEFAULTS:	"", 10, :ITALIC 
+		
+	DESCRIPTOR HTML.VERTSPACER: 	
+		FIELD.NAMES: 	+`SizeInPixels`
+		FIELD.TYPES:  	INT
+		FIELD.DEFAULTS:	15 
+		
+}
+
+
+
+SCHEMA DB {
+	DESCRIPTOR DB.COLUMN:  	
+		FIELD.NAMES: 	+`DataType`, +`ColumnName`, +`DefaultValue`, +`ColumnTypes`
+	FIELD.TYPES:  	:DB.DATA.TYPES.*, STR, VAR, $<N>{ :DB.COLUMN.TYPES.* } ,
+		FIELD.DEFAULTS:	STRING, "", -, - 
+
+}
+
