@@ -1,0 +1,5 @@
+Buildfile: ./generateSableFramework.xml
+
+generate.hierarchy.grammar.code:
+     [echo] Generating the java source-code for the sableCC grammar:
+   [delete] Deleting directory /Volumes/PETER WORK/01__Projects/Projects/01__AbstractSystems/NDA_and_MatrixProg/Code/Partita_Translator_Sandbox/src/com/abstractsystems/hierarchy/grammar

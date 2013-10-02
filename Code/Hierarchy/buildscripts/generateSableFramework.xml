@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+The purpose of this script is to generate the sablecc grammar classes from the grammar file, Hierarchy.grammar. It simply
+calls the sablecc parser-generator using java and the sablecc jar.
+
+Afterwords, it modifies the Node.java file that is generated so it inherits from the AttributeNode class that I created
+(so that the AST tree nodes can have attribute values that can be passed around).
+
+Also, it modifies Token.java.
+
+
+NOTE: Use all relative paths here as much as possible (so the project is completely portable). Currently, has no
+absolute paths.
+
+
+You will need to increase the memory avaiable to Ant!:
+    set ANT_OPTS=-Xmx512M
+    set ANT_OPTS=-Xmx512M ; export ANT_OPTS
+
+-->
+
+<project name="Generate Sable Framework for Hierarchy" default="all" basedir=".">
+
+<target name="all" depends="generate.hierarchy.grammar.code, modify.node.java, modify.token.java, modify.parser.java, build"/>
+
+	<!-- Directory and File Paths -->
+    <property name="buildfile.dir" location="../"/>
+    <property name="project.buildfile.name" value="build-forBuildingFromCommandLine.xml"/>
+    <property name="project.buildfile.path" value="${buildfile.dir}/${project.buildfile.name}"/>
+    
+    <property name="src.dir" location="../src"/>
+    <property name="hierarchy.compiler.dir" value="${src.dir}/net/unconventionalthinking/hierarchy"/>
+    <property name="hierarchy.grammar.dir.partial" value="net/unconventionalthinking/hierarchy/grammar"/>
+    <property name="hierarchy.grammar.dir" value="${src.dir}/${hierarchy.grammar.dir.partial}"/>
+    <property name="hierarchy.node.dir" value="${hierarchy.grammar.dir}/node"/>
+    <property name="hierarchy.parser.dir" value="${hierarchy.grammar.dir}/parser"/>
+
+
+    <!-- Script File Paths -->
+    <property name="buildscript.dir" location="."/>
+    <property name="modify.node.script" value="${buildscript.dir}/modifyNodeFile.perl"/>
+    <property name="modify.node.script.destfile" value="${hierarchy.node.dir}/Node.java"/>
+    <property name="modify.node.script.tempfile" value="${hierarchy.node.dir}/Node.java.out"/>
+    
+    <property name="modify.token.script" value="${buildscript.dir}/modifyTokenFile.perl"/>
+    <property name="modify.token.script.destfile" value="${hierarchy.node.dir}/Token.java"/>
+    <property name="modify.token.script.tempfile" value="${hierarchy.node.dir}/Token.java.out"/>
+
+
+    <property name="modify.parser.script" value="${buildscript.dir}/modifyParserFile.perl"/>
+    <property name="modify.parser.script.destfile" value="${hierarchy.parser.dir}/Parser.java"/>
+    <property name="modify.parser.script.tempfile" value="${hierarchy.parser.dir}/Parser.java.out"/>
+
+
+	<!-- Library Paths -->
+    <property name="lib.dir" location="../../lib"/> <!-- Normally, this would be at the same level as the 'src' dir,
+                                                         but the problem is when I create backups, libs increase size too much -->
+    <property name="sablecc.lib.path" value="${lib.dir}/sablecc-3.2/sablecc.jar"/>
+
+
+    <property name="hierarchy.grammar.grammarfile" value="${hierarchy.compiler.dir}/Hierarchy.grammar"/>
+
+
+
+	<!-- Properties for Running Hierarchy Translator -->
+    <property name="hierarchy.dist.jar.path" location="../dist/Hierarchy.jar"/>
+    <property name="hierarchy.dist.sablecc.jar.path" location="../dist/lib/sablecc.jar"/>
+<!--    <property name="hierarchy.input.testfile" location="../testdata/input.txt"/> -->
+    <property name="hierarchy.input.testfile" location="../testdata/Parser.java"/>
+
+
+	<!-- Random Stuff -->
+    <property name="hierarchy.finished.build.soundfile" location="../../misc/sounds/claves.wav"/>
+
+
+
+
+    <target name="generate.hierarchy.grammar.code">
+
+        <echo>Generating the java source-code for the sableCC grammar:</echo>
+
+        <delete dir="${hierarchy.grammar.dir}"/>
+
+        <echo message="${hierarchy.grammar.grammarfile}"/>
+
+
+    	<sound>
+			<success source="${hierarchy.finished.build.soundfile}" loops="1"/>
+			<fail source="${hierarchy.finished.build.soundfile}" loops="4"/>
+	  	</sound>
+
+
+        <!-- the SableCC parser-generator needs a lot of memory to create a parser for the large grammar file -->
+        <!-- So, set maxmemory for the jvm to something large -->
+        <java jar="${sablecc.lib.path}" fork="true" failonerror="true" maxmemory="1200m" >
+        
+            <arg value="-d"/> <!-- output directory where source should end up -->
+            <arg value="${src.dir}"/> <!-- output directory -->
+
+            <arg value="${hierarchy.grammar.grammarfile}"/> <!-- grammar file -->
+        </java>
+
+
+    </target>
+
+
+
+    <target name="modify.node.java">
+    	<echo>Create the modified Node.Java file that inherits from AttributeNode.Java file.</echo>
+
+        <exec executable="perl" failonerror="true">
+            <arg value="${modify.node.script}"/>
+            <arg value="-d"/>
+            <arg path="${hierarchy.node.dir}"/>
+        </exec>
+
+        <delete file="${modify.node.script.destfile}"/>
+        <move file="${modify.node.script.tempfile}" tofile="${modify.node.script.destfile}"/>
+
+	</target>
+
+
+    <target name="modify.token.java">
+    	<echo>Create the modified Token.Java file that has customized methods.</echo>
+
+        <exec executable="perl"  failonerror="true">
+            <arg value="${modify.token.script}"/>
+            <arg value="-d"/>
+            <arg path="${hierarchy.node.dir}"/>
+        </exec>
+
+        <delete file="${modify.token.script.destfile}"/>
+        <move file="${modify.token.script.tempfile}" tofile="${modify.token.script.destfile}"/>
+
+	</target>
+
+
+
+
+    <target name="modify.parser.java">
+    	<echo>Create the modified Parser.Java file to split up the big method (over the 64K size limit for methods).</echo>
+
+        <exec executable="perl"  failonerror="true">
+            <arg value="${modify.parser.script}"/>
+            <arg value="-d"/>
+            <arg path="${hierarchy.parser.dir}"/>
+        </exec>
+        
+        <delete file="${modify.parser.script.destfile}"/>
+        <move file="${modify.parser.script.tempfile}" tofile="${modify.parser.script.destfile}"/>
+	</target>
+
+
+
+    <target name="clean">
+    	<echo>Clean the source for the Hierarchy Translator Sandbox by calling the "build.xml".</echo>
+        <ant dir="${buildfile.dir}" target="clean" inheritAll="false" />
+	</target>
+
+
+
+    <target name="build">
+    	<echo>Build the source for the Hierarchy Project by calling the "build.xml".</echo>
+
+        <ant antfile="${project.buildfile.path}" target="jar" inheritAll="false" />
+	</target>
+
+	
+    <target name="test">
+    	<echo>Build the Test and Run them.</echo>
+        <ant dir="${buildfile.dir}" target="test" inheritAll="false" />
+	</target>
+
+
+
+    <target name="run">
+    	<echo>Run Hierarchy Translator for file: </echo> <echo message="${hierarchy.input.testfile}"/>
+
+        <java jar="${hierarchy.dist.jar.path}" fork="true" failonerror="true"  maxmemory="512m" >
+        
+            <arg value="-cp"/> 
+            <arg value="${hierarchy.dist.sablecc.jar.path}"/> 
+
+            <arg value="-f"/>
+            <arg value="${hierarchy.input.testfile}"/> <!-- input file -->
+        </java>
+
+	</target>
+    
+
+</project>

@@ -1,0 +1,741 @@
+
+Creating SableCC classes for the grammar file:
+
+
+SableCC version 3.2
+Copyright (C) 1997-2003 Etienne M. Gagnon <etienne.gagnon@uqam.ca> and
+others.  All rights reserved.
+
+This software comes with ABSOLUTELY NO WARRANTY.  This is free software,
+and you are welcome to redistribute it under certain conditions.
+
+Type 'sablecc -license' to view
+the complete copyright notice and license.
+
+
+ -- Generating parser for simple.grammar in /Volumes/PETER WORK/01__Projects/Projects-by-Type/Java/05__SimpleCompiler/src/simplecompiler/.
+Adding productions and alternative of section AST.
+Verifying identifiers.
+Verifying ast identifiers.
+Adding empty productions and empty alternative transformation if necessary.
+Adding productions and alternative transformation if necessary.
+computing alternative symbol table identifiers.
+Verifying production transform identifiers.
+Verifying ast alternatives transform identifiers.
+Generating token classes.
+Generating production classes.
+Generating alternative classes.
+Generating analysis classes.
+Generating utility classes.
+Generating the lexer.
+ State: INITIAL
+ - Constructing NFA.
+..........................................................................................................................................................................................................................................................................................................................................................................
+ - Constructing DFA.
+.......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+.............................................................................................................................................................................................................................................................
+ - resolving ACCEPT states.
+Generating the parser.
+.........................................................................................................................................
+.........................................................................................................................................
+.........................................................................................................................................
+...
+.....................................................................................
+A previous conflict that we've tried to solve by inline some productions inside the grammars cannot be solved that way. The transformed grammar is : 
+Productions 
+
+    compilation_unit
+         {-> P.compilation_unit  } =
+
+     {acompilationunit1} 
+         {-> New compilation_unit ([  ] )  }   |
+
+     {acompilationunit2} [type_declarations]: P.$type_declaration 
+         {-> New compilation_unit ([ type_declarations.type_declaration  ] )  }  
+     ;
+
+    type_declaration
+         {-> P.type_declaration  } =
+
+     {class} class_declaration 
+         {-> New type_declaration.class (class_declaration  )  }   |
+
+     {empty} semi 
+         {-> New type_declaration.empty (semi  )  }  
+     ;
+
+    class_declaration
+         {-> P.class_declaration  } =
+
+     {normal_class} class_token identifier class_body 
+         {-> New class_declaration.normal_class (class_token , identifier , class_body  )  }  
+     ;
+
+    class_body
+         {-> P.class_body  } =
+
+     {abodydeclarationclassbody1} l_brc r_brc 
+         {-> New class_body.body_declaration (l_brc , [  ], r_brc  )  }   |
+
+     {abodydeclarationclassbody2} l_brc P.$class_body_declaration r_brc 
+         {-> New class_body.body_declaration (l_brc , [ $class_body_declaration.class_body_declaration  ], r_brc  )  }  
+     ;
+
+    class_body_declaration
+         {-> P.class_body_declaration  } =
+
+     {class_member} class_member_declaration 
+         {-> New class_body_declaration.class_member (class_member_declaration  )  }   |
+
+     {constructor} constructor_declaration 
+         {-> New class_body_declaration.constructor (constructor_declaration  )  }  
+     ;
+
+    class_member_declaration
+         {-> P.class_member_declaration  } =
+
+     {method} method_declaration 
+         {-> New class_member_declaration.method (method_declaration  )  }  
+     ;
+
+    method_declaration
+         {-> P.method_declaration  } =
+
+     method_header method_body 
+         {-> New method_declaration (method_header , method_body  )  }  
+     ;
+
+    method_header
+         {-> P.method_header  } =
+
+     {primitive_type} primitive_type method_declarator 
+         {-> New method_header.primitive_type (primitive_type , method_declarator  )  }   |
+
+     {identifier} identifier method_declarator 
+         {-> New method_header.identifier (identifier , method_declarator  )  }  
+     ;
+
+    method_body
+         {-> P.method_body  } =
+
+     {block} block 
+         {-> New method_body.block (block  )  }   |
+
+     {empty} semi 
+         {-> New method_body.empty (semi  )  }  
+     ;
+
+    method_declarator
+         {-> P.method_declarator  } =
+
+     {amethoddeclarator1} identifier l_par r_par 
+         {-> New method_declarator (identifier , l_par , Null , r_par  )  }   |
+
+     {amethoddeclarator2} identifier l_par formal_parameter_list r_par 
+         {-> New method_declarator (identifier , l_par , formal_parameter_list , r_par  )  }  
+     ;
+
+    block
+         {-> P.block  } =
+
+     {ablock1} l_brc r_brc 
+         {-> New block (l_brc , [  ], r_brc  )  }   |
+
+     {ablock2} l_brc P.$block_statement r_brc 
+         {-> New block (l_brc , [ $block_statement.block_statement  ], r_brc  )  }  
+     ;
+
+    block_statement
+         {-> P.block_statement  } =
+
+     {var_declaration} local_var_declaration_statement 
+         {-> New block_statement.var_declaration (local_var_declaration_statement  )  }   |
+
+     {statement_declaration} statement 
+         {-> New block_statement.statement_declaration (statement  )  }  
+     ;
+
+    formal_parameter_list
+         {-> P.formal_parameter_list  } =
+
+     P.$formal_parameter 
+         {-> New formal_parameter_list ([ $formal_parameter.formal_parameter  ] )  }  
+     ;
+
+    formal_parameter
+         {-> P.formal_parameter  } =
+
+     {primitive_type} primitive_type identifier 
+         {-> New formal_parameter.primitive_type (primitive_type , identifier  )  }   |
+
+     {complex_type} [type_name]: identifier [var_name]: identifier 
+         {-> New formal_parameter.complex_type (type_name , var_name  )  }  
+     ;
+
+    constructor_declaration
+         {-> P.constructor_declaration  } =
+
+     constructor_declarator constructor_body 
+         {-> New constructor_declaration (constructor_declarator , constructor_body  )  }  
+     ;
+
+    constructor_declarator
+         {-> P.constructor_declarator  } =
+
+     {aconstructordeclarator1} identifier l_par r_par 
+         {-> New constructor_declarator (identifier , l_par , Null , r_par  )  }   |
+
+     {aconstructordeclarator2} identifier l_par formal_parameter_list r_par 
+         {-> New constructor_declarator (identifier , l_par , formal_parameter_list , r_par  )  }  
+     ;
+
+    constructor_body
+         {-> P.constructor_body  } =
+
+     {aconstructorbody1} l_brc r_brc 
+         {-> New constructor_body (l_brc , [  ], r_brc  )  }   |
+
+     {aconstructorbody2} l_brc P.$block_statement r_brc 
+         {-> New constructor_body (l_brc , [ $block_statement.block_statement  ], r_brc  )  }  
+     ;
+
+    statement
+         {-> P.statement  } =
+
+     {block} block 
+         {-> New statement.block (block  )  }   |
+
+     {expression_stmt} expression_statement 
+         {-> New statement.expression_stmt (expression_statement  )  }  
+     ;
+
+    expression_statement
+         {-> P.expression_statement  } =
+
+     {assignment} assignment semi 
+         {-> New expression_statement.assignment (assignment , semi  )  }   |
+
+     {method_invocation} method_invocation semi 
+         {-> New expression_statement.method_invocation (method_invocation , semi  )  }  
+     ;
+
+    local_var_declaration_statement
+         {-> P.local_var_declaration_statement  } =
+
+     {alocalvardeclarationstatement1} type identifier semi 
+         {-> New local_var_declaration_statement (type , identifier , Null , semi  )  }   |
+
+     {alocalvardeclarationstatement2} type identifier var_assignment semi 
+         {-> New local_var_declaration_statement (type , identifier , var_assignment , semi  )  }  
+     ;
+
+    type
+         {-> P.type  } =
+
+     {primitive} primitive_type 
+         {-> New type.primitive (primitive_type  )  }   |
+
+     {complex} identifier 
+         {-> New type.complex (identifier  )  }  
+     ;
+
+    var_assignment
+         {-> P.var_assignment  } =
+
+     assign r_value 
+         {-> New var_assignment (assign , r_value  )  }  
+     ;
+
+    r_value
+         {-> P.r_value  } =
+
+     {expression} expression 
+         {-> New r_value.expression (expression  )  }   |
+
+     {identifier} identifier 
+         {-> New r_value.identifier (identifier  )  }  
+     ;
+
+    expression
+         {-> P.expression  } =
+
+     {conditional_expr} conditional_expression 
+         {-> New expression.conditional_expr (conditional_expression  )  }   |
+
+     {assignment} assignment 
+         {-> New expression.assignment (assignment  )  }  
+     ;
+
+    assignment
+         {-> P.assignment  } =
+
+     l_value assign r_value 
+         {-> New assignment (l_value , assign , r_value  )  }  
+     ;
+
+    l_value
+         {-> P.l_value  } =
+
+     {id} identifier 
+         {-> New l_value.id (identifier  )  }   |
+
+     {field_access} field_access 
+         {-> New l_value.field_access (field_access  )  }  
+     ;
+
+    conditional_expression
+         {-> P.conditional_expression  } =
+
+     conditional_or_expression 
+         {-> New conditional_expression (conditional_or_expression  )  }  
+     ;
+
+    conditional_or_expression
+         {-> P.conditional_or_expression  } =
+
+     {pass_through} conditional_and_expression 
+         {-> New conditional_or_expression.pass_through (conditional_and_expression  )  }   |
+
+     {standard} conditional_or_expression bar_bar conditional_and_expression 
+         {-> New conditional_or_expression.standard (conditional_or_expression , bar_bar , conditional_and_expression  )  }   |
+
+     {with_id} conditional_or_expression bar_bar identifier 
+         {-> New conditional_or_expression.with_id (conditional_or_expression , bar_bar , identifier  )  }  
+     ;
+
+    conditional_and_expression
+         {-> P.conditional_and_expression  } =
+
+     {pass_through} additive_expression 
+         {-> New conditional_and_expression.pass_through (additive_expression  )  }   |
+
+     {standard} conditional_and_expression amp_amp additive_expression 
+         {-> New conditional_and_expression.standard (conditional_and_expression , amp_amp , additive_expression  )  }   |
+
+     {with_id} conditional_and_expression amp_amp identifier 
+         {-> New conditional_and_expression.with_id (conditional_and_expression , amp_amp , identifier  )  }  
+     ;
+
+    additive_expression
+         {-> P.additive_expression  } =
+
+     {pass_through} multiplicative_expression 
+         {-> New additive_expression.pass_through (multiplicative_expression  )  }   |
+
+     {plus_standard} additive_expression plus multiplicative_expression 
+         {-> New additive_expression.plus_standard (additive_expression , plus , multiplicative_expression  )  }   |
+
+     {plus_with_id} multiplicative_expression plus identifier 
+         {-> New additive_expression.plus_with_id (multiplicative_expression , plus , identifier  )  }   |
+
+     {minus_standard} additive_expression minus multiplicative_expression 
+         {-> New additive_expression.minus_standard (additive_expression , minus , multiplicative_expression  )  }   |
+
+     {minus_with_id} multiplicative_expression minus identifier 
+         {-> New additive_expression.minus_with_id (multiplicative_expression , minus , identifier  )  }  
+     ;
+
+    multiplicative_expression
+         {-> P.multiplicative_expression  } =
+
+     {pass_through} primary 
+         {-> New multiplicative_expression.pass_through (primary  )  }   |
+
+     {multiply_standard} multiplicative_expression star primary 
+         {-> New multiplicative_expression.multiply_standard (multiplicative_expression , star , primary  )  }   |
+
+     {multiply_with_id} multiplicative_expression star identifier 
+         {-> New multiplicative_expression.multiply_with_id (multiplicative_expression , star , identifier  )  }   |
+
+     {divide_standard} multiplicative_expression slash primary 
+         {-> New multiplicative_expression.divide_standard (multiplicative_expression , slash , primary  )  }   |
+
+     {divide_with_id} multiplicative_expression slash identifier 
+         {-> New multiplicative_expression.divide_with_id (multiplicative_expression , slash , identifier  )  }  
+     ;
+
+    primary
+         {-> P.primary  } =
+
+     {literal} literal 
+         {-> New primary.literal (literal  )  }   |
+
+     {parenthesis_expression} l_par expression r_par 
+         {-> New primary.parenthesis_expression (l_par , expression , r_par  )  }   |
+
+     {field_access} field_access 
+         {-> New primary.field_access (field_access  )  }   |
+
+     {method_invocation} method_invocation 
+         {-> New primary.method_invocation (method_invocation  )  }   |
+
+     {id} identifier 
+         {-> New primary.id (identifier  )  }  
+     ;
+
+    literal
+         {-> P.literal  } =
+
+     {integer} integer_literal 
+         {-> New literal.integer (integer_literal  )  }   |
+
+     {floating_point} floating_point_literal 
+         {-> New literal.floating_point (floating_point_literal  )  }  
+     ;
+
+    primitive_type
+         {-> P.primitive_type  } =
+
+     {numeric} numeric_type 
+         {-> New primitive_type.numeric (numeric_type  )  }  
+     ;
+
+    numeric_type
+         {-> P.numeric_type  } =
+
+     {integral} integral_type 
+         {-> New numeric_type.integral (integral_type  )  }   |
+
+     {floating} floating_point_type 
+         {-> New numeric_type.floating (floating_point_type  )  }  
+     ;
+
+    integral_type
+         {-> P.integral_type  } =
+
+     {byte} byte 
+         {-> New integral_type.byte (byte  )  }   |
+
+     {short} short 
+         {-> New integral_type.short (short  )  }   |
+
+     {int} int 
+         {-> New integral_type.int (int  )  }   |
+
+     {long} long 
+         {-> New integral_type.long (long  )  }   |
+
+     {char} char 
+         {-> New integral_type.char (char  )  }  
+     ;
+
+    floating_point_type
+         {-> P.floating_point_type  } =
+
+     {float} float 
+         {-> New floating_point_type.float (float  )  }   |
+
+     {double} double 
+         {-> New floating_point_type.double (double  )  }  
+     ;
+
+    method_invocation
+         {-> P.method_invocation  } =
+
+     {asimplemethodinvocation1} identifier l_par r_par 
+         {-> New method_invocation.simple (identifier , l_par , Null , r_par  )  }   |
+
+     {asimplemethodinvocation2} identifier l_par argument_list r_par 
+         {-> New method_invocation.simple (identifier , l_par , argument_list , r_par  )  }  
+     ;
+
+    argument_list
+         {-> P.argument_list  } =
+
+     {id} identifier 
+         {-> New argument_list.id (identifier  )  }   |
+
+     {expression} expression 
+         {-> New argument_list.expression (expression  )  }   |
+
+     {expanding_with_id} argument_list comma identifier 
+         {-> New argument_list.expanding_with_id (argument_list , comma , identifier  )  }   |
+
+     {expanding_with_expression} argument_list comma expression 
+         {-> New argument_list.expanding_with_expression (argument_list , comma , expression  )  }  
+     ;
+
+    field_access
+         {-> P.field_access  } =
+
+     {expanding} primary dot identifier 
+         {-> New field_access.expanding (primary , dot , identifier  )  }  
+     ;
+
+    additional_identifiers
+         {-> P.additional_identifiers  } =
+
+     dot identifier 
+         {-> New additional_identifiers (dot , identifier  )  }  
+     ;
+
+    $type_declaration
+         {-> P.type_declaration*  } =
+
+     {terminal} P.type_declaration 
+         {-> [ P.type_declaration.type_declaration  ]  }   |
+
+     {non_terminal} P.$type_declaration P.type_declaration 
+         {-> [ $type_declaration.type_declaration P.type_declaration.type_declaration  ]  }  
+     ;
+
+    $class_body_declaration
+         {-> P.class_body_declaration*  } =
+
+     {terminal} P.class_body_declaration 
+         {-> [ P.class_body_declaration.class_body_declaration  ]  }   |
+
+     {non_terminal} P.$class_body_declaration P.class_body_declaration 
+         {-> [ $class_body_declaration.class_body_declaration P.class_body_declaration.class_body_declaration  ]  }  
+     ;
+
+    $block_statement
+         {-> P.block_statement*  } =
+
+     {terminal} P.block_statement 
+         {-> [ P.block_statement.block_statement  ]  }   |
+
+     {non_terminal} P.$block_statement P.block_statement 
+         {-> [ $block_statement.block_statement P.block_statement.block_statement  ]  }  
+     ;
+
+    $formal_parameter
+         {-> P.formal_parameter*  } =
+
+     {terminal} P.formal_parameter 
+         {-> [ P.formal_parameter.formal_parameter  ]  }   |
+
+     {non_terminal} P.$formal_parameter P.formal_parameter 
+         {-> [ $formal_parameter.formal_parameter P.formal_parameter.formal_parameter  ]  }  
+     ;
+
+Abstract Syntax Tree
+    compilation_unit =
+     [type_declarations]: type_declaration* 
+     ;
+
+    type_declaration =
+     {class} class_declaration | 
+     {empty} semi 
+     ;
+
+    class_declaration =
+     {normal_class} class_token identifier class_body 
+     ;
+
+    class_body =
+     {body_declaration} l_brc class_body_declaration* r_brc 
+     ;
+
+    class_body_declaration =
+     {class_member} class_member_declaration | 
+     {constructor} constructor_declaration 
+     ;
+
+    class_member_declaration =
+     {method} method_declaration 
+     ;
+
+    method_declaration =
+     method_header method_body 
+     ;
+
+    method_header =
+     {primitive_type} primitive_type method_declarator | 
+     {identifier} identifier method_declarator 
+     ;
+
+    method_body =
+     {block} block | 
+     {empty} semi 
+     ;
+
+    method_declarator =
+     identifier l_par formal_parameter_list? r_par 
+     ;
+
+    block =
+     l_brc block_statement* r_brc 
+     ;
+
+    block_statement =
+     {var_declaration} local_var_declaration_statement | 
+     {statement_declaration} statement 
+     ;
+
+    formal_parameter_list =
+     formal_parameter+ 
+     ;
+
+    formal_parameter =
+     {primitive_type} primitive_type identifier | 
+     {complex_type} [type_name]: identifier [var_name]: identifier 
+     ;
+
+    constructor_declaration =
+     constructor_declarator constructor_body 
+     ;
+
+    constructor_declarator =
+     identifier l_par formal_parameter_list? r_par 
+     ;
+
+    constructor_body =
+     l_brc block_statement* r_brc 
+     ;
+
+    statement =
+     {block} block | 
+     {expression_stmt} expression_statement 
+     ;
+
+    expression_statement =
+     {assignment} assignment semi | 
+     {method_invocation} method_invocation semi 
+     ;
+
+    local_var_declaration_statement =
+     type identifier var_assignment? semi 
+     ;
+
+    type =
+     {primitive} primitive_type | 
+     {complex} identifier 
+     ;
+
+    var_assignment =
+     assign r_value 
+     ;
+
+    r_value =
+     {expression} expression | 
+     {identifier} identifier 
+     ;
+
+    expression =
+     {conditional_expr} conditional_expression | 
+     {assignment} assignment 
+     ;
+
+    assignment =
+     l_value assign r_value 
+     ;
+
+    l_value =
+     {id} identifier | 
+     {field_access} field_access 
+     ;
+
+    conditional_expression =
+     conditional_or_expression 
+     ;
+
+    conditional_or_expression =
+     {pass_through} conditional_and_expression | 
+     {standard} conditional_or_expression bar_bar conditional_and_expression | 
+     {with_id} conditional_or_expression bar_bar identifier 
+     ;
+
+    conditional_and_expression =
+     {pass_through} additive_expression | 
+     {standard} conditional_and_expression amp_amp additive_expression | 
+     {with_id} conditional_and_expression amp_amp identifier 
+     ;
+
+    additive_expression =
+     {pass_through} multiplicative_expression | 
+     {plus_standard} additive_expression plus multiplicative_expression | 
+     {plus_with_id} multiplicative_expression plus identifier | 
+     {minus_standard} additive_expression minus multiplicative_expression | 
+     {minus_with_id} multiplicative_expression minus identifier 
+     ;
+
+    multiplicative_expression =
+     {pass_through} primary | 
+     {multiply_standard} multiplicative_expression star primary | 
+     {multiply_with_id} multiplicative_expression star identifier | 
+     {divide_standard} multiplicative_expression slash primary | 
+     {divide_with_id} multiplicative_expression slash identifier 
+     ;
+
+    primary =
+     {literal} literal | 
+     {parenthesis_expression} l_par expression r_par | 
+     {field_access} field_access | 
+     {method_invocation} method_invocation | 
+     {id} identifier 
+     ;
+
+    literal =
+     {integer} integer_literal | 
+     {floating_point} floating_point_literal 
+     ;
+
+    primitive_type =
+     {numeric} numeric_type 
+     ;
+
+    numeric_type =
+     {integral} integral_type | 
+     {floating} floating_point_type 
+     ;
+
+    integral_type =
+     {byte} byte | 
+     {short} short | 
+     {int} int | 
+     {long} long | 
+     {char} char 
+     ;
+
+    floating_point_type =
+     {float} float | 
+     {double} double 
+     ;
+
+    method_invocation =
+     {simple} identifier l_par argument_list? r_par 
+     ;
+
+    argument_list =
+     {id} identifier | 
+     {expression} expression | 
+     {expanding_with_id} argument_list comma identifier | 
+     {expanding_with_expression} argument_list comma expression 
+     ;
+
+    field_access =
+     {expanding} primary dot identifier 
+     ;
+
+    additional_identifiers =
+     dot identifier 
+     ;
+
+
+
+shift/reduce conflict in state [stack: TClassToken TIdentifier TLBrc PMethodHeader TLBrc TLPar PMultiplicativeExpression *] on TMinus in {
+	[ PAdditiveExpression = PMultiplicativeExpression * TMinus TIdentifier ] (shift),
+	[ PAdditiveExpression = PMultiplicativeExpression * ] followed by TMinus (reduce)
+}
+
+shift/reduce conflict in state [stack: TClassToken TIdentifier TLBrc PMethodHeader TLBrc TLPar PMultiplicativeExpression *] on TPlus in {
+	[ PAdditiveExpression = PMultiplicativeExpression * TPlus TIdentifier ] (shift),
+	[ PAdditiveExpression = PMultiplicativeExpression * ] followed by TPlus (reduce)
+}
+java.lang.RuntimeException: 
+
+shift/reduce conflict in state [stack: TClassToken TIdentifier TLBrc PMethodHeader TLBrc TLPar PMultiplicativeExpression *] on TMinus in {
+	[ PAdditiveExpression = PMultiplicativeExpression * TMinus TIdentifier ] (shift),
+	[ PAdditiveExpression = PMultiplicativeExpression * ] followed by TMinus (reduce)
+}
+
+shift/reduce conflict in state [stack: TClassToken TIdentifier TLBrc PMethodHeader TLBrc TLPar PMultiplicativeExpression *] on TPlus in {
+	[ PAdditiveExpression = PMultiplicativeExpression * TPlus TIdentifier ] (shift),
+	[ PAdditiveExpression = PMultiplicativeExpression * ] followed by TPlus (reduce)
+}
+	at org.sablecc.sablecc.GenParser.caseStart(Unknown Source)
+	at org.sablecc.sablecc.node.Start.apply(Unknown Source)
+	at org.sablecc.sablecc.SableCC.processGrammar(Unknown Source)
+	at org.sablecc.sablecc.SableCC.processGrammar(Unknown Source)
+	at org.sablecc.sablecc.SableCC.main(Unknown Source)

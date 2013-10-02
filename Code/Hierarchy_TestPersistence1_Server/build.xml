@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="Hierarchy_TestPersistence1_Server" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Hierarchy_TestPersistence1_Server.</description>
+    <import file="nbproject/build-impl.xml"/>
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="Hierarchy_TestPersistence1_Server-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
+
+    <!-- load the common build settings -->
+    <!-- don't delete this! even though redundant. needed to find the commonbuild settings file -->
+    <property name="Hierarchy.Controller.proj.dir" value="../Hierarchy_ControllerProject"/>
+    <property file="${Hierarchy.Controller.proj.dir}/Hierarchy-CommonBuildSettings.properties"/>
+
+    <target name="run-PersistTest-02-Server" depends="compile-test">
+
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <echo> Run the Persistent Server Junit Test</echo>
+        <echo> PersistTest_02_Server__BasicEndToEndTest</echo>
+        <echo>____________________________________________________________________</echo>
+        <echo> First, delete the old junit results</echo>
+        <delete>
+            <fileset dir="${Hierarchy.PersistenceMain.proj.testresults.dir}" includes="**/*.xml"/>
+        </delete>
+
+
+        <echo> Now, copy over the "ServerStarted" file lock, to let the client ant script know that the server has finished building and is starting up, so the client can proceed </echo>
+        <copy file="${hierarchy.persistence.main.ServerStartedFileLock.file.path.src}" todir="${Hierarchy.PersistenceMain.proj.testresults.dir}"/>
+
+        <junit fork="true" dir="." printsummary="false" haltonfailure="true" haltonerror="true" >
+            <!-- print out any errors and the output of each test as an xml report using formatter -->
+            <formatter type="xml" />
+            <!-- Also print out output to console -->
+            <formatter type="brief" usefile="false"/>
+            <classpath>
+                <pathelement location="${Hierarchy.proj.dir}/dist/Hierarchy.jar"/>
+                <pathelement path="${hierarchy.persistence.server.proj.classpath}"/>
+                <pathelement path="${hierarchy.persistence.main.proj.classpath}"/>
+            </classpath>
+
+            <test name="net.unconventionalthinking.hierarchy.persistence.PersistTest_02_Server__BasicEndToEndTest"
+                todir="${Hierarchy.PersistenceMain.proj.testresults.dir}"/>
+        </junit>
+    </target>
+
+
+
+
+    <target name="run-PersistTest-03-Server" depends="compile-test">
+
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <echo> Run the Persistent Server Junit Test</echo>
+        <echo> PersistTest_03_Server__CheckNewPersistedMatrix</echo>
+        <echo>____________________________________________________________________</echo>
+
+        <echo> Copy over the "ServerStarted" file lock, to let the client ant script know that the server has finished building and is starting up, so the client can proceed </echo>
+        <copy file="${hierarchy.persistence.main.ServerStartedFileLock.file.path.src}" todir="${Hierarchy.PersistenceMain.proj.testresults.dir}"/>
+
+        <junit fork="true" dir="." printsummary="false" haltonfailure="true" haltonerror="true" >
+            <!-- print out any errors and the output of each test as an xml report using formatter -->
+            <formatter type="xml" />
+            <!-- Also print out output to console -->
+            <formatter type="brief" usefile="false"/>
+            <classpath>
+                <pathelement location="${Hierarchy.proj.dir}/dist/Hierarchy.jar"/>
+                <pathelement path="${hierarchy.persistence.server.proj.classpath}"/>
+                <pathelement path="${hierarchy.persistence.main.proj.classpath}"/>
+            </classpath>
+
+            <test name="net.unconventionalthinking.hierarchy.persistence.PersistTest_03_Server__CheckNewPersistedMatrix"
+                todir="${Hierarchy.PersistenceMain.proj.testresults.dir}"/>
+        </junit>
+    </target>
+
+</project>

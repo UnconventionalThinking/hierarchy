@@ -1,0 +1,420 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package maintests.samples;
+
+import java.util.*;
+
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+
+/**
+ * This is just a copy of all the tests in MainTests_EmbeddedCodeTest, but in static methods.
+ * If you add any tests there, also add them here!
+ */
+public class MainTests_EmbeddedCodeTest_StaticMethods {
+
+
+    static String requiredImagePath_Expected ;
+    static Symbol isRequired_Expected;
+    static Symbol NotRequired_Expected;
+
+    static Symbol testSym1_Expected;
+    static int testField2_Expected;
+
+
+    private static DESCRIPTOR<Test.Matrix->FORM.SELECTOR->ITEM> testDescField_Item;
+    static boolean enteredFilter = false;
+
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+
+        requiredImagePath_Expected = TestConstants.RequiredImagePath;
+        isRequired_Expected = :IsRequired;
+        NotRequired_Expected = +:NotRequired;
+
+        testSym1_Expected = :testSym1;
+        testField2_Expected = 6;
+
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {}
+    @Before
+    public void setUp() {}
+    @After
+    public void tearDown() {}
+
+
+
+
+    @Test
+    public void testStaticMethodContainingMatrixAccess() throws Exception {
+        staticMethodWithAccess();
+    }
+
+    /**
+     * This is just a copy of all the tests in MainTests_EmbeddedCodeTest, but in static methods.
+     * If you add any tests there, also add them here!
+     */
+    static void staticMethodWithAccess() throws Exception {
+
+        //  Static Access Tests ________________________________________________________________________________________
+
+        //  Static Access test field RequiredImagePath
+        String resultString = Test.Matrix->`First Name`->maintests.samples::WEB.FORM::FORM.REQUIRED:>RequiredImagePath;
+        assertEquals(requiredImagePath_Expected, resultString);
+
+        //  Test Specialized fieldsets
+        FieldSet formRequired_FieldSet = (Test.Matrix->`First Name`->maintests.samples::WEB.FORM::FORM.REQUIRED).get_FieldSet();
+        assertEquals(true, formRequired_FieldSet.is_SpecializedFieldSet());
+        Symbol resultSymbol = ((FieldSetTuple__maintests$__$samples$_CC_$WEB$__$FORM$_S_$FORM$__$REQUIRED)formRequired_FieldSet)
+                                                                                                            .get_IsRequired(executeInfo);
+        assertEquals(isRequired_Expected, resultSymbol);
+
+
+
+        //  Static Access test field RequiredImagePath (using 2 accessors)
+        resultString = maintests.samples::Test.Matrix->ITEM[`First Name`]->FORM.REQUIRED:>RequiredImagePath;
+        assertEquals(requiredImagePath_Expected, resultString);
+
+
+        //  Static Access test field RequiredImagePath with accessor with descTag that has only 1 namescope
+        resultString = Test.Matrix->`First Name`->WEB.FORM::FORM.REQUIRED:>RequiredImagePath;
+        assertEquals(requiredImagePath_Expected, resultString);
+
+
+        //  Static DescTag w/ DynLabel Access test field IsRequired
+        Label firstName_Label = `First Name`;
+        resultSymbol = Test.Matrix->ITEM[firstName_Label]->FORM.REQUIRED:>IsRequired;
+        assertEquals(isRequired_Expected, resultSymbol);
+
+        //  Access an object type
+        Date currDate = Test.Matrix2->`test object field types test`->TEST.OBJECT.TYPES:>testField1;
+        Object out = Test.Matrix2->`test object field types test`->TEST.OBJECT.TYPES:>testField2;
+        assertNotNull(currDate);
+        assertNotNull(out);
+
+        //  Dyn Access Tests ________________________________________________________________________________________
+
+        //  Dyn Access test field isRequired
+        Object resultObj = Test.Matrix->[`First Name`]->[maintests.samples::WEB.FORM::FORM.REQUIRED]:>[+:IsRequired];
+        assertEquals(isRequired_Expected, resultObj);
+
+
+        //  Dyn Access test field RequiredImagePath
+        resultObj = maintests.samples::Test.Matrix->[`First Name`]->[+:FORM.REQUIRED]:>[:RequiredImagePath];
+        assertEquals(requiredImagePath_Expected, resultObj);
+
+        //  Dyn Access test field isRequired USING label var
+        resultObj = Test.Matrix->[firstName_Label]->[:FORM.REQUIRED]:>[+:IsRequired];
+        assertEquals(isRequired_Expected, resultObj);
+
+
+        //  Test Matrix2 Dyn Access USING descTagName var
+        DescriptorTagName testDesc_DescTagName = AppSymbols_DescTagName.TEST$__$DESC;
+        resultObj = Test.Matrix2->[`test item`]->[testDesc_DescTagName]:>[:testField1];
+        assertEquals(testSym1_Expected, resultObj);
+
+        //  Test Matrix2 Dyn Access USING descTag var
+        DescriptorTag testDesc_DescTag = AppSymbols_DescTag.maintests$__$samples$_CC_$Test$__$Schema$_CC_$TEST$__$DESC;
+        resultObj = Test.Matrix2->[`test item`]->[testDesc_DescTag]:>[:testField1];
+        assertEquals(testSym1_Expected, resultObj);
+
+        //  Test Matrix2 Static Access test field
+        int testField2 = Test.Matrix2->`test item`->TEST.DESC:>testField2;
+        assertEquals(testField2_Expected, testField2);
+
+
+
+
+
+
+        //  Annotations tests __________________________________________________________________________________________________
+
+        //  Dynamic access:
+
+        //  Annotation test - Dynamic Access #1 (should be 1.1)
+        Object annoteAccessTest_1 = Test.Matrix-<*1>[+:Junk]->[WEB.FORM::FORM.REQUIRED]:>[:IsRequired];
+        assertEquals(+:"1.1", annoteAccessTest_1);
+
+
+        //  Annotation test - static/dynamic Access #2 - Test Reference counter: error is in access *1.2, but should return 1.1!!)
+        Object annoteAccessTest_2 = Test.Matrix-<*1>`First Name`->[:Junk]:>[:IsRequired];
+        assertEquals(:"1.1", annoteAccessTest_2);
+
+        //  Annotation test - Dynamic Access #3 (should be IsRequired)
+        Object annoteAccessTest_3 = ((Matrix)null)-<*1>[`First Name`]->[:FORM.REQUIRED]:>[:IsRequired];
+        assertEquals(isRequired_Expected, annoteAccessTest_3);
+
+
+
+        //  Annotation test - Dynamic Access #4 - First-Level Handler - (should be \\annotatedPath)
+        Object annoteAccessTest_4 = Test.Matrix-<*two>[`First Name`]->[:Junk]:>[:RequiredImagePath];
+        assertEquals("\\annotatedPath", annoteAccessTest_4);
+
+
+        //  Annotation test - Dynamic Access #5 - Default - (should be \"stuff\")
+        Object annoteAccessTest_5 = Test.Matrix->[`First Name`]->[:Junk]:>[:RequiredImagePath];
+        assertEquals("stuff", annoteAccessTest_5);
+
+/*
+        //  Test primitive type getting a null object type. What happens?
+        //  ANSWER: it doesn't work, because the annotation returns a 'null', and the access method returns an int
+        //  But, leave this code here. Because maybe we'll modify the access methods gen to support "primitive returns"
+        //  that have "null" annotation returns
+        Descriptor firstName_Desc = Test.Matrix->`First Name`;
+        Test$__$Matrix.matrix.remove_ChildDescriptor(executeInfo, `First Name`);
+        int imageHeight = Test.Matrix-<*annotationTest_IntNull>`First Name`->FORM.REQUIRED:>ImageHeight;
+        assertEquals(0, imageHeight);
+        //  Fix the matrix, add the descriptor back in
+        Test$__$Matrix.matrix.add_ChildDescriptor(executeInfo, firstName_Desc);
+*/
+
+        //  TODO - Need to test static annotations too
+
+
+
+        //  Multi-Access _______________________________________________________________________________________________
+
+        //  Static Multi Access test field IsRequired.
+        MatrixSet<Object> IsRequired_Set = Test.Matrix->ITEM{*}->FORM.REQUIRED{*}:>IsRequired{*};
+        assertEquals(2, IsRequired_Set.size());
+
+        assertEquals(isRequired_Expected, IsRequired_Set.get(0));
+        assertEquals(NotRequired_Expected, IsRequired_Set.get(1));
+
+
+
+        //  Static Multi Access test field IsRequired, USING DescTag (instead of DescTagName).
+        IsRequired_Set = Test.Matrix->ITEM{*}->maintests.samples::WEB.FORM::FORM.REQUIRED{*}:>IsRequired{*};
+        assertEquals(2, IsRequired_Set.size());
+        assertEquals(isRequired_Expected, IsRequired_Set.get(0));
+        assertEquals(NotRequired_Expected, IsRequired_Set.get(1));
+
+
+        //  Static Multi Access of multiple child descriptors
+        MatrixSet<Descriptor> options_Set = Test.Matrix->FORM.SELECTOR->OPTION{*};
+        assertEquals(3, options_Set.size());
+        assertEquals(:%OPTION, options_Set.get(0).descTagName);
+        assertEquals(:%OPTION, options_Set.get(1).descTagName);
+        assertEquals(:%OPTION, options_Set.get(2).descTagName);
+
+
+
+
+        //  Static Multi Access of Descriptors - using annotation filter
+        MatrixSet<Descriptor> item_Set = Test.Matrix->ITEM{*};
+        assertEquals(2, item_Set.size());
+
+        enteredFilter = false;
+        MatrixSet<Descriptor> item_Set2 = Test.Matrix->ITEM{*F1};
+        assertEquals(1, item_Set2.size());
+        assertTrue(enteredFilter);
+
+
+        //  Static Multi Access test field IsRequired - using annotation filter
+        enteredFilter = false;
+        IsRequired_Set = Test.Matrix->ITEM{*F1}->FORM.REQUIRED{*}:>IsRequired{*};
+        assertEquals(1, IsRequired_Set.size());
+
+        assertEquals(isRequired_Expected, IsRequired_Set.get(0));
+        assertTrue(enteredFilter);
+
+
+        enteredFilter = false;
+        IsRequired_Set = Test.Matrix->ITEM{*}->FORM.REQUIRED{*}:>IsRequired{*F2};
+        assertEquals(1, IsRequired_Set.size());
+
+        assertEquals(NotRequired_Expected, IsRequired_Set.get(0));
+        assertTrue(enteredFilter);
+
+
+
+
+        //  Descriptor Var tests ____________________________________________________________________________________________________________
+        DESCRIPTOR<Test.Matrix->ITEM->FORM.REQUIRED> testDescVar_FormRequired = Test.Matrix->`First Name`->maintests.samples::WEB.FORM::FORM.REQUIRED;
+        resultSymbol = testDescVar_FormRequired:>IsRequired;
+        assertEquals(AppSymbols.IsRequired, resultSymbol);
+
+        //  Dyn access
+        resultObj = testDescVar_FormRequired:>[:%IsRequired];
+        assertEquals(AppSymbols.IsRequired, resultObj);
+
+
+        //  Test desc method params
+        descVar_methodParamTest(Test.Matrix->FORM.SELECTOR->`item 1`);
+
+
+        //  Test desc var field
+        testDescField_Item = Test.Matrix->FORM.SELECTOR->`item 2`;
+        resultString = testDescField_Item->FORM.REQUIRED:>RequiredImagePath;
+        assertEquals("more required stuff", resultString);
+
+        //  Test DescVar access - accessing a label from a descriptor Var
+        DESCRIPTOR<Test.Matrix2->ITEM> testDesc = Test.Matrix2->`test item 2`;
+        Symbol testField1 =  testDesc->`1`:>testField1;
+        assertEquals(:testSymA, testField1);
+
+        //  Test DescVar access - accessing a label from a 2nd level nested descriptor Var
+        testField1 =  testDesc->`2`->`2`.`A`:>testField1;
+        assertEquals(:testSymC, testField1);
+
+
+
+        //  Dyn access
+        resultObj = testDescField_Item->[:%FORM.REQUIRED]:>[:%RequiredImagePath];
+        assertEquals("more required stuff", resultObj);
+
+
+
+        //  test desc tagname access syntax
+        DescriptorTagName formRequired_DescTagName = :%FORM.REQUIRED;
+        assertNotNull(formRequired_DescTagName);
+        assertEquals(AppSymbols_DescTagName.FORM$__$REQUIRED, formRequired_DescTagName);
+
+
+
+
+        //  For each loop test:
+        //  1. desc var with an expression
+        int count = 0;
+        for (DESCRIPTOR<Test.Matrix->ITEM->FORM.REQUIRED> formReq_Desc : Test.Matrix->ITEM{*}->FORM.REQUIRED{*}) {
+            assertNotNull(formReq_Desc);
+            formRequired_FieldSet = formReq_Desc.get_FieldSet();
+            assertEquals(true, formRequired_FieldSet.is_SpecializedFieldSet());
+
+            resultString = formReq_Desc:>RequiredImagePath;
+            assertEquals(requiredImagePath_Expected, resultString);
+            count++;
+        }
+        assertEquals(2, count);
+
+        //  2. desc var with an identifier (uses a different production action in partita actions)
+        count = 0;
+        MatrixSet<Descriptor> forReq_Set = Test.Matrix->ITEM{*}->FORM.REQUIRED{*};
+        for (DESCRIPTOR<Test.Matrix->ITEM->FORM.REQUIRED> formReq_Desc : forReq_Set) {
+            assertNotNull(formReq_Desc);
+            formRequired_FieldSet = formReq_Desc.get_FieldSet();
+            assertEquals(true, formRequired_FieldSet.is_SpecializedFieldSet());
+
+            resultString = formReq_Desc:>RequiredImagePath;
+            assertEquals(requiredImagePath_Expected, resultString);
+            count++;
+        }
+        assertEquals(2, count);
+
+
+        //  test imported types ___________________________________________
+        DESCRIPTOR<Test.Matrix2->ITEM->TEST.IMPORTING.TYPES> testImportingTypes_desc =
+            Test.Matrix2->`test object field types test`->TEST.IMPORTING.TYPES;
+        assertEquals(java.util.concurrent.ConcurrentHashMap.class, (testImportingTypes_desc:>testField1).getClass());
+        assertEquals(java.util.concurrent.ConcurrentHashMap.class, (testImportingTypes_desc:>testField2).getClass());
+        assertEquals(java.util.concurrent.ConcurrentHashMap.class, (testImportingTypes_desc:>testField3).getClass());
+        assertEquals(java.util.concurrent.ConcurrentHashMap.class, (testImportingTypes_desc:>testField4).getClass());
+
+
+
+
+
+        ANNOTATIONS {
+            *1 {
+                *1.0 {
+
+                    ACCESSOR.RETURN (Test.Matrix->[`First Name`]);
+                }
+                *1.1 {
+                    return +:"1.1";
+                }
+
+            }
+            *two {
+                return "\\annotatedPath";
+            }
+
+            *3 {
+                return "\\anotherAnnotatedPath";
+            }
+
+            *annotationTest_IntNull {
+                return null;
+            }
+            DEFAULT {
+                return "stuff";
+            }
+
+
+
+            FILTERS {
+                *F1 {
+
+                    MatrixSet<Descriptor> itemSet_Full = (MatrixSet<Descriptor>)curr_ValueSet_Full;
+                    MatrixSet<Descriptor> itemSet_Filtered = new MatrixSet<Descriptor>();
+
+                    itemSet_Filtered.add(itemSet_Full.get(0));
+
+                    enteredFilter = true;
+                    return itemSet_Filtered;
+
+               }
+
+                *F2 {
+
+                    MatrixSet<Object> valueSet_Full = (MatrixSet<Object>)curr_ValueSet_Full;
+                    MatrixSet<Object> valueSet_Filtered = new MatrixSet<Object>();
+
+                    valueSet_Filtered.add(valueSet_Full.get(1));
+
+                    enteredFilter = true;
+                    return valueSet_Filtered;
+
+               }
+            }
+
+        }
+
+    }
+
+
+
+    private static void descVar_methodParamTest(DESCRIPTOR<Test.Matrix->FORM.SELECTOR->ITEM> testDescVar_Item) throws Exception {
+
+        String resultString = testDescVar_Item->FORM.REQUIRED:>RequiredImagePath;
+        assertEquals("required stuff", resultString);
+
+        //  Dyn access
+        Object resultObj = testDescVar_Item->[:FORM.REQUIRED]:>[:RequiredImagePath];
+        assertEquals("required stuff", resultObj);
+
+
+        ANNOTATIONS {
+            DEFAULT {
+                return "stuff";
+            }
+        }
+
+    }
+
+
+
+}

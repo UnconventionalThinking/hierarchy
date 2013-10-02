@@ -1,0 +1,127 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package maintests.samples;
+
+
+import java.util.*;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+import MATRIX maintests.samples::Test.Matrix2;
+
+public class MainTests_EmbeddedCode_2_Test {
+
+    static String requiredImagePath_Expected ;
+    static Symbol isRequired_Expected;
+    static Symbol NotRequired_Expected;
+
+    static Symbol testSym1_Expected;
+    static int testField2_Expected;
+
+
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+
+        requiredImagePath_Expected = "/images/isRequired";
+        isRequired_Expected = :IsRequired;
+        NotRequired_Expected = +:NotRequired;
+
+        testSym1_Expected = :testSym1;
+        testField2_Expected = 6;
+
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {}
+    @Before
+    public void setUp() {}
+    @After
+    public void tearDown() {}
+
+
+
+    /**
+     * The purpose of this test is really the flattened matrix during meta-compilation. The problem is that
+     * When it combined two child descriptors together (like to ITEM desc), for the grand child desc, it wasn't
+     * using the 'combined' flattened desc (so here, ITEM), but the `temporary' one that holds the curr grand child's
+     * desc info (and will be combined the the existing flattened grand child desc).
+     * a good example is the ITEM desc in the Abstract.Content matrix. the `People` item's child descriptor's weren't being added to
+     * the flattened matrix correctly.
+     */
+    @Test
+    public void test_AbstractContentBug() throws Exception {
+
+
+        DESCRIPTOR<maintests.samples::Abstract.Content->ITEM->PEOPLE> peopleDesc =
+                maintests.samples::Abstract.Content->`People`->PEOPLE;
+
+        assertNotNull(peopleDesc);
+        assertEquals(:%PEOPLE, peopleDesc.descTagName);
+
+
+        MatrixSet<Descriptor> matrixSet =
+                maintests.samples::Abstract.Content->`People`->PEOPLE->PERSON.INFO{*};
+
+        assertTrue(matrixSet.size() > 0);
+
+        for (Descriptor desc : matrixSet) {
+            DESCRIPTOR<maintests.samples::Abstract.Content->ITEM->PEOPLE->PERSON.INFO> personInfoDesc = desc;
+
+            assertEquals(:%PERSON.INFO, personInfoDesc.descTagName);
+        }
+
+
+        ANNOTATIONS {
+            DEFAULT {
+                return null;
+            }
+        }
+
+    }
+
+
+    @Test
+    public void test_MatrixFieldAssignement() throws Exception {
+        //   test setting to a expression
+        Test.Matrix2->`field assignment test`->TEST.DESC:>testField2 = 66;
+        assertEquals(66, Test.Matrix2->`field assignment test`->TEST.DESC:>testField2);
+
+        //  test setting to an identifier (with continued access right off the var)
+        int var1 = 55;
+        DESCRIPTOR<Test.Matrix2->ITEM->TEST.DESC> testDesc = Test.Matrix2->`field assignment test`->TEST.DESC;
+        testDesc:>testField2 = var1;
+        assertEquals(var1, testDesc:>testField2);
+
+        //  test setting to a matrix expression (with continued access with a desc then a field)
+        DESCRIPTOR<Test.Matrix2->ITEM> testItem = Test.Matrix2->`field assignment test`;
+        testItem->TEST.DESC:>testField2 = Test.Matrix2->`test item`->TEST.DESC:>testField2;
+        assertEquals(6, Test.Matrix2->`field assignment test`->TEST.DESC:>testField2);
+
+
+        ANNOTATIONS {
+            DEFAULT {
+                return null;
+            }
+        }
+
+    }
+
+}

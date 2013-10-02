@@ -1,0 +1,66 @@
+Java Productions that need to include Symbol Useage Or New Matrix Element
+__________________________________________________________________________
+
+
+
+  assignment =
+    {expression} left_hand_side assignment_operator assignment_expression |
+    {identifier} left_hand_side assignment_operator identifier [additional_identifiers]:additional_identifier*;
+
+
+  equality_expression =
+    {simple}                                                                                  relational_expression |
+    {eq_eq_re}  equality_expression                                                       eq  relational_expression |
+    {eq_eq_id}  equality_expression                                                       eq                identifier  [additional_identifiers]:additional_identifier* |
+    {eq_id_re}                identifier  [additional_identifiers]:additional_identifier* eq  relational_expression |
+    {eq_id_id}  [identifier1]:identifier [additional_identifiers1]:additional_identifier* eq  [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {neq_eq_re} equality_expression                                                       neq relational_expression |
+    {neq_eq_id} equality_expression                                                       neq               identifier  [additional_identifiers]:additional_identifier* |
+    {neq_id_re}               identifier  [additional_identifiers]:additional_identifier* neq relational_expression |
+    {neq_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* neq [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+
+
+  assert_statement =
+    {one_ex}    assert               expression                                                  semi |
+    {one_id}    assert               identifier [additional_identifiers]:additional_identifier*  semi |
+    {two_ex_ex} assert [expression1]:expression                                                  colon [expression2]:expression semi |
+    {two_ex_id} assert               expression                                                  colon               identifier  [additional_identifiers]:additional_identifier* semi |
+    {two_id_ex} assert               identifier  [additional_identifiers]:additional_identifier* colon expression                                                                semi |
+    {two_id_id} assert [identifier1]:identifier [additional_identifiers1]:additional_identifier* colon [identifier2]:identifier [additional_identifiers2]:additional_identifier* semi;
+
+
+  //  ** be able to switch on a symbol var **
+  switch_statement =
+    {expression} switch l_par expression                                                 r_par switch_block |
+    {identifier} switch l_par identifier [additional_identifiers]:additional_identifier* r_par switch_block;
+
+  switch_label =
+    {expression} case constant_expression                                        colon |
+    {identifier} case identifier [additional_identifiers]:additional_identifier* colon |
+    {default}    default  
+
+
+  return_statement =
+    {empty}      return                                                            semi |
+    {expression} return expression                                                 semi |
+    {identifier} return identifier [additional_identifiers]:additional_identifier* semi;
+
+
+
+  argument_list =
+    {one_ex}  expression |
+    {one_id}  identifier [additional_identifiers]:additional_identifier* |
+    {many_ex} argument_list comma expression |
+    {many_id} argument_list comma identifier [additional_identifiers]:additional_identifier* |
+    
+	//  **MATRIX** 
+	{one_mp_outside_included} mp_outside_included_expression_related_prod |
+	{many_mp_outside_included} argument_list comma mp_outside_included_expression_related_prod
+    ;
+    
+  variable_initializer =
+    {expression} expression |
+    {identifier} identifier [additional_identifiers]:additional_identifier* |
+    {array}      array_initializer;
+    

@@ -1,0 +1,2387 @@
+Package net.unconventionalthinking.hierarchy.grammar;
+
+
+Helpers
+
+	// Note: Helpers have not been verified to exactly match the
+	// specification.
+	
+	unicode_input_character = [0..0xffff];
+	ht  = 0x0009;
+	lf  = 0x000a;
+	ff  = 0x000c;
+	cr  = 0x000d;
+	sp  = ' ';
+	
+	line_terminator = lf | cr | cr lf;
+	input_character = [unicode_input_character - [cr + lf]];
+	
+	not_star =    [input_character - '*'] | line_terminator;
+	not_star_not_slash = [input_character - ['*' + '/']] | line_terminator;
+
+//	/*
+	unicode_letter =
+		[0x0041..0x005a] | [0x0061..0x007a] | [0x00aa..0x00aa] | [0x00b5..0x00b5] |
+		[0x00ba..0x00ba] | [0x00c0..0x00d6] | [0x00d8..0x00f6] | [0x00f8..0x01f5] |
+		[0x01fa..0x0217] | [0x0250..0x02a8] | [0x02b0..0x02b8] | [0x02bb..0x02c1] |
+		[0x02d0..0x02d1] | [0x02e0..0x02e4] | [0x037a..0x037a] | [0x0386..0x0386] |
+		[0x0388..0x038a] | [0x038c..0x038c] | [0x038e..0x03a1] | [0x03a3..0x03ce] |
+		[0x03d0..0x03d6] | [0x03da..0x03da] | [0x03dc..0x03dc] | [0x03de..0x03de] |
+		[0x03e0..0x03e0] | [0x03e2..0x03f3] | [0x0401..0x040c] | [0x040e..0x044f] |
+		[0x0451..0x045c] | [0x045e..0x0481] | [0x0490..0x04c4] | [0x04c7..0x04c8] |
+		[0x04cb..0x04cc] | [0x04d0..0x04eb] | [0x04ee..0x04f5] | [0x04f8..0x04f9] |
+		[0x0531..0x0556] | [0x0559..0x0559] | [0x0561..0x0587] | [0x05d0..0x05ea] |
+		[0x05f0..0x05f2] | [0x0621..0x063a] | [0x0640..0x064a] | [0x0671..0x06b7] |
+		[0x06ba..0x06be] | [0x06c0..0x06ce] | [0x06d0..0x06d3] | [0x06d5..0x06d5] |
+		[0x06e5..0x06e6] | [0x0905..0x0939] | [0x093d..0x093d] | [0x0958..0x0961] |
+		[0x0985..0x098c] | [0x098f..0x0990] | [0x0993..0x09a8] | [0x09aa..0x09b0] |
+		[0x09b2..0x09b2] | [0x09b6..0x09b9] | [0x09dc..0x09dd] | [0x09df..0x09e1] |
+		[0x09f0..0x09f1] | [0x0a05..0x0a0a] | [0x0a0f..0x0a10] | [0x0a13..0x0a28] |
+		[0x0a2a..0x0a30] | [0x0a32..0x0a33] | [0x0a35..0x0a36] | [0x0a38..0x0a39] |
+		[0x0a59..0x0a5c] | [0x0a5e..0x0a5e] | [0x0a72..0x0a74] | [0x0a85..0x0a8b] |
+		[0x0a8d..0x0a8d] | [0x0a8f..0x0a91] | [0x0a93..0x0aa8] | [0x0aaa..0x0ab0] |
+		[0x0ab2..0x0ab3] | [0x0ab5..0x0ab9] | [0x0abd..0x0abd] | [0x0ae0..0x0ae0] |
+		[0x0b05..0x0b0c] | [0x0b0f..0x0b10] | [0x0b13..0x0b28] | [0x0b2a..0x0b30] |
+		[0x0b32..0x0b33] | [0x0b36..0x0b39] | [0x0b3d..0x0b3d] | [0x0b5c..0x0b5d] |
+		[0x0b5f..0x0b61] | [0x0b85..0x0b8a] | [0x0b8e..0x0b90] | [0x0b92..0x0b95] |
+		[0x0b99..0x0b9a] | [0x0b9c..0x0b9c] | [0x0b9e..0x0b9f] | [0x0ba3..0x0ba4] |
+		[0x0ba8..0x0baa] | [0x0bae..0x0bb5] | [0x0bb7..0x0bb9] | [0x0c05..0x0c0c] |
+		[0x0c0e..0x0c10] | [0x0c12..0x0c28] | [0x0c2a..0x0c33] | [0x0c35..0x0c39] |
+		[0x0c60..0x0c61] | [0x0c85..0x0c8c] | [0x0c8e..0x0c90] | [0x0c92..0x0ca8] |
+		[0x0caa..0x0cb3] | [0x0cb5..0x0cb9] | [0x0cde..0x0cde] | [0x0ce0..0x0ce1] |
+		[0x0d05..0x0d0c] | [0x0d0e..0x0d10] | [0x0d12..0x0d28] | [0x0d2a..0x0d39] |
+		[0x0d60..0x0d61] | [0x0e01..0x0e2e] | [0x0e30..0x0e30] | [0x0e32..0x0e33] |
+		[0x0e40..0x0e46] | [0x0e81..0x0e82] | [0x0e84..0x0e84] | [0x0e87..0x0e88] |
+		[0x0e8a..0x0e8a] | [0x0e8d..0x0e8d] | [0x0e94..0x0e97] | [0x0e99..0x0e9f] |
+		[0x0ea1..0x0ea3] | [0x0ea5..0x0ea5] | [0x0ea7..0x0ea7] | [0x0eaa..0x0eab] |
+		[0x0ead..0x0eae] | [0x0eb0..0x0eb0] | [0x0eb2..0x0eb3] | [0x0ebd..0x0ebd] |
+		[0x0ec0..0x0ec4] | [0x0ec6..0x0ec6] | [0x0edc..0x0edd] | [0x0f40..0x0f47] |
+		[0x0f49..0x0f69] | [0x10a0..0x10c5] | [0x10d0..0x10f6] | [0x1100..0x1159] |
+		[0x115f..0x11a2] | [0x11a8..0x11f9] | [0x1e00..0x1e9b] | [0x1ea0..0x1ef9] |
+		[0x1f00..0x1f15] | [0x1f18..0x1f1d] | [0x1f20..0x1f45] | [0x1f48..0x1f4d] |
+		[0x1f50..0x1f57] | [0x1f59..0x1f59] | [0x1f5b..0x1f5b] | [0x1f5d..0x1f5d] |
+		[0x1f5f..0x1f7d] | [0x1f80..0x1fb4] | [0x1fb6..0x1fbc] | [0x1fbe..0x1fbe] |
+		[0x1fc2..0x1fc4] | [0x1fc6..0x1fcc] | [0x1fd0..0x1fd3] | [0x1fd6..0x1fdb] |
+		[0x1fe0..0x1fec] | [0x1ff2..0x1ff4] | [0x1ff6..0x1ffc] | [0x207f..0x207f] |
+		[0x2102..0x2102] | [0x2107..0x2107] | [0x210a..0x2113] | [0x2115..0x2115] |
+		[0x2118..0x211d] | [0x2124..0x2124] | [0x2126..0x2126] | [0x2128..0x2128] |
+		[0x212a..0x2131] | [0x2133..0x2138] | [0x3005..0x3005] | [0x3031..0x3035] |
+		[0x3041..0x3094] | [0x309b..0x309e] | [0x30a1..0x30fa] | [0x30fc..0x30fe] |
+		[0x3105..0x312c] | [0x3131..0x318e] | [0x4e00..0x9fa5] | [0xac00..0xd7a3] |
+		[0xf900..0xfa2d] | [0xfb00..0xfb06] | [0xfb13..0xfb17] | [0xfb1f..0xfb28] |
+		[0xfb2a..0xfb36] | [0xfb38..0xfb3c] | [0xfb3e..0xfb3e] | [0xfb40..0xfb41] |
+		[0xfb43..0xfb44] | [0xfb46..0xfbb1] | [0xfbd3..0xfd3d] | [0xfd50..0xfd8f] |
+		[0xfd92..0xfdc7] | [0xfdf0..0xfdfb] | [0xfe70..0xfe72] | [0xfe74..0xfe74] |
+		[0xfe76..0xfefc] | [0xff21..0xff3a] | [0xff41..0xff5a] | [0xff66..0xffbe] |
+		[0xffc2..0xffc7] | [0xffca..0xffcf] | [0xffd2..0xffd7] | [0xffda..0xffdc];
+		
+	unicode_digit =
+		[0x0030..0x0039] | [0x0660..0x0669] | [0x06f0..0x06f9] | [0x0966..0x096f] |
+		[0x09e6..0x09ef] | [0x0a66..0x0a6f] | [0x0ae6..0x0aef] | [0x0b66..0x0b6f] |
+		[0x0be7..0x0bef] | [0x0c66..0x0c6f] | [0x0ce6..0x0cef] | [0x0d66..0x0d6f] |
+		[0x0e50..0x0e59] | [0x0ed0..0x0ed9] | [0x0f20..0x0f29] | [0xff10..0xff19];
+		
+	java_letter = unicode_letter | '$' | '_';
+	java_letter_or_digit = unicode_letter | unicode_digit | '$' | '_';
+	
+//	*/
+//	java_letter = [['A' .. 'Z'] + ['a' .. 'z']] | '$' | '_';
+//	java_letter_or_digit = [['A' .. 'Z'] + ['a' .. 'z']] | ['0' .. '9'] | '$' | '_';
+	
+	
+    java_identifier = java_letter java_letter_or_digit*;
+
+
+	
+	non_zero_digit = ['1'..'9'];
+	digit = ['0'..'9'];
+	hex_digit = ['0'..'9'] | ['a'..'f'] | ['A'..'F'];
+	octal_digit = ['0'..'7'];
+	zero_to_three = ['0'..'3'];
+	
+	decimal_numeral = '0' | non_zero_digit digit*;
+	hex_numeral = '0' ('x' | 'X') hex_digit+;
+	octal_numeral = '0' octal_digit+;
+	
+	integer_type_suffix = 'l' | 'L';
+	
+	exponent_part = ('e' | 'E') ('+' | '-')? digit+;
+	
+	float_type_suffix = 'f' | 'F' | 'd' | 'D';
+	
+	single_character = [input_character - [''' + '\']];
+	octal_escape = '\' (octal_digit octal_digit? | zero_to_three octal_digit octal_digit);
+	escape_sequence = '\b' | '\t' | '\n' | '\f' | '\r' | '\"' | '\' ''' | '\\' | octal_escape;
+	string_character = [input_character - ['"' + '\']] | escape_sequence;
+	
+
+	//  **MATRIX START** _______________________________________________________________________________________________
+	//  for $var's
+	mp_letter_no_dollar = [['A' .. 'Z'] + ['a' .. 'z']] | '_';
+	mp_letter_or_digit_no_dollar = [['A' .. 'Z'] + ['a' .. 'z']] | ['0' .. '9'] | '_';
+	mp_identifier_no_dollar = mp_letter_no_dollar mp_letter_or_digit_no_dollar*;
+	
+	mp_dollar_identifier_helper = '$' mp_identifier_no_dollar;
+
+	mp_character_no_backtik =  [input_character - ['`' + '\']] | escape_sequence;
+	
+	//  **MATRIX END** _________________________________________________________________________________________________
+
+
+
+
+
+Tokens
+
+	//  **MATRIX START** _______________________________________________________________________________________________
+
+
+	//  Matrix Operators
+	mp_thick_mp_arrow_operator = '=>';
+	mp_arrow_operator = '->';
+	//  annotated safe-access operator start token
+	mp_dash_lt_operator = '-<';
+	mp_field_access_operator = ':>';
+	mp_colon_lt_operator = ':<';
+
+	mp_colon_percent_operator = ':%';
+
+
+    //  scope resolution operator
+	mp_colon_colon_operator = '::';
+
+
+	//  Set Creation operators ____________
+	mp_set_creation_operator = '${';
+	mp_symbol_mp_set_creation_operator = '$:{';
+	mp_typed_mp_set_creation_operator = '$<';
+	mp_typed_mp_symbol_mp_set_creation_operator = '$:<';
+
+	mp_set_creation_operator_w_name = mp_dollar_identifier_helper '${';
+	mp_symbol_set_creation_operator_w_name = mp_dollar_identifier_helper '$:{';
+	mp_typed_set_creation_operator_w_name = mp_dollar_identifier_helper '$<';
+	mp_typed_symbol_set_creation_operator_w_name = mp_dollar_identifier_helper'$:<';
+
+
+	// close a typed set
+	mp_gt_w_brace_operator = '>{';
+
+	mp_symbol_set_creation_operator = '.${';
+
+	mp_code_closure_operator = '*{';
+
+
+	// Field Access operators
+	mp_pair_singlequotes = ''' ''';
+	mp_ditto_prev_level_operator = ''' ''' '^';  //  ''^
+
+
+
+	//  Matrix keywords __________________
+	mp_declarations_keyword = 'DECLARATIONS';
+	mp_matrix_keyword = 'MATRIX';
+	mp_schema_keyword = 'SCHEMA';
+	mp_key_keyword = 'KEY';
+
+	mp_member_keyword = 'MEMBER';
+
+	mp_in_keyword = 'IN';
+	mp_uses_keyword = 'USES';
+
+	mp_call_keyword = 'CALL';
+
+
+	//  Types
+	mp_set_keyword = 'SET';
+	mp_var_keyword = 'VAR';
+	mp_symbol_keyword = 'SYMBOL';
+	mp_element_keyword = 'ELEMENT';
+
+	mp_descriptor_keyword = 'DESCRIPTOR';
+	mp_item_keyword = 'ITEM';
+	mp_field_keyword = 'FIELD';
+
+	mp_new_keyword = 'NEW';
+
+	mp_closure_keyword = 'CLOSURE';
+
+	mp_n_keyword = 'N';
+	mp_nan_keyword = 'NaN';
+
+
+	mp_select_keyword = 'SELECT';
+	mp_from_keyword = 'FROM';
+	mp_where_keyword = 'WHERE';
+	mp_fields_keyword = 'FIELDS';
+
+
+	mp_annotations_keyword = 'ANNOTATIONS';
+	mp_errors_keyword = 'ERRORS';
+	mp_exceptions_keyword = 'EXCEPTIONS';
+	mp_empty_keyword = 'EMPTY';
+	mp_filters_keyword = 'FILTERS';
+	mp_all_keyword = 'ALL';
+    mp_annote_default_keyword = 'DEFAULT';
+
+
+	mp_accessor_keyword = 'ACCESSOR';
+	mp_return_keyword = 'RETURN';
+
+
+	// Matrix Pre-defined Variables	& Methods
+	mp_it_keyword = '$IT';
+	mp_exist_keyword = 'EXISTS';
+	mp_valid_keyword = 'VALID';
+
+
+	//  Field Value Keywords
+	mp_default_keyword = '$DEFAULT';
+	mp_unused_keyword = '$UNUSED';
+	mp_ditto_keyword = '$DITTO';
+
+
+	//  **MATRIX END** _________________________________________________________________________________________________
+
+
+	
+	// separators
+	
+	at = '@';
+	comma = ',';
+	dot   = '.';
+	dot_dot_dot = '...';
+	l_bkt = '[';
+	l_brc = '{';
+	l_par = '(';
+	r_bkt = ']';
+	r_brc = '}';
+	r_par = ')';
+	semi  = ';';
+	
+	// operators
+	
+	amp = '&';
+	amp_amp = '&&';
+	amp_assign = '&=';
+	assign = '=';
+	bar = '|';
+	bar_assign = '|=';
+	bar_bar = '||';
+	caret = '^';
+	caret_assign = '^=';
+	colon = ':';
+	emark = '!';
+	eq = '==';
+	gt = '>';
+	gteq = '>=';
+	lt = '<';
+	lteq = '<=';
+	minus = '-';
+	minus_assign = '-=';
+	minus_minus = '--';
+	neq = '!=';
+	percent = '%';
+	percent_assign = '%=';
+	plus = '+';
+	plus_assign = '+=';
+	plus_plus = '++';
+	qmark = '?';
+	shl = '<<';
+	shl_assign = '<<=';
+	shr = '>>';
+	shr_assign = '>>=';
+	slash = '/';
+	slash_assign = '/=';
+	star = '*';
+	star_assign = '*=';
+	tilde = '~';
+	ushr = '>>>';
+	ushr_assign = '>>>=';
+	
+	
+	
+	
+	// keywords
+		
+	abstract = 'abstract';
+	assert = 'assert';
+	boolean = 'boolean';
+	break = 'break';
+	byte = 'byte';
+	case = 'case';
+	catch = 'catch';
+	char = 'char';
+	class_token = 'class';
+	const = 'const';
+	continue = 'continue';
+	default = 'default';
+	do = 'do';
+	double = 'double';
+	else = 'else';
+	enum = 'enum';
+	extends = 'extends';
+	false = 'false';
+	final = 'final';
+	finally_token = 'finally';
+	float = 'float';
+	for = 'for';
+	goto = 'goto';
+	if = 'if';
+	implements = 'implements';
+	import = 'import';
+	instanceof = 'instanceof';
+	int = 'int';
+	interface = 'interface';
+	long = 'long';
+	native = 'native';
+	new = 'new';
+	package = 'package';
+	private = 'private';
+	protected = 'protected';
+	public = 'public';
+	return = 'return';
+	short = 'short';
+	static = 'static';
+	strictfp = 'strictfp';
+	super_token = 'super';
+	switch = 'switch';
+	synchronized = 'synchronized';
+	this = 'this';
+	throw = 'throw';
+	throws_token = 'throws';
+	transient = 'transient';
+	true = 'true';
+	try = 'try';
+	void = 'void';
+	volatile = 'volatile';
+	while = 'while';
+
+
+	
+	// literals
+	
+	character_literal = ''' (single_character | escape_sequence) ''';
+	
+	floating_point_literal =
+		digit+ '.' digit* exponent_part? float_type_suffix? |
+		'.' digit+ exponent_part? float_type_suffix? |
+		digit+ exponent_part float_type_suffix? |
+		digit+ exponent_part? float_type_suffix;
+	
+	integer_literal =
+		decimal_numeral integer_type_suffix? |
+		hex_numeral integer_type_suffix? |
+		octal_numeral integer_type_suffix?;
+	
+	
+	null_literal = 'null';
+	
+	string_literal = '"' string_character* '"';
+	
+	
+	
+	
+	//  **MATRIX START** _______________________________________________________________________________________________
+	
+	//  Number Range literal:
+	//  Normally, you'd like to do this as separate tokens, meaning, you'd just have a regex for the dot_dot, and
+	//  let the integer_literal regex handle the numbers - so, you'd have a _production_ like: 
+	//     number_range = number_literal dot_dot number interal // this is NOT a regex.
+	//  Problem is there is a "Multiple regex path overlapping single regex path problem"
+	
+	mp_token_number_range = decimal_numeral '..' decimal_numeral;
+	
+	
+	//  Symbol literals _______________
+	mp_symbol_literal_quotes = ':"' string_character* '"';
+	mp_symbol_literal_backtiks = '`' mp_character_no_backtik* '`';
+
+	
+	//  Matrix Dollar identifier_______
+//	mp_dollar_identifier = mp_dollar_identifier_helper; // may conflict with Java identifier, hiding it
+
+	// junk tokens for testing
+	mp_junk1 = '@@@junk1';
+/*
+	mp_junk2 = '@@@junk2';
+	mp_junk3 = '@@@junk3';
+*/
+	
+	//  **MATRIX END** _________________________________________________________________________________________________
+
+	
+	
+	// identifier
+	identifier = java_letter java_letter_or_digit*;
+
+
+	
+	// white space and comments
+	white_space = (sp | ht | ff | line_terminator)*;
+	
+	traditional_comment = '/*' not_star+ '*'+ (not_star_not_slash not_star* '*'+)* '/';
+	documentation_comment =    '/**' '*'* (not_star_not_slash not_star* '*'+)* '/';
+	end_of_line_comment = '//' input_character* line_terminator?;
+
+
+
+Ignored Tokens
+
+	white_space,
+	traditional_comment,
+	documentation_comment,
+	end_of_line_comment;
+
+
+
+
+Productions
+
+
+
+	compilation_unit =
+		package_declaration? [import_declarations]:import_declaration*  matrix_section_and_java_type_options*;
+	
+	matrix_section_and_java_type_options = {mp_matrix_sections} matrix_sections  | {java_type} type_declaration ;
+		
+	
+	package_declaration =
+		package identifier [additional_identifiers]:additional_identifier* semi;
+
+  	
+
+
+    // _________________________________________________________________________________________________________________
+    //
+    //   MATRIX DECLARATIONS
+    // _________________________________________________________________________________________________________________
+
+  	matrix_sections =
+  		{mp_declaration} mp_declaration_section |
+  		{mp_matrix_key} matrix_key_section |
+  		{mp_matrix} matrix_new_declaration |
+  		{mp_schema} schema_new_declaration;
+
+
+	mp_declaration_section = {mp_section} mp_declarations_keyword mp_declaration_section_body;
+	mp_declaration_section_body = {mp_body} l_brc matrix_statement* r_brc;
+
+	matrix_key_section = {mp_section} matrix_key matrix_key_section_body;
+	matrix_key_section_body = {mp_body} l_brc  r_brc;
+	matrix_key = {mp} mp_matrix_keyword dot mp_key_keyword;
+
+
+	matrix_new_declaration =
+		{mp} matrix_new matrix_name? uses_schemas? matrix_field_and_body_options;
+	schema_new_declaration =
+		{mp} schema_new matrix_name? matrix_field_and_body_options;
+
+	matrix_field_and_body_options =
+		{mp_empty}    			semi |
+		//  Notice: mandatory semi if no descriptor body (empty braces count { } as body)
+		{mp_fieldset} 			fieldset_parametermap_w_colon semi |
+		{mp_fieldset_and_body}	fieldset_parametermap_w_colon? descriptor_body;
+
+	matrix_name = {mp_std} matrix_name_body |  {mp_with_parens} l_par matrix_name_body r_par;
+	matrix_name_body = {mp_body} matrix_element_name ;
+
+
+	matrix_new = {mp} mp_matrix_keyword dot_new?;
+	schema_new = {mp} mp_schema_keyword dot_new?;
+
+	dot_new = {mp} dot mp_new_keyword;
+
+
+	descriptor_body = {mp_body} l_brc descriptor_body_statement* r_brc;
+	descriptor_body_statement =
+		{mp_descriptor} descriptor_declaration |
+		{mp_matrix_member} matrix_member_declaration |
+		{mp_descriptor_dyn_create} descriptor_dynamic_creation;
+
+
+
+	//  Descriptors ______________________________________________
+	descriptor_declaration = {mp_declaration} descriptor_head_options uses_schemas?
+		descriptor_field_and_body_options semi?;
+	descriptor_field_and_body_options =
+		{mp_empty}    			semi |
+		//  Notice: mandatory semi if no descriptor body (empty braces count { } as body)
+		{mp_only_fieldset} 	fieldset_options_w_colon semi   |
+		{mp_fieldset_and_body}	fieldset_options_w_colon? descriptor_body;
+
+	descriptor_head_options = {mp_single_name} descriptor_head | {mp_mult_names} descriptor_head_set;
+	descriptor_head_set =
+		{mp} mp_set_creation_operator descriptor_head_set_item descriptor_head_children* r_brc;
+	descriptor_head_children = {mp} comma descriptor_head_set_item;
+	descriptor_head_set_item = {mp} descriptor_head uses_schemas? fieldset_options_w_colon?;
+
+
+	descriptor_head = {mp_std} descriptor_head_std | {mp_hidden_tagname} descriptor_head_hidden_tagname;
+	descriptor_head_std = {mp_std} matrix_element_name descriptor_label?;
+	descriptor_head_hidden_tagname = {mp_hidden} labelname;
+
+
+	//
+	//  For Descriptor tagnames and Field names
+	//
+	matrix_element_name =
+
+		//   NOTE: These first three are used in descriptors AND in schema matrix elements.
+		//   Your action code should not let Matrices define names using the ITEM, DESCRIPTOR, or FIELD keywords!!
+		//
+		{mp_item} 				mp_item_keyword |
+		{mp_descriptor} 		mp_descriptor_keyword |
+		//   For instance, like FIELD.NAMES or FIELDS.DESC...
+		{mp_field_w_children} 	mp_field_keyword additional_identifier+ |
+
+		{mp_identifier}         name_scope* identifier additional_identifier*;
+
+    //  This guarantees at least one name scope. It's used by dynamic access, which already has a identifier.
+	matrix_element_name_identifier_w_one_or_more_namescopes =
+        {mp} name_scope+ identifier additional_identifier*;
+
+
+    //  name_scope is used by schema, matrix, and descriptor names
+    name_scope = {mp} name_scope_name mp_colon_colon_operator;
+	name_scope_name = {mp} identifier additional_identifier*;
+
+	//  the matrix_element_name_children prod cannot be used in matrix_element_name.
+	//  instead, we need to use the java prod, additional_identifiers.
+	//  why? because in a fieldset, you can have either a tuple, or a parameter map. and in a tuple field, you can
+	//  use the java "identifier additional_identifier*" to name a member of an object. And, in a parameter map,
+	//  you can name a multi-part fieldname that maps to a value.
+	//
+	//  matrix_element_name_children = {mp_children} dot identifier;
+
+	descriptor_label =
+        {mp_std} labelname |
+        {mp_parens} l_par labelname r_par |
+        {mp_desctagname} descriptor_tagname_forlabel;
+
+
+
+	//  Uses Schema ______________________________________________
+	uses_schemas = {mp_std} mp_uses_keyword schema_options;
+
+	schema_options =
+		{mp_set} schema_set |
+		{mp_set_constant} schema_set_constant;
+
+
+	schema_set = {mp_list} l_par schema_name_list r_par;
+
+	// TODO - schema_name_list can return a single $var that represents the set of schemas
+
+
+	schema_name_list = {mp} schema_name schema_name_list_children*;
+	schema_name_list_children = {mp} comma schema_name;
+
+	schema_name = {mp} matrix_element_name;
+
+/*	//  OLD - delete later
+	schema_name = {mp} matrix_element_name schema_name_children*;
+	schema_name_children = {mp} mp_arrow_operator matrix_element_name;
+*/
+	//  These can only be of type:
+	//    final SET<SCHEMA> mySchemaSet = ${ SCHEMA1 };
+	//        OR
+	//    final SCHEMA mySingleSchema = SCHEMA2; // a single schema is a set of 1
+	//
+	schema_set_constant = {mp} identifier; // must check to see if this identifier starts with a '$'
+
+
+
+
+	//  Matrix Member ____________________________________________
+
+	matrix_member_declaration =
+		{mp_primitive_type} mp_member_keyword matrix_access_modifier* primitive_type dim* variable_declarators semi|
+
+		// ex. can have something like: public myId.add_id<type_component1>.add_id2<type_component2> myvar = 22;
+		//  Is this correct?? seems like can't have something like: myobj.add_id<t1>.add_id2.add_id3<t3>.add_id4
+		//
+		{mp_complex_type} mp_member_keyword matrix_access_modifier* identifier additional_identifier* type_component*
+					type_arguments? dim* variable_declarators semi;
+
+
+
+	//  Dynamic creation of descriptors __________________________
+
+	descriptor_dynamic_creation = mp_call_keyword descriptor_dynamic_creation_options;
+	descriptor_dynamic_creation_options = {method_invocation} method_invocation semi | {code_closure} code_closure;
+
+
+
+
+
+	//  Field Set ____________________________________________
+
+	fieldset_options_w_colon = {mp} colon fieldset_options;
+
+	fieldset_parametermap_w_colon = {mp} colon fieldset_parametermap_options;
+
+	fieldset_options =
+		{mp_parameter_map} fieldset_parametermap_options |
+		{mp_tuple} fieldset_tuple_options;
+
+
+	//  Field Set Parameter Map:
+	fieldset_parametermap_options =
+		{mp_std} l_brc fieldset_parametermap r_brc |
+		{mp_empty_braces} l_brc r_brc;
+
+	fieldset_parametermap = {mp} fieldname parameter_mapping_to_value fieldset_parameter_children*;
+	fieldset_parameter_children = {mp} comma fieldname parameter_mapping_to_value;
+
+
+	parameter_mapping_to_value = {mp} mp_thick_mp_arrow_operator matrix_field_expression;
+
+
+	//  Field Set Tuple:
+	fieldset_tuple_options =
+		{mp_std} fieldset_tuple_w_braces;
+
+
+
+	fieldset_tuple_w_braces = {mp} l_brc fieldset_tuple r_brc;
+	fieldset_tuple = {mp} matrix_field_expression fieldset_parameter*;
+	fieldset_parameter = {mp} comma matrix_field_expression;
+
+
+	fieldname = {mp} matrix_element_name;
+
+
+/*
+	//  UNUSED
+	//  this one used  when there is no descriptor body after the fieldset tuple. the reason for this is because
+	//  if the the tuple is not using body braces, then it must end with a semi colon:
+	//     MY.DESCRIPTOR:  :RED, 33;
+	//
+	fieldset_options_w_colon_no_trailing_body = colon fieldset_options_no_trailing_body;
+
+	//  NOT USED! causes shift reduce conflicts (see directly below)
+	//  notice, mandatory semi
+	fieldset_tuple_options_no_trailing_body =
+		{mp_no_braces} fieldset_tuple_no_braces semi |
+		{mp_braces} fieldset_tuple_w_braces
+		;
+
+	//  The fieldset_tuple_no_braces is not used! Why? because if you don't have braces around your tuple, you get
+	//  shift reduce conflicts. So, we'll leave the no brace version for the convience format
+	fieldset_tuple_no_braces = {mp} matrix_field_expression fieldset_parameter*;
+ */
+
+
+
+	//  Labels ___________________________________________________
+
+	labelname = labelname_backtik;
+
+
+
+	//  a simple labelname and a twopart labelname are different formats of the same value. they are both multipart
+	//  symbols, and one can be equal to the other.
+
+	labelname_backtik =
+		{mp_simple} labelname_backtik_simple |
+		{mp_two_part} labelname_backtik_twopart;
+
+
+	labelname_backtik_simple = {mp} plus? mp_symbol_literal_backtiks labelname_backtiks_children*;
+	labelname_backtiks_children = {mp} dot mp_symbol_literal_backtiks;
+
+	labelname_backtik_twopart = {mp} plus? mp_symbol_literal_backtiks in_name_package;
+
+	in_name_package = {mp} mp_in_keyword name_package_name;
+	name_package_name = {mp} identifier name_package_name_children*;
+	name_package_name_children = {mp} dot identifier;
+
+
+
+	/*
+	//  labels with symbol second parts not going to be included. maybe in future, but probably not at this point
+	labelname_two_part = {mp} mp_symbol_useage in_package_or_symbol;
+
+	in_package_or_symbol = {mp} mp_in_keyword package_or_symbol;
+	in_package = {mp} mp_in_keyword package_name;
+	package_or_symbol = {mp_symbol} mp_symbol_useage | {mp_package} package_name;
+	*/
+
+    //  A DescriptorTagNameForLabel should only be used for schemainfo descriptors. Because they are defining descriptors,
+    //  they can take in desctagnames as labels.
+    descriptor_tagname_forlabel = {mp} plus? mp_colon_percent_operator identifier descriptor_tagname_forlabel_children*;
+	descriptor_tagname_forlabel_children = {mp} dot identifier;
+
+
+    // _________________________________________________________________________________________________________________
+	//
+	//   Sets
+    // _________________________________________________________________________________________________________________
+
+
+	//  ** ADD TO JAVA STATEMENTS
+	//  ** ADD TO JAVA PRIMARY
+	set_instance_creation = {mp} set_create;
+
+
+	//  New-named set creation:
+	//  New-named set creation can happen in two places, in Java statements, and in the java expression hierarchy
+	//
+	//  Java expression hierarchy - all you do is you have to write action code for the java
+	//    production: "unary_expression," specifically, the alternative production: {plus_expression}. if the parser
+	//    matches on this production, then you set a flag saying that you saw a unary plus. and if the next production
+	//    is a named-set, then you know you are doing a new-named set.
+	//    ALSO!! - you should add an operator to code builder to "remove last token". This will be very helpful!
+	//
+	//  Java statements, add new_name_set_instance_creation
+	//    note: this production allows the syntax: +${ } - which for now, makes no sense, cause you have
+	//    no variable name. so check for this syntax in your action code, and throw an error
+	//
+	//  ** ADD TO JAVA STATEMENTS
+	new_name_set_instance_creation = {mp} new_name_set_create;
+
+
+	set_create =
+		{mp_simple} set_create_simple |
+		{mp_typed} set_create_typed |
+		{mp_subset_cardinality} set_create_subset_cardinality |
+		{mp_typed_and_subset_cardinality} set_create_typed_and_subset_cardinality;
+
+	set_create_simple = {mp} set_creation_oper_options set_items? r_brc;
+	set_create_typed = {mp} typed_set_creation_oper_options mp_types type_close_set_body;
+	set_create_subset_cardinality = {mp} typed_set_creation_oper_options mp_integer_literal type_close_set_body;
+	set_create_typed_and_subset_cardinality =
+		{mp} typed_set_creation_oper_options mp_types comma mp_integer_literal type_close_set_body;
+
+
+	type_close_set_body = {mp} mp_gt_w_brace_operator set_items? r_brc;
+
+
+	set_creation_oper_options =
+		{mp_std} mp_set_creation_operator |
+		{mp_symbol} mp_symbol_mp_set_creation_operator |
+		{mp_std_name} mp_set_creation_operator_w_name |
+		{mp_symbol_name} mp_symbol_set_creation_operator_w_name;
+
+	typed_set_creation_oper_options =
+		{mp_std} mp_typed_mp_set_creation_operator |
+		{mp_symbol} mp_typed_mp_symbol_mp_set_creation_operator |
+		{mp_std_name} mp_typed_set_creation_operator_w_name |
+		{mp_symbol_name} mp_typed_symbol_set_creation_operator_w_name;
+
+
+	//  note: this production allows the syntax: +${ } - which for now, makes no sense, cause you have
+	//  no variable name. so check for this syntax in your action code, and throw an error
+	new_name_set_create = {mp} plus set_create;
+
+
+	set_items = {mp} matrix_expression set_items_children*;
+	set_items_children = {mp} comma matrix_expression;
+
+	// Remember: if a single var is used in the situation where as set would be used, it is auto converted to a set!
+
+
+
+
+	//  Subset creation operator:
+	//  ** These operators should be just like the java method_invocation operator. model the subset productions on it
+	//  place subset_creation_options where ever method invocation is placed (in primary and in statement_expression)
+	//  ** ADD TO JAVA STATEMENT
+	//  ** ADD TO JAVA PRIMARY
+	subset_creation =
+		{mp_simple} identifier [additional_identifiers]:additional_identifier* subset_create |
+		{mp_expanding} primary subset_create;
+
+
+	subset_create = {mp} mp_symbol_set_creation_operator subset_body_options? r_brc;
+	subset_body_options =
+		{mp_items} 		set_items 	|
+		{mp_annotation}	annotation_useage |
+		{mp_filter}  		filter_statement |
+		{mp_all} 			star |
+		{mp_empty}
+		;
+
+
+	//  subset creation using abbreviated syntax:
+	//  This is only allowed in matrix access!
+	subset_create_abbr = {mp} l_brc subset_body_options? r_brc;
+
+
+
+    // _________________________________________________________________________________________________________________
+	//
+	//  Symbols
+	// _________________________________________________________________________________________________________________
+
+    //  Symbol usaege:
+    //  ** Add symbol useage pretty much anywhere that a Java variable can be used (I hope this is not too many places)
+	//
+	//  NOTE: This production would normally just be added to the java primary prod, but has conflicts other java
+	//  productions. So, only include it primary inside parenthesis, and then, manually include it in the
+	//  productions that use expressions that need it (like assignment)
+    //
+    //  ** ADD TO JAVA:
+    //		- primary:   in parens!!
+    //      - mp_outside_included_expression_related_prod (matrix prod):  see this prod comments for list of java
+    //																	  prod.s where symbol_useage is included.
+	mp_symbol_useage =
+		{mp_access} symbol_access |
+		{mp_creation} symbol_creation;
+
+	symbol_access =
+		{mp_standard} symbol_options |
+		{mp_has_childern} symbol_options symbol_children;
+
+	symbol_children =
+		{mp_children} symbolchild_options symbol_children |
+		{mp_end} symbolchild_end |
+		{mp_symbolcreation} latestart_symbol_creation;
+
+	//  If you start with regular symbol creation, but then start creation children, must either just have a '+'
+	//  on first symbol, or have it on rest of children too.
+	//		example
+	//			:parent.+:child.grandchild 			// okay
+	//			:parent.+:child.+:grandchild.+:great   // okay
+	//			:parent.+:child.grandchild.+:great   // WRONG!
+
+	latestart_symbol_creation = {mp} dot symbol_creation;
+
+
+	symbolchild_options =
+		{mp_id}         dot identifier |
+		{mp_quotes}     dot string_literal |
+		{mp_backtiks}   dot mp_symbol_literal_backtiks;
+
+	symbolchild_end =
+		{mp_standard} symbolchild_options |
+		{mp_subset}   subset_create;
+
+
+	// Possible problem: symbol token overlaps with just a 'colon' token followed by an identifier. how do you tell
+	// them apart?
+	symbol_options =
+		{mp_standard}       colon identifier |
+		{mp_desctagname}    mp_colon_percent_operator identifier |
+		{mp_quotes}         mp_symbol_literal_quotes  |
+		{mp_backtiks}       mp_symbol_literal_backtiks;
+
+
+
+
+	symbol_creation = {mp} plus symbol_options symbol_creation_children_options ;
+	symbol_creation_children_options =
+		{mp_pluses} symbol_creation_w_child_pluses* |
+		{mp_no_pluses} symbol_creation_no_child_pluses* ;
+
+	symbol_creation_w_child_pluses = {mp} dot plus symbol_options;
+
+	symbol_creation_no_child_pluses = {mp} symbolchild_options;
+
+
+
+    // _________________________________________________________________________________________________________________
+	//
+	//  Matrix Access
+    // _________________________________________________________________________________________________________________
+
+
+	//  Add this production to Java productions, add in java expression hierarchy and statement :
+	//
+	//  ** ADD TO JAVA statement prod
+	//  ** ADD TO JAVA mp_pre_primary prod ** - the matrix access production is added to a new production
+	//  inserted before primary in the expresion hierarchy. The sole reason for it so matrix_access can be
+	//  at the same precedence level as the primary productions without being apart of the recursive additions
+	//  you can be apart if we added matrix access to primary. the real problem is that if we had matrix access in
+	//  primary, the descriptor tag names, with their additional "dot identifier") are ambiguous with field access
+	//     for ex: matrix->descriptor.child
+	//     is .child apart of the descriptor tag name? or is it a field access into the descriptor element?
+	//
+	//  So, notice, the beginning part of a matrix access can be primary matches, but after, it can only be
+	//  matrix_access matches (if matrix_access was include in primary, it could mix matrix_access and primary matches).
+	//
+	//  ** NOTE: for the matrix access using brackets (mymatrix->[stuff]) write action code in matrix_expression -> {id}
+	//  that will check the symbol table to see if you are accessing a Descriptor tag name, or an object variable!
+	//
+	matrix_access =
+		{mp_starts_with_primary} primary matrix_elem_access+ |
+		{mp_starts_with_matrixelement} matrix_element_name matrix_elem_access+;
+
+
+	matrix_elem_access = {mp} matrix_elem_access_operator_options element_name_specifier_options
+							matrix_elem_multiple_access_options?;
+
+
+	matrix_elem_access_operator_options =
+		{mp_std_arrow} mp_arrow_operator | {mp_annotated_arrow} mp_dash_lt_operator annotation_useage gt |
+		{mp_std_fieldaccess} mp_field_access_operator |
+		{mp_annotated_fieldaccess} mp_colon_lt_operator annotation_useage gt ;
+
+
+	element_name_specifier_options =
+		{mp_bracket} element_name_specify_by_bracket | {mp_elem_name_or_label} element_name_or_descriptor_label |
+        {mp_elem_name_and_second_accessor} elem_name_and_second_accessor;
+
+
+	//  Note: descriptors can be accessed by both element name (descriptor tag) and by label. A field can be
+	//  accessed by just element name (field name), or element name and a second accessor which is a continuation index
+	//
+	element_name_specify_by_bracket = {mp} l_bkt first_dyn_accessor second_dyn_accessor? r_bkt;
+	element_name_or_descriptor_label = {mp_tag_name} matrix_element_name | {mp_label_name} labelname_backtik;
+    elem_name_and_second_accessor = {mp} matrix_element_name l_bkt second_accessor r_bkt;
+
+
+    first_dyn_accessor =
+        {mp_matrixelement_one_or_more_namescopes} matrix_element_name_identifier_w_one_or_more_namescopes |
+        {mp_symbol_expr} symbol_expression;
+
+    //  This is the second accessor for dynamic access. It has the same options as the static second_accessor
+    second_dyn_accessor = {mp}comma second_accessor;
+
+    //  The second accessor has only two options:
+    //  1. if it is used for descriptor access, it can only be an expression that results in a label.
+    //  2. if it is used for field access, it can only be an expression that results in an int.
+    second_accessor = {mp}matrix_expression;  // notice, this is not symbol_expression, because it can also be an expression for an int!
+
+
+
+
+
+	annotation_spaceship_useage = {mp} lt annotation_useage gt;
+
+
+	matrix_elem_multiple_access_options = {mp_std} subset_create | {mp_abbr} subset_create_abbr;
+
+	//  The point of this production is to check to make sure that the expression that is passed in results in
+	//  a symbol. and the action code will simply cast the expression to a symbol.
+	symbol_expression = {mp} matrix_expression;
+
+
+
+	//  This is used to drill down into the descriptors of matrices (no labels) for things like the FIELD.NEW op.
+	//    ex. FIELD myField = FIELD.NEW WEB.FORM->FORM.INPUT:>Text;
+	//
+	//  *NOTE: matrix_elem_access_no_labels can return a variable name!
+	//  for example, it can return  'myFieldVar' that is a variable name that can be used like descriptor access!!
+	//
+	matrix_elem_access_no_labels = {mp} matrix_element_name matrix_elem_access_no_labels_children*;
+	matrix_elem_access_no_labels_children = {mp} arrow_or_field_access matrix_element_name;
+	arrow_or_field_access = {mp_arrow} mp_arrow_operator | {mp_field} mp_field_access_operator;
+
+
+
+    // _________________________________________________________________________________________________________________
+	//
+	//  Annotations usaege
+    // _________________________________________________________________________________________________________________
+
+	annotation_useage = {mp} annotation_name_options;
+
+	annotation_name_options =
+		{mp_id} star identifier | {mp_int} star integer_literal | {mp_float} star floating_point_literal;
+
+
+	//  ** ADD TO JAVA PROD: statement_without_trailing_substatement
+	annotation_statement = {mp} annotation_call semi;
+	annotation_call = {mp} annotation_name_options annotation_call_parameter_options*;
+	annotation_call_parameter_options =
+		{mp_code_closure} code_closure /* | {mp_std_parameter_list} std_parameter_list */;
+
+
+    // _________________________________________________________________________________________________________________
+	//
+	//  Annotations
+    // _________________________________________________________________________________________________________________
+
+	//  ** ADD TO JAVA PROD: statement_without_trailing_substatement
+	mp_annotations_declaration = {mp} mp_annotations_keyword l_brc mp_annotations_body_options* r_brc;
+	mp_annotations_body_options =
+		{mp_catch_block} 			catch_block_declaration  |
+		{mp_annotation_handler}	 annotation_handler_declaration ;
+
+	//  ERROR, EMPTY, FILTER catch blocks
+	catch_block_declaration = {mp} catch_type_list l_brc  catch_block_statement*  r_brc;
+	catch_block_statement = {mp} annotation_block_statement;
+
+
+
+	catch_type_list = {mp} catch_type catch_type_parameter*;
+	catch_type_parameter = {mp} comma catch_type;
+	catch_type =
+		{mp_errors} mp_errors_keyword | {mp_empty} mp_empty_keyword |
+		{mp_filters} mp_filters_keyword | {mp_all} mp_all_keyword | {mp_exceptions} mp_exceptions_keyword |
+		{mp_id} identifier;
+
+
+	annotation_handler_declaration =
+		{mp} annotation_handler_name_options annotation_parameters? l_brc annotation_block_statement* r_brc;
+
+    annotation_handler_name_options =
+        {mp_annotation_names} annotation_name_options | {mp_default} mp_annote_default_keyword;
+	annotation_parameters = {mp} l_par formal_parameter_list r_par;  //  uses the java prod formal_parameter_list
+
+	annotation_block_statement =
+		{mp_accessor_return} accessor_return_statement |
+		{mp_matrix_stmt} matrix_statement  |
+		{mp_filter} filter_statement |
+
+		{mp_annotation_handler} annotation_handler_declaration |
+		{mp_catch_block} annotation_block_error_handler
+		;
+
+
+	//  Used for filter error-handling
+	annotation_block_error_handler =
+		{mp} mp_errors_keyword l_brc annotation_block_error_statement* r_brc;
+	annotation_block_error_statement =
+		{mp_accessor_return} accessor_return_statement |
+		{mp_matrix_stmt} matrix_statement;
+
+
+
+
+	accessor_return_statement =
+		{mp} mp_accessor_keyword dot mp_return_keyword matrix_expression semi;
+
+
+
+
+
+
+    // _________________________________________________________________________________________________________________
+	//
+	//  Queries and Filters
+    // _________________________________________________________________________________________________________________
+
+	filter_statement =
+		{mp} mp_select_keyword mp_from_keyword identifier additional_identifier* filter_where? filter_fields? semi;
+
+	filter_where = {mp} mp_where_keyword where_expression;
+	filter_fields = {mp} mp_fields_keyword filter_fieldlist;
+
+
+	where_expression = {mp} l_par expression r_par;
+	filter_fieldlist = {mp} filter_field filter_field_children*;
+	filter_field_children = {mp} comma filter_field;
+	filter_field = {mp} identifier additional_identifier*;
+
+
+
+
+
+    // _________________________________________________________________________________________________________________
+    //
+    //   Types
+    // _________________________________________________________________________________________________________________
+
+
+	//  ** ADD TO JAVA primitive_types
+	//  ** ADD TO JAVA cast_expression
+	mp_matrix_types =
+		{mp_var} 	mp_var_keyword | {mp_symbol} mp_symbol_keyword | {mp_closure} mp_closure_keyword |
+		{mp_matrix} mp_matrix_element_types | {mp_set} mp_set_type;
+
+
+	mp_matrix_element_types =
+		{mp_matrix} 	mp_matrix_keyword |
+		{mp_schema} 	mp_schema_keyword |
+		{mp_descriptor} mp_descriptor_keyword |
+		{mp_item} 		mp_item_keyword |
+		{mp_field} 		mp_field_keyword |
+		{mp_element} 	mp_element_keyword;
+
+	mp_set_type =
+		{mp_simple} mp_set_keyword |
+		{mp_typed} mp_set_keyword lt mp_types gt |
+		{mp_subset_cardinality} mp_set_keyword lt mp_integer_literal gt |
+		{mp_typed_and_subset_cardinality} mp_set_keyword lt mp_types comma mp_integer_literal gt;
+
+
+
+
+	//  MATRIX ELEMENT TYPES ____________________________________________________________________________
+
+	//  ** ADD TO JAVA:
+	//		- primary: in parens
+	//  	- mp_outside_included_expression_related_prod (matrix): see this production for list of java prod where
+	//																you include matrix_element_creation.
+	//
+	//  NOTE: This production would normally just be added to the java primary prod, but the '.USES' has conflicts
+	//  with field access. So, only include it primary inside parenthesis, and then, manually include it in the
+	//  productions that use expressions that need it (like assignment)
+	//
+	matrix_element_creation =
+		{mp_matrix} matrix_new_declaration | {mp_schema} schema_new_declaration | {mp_descriptor} descriptor_new  |
+		{mp_item} item_new | {mp_field} field_new ;
+
+
+	//  ** May make braces optional on descriptors and items too (MUST be required on field because of
+	//     shift/reduce conflicts)
+	descriptor_new =
+		{mp} mp_descriptor_keyword dot mp_new_keyword new_uses_schema? descriptor_new_body_options?;
+	descriptor_new_body_options =  {mp_braces} l_brc descriptor_new_body r_brc
+									/* | {no_braces} descriptor_new_body*/
+									|
+									{mp_empty} l_brc r_brc;
+
+	descriptor_new_body =
+		{mp} descriptor_head_std uses_schemas? descriptor_field_and_body_options semi?;
+
+
+	item_new =
+		{mp} mp_item_keyword dot mp_new_keyword new_uses_schema? item_new_body_options?;
+	item_new_body_options =  {mp_braces} l_brc item_new_body r_brc
+							/* | {mp_no_braces} item_new_body */
+							|
+							{mp_empty} l_brc r_brc;
+
+	item_new_body =
+		{mp} item_new_name_options uses_schemas? descriptor_field_and_body_options?  semi?;
+
+	item_new_name_options =
+		{mp_std} descriptor_head_hidden_tagname | {mp_pass_in_name} element_name_specify_by_bracket;
+
+	field_new =
+		{mp} mp_field_keyword dot mp_new_keyword new_uses_schema? field_body?;
+	field_body = {mp_std} l_brc matrix_elem_access_options_from_field_body parameter_mapping_to_value?  semi? r_brc |
+				 {mp_empty} l_brc r_brc;
+
+
+
+	//  new_uses_schema for schemas of descriptor tag names
+	//  schema_name_list can return a single $var that represents the set of schemas
+	new_uses_schema = {mp} dot mp_uses_keyword new_schema_options;
+	new_schema_options =
+		{mp_set} new_schema_set;
+	new_schema_set = {mp} lt schema_name_list gt;
+
+
+	//  NOTE: matrix_elem_access_no_labels can return a variable name!
+	//  for example, it can return  'myFieldVar' that is a variable name that can be used like descriptor access!!
+	matrix_elem_access_options_from_field_body = {mp_matrix_access} matrix_elem_access_no_labels;
+
+
+
+
+
+	//  CODE CLOSURES ______________________________________________________________________________________________
+
+	//  ** ADD TO JAVA PRODUCTION: Primary
+	code_closure = {mp} mp_code_closure_operator code_closure_statement_options* r_brc;
+	code_closure_statement_options =
+		{mp_expression} l_par matrix_expression r_par semi |
+		{mp_statement} matrix_statement;
+
+
+
+
+
+
+    // _________________________________________________________________________________________________________________
+    //
+    //   FIELD VALUE PRODUCTIONS
+    // _________________________________________________________________________________________________________________
+
+
+	matrix_field_expression = {mp} matrix_field_expression_continuation;
+	matrix_field_expression_continuation = {mp} matrix_field_expression_options continuation_operator?;
+	matrix_field_expression_options =
+		{mp_matrix_expression} 				matrix_expression  |
+		{mp_field_value_operator_options} 	field_value_operator_options |
+
+		//  types mainly used for schema creation
+		//  types must be wrapped in { } because cause many conflicts (for starters, MATRIX type conflicts with
+		//  newing a MATRIX
+		{mp_primitive} 		l_brc primitive_type [dims]:dim* r_brc |
+    	{mp_reference} 		l_brc identifier [additional_identifiers]:additional_identifier*
+    							[type_components]:type_component* type_arguments? [dims]:dim* r_brc;
+
+
+	field_value_operator_options =
+		{mp_default} default_fieldvalue_options |
+		{mp_unused} unused_fieldvalue_options |
+		{mp_ditto_prev} ditto_prev_fieldvalue_options |
+		{mp_ditto_prev_level} ditto_prev_level_fieldvalue_options;
+
+	default_fieldvalue_options = {mp_op} star | {mp_var} mp_default_keyword;
+	unused_fieldvalue_options = {mp_op} minus | {mp_var} mp_unused_keyword;
+	ditto_prev_fieldvalue_options = {mp_op} mp_pair_singlequotes | {mp_var} mp_ditto_keyword ;
+	ditto_prev_level_fieldvalue_options = {mp_op} mp_ditto_prev_level_operator | {mp_var} mp_ditto_keyword caret;
+
+
+	continuation_operator = dot_dot_dot;
+
+
+
+
+    // _________________________________________________________________________________________________________________
+	//
+	//  Matrix Statements & Expressions
+    // _________________________________________________________________________________________________________________
+
+	matrix_statement =
+		{mp_var_declaration} local_variable_declaration_statement |
+		{mp_statement} statement;
+
+
+
+	//  ** This production is used by the matrix productions like Sets as field values!!
+	//  ** It should look like the java production, assignment
+	matrix_expression =
+		{mp_expression} expression |
+		{mp_id} identifier additional_identifier* |
+
+		{mp_outside_included_prod} mp_outside_included_expression_related_prod
+		;
+
+
+	//  ** ADD TO: (for full list, see the design doc:
+	//	   "Java Productions that need to include Symbol Useage or New Matrix Element.txt"
+	//		- ** Add to many of the java productions that manually use 'identifier additional_identifier*'
+	//
+	//     	- matrix_expression (matrix prod)
+	//		- method_invocation: argument_list
+	//		- assignment_expression
+	//		- assignment     * used to stop a shift/reduce conflict, but redundant with include in assgn_expr
+	//		- equality_expression
+	//		- switch_statement
+	//		- return_statement
+	//		- variable_initializer
+	//		- assert_statement???
+	//
+	//  NOTE: These productions would normally just be added to the java primary prod, but they have conflicts
+	//  with other java productions. So, only include it in "primary inside parenthesis" alternative, and then, manually include
+	//  it in the productions that use expressions that need it (like assignment)
+	//
+	mp_outside_included_expression_related_prod =
+		{mp_symbol} mp_symbol_useage |
+		{matrix_element_creation} matrix_element_creation
+		;
+
+
+
+	//  This version also allows an id. used for productions like equality where id is used as a possible operand
+	//  in the productions
+	//
+	//  ** ADD TO:
+	//		- equality_expression
+	mp_outside_included_expr_related_prod_plus_id = {mp_element} mp_outside_included_expression_related_prod |
+		{mp_id} identifier [additional_identifiers]:additional_identifier* ;
+
+	mp_types =
+		{mp_primitive} primitive_type [dims]:dim* |
+		{mp_reference} identifier [additional_identifiers]:additional_identifier* [type_components]:type_component*
+						type_arguments? [dims]:dim*;
+
+	mp_integer_literal = {mp_int} integer_literal | {mp_unlimited_constant} mp_n_keyword |
+		{mp_integer_range} mp_token_number_range | {mp_not_a_number} mp_nan_keyword;
+
+
+
+
+
+    // _________________________________________________________________________________________________________________
+    //
+    //   MATRIX PRE-DEFEINED VARIABLES & METHODS
+    // _________________________________________________________________________________________________________________
+
+
+
+	//  ** ADD TO JAVA PRODUCTION: primary
+	//
+	//  Matrix Pre-defined Variables
+	it_variable = {mp} mp_it_keyword;
+
+
+
+	//  ** ADD TO JAVA PRODUCTION: method_invocation
+	//
+	//  Matrix Pre-defeined Methods
+	//
+	matrix_predefined_methods = {mp_exist} exist_method | {mp_valid} valid_method;
+
+	exist_method = 	{mp} mp_exist_keyword l_par argument_list? r_par;
+	valid_method = 	{mp} mp_valid_keyword l_par argument_list? r_par;
+
+
+    // _________________________________________________________________________________________________________________
+    //
+    //   MATRIX IMPORT-RELATED PRODUCTIONS
+    // _________________________________________________________________________________________________________________
+
+    matrix_import_declaration = {mp} import mp_matrix_keyword matrix_element_name semi;
+
+    schema_import_declaration = {mp} import mp_schema_keyword matrix_element_name semi;
+
+
+    // _________________________________________________________________________________________________________________
+    //
+    //   SMALLER PRODUCTIONS
+    // _________________________________________________________________________________________________________________
+
+	matrix_access_modifier = {mp_public} public | {mp_private} private;
+
+    //  These are used for the DESCRIPTOR<access_type> var.s. Used in local vars, method params, and class vars productions
+    descriptor_variable_type =
+        {mp} [modifiers]:modifier* mp_descriptor_keyword matrix_access_type?;
+    matrix_access_type =
+        {mp_matrix_access} lt matrix_access gt /*|
+        {mp_schema_path} */
+        ;
+
+
+
+
+	
+
+	
+
+
+	
+	  	
+	
+	
+	
+	
+	
+    // _________________________________________________________________________________________________________________
+    //
+    //   JAVA PRODUCTIONS 
+    // _________________________________________________________________________________________________________________
+
+
+
+  import_declaration =
+    {single}        single_type_import_declaration |
+    {single_demand} type_import_on_demand_declaration |
+    {static}        single_static_import_declaration |
+    {static_demand} static_import_on_demand_declaration |
+
+    {mj_matrix_import}        matrix_import_declaration |
+    {mj_schema_import}        schema_import_declaration;
+
+
+
+  type_declaration =
+    {class}     class_declaration |
+    {interface} interface_declaration |
+    {empty}     semi;
+
+  annotation =
+    {normal_annotation}         normal_annotation |
+    {marker_annotation}         marker_annotation |
+    {single_element_annotation} single_element_annotation;
+
+  single_type_import_declaration =
+    import identifier [additional_identifiers]:additional_identifier* semi;
+
+  type_import_on_demand_declaration =
+    import identifier [additional_identifiers]:additional_identifier* dot star semi;
+
+  single_static_import_declaration =
+    import static identifier [additional_identifiers]:additional_identifier+ semi;
+
+  static_import_on_demand_declaration =
+    import static identifier [additional_identifiers]:additional_identifier* dot star semi;
+
+  class_declaration =
+    {normal_class} normal_class_declaration |
+    {enum}         enum_declaration;
+
+  interface_declaration =
+    {normal_interface} normal_interface_declaration |
+    {annotation_type}  annotation_type_declaration;
+
+  normal_annotation =
+    at identifier [additional_identifiers]:additional_identifier* l_par element_value_pairs? r_par;
+
+  marker_annotation =
+    at identifier [additional_identifiers]:additional_identifier*;
+
+  single_element_annotation =
+    at identifier [additional_identifiers]:additional_identifier* l_par element_value r_par;
+
+  normal_class_declaration =
+    [modifiers]:modifier* class_token identifier type_parameters? super? interfaces? class_body;
+
+  enum_declaration =
+    [modifiers]:modifier* enum identifier interfaces? enum_body;
+
+  normal_interface_declaration =
+    [modifiers]:modifier* interface identifier type_parameters? extends_interfaces? interface_body;
+
+  annotation_type_declaration =
+    [modifiers]:modifier* at interface identifier annotation_type_body;
+
+  element_value_pairs =
+    {one}                            element_value_pair |
+    {many} element_value_pairs comma element_value_pair;
+
+  element_value =
+    {conditional}       conditional_expression |
+    {identifier}        identifier [additional_identifiers]:additional_identifier* |
+    {annotation}        annotation |
+    {array_initializer} element_value_array_initializer;
+
+  type_parameters =
+    {gt}   lt type_parameter_list gt |
+    {shr}  lt type_parameter_list_shr shr |
+    {ushr} lt type_parameter_list_ushr ushr;
+
+  super =
+    extends identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments?;
+
+  interfaces =
+    implements interface_type_list;
+
+  class_body =
+    l_brc [class_body_declarations]:class_body_declaration* r_brc;
+
+  enum_body =
+    l_brc enum_constants? comma? enum_body_declarations? r_brc;
+
+  extends_interfaces =
+    {one}  extends                  identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? |
+    {many} extends_interfaces comma identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments?;
+
+  interface_body =
+    l_brc [interface_member_declarations]:interface_member_declaration* r_brc;
+
+  annotation_type_body =
+    l_brc [annotation_type_element_declarations]:annotation_type_element_declaration* r_brc;
+
+  element_value_pair =
+    identifier assign element_value;
+
+  conditional_expression =
+    {simple}         conditional_or_expression |
+    {qmark_or_ex_or} conditional_or_expression                                                 qmark expression                                                                colon conditional_expression |
+    {qmark_or_ex_id} conditional_or_expression                                                 qmark expression                                                                colon               identifier  [additional_identifiers]:additional_identifier* |
+    {qmark_or_id_or} conditional_or_expression                                                 qmark               identifier  [additional_identifiers]:additional_identifier* colon conditional_expression |
+    {qmakr_or_id_id} conditional_or_expression                                                 qmark [identifier1]:identifier [additional_identifiers1]:additional_identifier* colon [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {qmakr_id_ex_or}               identifier  [additional_identifiers]:additional_identifier* qmark expression                                                                colon conditional_expression |
+    {qmakr_id_ex_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* qmark expression                                                                colon [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {qmakr_id_id_or} [identifier1]:identifier [additional_identifiers1]:additional_identifier* qmark [identifier2]:identifier [additional_identifiers2]:additional_identifier* colon conditional_expression |
+    {qmakr_id_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* qmark [identifier2]:identifier [additional_identifiers2]:additional_identifier* colon [identifier3]:identifier [additional_identifiers3]:additional_identifier*;
+
+  element_value_array_initializer =
+    l_brc element_values? comma? r_brc;
+
+  type_parameter_list =
+    {one}                            type_parameter |
+    {many} type_parameter_list comma type_parameter;
+
+  type_parameter_list_shr =
+    {one}                            type_parameter_shr |
+    {many} type_parameter_list comma type_parameter_shr;
+
+  type_parameter_list_ushr =
+    {one}                            type_parameter_ushr |
+    {many} type_parameter_list comma type_parameter_ushr;
+
+  interface_type_list =
+    {one}                            identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? |
+    {many} interface_type_list comma identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments?;
+
+  class_body_declaration =
+    {member}               class_member_declaration |
+    {instance_initializer} instance_initializer |
+    {static_initializer}   static_initializer |
+    {constructor}          constructor_declaration;
+
+  enum_constants =
+    {one}                       enum_constant |
+    {many} enum_constants comma enum_constant;
+
+  enum_body_declarations =
+    semi [class_body_declarations]:class_body_declaration*;
+
+  interface_member_declaration =
+     {constant}  constant_declaration |
+     {method}    abstract_method_declaration |
+     {class}     class_declaration |
+     {interface} interface_declaration |
+     {empty}     semi;
+
+  annotation_type_element_declaration =
+    {primitive_method} [modifiers]:modifier* primitive_type                                                                                                             [dims]:dim*               identifier l_par r_par default_value? semi |
+    {reference_method} [modifiers]:modifier* [identifier1]:identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* [identifier2]:identifier l_par r_par default_value? semi |
+    {constant}         constant_declaration |
+    {class}            class_declaration |
+    {interface}        interface_declaration |
+    {empty}            semi;
+
+  conditional_or_expression =
+    {simple}                                                                                          conditional_and_expression |
+    {bar_bar_or_or} conditional_or_expression                                                 bar_bar conditional_and_expression |
+    {bar_bar_or_id} conditional_or_expression                                                 bar_bar               identifier  [additional_identifiers]:additional_identifier* |
+    {bar_bar_id_or}               identifier  [additional_identifiers]:additional_identifier* bar_bar conditional_and_expression |
+    {bar_bar_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* bar_bar [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+  expression =
+    assignment_expression;
+
+  element_values =
+    {one}                       element_value |
+    {many} element_values comma element_value;
+
+  type_parameter =
+    identifier type_bound?;
+
+  type_parameter_shr =
+    identifier type_bound_shr;
+
+  type_parameter_ushr =
+    identifier type_bound_ushr;
+
+  type_arguments =
+    {gt}   lt actual_type_argument_list gt |
+    {shr}  lt actual_type_argument_list_shr shr |
+    {ushr} lt actual_type_argument_list_ushr ushr;
+
+  type_arguments_shr_no_gt =
+    lt actual_type_argument_list;
+
+  type_arguments_ushr_no_gt_gt =
+    lt actual_type_argument_list_ushr_no_gt;
+
+  type_arguments_ushr_no_gt =
+    lt actual_type_argument_list;
+
+  class_member_declaration =
+    {field}     field_declaration |
+    {method}    method_declaration |
+    {class}     class_declaration |
+    {interface} interface_declaration |
+    {empty}     semi;
+
+  instance_initializer =
+    block;
+
+  static_initializer =
+    static block;
+
+  constructor_declaration =
+    [modifiers]:modifier* constructor_declarator throws? constructor_body;
+
+  enum_constant =
+    [modifiers]:modifier* identifier arguments? class_body?;
+
+  constant_declaration =
+    {primitive} [modifiers]:modifier* primitive_type                                                                                               [dims]:dim* variable_declarators semi |
+    {reference} [modifiers]:modifier* identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* variable_declarators semi;
+
+  abstract_method_declaration =
+    {primitive} [modifiers]:modifier* type_parameters? primitive_type                                                                                               [dims]:dim* method_declarator throws? semi |
+    {reference} [modifiers]:modifier* type_parameters? identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* method_declarator throws? semi |
+    {void}      [modifiers]:modifier* type_parameters? void                                                                                                                     method_declarator throws? semi;
+
+  default_value =
+    default element_value;
+
+  conditional_and_expression =
+    {simple}                                                                                          inclusive_or_expression |
+    {amp_amp_an_or} conditional_and_expression                                                amp_amp inclusive_or_expression |
+    {amp_amp_an_id} conditional_and_expression                                                amp_amp               identifier  [additional_identifiers]:additional_identifier* |
+    {amp_amp_id_or}               identifier  [additional_identifiers]:additional_identifier* amp_amp inclusive_or_expression |
+    {amp_amp_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* amp_amp [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+  assignment_expression =
+    {conditional} conditional_expression |
+    {assignment}  assignment |
+    
+    //  **MATRIX** 
+	{mj_outside_included} mp_outside_included_expression_related_prod
+	;
+
+  type_bound =
+    extends identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [additional_bounds]:additional_bound*;
+
+  type_bound_shr =
+    {argument} extends identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_shr_no_gt |
+    {bound}    extends identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [additional_bounds]:additional_bound* additional_bound_shr_no_gt;
+
+  type_bound_ushr =
+    {argument} extends identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt_gt |
+    {bound}    extends identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [additional_bounds]:additional_bound* additional_bound_ushr_no_gt_gt;
+
+  type_component =
+    type_arguments [additional_identifiers]:additional_identifier+;
+
+  actual_type_argument_list =
+    {one}                                  actual_type_argument |
+    {many} actual_type_argument_list comma actual_type_argument;
+
+  actual_type_argument_list_shr =
+    {one}                                  actual_type_argument_shr |
+    {many} actual_type_argument_list comma actual_type_argument_shr;
+
+  actual_type_argument_list_ushr =
+    {one}                                  actual_type_argument_ushr |
+    {many} actual_type_argument_list comma actual_type_argument_ushr;
+
+  actual_type_argument_list_ushr_no_gt =
+    {one}                                  actual_type_argument_ushr_no_gt |
+    {many} actual_type_argument_list comma actual_type_argument_ushr_no_gt;
+
+  field_declaration =
+    {primitive} [modifiers]:modifier* primitive_type [dims]:dim* variable_declarators semi |
+    {reference} [modifiers]:modifier* identifier [additional_identifiers]:additional_identifier*
+                    [type_components]:type_component* type_arguments? [dims]:dim* variable_declarators semi |
+
+    //  **MATRIX**
+    {mj_desc_var} descriptor_variable_type variable_declarators semi
+    ;
+
+  method_declaration =
+    method_header method_body;
+
+  block =
+    l_brc [block_statements]:block_statement* r_brc;
+
+  constructor_declarator =
+    type_parameters? identifier l_par formal_parameter_list? r_par;
+
+  throws =
+    throws_token exception_type_list;
+
+  constructor_body =
+    l_brc explicit_constructor_invocation? [block_statements]:block_statement* r_brc;
+
+  arguments =
+    l_par argument_list? r_par;
+
+  variable_declarators =
+    {one}                             variable_declarator |
+    {many} variable_declarators comma variable_declarator;
+
+  method_declarator =
+    identifier l_par formal_parameter_list? r_par [dims]:dim*;
+
+  primitive_type =
+    {numeric} numeric_type |
+    {boolean} boolean |
+	
+	//  **MATRIX** - add to java productions
+	{mj_matrix_types} mp_matrix_types
+	;
+
+  inclusive_or_expression =
+    {simple}                                                                                  exclusive_or_expression |
+    {bar_or_or} inclusive_or_expression                                                   bar exclusive_or_expression |
+    {bar_or_id} inclusive_or_expression                                                   bar               identifier  [additional_identifiers]:additional_identifier* |
+    {bar_id_or}               identifier  [additional_identifiers]:additional_identifier* bar exclusive_or_expression |
+    {bar_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* bar [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+  assignment =
+    {expression} left_hand_side assignment_operator assignment_expression |
+    {identifier} left_hand_side assignment_operator identifier [additional_identifiers]:additional_identifier* |
+
+    //  **MATRIX** 
+    {mj_outside_included} left_hand_side assignment_operator mp_outside_included_expression_related_prod
+	;    
+
+  additional_bound =
+    amp identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments?;
+
+  additional_bound_shr_no_gt =
+    amp identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_shr_no_gt;
+
+  additional_bound_ushr_no_gt_gt =
+    amp identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt_gt;
+
+  actual_type_argument =
+    {primitive} primitive_type [dims]:dim+ |
+    {reference} identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* |
+    {wildcard}  wildcard;
+
+  actual_type_argument_shr =
+    {reference} identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_shr_no_gt |
+    {wildcard}  wildcard_shr;
+
+  actual_type_argument_ushr =
+    {reference} identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt_gt |
+    {wildcard}  wildcard_ushr;
+
+  actual_type_argument_ushr_no_gt =
+    {reference} identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt |
+    {wildcard}  wildcard_ushr_no_gt;
+
+  method_header =
+    {primitive} [modifiers]:modifier* type_parameters? primitive_type                                                                                               [dims]:dim* method_declarator throws? |
+    {reference} [modifiers]:modifier* type_parameters? identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* method_declarator throws? |
+    {void}      [modifiers]:modifier* type_parameters? void                                                                                                                     method_declarator throws?;
+
+  method_body =
+    {block} block |
+    {empty} semi;
+
+  block_statement =
+    {variable_declaration} local_variable_declaration_statement |
+    {class_declaration}    class_declaration |
+    {statement}            statement;
+
+  formal_parameter_list =
+    {one}                          last_formal_parameter |
+    {many} formal_parameters comma last_formal_parameter;
+
+  exception_type_list =
+    {one}                            exception_type |
+    {many} exception_type_list comma exception_type;
+
+  explicit_constructor_invocation =
+    {this}                                                                      non_wild_type_arguments? this        l_par argument_list? r_par semi |
+    {super}                                                                     non_wild_type_arguments? super_token l_par argument_list? r_par semi |
+    {primary}    primary                                                    dot non_wild_type_arguments? super_token l_par argument_list? r_par semi |
+    {identifier} identifier [additional_identifiers]:additional_identifier* dot non_wild_type_arguments? super_token l_par argument_list? r_par semi;
+
+  argument_list =
+    {one_ex}  expression |
+    {one_id}  identifier [additional_identifiers]:additional_identifier* |
+    {many_ex} argument_list comma expression |
+    {many_id} argument_list comma identifier [additional_identifiers]:additional_identifier* |
+    
+		
+	//  **MATRIX** 
+	{mj_one_outside_included} mp_outside_included_expression_related_prod |
+	{mj_many_outside_included} argument_list comma mp_outside_included_expression_related_prod
+	;
+
+
+  variable_declarator =
+    {simple}      identifier [dims]:dim* |
+    {initializer} identifier [dims]:dim* assign variable_initializer;
+
+  numeric_type =
+    {integral} integral_type |
+    {floating} floating_point_type;
+
+  exclusive_or_expression =
+    {simple}                                                                                      and_expression |
+    {caret_or_an} exclusive_or_expression                                                   caret and_expression |
+    {caret_or_id} exclusive_or_expression                                                   caret               identifier  [additional_identifiers]:additional_identifier* |
+    {caret_id_an}               identifier  [additional_identifiers]:additional_identifier* caret and_expression |
+    {caret_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* caret [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+  left_hand_side =
+    {identifier} identifier [additional_identifiers]:additional_identifier* |
+    {field}      field_access |
+    {array}      array_access |
+
+	//  **MATRIX** 
+	{mj_matrix_access} matrix_access
+    ;
+
+
+
+
+  assignment_operator =
+    {assign}         assign |
+    {star_assign}    star_assign |
+    {slash_assign}   slash_assign |
+    {percent_assign} percent_assign |
+    {plus_assign}    plus_assign |
+    {minus_assign}   minus_assign |
+    {shl_assign}     shl_assign |
+    {shr_assign}     shr_assign |
+    {ushr_assign}    ushr_assign |
+    {amp_assign}     amp_assign |
+    {caret_assign}   caret_assign |
+    {bar_assign}     bar_assign;
+
+  wildcard =
+    qmark wildcard_bounds?;
+
+  wildcard_shr =
+    qmark wildcard_bounds_shr;
+
+  wildcard_ushr =
+    qmark wildcard_bounds_ushr;
+
+  wildcard_ushr_no_gt =
+    qmark wildcard_bounds_ushr_no_gt;
+
+  local_variable_declaration_statement =
+    local_variable_declaration semi;
+
+  statement =
+    {no_trail}   statement_without_trailing_substatement |
+    {label}      labeled_statement |
+    {if}         if_then_statement |
+    {if_else}    if_then_else_statement |
+    {while_loop} while_statement |
+    {for_loop}   for_statement;
+
+  last_formal_parameter =
+    {primitive_var_arg} [modifiers]:modifier* primitive_type                                                                                                             [dims1]:dim* dot_dot_dot               identifier [dims2]:dim* |
+    {reference_var_arg} [modifiers]:modifier* [identifier1]:identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims1]:dim* dot_dot_dot [identifier2]:identifier [dims2]:dim* |
+    {simple}            formal_parameter;
+
+  formal_parameters =
+    {one}                          formal_parameter |
+    {many} formal_parameters comma formal_parameter;
+
+  exception_type =
+    identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments?;
+
+  non_wild_type_arguments =
+    {gt}   lt reference_type_list gt |
+    {shr}  lt reference_type_list_shr shr |
+    {ushr} lt reference_type_list_ushr ushr;
+
+
+
+
+  //  **MATRIX** ADDED PRODUCTION - pass through to allow matrix_access to sit above primary
+  //  The reason you need this is because normally, you want the matrix_access production to be apart of
+  //  primary, but primary is a "mix and match" production, that can recusively build using method calls, or
+  //  field access... the problem is that the descriptor tag names of matrix_access conflict with field access.
+  mp_pre_primary = 
+	//  **MATRIX** ADDED PRODUCTIONS
+	{mj_matrix_access} matrix_access |
+	{primary} primary;
+	
+	
+  primary =
+    {no_array} primary_no_new_array |
+    {array}    array_creation_expression;
+
+  variable_initializer =
+    {expression} expression |
+    {identifier} identifier [additional_identifiers]:additional_identifier* |
+    {array}      array_initializer |
+    
+	//  **MATRIX** 
+	{mj_outside_included} mp_outside_included_expression_related_prod
+	;
+
+
+  integral_type =
+    {byte}  byte |
+    {short} short |
+    {int}   int |
+    {long}  long |
+    {char}  char;
+
+  floating_point_type =
+    {float}  float |
+    {double} double;
+
+  and_expression =
+    {simple}                                                                                  equality_expression |
+    {amp_an_eq} and_expression                                                            amp equality_expression |
+    {amp_an_id} and_expression                                                            amp               identifier  [additional_identifiers]:additional_identifier* |
+    {amp_id_eq}               identifier  [additional_identifiers]:additional_identifier* amp equality_expression |
+    {amp_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* amp [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+  field_access =
+    {primary}                                                                                             primary            dot               identifier |
+    {super}                                                                                               super_token        dot               identifier |
+    {reference_super} [identifier1]:identifier [additional_identifiers]:additional_identifier* [dot1]:dot super_token [dot2]:dot [identifier2]:identifier;
+
+  array_access =
+    {primary_ex}    primary_no_new_array                                                      l_bkt expression                                                                r_bkt |
+    {primary_id}    primary_no_new_array                                                      l_bkt               identifier  [additional_identifiers]:additional_identifier* r_bkt |
+    {identifier_ex}               identifier  [additional_identifiers]:additional_identifier* l_bkt expression                                                                r_bkt |
+    {identifier_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* l_bkt [identifier2]:identifier [additional_identifiers2]:additional_identifier* r_bkt;
+
+  wildcard_bounds =
+    {extends_primitive} extends     primitive_type [dims]:dim+ |
+    {extends_reference} extends     identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* |
+    {super_primitive}   super_token primitive_type [dims]:dim+ |
+    {super_reference}   super_token identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim*;
+
+  wildcard_bounds_shr =
+    {extends_reference} extends     identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_shr_no_gt |
+    {super_reference}   super_token identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_shr_no_gt;
+
+  wildcard_bounds_ushr =
+    {extends_reference} extends     identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt_gt |
+    {super_reference}   super_token identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt_gt;
+
+  wildcard_bounds_ushr_no_gt =
+    {extends_reference} extends     identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt |
+    {super_reference}   super_token identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt;
+
+  local_variable_declaration =
+    {primitive} [modifiers]:modifier* primitive_type [dims]:dim* variable_declarators |
+    {reference} [modifiers]:modifier* identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* variable_declarators |
+
+    //  **MATRIX**
+    {mj_desc_var} descriptor_variable_type variable_declarators
+    ;
+
+
+
+  statement_without_trailing_substatement =
+    {block}                  block |
+    {empty_statement}        empty_statement |
+    {expression_statement}   expression_statement |
+    {assert_statement}       assert_statement |
+    {switch_statement}       switch_statement |
+    {do_statement}           do_statement |
+    {break_statement}        break_statement |
+    {continue_stmt}     	 continue_statement |
+    {return_statement}       return_statement |
+    {synchronized_statement} synchronized_statement |
+    {throw_statement}        throw_statement |
+    {try_statement}          try_statement |
+    
+    //  **MATRIX**
+    {mj_annotation_statement}   annotation_statement |
+    {mj_annotations}            mp_annotations_declaration
+    ;
+
+  labeled_statement =
+    identifier colon statement;
+
+  if_then_statement =
+    {expression} if l_par expression                                                 r_par statement |
+    {identifier} if l_par identifier [additional_identifiers]:additional_identifier* r_par statement;
+
+  if_then_else_statement =
+    {expression} if l_par expression                                                 r_par statement_no_short_if else statement |
+    {identifier} if l_par identifier [additional_identifiers]:additional_identifier* r_par statement_no_short_if else statement;
+
+  while_statement =
+    {expression} while l_par expression                                                 r_par statement |
+    {identifier} while l_par identifier [additional_identifiers]:additional_identifier* r_par statement;
+
+  for_statement =
+    {basic_for}    basic_for_statement |
+    {enhanced_for} enhanced_for_statement;
+
+  formal_parameter =
+    {primitive} [modifiers]:modifier* primitive_type [dims1]:dim* identifier [dims2]:dim* |
+    {reference} [modifiers]:modifier* [identifier1]:identifier [additional_identifiers]:additional_identifier*
+                    [type_components]:type_component* type_arguments? [dims1]:dim* [identifier2]:identifier [dims2]:dim* |
+
+    //  **MATRIX**
+    {mp_desc_var} descriptor_variable_type identifier
+    ;
+
+
+  reference_type_list =
+    {one_primitive}                            primitive_type [dims]:dim+ |
+    {one_reference}                            identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* |
+    {many_primitive} reference_type_list comma primitive_type [dims]:dim+ |
+    {many_reference} reference_type_list comma identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim*;
+
+  reference_type_list_shr =
+    {one_reference}                            identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_shr_no_gt |
+    {many_reference} reference_type_list comma identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_shr_no_gt;
+
+  reference_type_list_ushr =
+    {one_reference}                            identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt_gt |
+    {many_reference} reference_type_list comma identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt_gt;
+
+  primary_no_new_array =
+    {literal}    literal |
+    {primitive}  primitive_type                                             [dims]:dim* dot class_token |
+    {reference}  identifier [additional_identifiers]:additional_identifier* [dims]:dim* dot class_token |
+    {void}       void dot class_token |
+    {this}       this |
+    {class}      identifier [additional_identifiers]:additional_identifier* dot this |
+    {expression} l_par expression                                                 r_par |
+    {identifier} l_par identifier [additional_identifiers]:additional_identifier* r_par |
+    {instance}   class_instance_creation_expression |
+    {field}      field_access |
+    {method}     method_invocation |
+    {array}      array_access |
+    
+	//  **MATRIX** ADDED PRODUCTIONS
+	{mj_set_creation} set_instance_creation |
+	//  subset creation - wherever method invocation is, subset creation is too
+	{mj_subset_creation} subset_creation |
+	{mj_it_var} it_variable |
+
+	{mj_closure} code_closure |
+	
+	{mj_symbol_parens} l_par mp_symbol_useage r_par |
+	{mj_matrix_element_creation_parens} l_par matrix_element_creation r_par
+	;
+
+
+
+  array_creation_expression =
+    {primitive}             new primitive_type                                                                                               [dim_exprs]:dim_expr+ [dims]:dim* |
+    {reference}             new identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dim_exprs]:dim_expr+ [dims]:dim* |
+    {primitive_initializer} new primitive_type                                                                                               [dims]:dim+ array_initializer |
+    {reference_initializer} new identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim+ array_initializer;
+
+  array_initializer =
+    l_brc variable_initializers? comma? r_brc;
+
+  variable_initializers =
+    {one}                              variable_initializer |
+    {many} variable_initializers comma variable_initializer;
+
+
+
+  //  **MATRIX** MODIFIED JAVA PRODUCTION
+  equality_expression =
+	{simple}  	relational_expression |
+	{eq_eq_re}  equality_expression eq  relational_expression |
+	{mj_eq_eq_mp}  equality_expression eq mp_outside_included_expr_related_prod_plus_id |
+	{mj_eq_mp_re}  mp_outside_included_expr_related_prod_plus_id eq relational_expression |
+	{mj_eq_mp_mp}  [mp_element1]:mp_outside_included_expr_related_prod_plus_id eq  	
+		[mp_element2]:mp_outside_included_expr_related_prod_plus_id |
+		
+	{neq_eq_re} equality_expression neq relational_expression |
+	{mj_neq_eq_mp} equality_expression neq mp_outside_included_expr_related_prod_plus_id |
+	{mj_neq_mp_re} mp_outside_included_expr_related_prod_plus_id neq relational_expression |
+	{mj_neq_mp_mp} [mp_element1]:mp_outside_included_expr_related_prod_plus_id neq  
+		[mp_element2]:mp_outside_included_expr_related_prod_plus_id
+		;
+
+/*
+  //  OLD
+  equality_expression =
+	{simple}  	relational_expression |
+	{eq_eq_re}  equality_expression eq  relational_expression |
+	{eq_eq_id}  equality_expression eq identifier [additional_identifiers]:additional_identifier* |
+	{eq_id_re}  identifier [additional_identifiers]:additional_identifier* eq  relational_expression |
+	{eq_id_id}  [identifier1]:identifier [additional_identifiers1]:additional_identifier* eq  [identifier2]:identifier 	
+		[additional_identifiers2]:additional_identifier* |
+		
+	{neq_eq_re} equality_expression neq relational_expression |
+	{neq_eq_id} equality_expression neq identifier  [additional_identifiers]:additional_identifier* |
+	{neq_id_re} identifier  [additional_identifiers]:additional_identifier* neq relational_expression |
+	{neq_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* neq [identifier2]:identifier 
+		[additional_identifiers2]:additional_identifier* 
+		;
+ */	
+
+
+  empty_statement =
+    semi;
+
+  expression_statement =
+    statement_expression semi;
+
+  assert_statement =
+    {one_ex}    assert               expression                                                  semi |
+    {one_id}    assert               identifier [additional_identifiers]:additional_identifier*  semi |
+    {two_ex_ex} assert [expression1]:expression                                                  colon [expression2]:expression semi |
+    {two_ex_id} assert               expression                                                  colon               identifier  [additional_identifiers]:additional_identifier* semi |
+    {two_id_ex} assert               identifier  [additional_identifiers]:additional_identifier* colon expression                                                                semi |
+    {two_id_id} assert [identifier1]:identifier [additional_identifiers1]:additional_identifier* colon [identifier2]:identifier [additional_identifiers2]:additional_identifier* semi;
+
+  switch_statement =
+    {expression} switch l_par expression                                                 r_par switch_block |
+    {identifier} switch l_par identifier [additional_identifiers]:additional_identifier* r_par switch_block;
+
+  do_statement =
+    {expression} do statement while l_par expression                                                 r_par semi |
+    {identifier} do statement while l_par identifier [additional_identifiers]:additional_identifier* r_par semi;
+
+  break_statement =
+    break identifier? semi;
+
+  continue_statement =
+    continue identifier? semi;
+
+  return_statement =
+    {empty}      return                                                            semi |
+    {expression} return expression                                                 semi |
+    {identifier} return identifier [additional_identifiers]:additional_identifier* semi |
+    
+    //  **MATRIX** 
+    {mj_outside_included} return mp_outside_included_expression_related_prod semi;
+    
+    
+
+  synchronized_statement =
+    {expression} synchronized l_par expression                                                 r_par block |
+    {identifier} synchronized l_par identifier [additional_identifiers]:additional_identifier* r_par block;
+
+  throw_statement =
+    {expression} throw expression                                                 semi |
+    {identifier} throw identifier [additional_identifiers]:additional_identifier* semi;
+
+  try_statement =
+    {catch}   try block [catch_clauses]:catch_clause+ |
+    {finally} try block [catch_clauses]:catch_clause* finally;
+
+  statement_no_short_if =
+    {statement_without_trailing_substatement} statement_without_trailing_substatement |
+    {labeled_statement_no_short_if}           labeled_statement_no_short_if |
+    {if_then_else_statement_no_short_if}      if_then_else_statement_no_short_if |
+    {while_statement_no_short_if}             while_statement_no_short_if |
+    {for_statement_no_short_if}               for_statement_no_short_if;
+
+  basic_for_statement =
+    {empty}      for l_par for_init? [semi1]:semi                                                            [semi2]:semi for_update? r_par statement |
+    {expression} for l_par for_init? [semi1]:semi expression                                                 [semi2]:semi for_update? r_par statement |
+    {identifier} for l_par for_init? [semi1]:semi identifier [additional_identifiers]:additional_identifier* [semi2]:semi for_update? r_par statement;
+
+  enhanced_for_statement =
+    {primitive_expression} for l_par [modifiers]:modifier* primitive_type [dims]:dim* identifier colon expression r_par statement |
+    {primitive_identifier} for l_par [modifiers]:modifier* primitive_type [dims]:dim* [identifier1]:identifier colon [identifier2]:identifier  [additional_identifiers]:additional_identifier* r_par statement |
+    {reference_expression} for l_par [modifiers]:modifier* [identifier1]:identifier  [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* [identifier2]:identifier colon expression                                                                r_par statement |
+    {reference_identifier} for l_par [modifiers]:modifier* [identifier1]:identifier [additional_identifiers1]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* [identifier2]:identifier colon [identifier3]:identifier [additional_identifiers2]:additional_identifier* r_par statement |
+
+
+    //  **MATRIX**
+    {mj_descvar_expression} for l_par descriptor_variable_type identifier colon expression r_par statement |
+    {mj_descvar_identifier} for l_par descriptor_variable_type identifier colon [identifier2]:identifier  [additional_identifiers]:additional_identifier* r_par statement
+    ;
+
+
+  literal =
+    {integer}        integer_literal |
+    {floating_point} floating_point_literal |
+    {boolean}        boolean_literal |
+    {character}      character_literal |
+    {string}         string_literal |
+    {null}           null_literal;
+
+  class_instance_creation_expression =
+    {simple}                                                                                  new [type_arguments1]:type_arguments?               identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* [type_arguments2]:type_arguments? l_par argument_list? r_par class_body? |
+    {primary}    primary                                                                  dot new [type_arguments1]:type_arguments?               identifier                                                                                   [type_arguments2]:type_arguments? l_par argument_list? r_par class_body? |
+    {identifier} [identifier1]:identifier [additional_identifiers]:additional_identifier* dot new [type_arguments1]:type_arguments? [identifier2]:identifier                                                                                   [type_arguments2]:type_arguments? l_par argument_list? r_par class_body?;
+
+  method_invocation =
+    {simple}                   identifier [additional_identifiers]:additional_identifier*                                                                                     l_par argument_list? r_par |
+    {primary}    primary     dot non_wild_type_arguments? identifier                                                                                                          l_par argument_list? r_par |
+    {super}      super_token dot non_wild_type_arguments? identifier                                                                                                          l_par argument_list? r_par |
+    {class_name} [identifier1]:identifier [additional_identifiers]:additional_identifier* [dot1]:dot super_token [dot2]:dot non_wild_type_arguments? [identifier2]:identifier l_par argument_list? r_par |
+    {type_name}  [identifier1]:identifier [additional_identifiers]:additional_identifier*                               dot non_wild_type_arguments  [identifier2]:identifier l_par argument_list? r_par |
+		
+	//  **MATRIX**
+	{mj_pre_defined_methods} matrix_predefined_methods 
+	;
+
+
+
+  dim_expr =
+    {expression} l_bkt expression                                                 r_bkt |
+    {identifier} l_bkt identifier [additional_identifiers]:additional_identifier* r_bkt;
+
+  dim =
+    l_bkt r_bkt;
+
+  relational_expression =
+    {simple}                                                                                                                     shift_expression |
+    {lt_sh_sh}                [shift_expression1]:shift_expression                                      lt   [shift_expression2]:shift_expression |
+    {lt_sh_id}                                    shift_expression                                      lt                 identifier  [additional_identifiers]:additional_identifier* |
+    {lt_id_sh}                              identifier  [additional_identifiers]:additional_identifier* lt                       shift_expression |
+    {lt_id_id}                [identifier1]:identifier [additional_identifiers1]:additional_identifier* lt   [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {gt_sh_sh}                [shift_expression1]:shift_expression                                      gt   [shift_expression2]:shift_expression |
+    {gt_sh_id}                                    shift_expression                                      gt                 identifier  [additional_identifiers]:additional_identifier* |
+    {gt_id_sh}                              identifier  [additional_identifiers]:additional_identifier* gt                       shift_expression |
+    {gt_id_id}                [identifier1]:identifier [additional_identifiers1]:additional_identifier* gt   [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {lteq_sh_sh}              [shift_expression1]:shift_expression                                      lteq [shift_expression2]:shift_expression |
+    {lteq_sh_id}                                  shift_expression                                      lteq               identifier  [additional_identifiers]:additional_identifier* |
+    {lteq_id_sh}                            identifier  [additional_identifiers]:additional_identifier* lteq                     shift_expression |
+    {lteq_id_id}              [identifier1]:identifier [additional_identifiers1]:additional_identifier* lteq [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {gteq_sh_sh}              [shift_expression1]:shift_expression                                      gteq [shift_expression2]:shift_expression |
+    {gteq_sh_id}                                  shift_expression                                      gteq               identifier  [additional_identifiers]:additional_identifier* |
+    {gteq_id_sh}                            identifier  [additional_identifiers]:additional_identifier* gteq                     shift_expression |
+    {gteq_id_id}              [identifier1]:identifier [additional_identifiers1]:additional_identifier* gteq [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {instanceof_sh_primitive} shift_expression                                                          instanceof primitive_type [dims]:dim+ |
+    {instanceof_sh_reference} shift_expression                                                          instanceof               identifier  [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* |
+    {instanceof_id_primitive}               identifier  [additional_identifiers]:additional_identifier* instanceof primitive_type [dims]:dim+ |
+    {instanceof_id_reference} [identifier1]:identifier [additional_identifiers1]:additional_identifier* instanceof [identifier2]:identifier [additional_identifiers2]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim*;
+
+  statement_expression =
+    {assignment}        assignment |
+    {pre_increment}     pre_increment_expression |
+    {pre_decrement}     pre_decrement_expression |
+    {post_increment}    post_increment_expression |
+    {post_decrement}    post_decrement_expression |
+    {method_invocation} method_invocation |
+    {instance_creation} class_instance_creation_expression |
+    
+	//  **MATRIX**
+	{mj_matrix_access}  matrix_access |
+	//  **MATRIX**
+	{mj_set_creation} set_instance_creation |
+	//  **MATRIX**
+	{mj_new_name_set_creation} new_name_set_instance_creation |
+	//  **MATRIX** ADDED PRODUCTION - subset creation - wherever method invocation is, subset creation is too
+	{mj_subset_creation} subset_creation 
+    ;
+
+  switch_block =
+    l_brc [switch_block_statement_groups]:switch_block_statement_group* [switch_labels]:switch_label* r_brc;
+
+  catch_clause =
+    catch l_par formal_parameter r_par block;
+
+  finally =
+    finally_token block;
+
+  labeled_statement_no_short_if =
+    identifier colon statement_no_short_if;
+
+  if_then_else_statement_no_short_if =
+    {expression} if l_par expression                                                 r_par [statement_no_short_if1]:statement_no_short_if else [statement_no_short_if2]:statement_no_short_if |
+    {identifier} if l_par identifier [additional_identifiers]:additional_identifier* r_par [statement_no_short_if1]:statement_no_short_if else [statement_no_short_if2]:statement_no_short_if;
+
+  while_statement_no_short_if =
+    {expression} while l_par expression                                                 r_par statement_no_short_if |
+    {identifier} while l_par identifier [additional_identifiers]:additional_identifier* r_par statement_no_short_if;
+
+  for_statement_no_short_if =
+    {empty}      for l_par for_init? [semi1]:semi                                                            [semi2]:semi for_update? r_par statement_no_short_if |
+    {expression} for l_par for_init? [semi1]:semi expression                                                 [semi2]:semi for_update? r_par statement_no_short_if |
+    {identifier} for l_par for_init? [semi1]:semi identifier [additional_identifiers]:additional_identifier* [semi2]:semi for_update? r_par statement_no_short_if;
+
+  for_init =
+    {statement}            statement_expression_list |
+    {variable_declaration} local_variable_declaration;
+
+  for_update =
+    statement_expression_list;
+
+  shift_expression =
+    {simple}                                                                                    additive_expression |
+    {shl_sh_ad}  shift_expression                                                          shl  additive_expression |
+    {shl_sh_id}  shift_expression                                                          shl                identifier  [additional_identifiers]:additional_identifier* |
+    {shl_id_ad}                identifier  [additional_identifiers]:additional_identifier* shl  additive_expression |
+    {shl_id_id}  [identifier1]:identifier [additional_identifiers1]:additional_identifier* shl  [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {shr_sh_ad}  shift_expression                                                          shr  additive_expression |
+    {shr_sh_id}  shift_expression                                                          shr                identifier  [additional_identifiers]:additional_identifier* |
+    {shr_id_ad}                identifier  [additional_identifiers]:additional_identifier* shr  additive_expression |
+    {shr_id_id}  [identifier1]:identifier [additional_identifiers1]:additional_identifier* shr  [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {ushr_sh_ad} shift_expression                                                          ushr additive_expression |
+    {ushr_sh_id} shift_expression                                                          ushr               identifier  [additional_identifiers]:additional_identifier* |
+    {ushr_id_ad}               identifier  [additional_identifiers]:additional_identifier* ushr additive_expression |
+    {ushr_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* ushr [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+  pre_increment_expression =
+    {expression} plus_plus unary_expression |
+    {identifier} plus_plus identifier [additional_identifiers]:additional_identifier*;
+
+  pre_decrement_expression =
+    {expression} minus_minus unary_expression |
+    {identifier} minus_minus identifier [additional_identifiers]:additional_identifier*;
+
+  post_increment_expression =
+    {expression} postfix_expression                                         plus_plus |
+    {identifier} identifier [additional_identifiers]:additional_identifier* plus_plus;
+
+  post_decrement_expression =
+    {expression} postfix_expression                                         minus_minus |
+    {identifier} identifier [additional_identifiers]:additional_identifier* minus_minus;
+
+  switch_block_statement_group =
+    [switch_labels]:switch_label+ [block_statements]:block_statement+;
+
+  switch_label =
+    {expression} case constant_expression                                        colon |
+    {identifier} case identifier [additional_identifiers]:additional_identifier* colon |
+    {default}    default                                                         colon |
+
+	//  **MATRIX**
+	{mj_element} case mp_outside_included_expression_related_prod colon
+		;
+
+  statement_expression_list =
+    {one}                                  statement_expression |
+    {many} statement_expression_list comma statement_expression;
+
+  additive_expression =
+    {simple}                                                                                       multiplicative_expression |
+    {plus_ad_mu}   additive_expression                                                       plus  multiplicative_expression |
+    {plus_ad_id}   additive_expression                                                       plus                identifier  [additional_identifiers]:additional_identifier* |
+    {plus_id_mu}                 identifier  [additional_identifiers]:additional_identifier* plus  multiplicative_expression |
+    {plus_id_id}   [identifier1]:identifier [additional_identifiers1]:additional_identifier* plus  [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {minus_ad_mu}  additive_expression                                                       minus multiplicative_expression |
+    {minus_ad_id}  additive_expression                                                       minus               identifier  [additional_identifiers]:additional_identifier* |
+    {minus_id_mu}                identifier  [additional_identifiers]:additional_identifier* minus multiplicative_expression |
+    {minus_id_id}  [identifier1]:identifier [additional_identifiers1]:additional_identifier* minus [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+  unary_expression =
+   {pre_increment}    pre_increment_expression |
+   {pre_decrement}    pre_decrement_expression |
+   {plus_expression}  plus  unary_expression |
+   {plus_identifier}  plus  identifier [additional_identifiers]:additional_identifier* |
+   {minus_expression} minus unary_expression |
+   {minus_identifier} minus identifier [additional_identifiers]:additional_identifier* |
+   {unary}            unary_expression_not_plus_minus;
+
+  postfix_expression =
+    {post_increment} post_increment_expression |
+    {post_decrement} post_decrement_expression |
+    
+	//  **MATRIX** MODIFICATION - from 'primary' to 'pre-primary'
+	{mj_pass_through}        mp_pre_primary;
+
+
+
+  constant_expression =
+    expression;
+
+  multiplicative_expression =
+    {simple}                                                                                          unary_expression |
+    {star_mu_un}    multiplicative_expression                                                 star    unary_expression |
+    {star_mu_id}    multiplicative_expression                                                 star                  identifier  [additional_identifiers]:additional_identifier* |
+    {star_id_un}                  identifier  [additional_identifiers]:additional_identifier* star    unary_expression |
+    {star_id_id}    [identifier1]:identifier [additional_identifiers1]:additional_identifier* star    [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {slash_mu_un}   multiplicative_expression                                                 slash   unary_expression |
+    {slash_mu_id}   multiplicative_expression                                                 slash                 identifier  [additional_identifiers]:additional_identifier* |
+    {slash_id_un}                 identifier  [additional_identifiers]:additional_identifier* slash   unary_expression |
+    {slash_id_id}   [identifier1]:identifier [additional_identifiers1]:additional_identifier* slash   [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {percent_mu_un} multiplicative_expression                                                 percent unary_expression |
+    {percent_mu_id} multiplicative_expression                                                 percent               identifier  [additional_identifiers]:additional_identifier* |
+    {percent_id_un}               identifier  [additional_identifiers]:additional_identifier* percent unary_expression |
+    {percent_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* percent [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+  unary_expression_not_plus_minus =
+    {postfix}          postfix_expression |
+    {tilde_expression} tilde unary_expression |
+    {tilde_identifier} tilde identifier [additional_identifiers]:additional_identifier* |
+    {emark_expression} emark unary_expression |
+    {emark_identifier} emark identifier [additional_identifiers]:additional_identifier* |
+    {cast}             cast_expression;
+
+
+
+  cast_expression =
+ 
+	//commented out to speed up compilation
+    {primitive_expression} l_par primitive_type [dims]:dim* r_par unary_expression |
+    {primitive_identifier} l_par primitive_type [dims]:dim* r_par   
+    	identifier [additional_identifiers]:additional_identifier* |
+    	
+    {reference_expression} l_par identifier  [additional_identifiers]:additional_identifier* 
+    	[type_components]:type_component* type_arguments? [dims]:dim* r_par unary_expression_not_plus_minus |
+
+
+	//  this production would normally have mp_outside_included_expr_related_prod_plus_id as something you can
+	//  cast. but, have a shift/reduce conflict if allow symbol creation to be directly used as something you can cast. 
+	//
+    {reference_identifier} l_par [identifier1]:identifier [additional_identifiers1]:additional_identifier* 
+    	[type_components]:type_component* type_arguments? [dims]:dim* r_par [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    
+    
+    //  **MATRIX**
+    {mj_matrix_types_expression} l_par mp_matrix_types [dims]:dim* r_par unary_expression |
+    {mj_matrix_types_mp_outside_included_plus_id} l_par mp_matrix_types [dims]:dim* r_par   
+    	mp_outside_included_expr_related_prod_plus_id
+    ;
+
+
+
+  modifier =
+    {abstract}     abstract |
+    {annotation}   annotation |
+    {final}        final |
+    {native}       native |
+    {private}      private |
+    {protected}    protected |
+    {public}       public |
+    {static}       static |
+    {strictfp}     strictfp |
+    {synchronized} synchronized |
+    {transient}    transient |
+    {volatile}     volatile;
+
+  additional_identifier =
+    dot identifier;
+
+  boolean_literal =
+    {true}  true |
+    {false} false;

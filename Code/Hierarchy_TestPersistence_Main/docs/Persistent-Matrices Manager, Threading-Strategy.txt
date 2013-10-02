@@ -1,0 +1,70 @@
+Persistent-Matrices Manager, Threading-Strategy
+________________________________________________
+
+
+Server Multi-threading Strategy Overview:
+_________________________________________
+Especially for the Server, we need to protect resources and events from overlapping (we need mutually exclusive access). Note that the server is actually mostly _single threaded_. The reason we say it's single threaded (for the most part) is because there is only one inbox monitor thread running. And since, there is (mostly) only one thread running doing all the starting and stopping of the server, and processing of inbox chunks, most of the time, there is no need for any mutual exclusion.
+
+The reason we still need it though is because the client uses rmi to call methods on the server. These calls fire off in there own threads, and may interfere with the inbox-monitor thread's access of resources.
+
+
+
+List of locks:
+______________
+o lifeCycle_Lock;
+o chunkFiles_Lock;
+o controlSets_Lock;
+o metaCode_Lock;
+
+
+There is also a run state var of the type:
+
+    public enum RunState {
+        Starting, Running, ShuttingDown, Shutdown
+    }
+
+
+
+Descriptions of main users of these locks:
+_________________________________________
+NOTE: these locks are re-entrant locks. So, a lot of the lower-level Persistent-Matrices Utilities methods will also use these locks. This means that many thread will obtian the same locks multiple times (which is why they are re-entrant locks).
+
+
+o lifeCycle_Lock:
+	- start()
+	- shutdown()
+	- reboot()
+	
+	Lower level methods that obtain this lock:
+	- reset() (called by start())
+	- load_PersistentMatrices()
+	
+	
+	* you shouldn't be able to shutdown() while you are starting() and vice-versa...
+	
+
+o chunkFiles_Lock:
+	- checkForAndProcessChunks()
+		* The server can't have multiple, checkForAndProcessChunks() method calls running simultaneously
+		* Also, can't check for chunks if server is Shutdown
+		* This method calls generate_PersistedMatrixCode() and copy_ServerPersistedMatrix_MetaSrcAndBuild_to_Client()
+		  and when it does so, these methods will obtain the metaCode_Lock
+
+o controlSets_Lock:
+	- switchTo_New_PersistentControlSet()
+	- getAll_ControlDirectories()
+	
+	* Only one thread at a time can access the Control Sets
+	
+o metaCode_Lock:
+	- generate_PersistedMatrixCode()
+	- copy_ClientPersistedMatrixSrcDir_to_Server()
+	- copy_ServerPersistedMatrix_MetaSrcAndBuild_to_Client()
+	
+	* Only one thread at a time can access the persisted Matrix Code
+	* Can call these methods in any runstate 
+	
+
+- delete_OldChunksAndControl()
+	* This method needs both the controlSets_Lock & metaCode_Lock. Why? we don't want the list of chunk files to change while we're deleting chunks or control sets.

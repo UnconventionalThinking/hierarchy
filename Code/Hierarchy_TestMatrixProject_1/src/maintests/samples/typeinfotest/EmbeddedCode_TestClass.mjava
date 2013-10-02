@@ -1,0 +1,94 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package maintests.samples.typeinfotest;
+
+
+import java.util.*;
+
+
+/**
+ *  This class is used in the test jar. It's to test whether calling matrix acceses in methods from external code works.
+ */
+public class EmbeddedCode_TestClass {
+
+    String requiredImagePath_Expected;
+    Symbol isRequired_Expected;
+    Symbol NotRequired_Expected;
+
+    Symbol testSym1_Expected;
+    int testField2_Expected;
+
+
+
+    public EmbeddedCode_TestClass() throws Exception {
+
+        requiredImagePath_Expected = "/images/isRequired";
+        isRequired_Expected = :IsRequired;
+        NotRequired_Expected = +:NotRequired;
+
+        testSym1_Expected = :testSym1;
+        testField2_Expected = 6;
+    }
+
+
+    public void testAccess() throws Exception {
+
+        //  Static Access Tests ________________________________________________________________________________________
+
+        //  Static Access test field RequiredImagePath
+        String resultString = Test.Matrix->`First Name`->maintests.samples.typeinfotest::WEB.FORM::FORM.REQUIRED:>RequiredImagePath;
+        assertEquals(requiredImagePath_Expected, resultString);
+
+        //  Test Specialized fieldsets
+        FieldSet formRequired_FieldSet = (Test.Matrix-<*1>`First Name`->maintests.samples.typeinfotest::WEB.FORM::FORM.REQUIRED).get_FieldSet();
+        assertEquals(true, formRequired_FieldSet.is_SpecializedFieldSet());
+        Symbol resultSymbol = ((FieldSetTuple__maintests$__$samples$__$typeinfotest$_CC_$WEB$__$FORM$_S_$FORM$__$REQUIRED)formRequired_FieldSet)
+                                                                                                            .get_IsRequired(executeInfo);
+        assertEquals(isRequired_Expected, resultSymbol);
+
+
+
+
+
+        ANNOTATIONS {
+            *1 {
+                return +:"1.0";
+
+            }
+
+            DEFAULT {
+                return null;
+            }
+        }
+
+    }
+
+
+    public static void assertEquals(Object expected, Object actual) throws Exception {
+        
+
+        if (expected == actual)
+            return;
+        else if (expected != null && actual != null) {
+            if (expected.equals(actual))
+                return;
+        }
+
+        throw new Exception("Expected result does not equal actual. Expected was '" + expected + "' and actual was '" + actual + "'.");
+            
+    }
+
+
+}

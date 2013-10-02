@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="Hierarchy_TestPersistence_Controller" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Hierarchy_TestPersistence_Controller.</description>
+    <import file="nbproject/build-impl.xml"/>
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="Hierarchy_TestPersistence_Controller-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
+
+
+
+
+    <!-- load the common build settings -->
+    <!-- don't delete this! even though redundant. needed to find the commonbuild settings file -->
+    <property name="Hierarchy.Controller.proj.dir" value="../Hierarchy_ControllerProject"/>
+    <property file="${Hierarchy.Controller.proj.dir}/Hierarchy-CommonBuildSettings.properties"/>
+
+    <property name="server.output.file.name" value="testoutput.txt"/>
+    <property name="server.output.file.path" value="${Hierarchy.PersistenceMain.proj.testresults.dir}/${server.output.file.name}"/>
+
+    <property name="server.output.updatetest.file.name" value="testoutput.updatetest.txt"/>
+    <property name="server.output.updatetest.file.path" value="${Hierarchy.PersistenceMain.proj.testresults.dir}/${server.output.updatetest.file.name}"/>
+
+
+    <target name="-post-compile-test" depends="test-persistence-main, sleep-buffer1, test-update-existing-matrix"/>
+<!--
+    <target name="-post-compile-test" depends="build-and-test-basic-end-to-end"/>
+-->
+
+    <target name="test-persistence-main">
+        <subant target="test">
+            <fileset dir="${Hierarchy.PersistenceMain.proj.dir}" includes="build.xml"/>
+        </subant>
+    </target>
+
+    <target name="sleep-buffer1">
+        <echo/>
+        <echo>sleep for a couple of seconds to help out rmi (not sure why this sleep buffer is needed, seems to help RMI client make its connection)...</echo>
+        <sleep seconds="4"/>
+        <echo/>
+    </target>
+
+    <target name="build-and-test-basic-end-to-end" depends="build-client-server-persistence-projs, test-basic-end-to-end"/>
+
+    <target name="build-client-server-persistence-projs">
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <echo>Metacompile the Client Persistence project</echo>
+        <echo>  NOTE 1: If it fails, you may have to manually AND individually compile the test class: </echo>
+        <echo>  maintests.main.PersistClient_MainTests_Setup</echo>
+        <echo/>
+        <echo>  NOTE 2: If you haven't done so, you need to maually run the rmi server: </echo>
+        <echo>  rmiregistry -J-classpath -J.\build\classes </echo>
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <echo>STEP 1 - Metacompile the Client:</echo>
+        <java classname="maintests.main.PersistClient_MainTests_Setup"
+            classpath="${javac.classpath}:${hierarchy.persistence.main.proj.classpath}:${hierarchy.dist.jar.path}"
+            failonerror="true">
+            <!-- Pass in the "pre-path" to the persistence main project dir -->
+            <arg value="${Hierarchy.PersistenceMain.proj.dir}"/>
+        </java>
+        <echo/>
+        <echo/>
+    </target>
+
+
+
+    <target name="test-basic-end-to-end">
+        <echo>STEP 2.a - Start the "basic end-to-end" junit-tests. First, start the server:</echo>
+        <!-- First, delete the "serverStartedFileLock" file. This file is copied into the testresults directory by the server ant script
+             to let this controller script know thath the server has been started, and the client tests can then proceed -->
+        <delete file="${hierarchy.persistence.main.ServerStartedFileLock.file.path.dest}" failonerror="true"/>
+        <!-- delete any old server output files -->
+        <delete file="${server.output.file.path}" failonerror="false"/>
+
+        <!-- NOTE: we need to start "exec" the junit test. Why? because it needs to run in the background (asynchronously) while the client
+              tests run against it. The 'spawn="true"' setting in the <exec> task sets it to run async. -->
+        <exec executable="ant.bat" dir="${Hierarchy_TestPersistence1_Server.proj.dir}" spawn="true">
+            <arg value="-logfile"/>
+            <arg value="${server.output.file.path}"/>
+            <arg value="run-PersistTest-02-Server"/>
+        </exec>
+        <echo/>
+
+
+        <echo>Wait for the server to start up (looking for the "serverStartedFileLock" file to show up)...</echo>
+        <waitfor maxwait="30" maxwaitunit="second">
+            <available file="${hierarchy.persistence.main.ServerStartedFileLock.file.path.dest}"/>
+        </waitfor>
+        <sleep seconds="1"/>
+        <fail message="The Persistence Server did not start up! We did not see the 'ServerStartedFileLock' copied over!">
+            <condition>
+                <not> <available file="${hierarchy.persistence.main.ServerStartedFileLock.file.path.dest}"/> </not>
+            </condition>
+        </fail>
+        <echo>... server started</echo>
+
+        <!-- It looks like we need to give the server a couple of seconds before the client connects to it using rmi. If the client tries
+             to connect too soon, an rmi error is thrown. -->
+        <echo/>
+        <echo>sleep for a couple of seconds to let the server setup its rmi service...</echo>
+        <sleep seconds="6"/>
+
+        <echo/>
+        <echo/>
+        <echo>STEP 2.b - Run the "Basic-End-to-End" client tests:</echo>
+        <subant target="run-PersistTest-02-Client">
+            <fileset dir="${Hierarchy_TestPersistence2_Client.proj.dir}" includes="build.xml"/>
+        </subant>
+
+    </target>
+
+
+
+    <!-- This is the target you'd use normally to run update-existing matrix tests. This target will make sure the basic-end-to-end tests
+         have run and properly setup the test matrix. The other target, test-update-existing-matrix.nodependencies, doesn't run the
+         basic-end-to-end tests first -->
+    <target name="test-update-existing-matrix" depends="build-and-test-basic-end-to-end, test-update-existing-matrix.nodependencies"/>
+
+    <!-- NOTE: the "update existing matrix" tests (tests numbered '3') need the "basic-end-to-end" tests to run
+         first. They need to generate the initial persistent matrix and run updates on it -->
+    <target name="test-update-existing-matrix.nodependencies" >
+
+        <echo>STEP 3.a - Start the "update" test-server junit-test:</echo>
+        <!-- First, delete the "serverStartedFileLock" file. This file is copied into the testresults directory by the server ant script
+             to let this controller script know thath the server has been started, and the client tests can then proceed -->
+        <delete file="${hierarchy.persistence.main.ServerStartedFileLock.file.path.dest}" failonerror="true"/>
+        <!-- delete any old server output files -->
+        <delete file="server.output.updatetest.file.path}" failonerror="false"/>
+
+        <!-- NOTE: we need to start "exec" the junit test. Why? because it needs to run in the background (asynchronously) while the client
+              tests run against it. The 'spawn="true"' setting in the <exec> task sets it to run async. -->
+        <exec executable="ant.bat" dir="${Hierarchy_TestPersistence1_Server.proj.dir}" spawn="true">
+            <arg value="-logfile"/>
+            <arg value="${server.output.updatetest.file.path}"/>
+            <arg value="run-PersistTest-03-Server"/>
+        </exec>
+        <echo/>
+
+
+        <echo>Wait for the server to start up (looking for the "serverStartedFileLock" file to show up)...</echo>
+        <waitfor maxwait="30" maxwaitunit="second">
+            <available file="${hierarchy.persistence.main.ServerStartedFileLock.file.path.dest}"/>
+        </waitfor>
+        <sleep seconds="1"/>
+        <fail message="The Persistence Server did not start up! We did not see the 'ServerStartedFileLock' copied over!">
+            <condition>
+                <not> <available file="${hierarchy.persistence.main.ServerStartedFileLock.file.path.dest}"/> </not>
+            </condition>
+        </fail>
+        <echo>... server started</echo>
+
+        <!-- It looks like we need to give the server a couple of seconds before the client connects to it using rmi. If the client tries
+             to connect too soon, an rmi error is thrown. -->
+        <echo/>
+        <echo>sleep for a couple of seconds to let the server setup its rmi service...</echo>
+        <sleep seconds="8"/>
+
+        <echo/>
+        <echo/>
+        <echo>STEP 3.b - Run the "Basic-End-to-End" client tests:</echo>
+        <subant target="run-PersistTest-03-Client">
+            <fileset dir="${Hierarchy_TestPersistence2_Client.proj.dir}" includes="build.xml"/>
+        </subant>
+
+    </target>
+
+
+
+    <target name="-post-clean">
+
+		<subant target="clean"><fileset dir="${Hierarchy.PersistenceMain.proj.dir}" includes="build.xml"/></subant>
+		<subant target="clean"><fileset dir="${Hierarchy_TestPersistence1_Server.proj.dir}" includes="build.xml"/></subant>
+		<subant target="clean"><fileset dir="${Hierarchy_TestPersistence2_Client.proj.dir}" includes="build.xml"/></subant>
+
+    </target>
+
+    <!--  This is better done as a junit test. But I left it here because this ant script is useful for checking the results of files -->
+    <!--
+    <target name="check-ServerResults">
+        <echo>Check the results of the unit test for the server: </echo>
+
+        <property name="server.test.results.filename"
+            value="TEST-net.unconventionalthinking.hierarchy.persistence.PersistTest_02_Server__BasicEndToEndTest.xml"/>
+        <property name="server.test.results.filepath"
+            value="${Hierarchy.PersistenceMain.proj.testresults.dir}/${server.test.results.filename}"/>
+            
+        <property name="servertest.failure.token" value="org.junit.ComparisonFailure"/>
+-->
+        <!-- first, wait for the server to generate the junit file -->
+<!--
+        <sleep seconds="5"/>
+
+        <echo>The filepath to the test file is: ${server.test.results.filepath}</echo>
+        <loadfile property="servertest.failed.line"  srcfile="${server.test.results.filepath}" >
+
+            <filterchain>
+                <linecontainsregexp>
+                    <regexp pattern="${servertest.failure.token}"/>
+                </linecontainsregexp>
+            </filterchain>
+        </loadfile>
+
+        <fail message="The Persistence Server Unit Test failed!">
+            <condition>
+                <contains  string="${servertest.failed.line}" substring="${servertest.failure.token}"/>
+            </condition>
+        </fail>
+
+     </target>
+     -->
+</project>

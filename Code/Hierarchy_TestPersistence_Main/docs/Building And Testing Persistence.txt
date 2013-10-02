@@ -1,0 +1,29 @@
+Building and Testing Persistence
+______________________________________________________________________________
+
+
+1. To Build and Test the Main Persistence project
+   a. In the TestPersistence_Main project, run PersistMain_MainTests_Setup
+   b. Then, run the junit test for the project
+
+2. To Build and Run the Basic End-to-End tests
+   a. Build the Persistence Client project:
+       In the TestPersistence_Main project, run PersistClient_MainTests_Setup
+
+   b. start rmiregistery (Java's rmi registry service):
+      In your terminal, cd to the base directory where the class file for <My RemoteMethods>.class is located.
+      For Hierarchy Persistence, this is in the 'Hierarchy' project. cd to the root dir (it has the class: PersistentMatrixManager_Server in it's build/classes dir)
+
+      Then, use the rmi start script:
+        startrmi.bat
+
+      OR, you can manually type in:
+        rmiregistry -J-classpath -J.\build\classes & (no '&' for Windows)
+
+   c. Run the Junit Server test:
+       In the TestPersistence1_Server project, run PersistTest_02_Server__BasicEndToEndTest
+
+   d. Run the number '02' Junit client tests:
+       In the TestPersistence2_Client project, run all PersistTest_02... tests
+
+

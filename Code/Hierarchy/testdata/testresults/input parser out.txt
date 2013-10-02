@@ -1,0 +1,504 @@
+
+MATRIX . KEY { } 
+
+MATRIX matrix1 ; 
+MATRIX . NEW matrix2 ; MATRIX . NEW matrix { } 
+MATRIX . NEW matrix3 : { } { } 
+MATRIX . NEW matrixname_test2 IN mypackage { } 
+MATRIX . NEW matrixname_test3 IN mypackage . stuff . morestuff { } 
+MATRIX . NEW ( matrixname_test4 IN mypackage . stuff . morestuff ) { } 
+MATRIX . NEW uses_schema_t1 USES ( S1 ) { } 
+MATRIX . NEW uses_schema_t2 USES ( MYSCHEMA ) { } 
+MATRIX . NEW uses_schema_t3 USES ( S1 , S2 , S3 , S4 -> S5 , S6 -> S7 . S7_1 -> S8 ) { } 
+MATRIX . NEW uses_schema_t4 USES $schemavar { } 
+MATRIX . NEW uses_schema_t4 USES ( $schemavar ) { } 
+
+MATRIX . NEW matrix11 IN mypackage . stuff . morestuff USES ( MYSCHEMA ) : { field1 => 1 , field2 => 2 } ; 
+MATRIX . NEW matrix12 IN mypackage . stuff . morestuff USES ( MYSCHEMA ) : { field1 => 234.3 , field2 => 23 } { 
+	CHILD { } 
+}
+
+MATRIX . NEW matrix13 IN mypackage . stuff . morestuff { 
+	MEMBER int myvar ; 
+	MEMBER float stuff ; 
+	MEMBER boolean junk [ ] [ ] [ ] ; 
+	MEMBER myClass [ ] [ ] junk ; CHILD { MEMBER int var2 ; } 
+} 
+
+MATRIX . NEW Descriptor_Tests USES ( S1 ) { 
+
+	TEST_1 . STANDARD : { $:{ : sym1 , : sym2 , : sym3 } , 2 } ; 
+	TEST_1_1 . STANDARD : { } ; 
+	TEST_1_2 . STANDARD ; 
+	TEST_2 ( `label` ) : { } ; 
+	TEST_2 . CHILD . GRANDCHILD . MORE . AND . MORE . AND . MORE . CHILDREN ( `label` ) : { } ; 
+	TEST_2_1 ( `label 2.1` IN mypack . stuff . com ) : { } ; 
+	TEST_2_1 `label 2.2` IN mypack . stuff . com : { } ; 
+	TEST_3_1 USES ( S1 ) : { } ; 
+	TEST_3_2 USES ( MYSCHEMA ) : { } ; 
+	TEST_3_2 USES ( S1 , S2 , S3 , S4 -> S5 , S6 -> S7 . S7_1 -> S8 ) { } ; 
+	TEST_3_3 USES $schemavar : { } ; 
+	TEST_4_1 USES ( S1 ) : { myfield1 => ( 232 + 323 ) , myfield2 => var1 , myfield3 . child => ( ( 232 + var2 ) * 22 ) 	
+		} { } 
+	TEST_4_2 USES ( S1 ) : { myfield1 => myMethod ( 23 , 23 , var1 ) , myfield2 => ( 22 + mymethod ( var2 ) ) , myfield3 . child => 4 } ; 
+	TEST_5_1 USES ( S1 ) : { 232 , 22 , 2.2 , ( 232 + 323 ) , var1 , ( ( 232 + var2 ) * 22 ) } ; 
+	TEST_5_2 USES ( S1 ) : { myMethod ( 23 , 23 , var1 ) , ( 22 + mymethod ( var2 ) ) , 4 } { } 
+	
+	TEST_6_1 `label` USES ( S1 ) : { } { 
+		CHILD : { myfield1 => 1 } { 
+			GRANDCHILD : { myfield1 => 2 } ; 
+		} 
+		d1 : { f1 => ( v1 ) } { } 
+		d1 : { f1 => 1 , f2 => v1 . v2 , f3 => ( ( 2 + 3 ) * 3 ) } { 
+			d2 { 
+				d2_1 : { 1 , 2 , 3 } { 
+					d2_1_1 : { 2.2 } ; 
+				} 
+			} 
+			d2 { } 
+			d3 { } 
+		} 
+	} 
+	
+	${ SECTION . VIEW , SECTION . DATA } : { PassThrough => 1 } { 
+		COMPONENT : { 1 , 2 } ; } 
+	${ SECTION . VIEW : { PassThrough => 1 } , SECTION . DATA : { 1 , 2 , 3 } } { 
+		COMPONENT : { 1 , 2 } ; 
+	} 
+
+} 
+
+
+MATRIX . NEW ITEM_Tests USES ( S1 ) { 
+	`l 1` ; 
+	`l 2` : { } ; 
+	`l 3` { 
+		TEST_1 . STANDARD : { $:{ : sym1 , : sym2 , : sym3 } , 2 } ; 
+		TEST_1_1 . STANDARD : { } ; 
+	} 
+	`l 4` IN my . stuff { 
+		D1 ; 
+	} 
+	+`l 5` ; 
+	+`l 6` : { } ;
+	+`l 7` { 
+		TEST_1 . STANDARD : { $:{ : sym1 , : sym2 , : sym3 } , 2 } ; 
+		TEST_1_1 . STANDARD : { } ; 
+	} 
+	`l 4`: { f1 => 23.2 , f2 => var1 } { 
+		TEST_1 . STANDARD : { : sym1 , : sym2 , : sym3 } { 
+			`l5` ; 
+			d6 ;
+		} 
+		+`l7` { } 
+		+`l 8` : { } { } 
+	} 
+} 
+
+
+DECLARATIONS { 
+	SYMBOL t_1_1 = : Sym_w_colon ; 
+	SYMBOL t_1_2 = : Sym . c2 ; 
+	SYMBOL t_1_3 = : Sym . c1 . c2 . c3 ; 
+	SYMBOL t_2_1 = :"Sym with colon quotes" ; 
+	SYMBOL t_2_2 = :"Sym 1" . sym2 . `sym3 sd` ; 
+	SYMBOL t_3_1 = `Sym with backtiks` ; 
+	SYMBOL t_3_2 = `Sym x` . `Sym x` . `#$#%#$%&%^&^(` ; 
+	SYMBOL t_3_3 = `Sym x` . c1 . `c2` . c3 ; 
+	SYMBOL t_4_1 = + : Sym ; 
+	SYMBOL t_4_2 = + : Sym . + : c1 . + : c2 . + : c3 ; 
+	SYMBOL t_4_3 = + `s 1` . + `c 1` . + `c 2` . + `c 3` ; 
+	SYMBOL t_4_4 = + `s 1` . + : c1 . + `c 2` . + : c3 ; 
+	SYMBOL t_4_5 = + :"s 1" . + :"c 1" . + :"c 2" . + :"c 3" ; 
+	SYMBOL t_4_6 = + : s1 . + `c 1` . + : c2 . + `c 3` . + :"c 4" ; 
+	SYMBOL t_5_1 = + : Sym ; 
+	SYMBOL t_5_2 = + : Sym . c1 . c2 . c3 ; 
+	SYMBOL t_5_3 = + `s 1` . `c 1` . `c 2` . `c 3` ; 
+	SYMBOL t_5_4 = + `s 1` . c1 . `c 2` . c3 ; 
+	SYMBOL t_5_5 = + :"s 1" . `c 1` . c2 . `c 3` ; 
+	SYMBOL t_5_6 = + : s1 . `c 1` . c2 . `c 3` ; 
+	SYMBOL t_6_1 = : Sym ; 
+	SYMBOL t_6_2 = : Sym . + : c1 . + : c2 . + : c3 . + `c 4` . + :"c 5" ; 
+	SYMBOL t_6_3 = :"sym" . + :"c 1" . `c 2` . `c 3` ; 
+	SYMBOL t_6_4 = :"sym" . + :"c 1" . c2 . `c 3` ; 
+	SYMBOL t_6_5 = : Sym . + `c1` . c2 . c3 . `c 4` . `c 5` ; 
+	SYMBOL t_7_1 = : Sym . + : c1 . + : c2 . + `c 3` . + : c4 . + :"c 5" ; 
+	SYMBOL t_7_1 = : Sym . + :"c1" . + :"c2" . + `c 3` . + : c4 . + :"c 5" ; 
+	SYMBOL t_7_2 = : Sym . + `c1` . + `c 2` . + `c 3` . + : c4 . + :"c 5" ; 
+} 
+
+MATRIX . NEW MoreSymbolTests {
+
+	T_8_1 USES ( S1 ) : { f1 => : RED , f2 => : RED . BLUE , f3 . child => :"R e d" , f4 => :"Red" . blue , f5 => `r e d` , f6 => `r e d` . `green` } ; 
+	T_8_2 USES ( S1 ) : { f1 => + : RED , f2 => + : RED . BLUE , f3 => var1 . c1 , f4 => :"Red" . + : blue , f5 => `r e d` , f6 => + `r e d` . `green` } ; 
+	T_9_1 USES ( S1 ) : { : RED , : RED . BLUE , :"R e d" , :"Red" . blue , `r e d` , `r e d` . `green` } ; 
+	T_9_2 USES ( S1 ) : { : RED , : RED . BLUE , var1 . c1 , v2 , :"Red" . blue , ( ( 2 + var ) * 3.2 ) , m1 ( 23.2 ) , `r e d` . `green` } ; 
+} 
+
+DECLARATIONS { 
+	SYMBOL symVar1 = : sym1 ; 
+	SYMBOL symVar2 = + : sym2 ; 
+	SYMBOL symVar3 = + : sym3 . c1 . c2 ; 
+	SYMBOL symVar4 = + : sym4 . + : c1 . + `c 2` . + :"c 3" ; 
+	SYMBOL symVar5 = : sym5 . + : c1 . `c 2` . c3 ; 
+} 
+
+DECLARATIONS { 
+	if ( var1 == var1 ) var_IsEqual = 1 ; 
+	if ( symVar1 == : sym1 ) sym1_IsEqual = 1 ; 
+	if ( : sym2 == symVar2 ) sym2_IsEqual = 1 ; 
+	if ( : sym3 != symVar3 ) sym3_NotEqual = 1 ; 
+	if ( symVar3 == : sym3 . c1 . c2 ) sym3_t1_Equal = 1 ; 
+	if ( : sym3 == : sym3 ) sym3_t2_Equal = 1 ; 
+	if ( : sym3 == :"sym3" ) sym3_t3_Equal = 1 ; 
+	if ( : sym3 == `sym3` ) sym3_t4_Equal = 1 ; 
+	if ( : sym3 . c1 == `sym3` ) sym3_t5_Equal = 1 ; DESCRIPTOR desc1 = DESCRIPTOR . NEW ; 
+	if ( DESCRIPTOR . NEW == desc1 ) me_t1 = 1 ; 
+	if ( DESCRIPTOR . NEW . USES < WEB . FORM > == desc1 ) me_t2 = 1 ; 
+	if ( DESCRIPTOR . NEW . USES < WEB . FORM > { FORM . REQUIRED : { : IsRequired } ; } == desc1 ) me_t3 = 1 ; 
+	if ( ITEM . NEW . USES < WEB . FORM > { `my item` { FORM . INPUT { } } } == desc1_1 ) me_t4 = 1 ; 
+	SYMBOL varInit_t1_symbol = : symbol1 ; 
+	DESCRIPTOR varInit_t2_descriptor = DESCRIPTOR . NEW . USES < WEB . FORM > ; 
+	varInit_t1_symbol = : symbol2 ;
+	varInit_t2_descriptor = DESCRIPTOR . NEW . USES < HTML . LAYOUT > ;
+	if ( x == 1 ) return : symbol3 ;
+	if ( x == 2 ) return DESCRIPTOR . NEW . USES < HTML . LAYOUT > ;
+	
+	SYMBOL symbol_switch = : sym1 ;
+	switch ( symbol_switch ) { 
+		case : sym1 : 
+			symbol_switch_result = 1 ;
+			break ;
+		case : sym2 : 
+			symbol_switch_result = 2 ;
+			break ;
+		case + : sym3 : 
+			symbol_switch_result = 3 ;
+			break ;
+		case `sym 4` . c1 : 
+			symbol_switch_result = 4 ;
+			break ;
+		case + :"sym 5" . c2 : 
+			symbol_switch_result = 5 ;
+			break ;
+	} 
+	switch ( var1 ) { 
+		case FIELD . NEW . USES < HTML . LAYOUT > : 
+		break ;
+	} 
+	pass_symbol_method_t1 ( : sym1 , + : sym2 . + : c1 , + `sym 2` . c1 ) ;
+	pass_matrixElement_method_t1 ( DESCRIPTOR . NEW . USES < WEB . FORM > { FORM . REQUIRED : { : IsRequired } ;} , 
+		1 , : sym1 ) ;
+} 
+
+DECLARATIONS { 
+	int j = 3 ;
+	boolean stuff ;
+	boolean junk ;
+	junk . stuff = 3 ;
+	if ( stuff || junk ) { 
+		j = 3 + j ;
+	} 
+	
+	SET set_Plain = ${ 1 , 2.3 , var , ( ( 2 + 3 ) * 5 ) , v1 . v2 , : RED , + : COLOR . BLUE } ;
+	SET < SYMBOL > set_SymbolType = $:{ : sym1 , : sym2 , : sym3 . c } ;
+	SET < int > set_IntType ;
+	SET < object > set_ObjectType ;
+	SET set_cardinality = $< 2 >{ 3 , var , : red } ;
+	SET set_cardinality_range = $< 3..6 >{ 1 , 2 , 3 , 4 , 5 , 6 , 7 } ;
+	SET set_cardinality_N = $< N >{ 1 , 2 , 3 , 4 } ;
+	SET symset_cardinality = $:< 2 >{ : a , : b , : c } ;
+	SET symset_cardinality_range = $:< 3..6 >{ `1` , `2` , `3` , `4` , `5` , `6` , `7` } ;
+	SET symset_cardinality_N = $:< N >{ :"1" , :"2" , :"3" , :"4" } ;
+	SET typedSet = $< int >{ 3 , 4 } ;
+	SET typedSet_cardinality = $< float , 2 >{ 3.2 , ( 3.2 + 3 ) * 5 , 2.0 } ;
+	SET typedSet_cardinality_range = $< int , 3..6 >{ 1 , 2 , 3 , 4 , 5 , 6 , 7 } ;
+	SET typedSet_cardinality_N = $< object , N >{ v1 , v2 , v3 , v4 } ;
+	SET < 1 > setVar_SubsetCardinality_1 ;
+	SET < 2 > setVar_SubsetCardinality_2 ;
+	SET < 3..5 > setVar_SubsetCardinality_3_to_5 ;
+	SET < N > setVar_SubsetCardinality_N ;
+	SET < int , 1 > setVar_SubsetCardinality_1 ;
+	SET < int , 1..4 > setVar_SubsetCardinality_3_to_5 ;
+	SET < int , N > setVar_SubsetCardinality_N ;
+	SET < SYMBOL , 1 > setVar_SubsetCardinality_1 ;
+	SET < SYMBOL , 2..6 > setVar_SubsetCardinality_3_to_5 ;
+	SET < SYMBOL , N > setVar_SubsetCardinality_N ;
+	SET < int > NamedSet ;
+	$NamedSet${ 1 , 5 } ;
+	$NamedSet$< int >{ 3 , 5 } ;
+	$NamedSet$< object >{ v1 , v2 } ;
+	$NamedSet$:{ : sym1 } ;
+	$NamedSet$:< N >{ : s1 , : s2 , : s3 } ;
+	+ $NewNamedSet0${ 1 , 5 } ;
+	+ $NewNamedSet1$< int >{ 3 , 5 } ;
+	+ $NewNamedSet2$< object >{ v1 , v2 } ;
+	+ $NewNamedSet3$:{ : sym1 } ;
+	+ $NewNamedSet4$:< N >{ : s1 , : s2 , : s3 } ;
+	
+	if ( ${ : RED } . size || 3 ) x = 1 ;
+	else if ( + $NewNamedSet5${ : GREEN } . size || 2 ) x = 2 ;
+	
+	int set5size = $NewNamedSet5$:< N >{ : s1 , : s2 , : s3 } . size ( ) ;
+	myMethod ( 1 , $:{ : s1 } , 2 ) ;
+	NewNamedSet1 .${ 3 } ;
+	
+	SET subset1 = NewNamedSet1 .${ 3 } ;
+	SET subset2 = parent . child . set .${ : sym1 , : sym2 } ;
+	SET subset3 = NewNamedSet4 .${ * } ;
+	SET subset4 = NewNamedSet4 .${ : s1 , : s2 } ;
+	int subset3size = NewNamedSet4 .${ * } . size ( ) ;
+	int subset4size = NewNamedSet4 .${ : s1 , : s2 } . size ( ) ;
+} 
+
+DECLARATIONS { 
+	MyMatrix -> FORM . REQUIRED :> IsRequired ;
+	m -> d1 . c1 -> d2 . c1 . c2 . c3 . c4 -> `d 3` :> f1 ;
+	m -> [ : s1 ] -> [ `d2` ] -> d3 . c1 -> [ `s1` ] -> [ var1 ] -> [ myMethodReturnsSymbol ( ) ] ;
+	m -> [ FORM . REQUIRED ] :> [ myField ] ;
+	mymethod ( ) -> d1 . c1 :> `f 1` ;
+	( mymatrix ) -> d1 . c1 ;
+	m -< * 1 > d1 . c1 -> d2 -< * 2 > f1 ;
+	m -< * 1 > d1 . c1 -< * 1.1 > d2 -< * 2.2 > d3 -< * errorhandle > f1 ;
+	m -> d1 .${ * } -> d2 . c1 .${ * 1.1 } -< * 2.2 > d3 .${ * myfilter } :> f1 ;
+	m -> d1 .${ } ;
+	m -> d1 { * } -> d2 . c1 { * 1.1 } -< * 2.2 > d3 { * myfilter } :> f1 ;
+	mymethod ( m -> d1 .${ * 3.3 } :< * 1 > f1 , 2 ) ;
+} 
+
+DECLARATIONS { 
+	m -> d1 .${ SELECT FROM FORM . REQUIRED ;} ;
+	m -> d1 . c1 .${ SELECT FROM FORM . REQUIRED WHERE ( x || y ) ;} ;
+	m -> d1 . c1 .${ SELECT FROM FORM . REQUIRED WHERE ( x || ( y + 5 ) ) FIELDS f1 , f2 , f3 ;	} -> d2 { * filter2 } ;
+} 
+
+
+DECLARATIONS { 
+	ANNOTATIONS { 
+		+*1 { 
+			+*1.1 { 
+				y = ( y + 3 ) ;
+	
+				ACCESSOR . RETURN ( : sym1 ) ;
+			} 
+			+*1.2 { 
+				ACCESSOR . RETURN ( var ) ;
+			} 
+			+*DEFAULT { 
+				x = x + 1 ;
+				ACCESSOR . RETURN ( x ) ;
+			} 
+			+ERRORS { 
+				ACCESSOR.RETURN ( 3 ) ;
+			} 
+		} 
+		+*myfilter { 
+			SELECT FROM FORM . REQUIRED WHERE ( x && y ) ;
+		} 
+		
+		+ERRORS , +EMPTY { 
+			+*2.2 { 
+				ACCESSOR . RETURN 2.2 ;
+			} 
+			+*2 { 
+				y = y + 1 ;
+				ACCESSOR . RETURN y ;
+			} 
+		} 
+	} 
+} 
+
+
+DECLARATIONS { 
+
+	VAR myVar ;
+	SYMBOL mySymbol ;
+	ELEMENT myElement ;
+	SET mySet ;
+	mySymbol = : sym1 ;
+	mySet = ${ } ;
+	DESCRIPTOR myDescriptor1 = DESCRIPTOR . NEW ;
+	DESCRIPTOR myDescriptor2 = DESCRIPTOR . NEW . USES < WEB . FORM > ;
+	DESCRIPTOR myDescriptor3 = DESCRIPTOR . NEW . USES < WEB . FORM > { } ;
+	DESCRIPTOR myDescriptor4 = DESCRIPTOR . NEW . USES < WEB . FORM > { 
+		FORM . REQUIRED ( `first required` ) : { : IsRequired } ;
+	} ;
+	ITEM myItem1 = ITEM . NEW ;
+	ITEM myItem2 = ITEM . NEW { } ;
+	ITEM myItem3 = ITEM . NEW { `my item` { } } ;
+	ITEM myItem4 = ITEM . NEW { 
+		`my item` { 
+			FORM . REQUIRED : { };
+		} 
+	} ;
+	FIELD myField1 = FIELD . NEW ;
+	FIELD myField = FIELD . NEW . USES < WEB . FORM > { FORM . REQUIRED :> IsRequired } ;
+	FIELD myField = FIELD . NEW . USES < WEB . FORM > { FORM . REQUIRED :> IsRequired => : IsRequired } ;
+	if ( DESCRIPTOR . NEW . USES < WEB . FORM > { FORM . REQUIRED ( `first required` ) : { : IsRequired } ;} 
+		== x ) { x = 1 ; } 
+	
+	myMethod ( FIELD . NEW . USES < WEB . FORM > { FORM . REQUIRED :> IsRequired => : IsRequired ;} , 22 ) ;
+	
+	MATRIX myMatrix = FormMatrix ;
+	
+	MATRIX myMatrix = MATRIX . NEW testMatrix USES ( WEB . FORM ) { 
+		`i 1` ;
+		CALL createItems ( ) ;
+		`item 2` { CALL method_CreatesDescriptors ( ) ;} 
+		CALL *{ 
+			$ADD = ITEM . NEW . USES < WEB . FORM > { 
+				`Item 3` : { Group => : FirstItemGroup } { FORM . REQUIRED : { } ;} 
+			} ;
+	
+			SYMBOL itemNameVar = `item 4` ;
+			$ADD = ITEM . NEW . USES < WEB . FORM > { 
+				[ itemNameVar ] : { Group => : FirstItemGroup } { X ;} 
+			} ;
+		} 
+		`item 5` { 
+			CALL *{ 
+				listOfNames = queryDB ( ) ;
+				for ( String name : listOfNames ) { 
+					$ADD = DESCRIPTOR . NEW . USES < WEB . FORM > { 
+						FORM . INPUT ;
+					} ;
+				} 
+			} 
+		} 
+	} ;
+	
+	MATRIX myMatrix = MATRIX . NEW { } ;
+	ITEM myItem = ITEM . NEW { `item 1` } ;
+	myItem . addDescriptor ( DESCRIPTOR . NEW . USES < WEB . FORM > { FORM . REQUIRED ;} ) ;
+	myMatrix . addDescriptor ( myItem ) ;
+} 
+	
+MATRIX . NEW FieldOperatorTests USES ( WEB . FORM ) { 
+	`Default Op t1` { 
+		FORM . REQUIRED : { * , $DEFAULT } ;
+		FORM . INPUT : { * , * , * } ;
+	} 
+	`Default Op t2` { 
+		FORM . INPUT : { 1 , * ... } ;
+	} 
+	`Unused Op t1` { 
+		FORM . REQUIRED : { * , - , $UNUSED } ;
+		FORM . INPUT : { - , - , - } ;
+	} 
+	`Unused Op t2` { 
+		FORM . REQUIRED : { - ... } ;
+		FORM . INPUT : { * , - ... } ;
+		FORM . LABEL : { $UNUSED ... } ;
+	} 
+	`Ditto Op t1` { 
+		FORM . REQUIRED : { : IsRequired , "x" , '' , '' } ;
+	} 
+	`Ditto Op t2` { 
+		FORM . INPUT : { "xxx" , $DITTO , "yyy" , $DITTO } ;
+	} 
+	`Ditto Op t3` { 
+		FORM . REQUIRED : { : IsRequired , "xxx" , '' ... } ;
+		FORM . INPUT : { "yyy" , $DITTO ... } ;
+	} 
+	`Ditto Prev-level Op Base` { 
+		FORM . REQUIRED : { : IsRequired , "y" , * , - } ;
+	} 
+	`Ditto Prev-level Op t1` { 
+		FORM . REQUIRED : { ''^ , ''^ , $DITTO ^ , '' } ;
+		FORM . INPUT : { "1" , "2" , "3" } ;
+	} 
+	`Ditto Prev-level Op t2` { 
+		FORM . REQUIRED : { : NotRequired , ''^ ... } ;
+		FORM . INPUT : { $DITTO ^ ... } ;
+	} 
+} 
+
+DECLARATIONS { 
+	int var1 = 11 ;
+	int var2 = 22 ;
+	int var3 = 33 ;
+	if ( $IT == var2 ) it_t1 = 1 ;
+	doNothing ( var1 ) ;
+	if ( $IT == var1 ) it_t2 = 1 ;
+	if ( doNothing ( var3 ) + 1 == 1 ) { 
+		if ( $IT == var3 ) it_t3 = 1 ;
+	} 
+	if ( EXISTS ( myobj . c1 . c2 ) ) exist_t1 = 1 ;
+	Integer mynullInteger ;
+	if ( VALID ( mynullInteger ) ) exist_t1 = 1 ;
+	valid_t1 = 1 ;
+} 
+
+DECLARATIONS { 
+	SYMBOL mySymVar = ( SYMBOL ) : sym1 ;
+	mySymObject = ( object ) ( : sym1 ) ;
+	VAR myVAR_Var = ( VAR ) var1 ;
+	SET set = ( SET ) ${ var1 , myVAR_var } ;
+} 
+DECLARATIONS { 
+	ANNOTATIONS { 
+		+*FOREACH ( CLOSURE indexer , CLOSURE itemAndCollectionCode , CLOSURE bodyCode ) { 
+			OUTPUT ( indexCode + " = 0" ) ;
+			int j = 10 ;
+			if ( j == 10 ) j = 11 ;
+		}
+	}
+	
+	
+	*FOREACH *{ int i ;	} *{ VAR item ;	( myCollection ) ; } *{ 
+		if ( i == 10 ) { i = 11 ; } 
+		VAR itemStuff = item . stuff ( ) ;
+	};
+} 
+
+SCHEMA WEB . FORM { 
+
+	ITEM { 
+		DESCRIPTOR + `FORM` . `REQUIRED` { 
+			FIELD . NAMES : { + : IsRequired , + : RequiredImagePath , + : ImageHeight , + : ImageWidth } ;
+			FIELD . DESC : { "Is this field required?" , "Path to required image" , "Height of required image" , "Width of 
+				Required Image" } ;
+			FIELD . TYPES : { ${ + : IsRequired , + : NotRequired } , { String } , { int } , { int } } ;
+			FIELD . DEFAULTS : { : NotRequired , "/images/required.gif" , 6 , 7 } ;
+		} 
+		DESCRIPTOR + `FORM` . `SELECT` { 
+			FIELD . NAMES : { + : Name , + : onChange } ;
+			FIELD . TYPES : { { String } , { String } } ;
+			FIELD . DEFAULTS : { "" , - } ;
+			
+			DESCRIPTOR + `OPTION` { 
+				FIELD . NAMES : { + : Value , + : Label , + : Selected } ;
+				FIELD . TYPES : { { String } , { String } , ${ + : Selected , + : NotSelected } } ;
+				FIELD . DEFAULTS : { - , - , : NotSelected } ;
+			} 
+		} 
+	} 
+} 
+
+SCHEMA SCHEMA_FOR_SCHEMAS { 
+	MATRIX_SCOPE . FREE { 
+		DESCRIPTOR `DESCRIPTOR` : { labelType = : Descriptor_Tagname } { 
+			DESCRIPTOR + `FIELD` . `NAME` { 
+				FIELD . TYPES : { { SYMBOL } ... } ;
+			} 
+			DESCRIPTOR + `FIELD` . `DESC` { 
+				FIELD . TYPES : { { String } ... } ;
+			} 
+			DESCRIPTOR + `FIELD` . `TYPES` { 
+				FIELD . TYPES : { { Object } ... } ;
+			} 
+			DESCRIPTOR + `FIELD` . `DEFAULTS` { 
+				FIELD . TYPES : { { Object } ... } ;
+			} 
+		} 
+	} 
+} 
+
+DECLARATIONS { 
+	SCHEMA MySchema = SCHEMA . NEW STUFF { 
+		DESCRIPTOR + `FORM` . `REQUIRED` { 
+			FIELD . TYPES : { { int } , { char } , { float [ ] [ ] } , { boolean } , { List } , { List < Objects > } , 
+				{ VAR } , { SYMBOL } , { SET } , { SET < MATRIX > } , { SET < SYMBOLS , 5 > } , { SET < N > } , { CLOSURE } } ;
+		} 
+	} ;
+} 

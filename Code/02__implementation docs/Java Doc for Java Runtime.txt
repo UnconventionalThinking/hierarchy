@@ -1,0 +1,116 @@
+JavaDoc for Java Runtime class:
+
+_________________________________
+
+exec
+
+public Process exec(String[] cmdarray,
+                    String[] envp,
+                    File dir)
+             throws IOException
+
+    Executes the specified command and arguments in a separate process with the specified environment and working directory.
+
+    Given an array of strings cmdarray, representing the tokens of a command line, and an array of strings envp, representing "environment" variable settings, this method creates a new process in which to execute the specified command.
+
+    This method checks that cmdarray is a valid operating system command. Which commands are valid is system-dependent, but at the very least the command must be a non-empty list of non-null strings.
+
+    If envp is null, the subprocess inherits the environment settings of the current process.
+
+    ProcessBuilder.start() is now the preferred way to start a process with a modified environment.
+
+    The working directory of the new subprocess is specified by dir. If dir is null, the subprocess inherits the current working directory of the current process.
+
+    If a security manager exists, its checkExec method is invoked with the first component of the array cmdarray as its argument. This may result in a SecurityException being thrown.
+
+    Starting an operating system process is highly system-dependent. Among the many things that can go wrong are:
+
+        * The operating system program file was not found.
+        * Access to the program file was denied.
+        * The working directory does not exist. 
+
+    In such cases an exception will be thrown. The exact nature of the exception is system-dependent, but it will always be a subclass of IOException.
+
+    Parameters:
+        cmdarray - array containing the command to call and its arguments.
+        envp - array of strings, each element of which has environment variable settings in the format name=value, or null if the subprocess should inherit the environment of the current process.
+        dir - the working directory of the subprocess, or null if the subprocess should inherit the working directory of the current process. 
+    Returns:
+        A new Process object for managing the subprocess 
+    Throws:
+        SecurityException - If a security manager exists and its checkExec method doesn't allow creation of the subprocess 
+        IOException - If an I/O error occurs 
+        NullPointerException - If cmdarray is null, or one of the elements of cmdarray is null, or one of the elements of envp is null 
+        IndexOutOfBoundsException - If cmdarray is an empty array (has length 0)
+    Since:
+        1.3
+    See Also:
+        ProcessBuilder
+
+
+
+getRuntime
+
+public static Runtime getRuntime()
+
+    Returns the runtime object associated with the current Java application. Most of the methods of class Runtime are instance methods and must be invoked with respect to the current runtime object.
+
+    Returns:
+        the Runtime object associated with the current Java application.
+
+exit
+
+public void exit(int status)
+
+    Terminates the currently running Java virtual machine by initiating its shutdown sequence. This method never returns normally. The argument serves as a status code; by convention, a nonzero status code indicates abnormal termination.
+
+    The virtual machine's shutdown sequence consists of two phases. In the first phase all registered shutdown hooks, if any, are started in some unspecified order and allowed to run concurrently until they finish. In the second phase all uninvoked finalizers are run if finalization-on-exit has been enabled. Once this is done the virtual machine halts.
+
+    If this method is invoked after the virtual machine has begun its shutdown sequence then if shutdown hooks are being run this method will block indefinitely. If shutdown hooks have already been run and on-exit finalization has been enabled then this method halts the virtual machine with the given status code if the status is nonzero; otherwise, it blocks indefinitely.
+
+    The System.exit method is the conventional and convenient means of invoking this method.
+
+    Parameters:
+        status - Termination status. By convention, a nonzero status code indicates abnormal termination. 
+    Throws:
+        SecurityException - If a security manager is present and its checkExit method does not permit exiting with the specified status
+    See Also:
+        SecurityException, SecurityManager.checkExit(int), addShutdownHook(java.lang.Thread), removeShutdownHook(java.lang.Thread), runFinalizersOnExit(boolean), halt(int)
+
+addShutdownHook
+
+public void addShutdownHook(Thread hook)
+
+    Registers a new virtual-machine shutdown hook.
+
+    The Java virtual machine shuts down in response to two kinds of events:
+
+        * The program exits normally, when the last non-daemon thread exits or when the exit (equivalently, System.exit) method is invoked, or
+
+        * The virtual machine is terminated in response to a user interrupt, such as typing ^C, or a system-wide event, such as user logoff or system shutdown. 
+
+    A shutdown hook is simply an initialized but unstarted thread. When the virtual machine begins its shutdown sequence it will start all registered shutdown hooks in some unspecified order and let them run concurrently. When all the hooks have finished it will then run all uninvoked finalizers if finalization-on-exit has been enabled. Finally, the virtual machine will halt. Note that daemon threads will continue to run during the shutdown sequence, as will non-daemon threads if shutdown was initiated by invoking the exit method.
+
+    Once the shutdown sequence has begun it can be stopped only by invoking the halt method, which forcibly terminates the virtual machine.
+
+    Once the shutdown sequence has begun it is impossible to register a new shutdown hook or de-register a previously-registered hook. Attempting either of these operations will cause an IllegalStateException to be thrown.
+
+    Shutdown hooks run at a delicate time in the life cycle of a virtual machine and should therefore be coded defensively. They should, in particular, be written to be thread-safe and to avoid deadlocks insofar as possible. They should also not rely blindly upon services that may have registered their own shutdown hooks and therefore may themselves in the process of shutting down.
+
+    Shutdown hooks should also finish their work quickly. When a program invokes exit the expectation is that the virtual machine will promptly shut down and exit. When the virtual machine is terminated due to user logoff or system shutdown the underlying operating system may only allow a fixed amount of time in which to shut down and exit. It is therefore inadvisable to attempt any user interaction or to perform a long-running computation in a shutdown hook.
+
+    Uncaught exceptions are handled in shutdown hooks just as in any other thread, by invoking the uncaughtException method of the thread's ThreadGroup object. The default implementation of this method prints the exception's stack trace to System.err and terminates the thread; it does not cause the virtual machine to exit or halt.
+
+    In rare circumstances the virtual machine may abort, that is, stop running without shutting down cleanly. This occurs when the virtual machine is terminated externally, for example with the SIGKILL signal on Unix or the TerminateProcess call on Microsoft Windows. The virtual machine may also abort if a native method goes awry by, for example, corrupting internal data structures or attempting to access nonexistent memory. If the virtual machine aborts then no guarantee can be made about whether or not any shutdown hooks will be run.
+
+    Parameters:
+        hook - An initialized but unstarted Thread object 
+    Throws:
+        IllegalArgumentException - If the specified hook has already been registered, or if it can be determined that the hook is already running or has already been run 
+        IllegalStateException - If the virtual machine is already in the process of shutting down 
+        SecurityException - If a security manager is present and it denies RuntimePermission("shutdownHooks")
+    Since:
+        1.3
+    See Also:
+        removeShutdownHook(java.lang.Thread), halt(int), exit(int)
+

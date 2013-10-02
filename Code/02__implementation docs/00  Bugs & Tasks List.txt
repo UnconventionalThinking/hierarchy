@@ -1,0 +1,430 @@
+Bug List
+
+____________
+
+***o Schema Bug - if have too few columns in the FIELD.TYPES compared to the FIELD.NAMES, the metacompiler throws out
+     a null pointer. detect all manner of schema problems dealing with number of field values.
+***o Fix Netbeans in Linux web sample Run! - doesn't work, you get an exception:
+        Servlet org.apache.jsp.index_jsp is not available
+     You can do a "Deploy" instead, this works, but not the run. Why?
+
+***o IMPORTANT - make "dynamic" label creation easier - this is more important than it seems. 
+	You need to be able to easily dynamically create a label to select a descriptor from the matrix. 
+	***ALSO, MAY NEED FEATURES TO SELECT RANGES OF DESCRIPTORS BY LABELS - Even some type of query language, because labels are the primary keys of a matrix. 
+
+***o Create debug messages and tools to help you solve dyn label access problems and filters and annotation.
+
+***o Need to add a case study to the documentation, that shows how to use the matrix as a Universal Data-Item Definition, so that you can define how a data item used in the generation of the registration form, and then used to store this data item in the database, and then used in the generation of the JSON object for the user interface.
+
+***o in .mjava files, if you forget to import a matrix you're going to use, and then do a matrix accss on it, the metacompiler won't detect that this as a problem.
+	- Why? because a matrix access can start with an object access. For instance:
+	  
+	     myObj.DescVar->DESC1:>Field1
+	  
+	  So, if you do a matrix access without an import, may have a problem because the unimported matrix will just be seen as a identifier instead.
+	- Solutions:
+		1. right solution is to add Java object de-referencing support to the metacompiler, using the symbol table to de-reference an object to see if it's valid. But, this is further complicated by the fact that you should be able to do the dereferencing against all the jars too.
+		2. another solution maybe just to parse the Javac output and figure out if it had an import error. But, the problem is that we don't always compile .mjava files into .java files. 
+
+
+LANGUAGE FEATURES
+_____________________________________________________________________________
+***o Embedded files don't support inner classes, or even second classes
+
+	- Either add support for them, or add syntax detection and output an error
+	
+	**o For inner classes, need to pass in "static" modifier to one of the class actions in the LangSymbolTableActions__FileSymTableClient
+	
+	
+***o Too many keywords like SET and ITEM and SCHEMA are not usable in descriptor tag names. This is a pain, for naming matrices and for creating descriptors. Maybe fix the grammar so that these keywords can be used as _child_ symbols (probably can't be the first symbol part, because cause syntax errors).
+
+***o BUG - fieldset names don't like to start with underscores: ex  +%:_MyField
+
+***o BUG .mjava - the '+=' operator is not being meta compiled correctly:
+
+		sum_ChildNumCols += calculate_NumColumns_ForNode(childEmployee);
+	when metacompiled, it loses it's '+':
+		sum_ChildNumCols = calculate_NumColumns_ForNode(childEmployee);
+***o Grammar bug - in a string literal, escaped quotes don't work:
+                "<div style='margin-top: 20px'>" +
+                  "<div style='vertical-align: middle; margin-bottom:30px; margin-left: 33px'>" +
+                    "<a href='index.jsp?PAGE_ID=1&CHILDPAGE_ID=0'><img style='vertical-align: bottom; border-style: none;' height='20' " +
+                    "src='images/prod_hierarchyBtn.png' " +
+                    "onmouseover=\"nav_Swap(this, 'prod_hierarchyBtn', false, '.png');\" " +   // <-- Syntax ERROR!
+                    "onmouseout=\"nav_Swap(this, 'prod_hierarchyBtn', false, '.png');\" " +  // <-- Syntax ERROR!
+                    "></a>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                  "</div>"+
+                "</div>" 
+	
+***o Java annotations! 
+***o upgrade to Java7 grammar - SableCC has a version!
+
+**o No generics support in LangSymbol Table - this is needed if you want to access methods with generic types
+   - this is a lot of work!! the algorithm for this is supposed to be complex!
+
+
+
+_____________________________________________________________________________
+
+
+***o In .schema files, need to check the types of fields, to make sure the resolve to some actually type correctly.
+	- easiest solution is to parse the javac compilation of the fieldset code, to see if it threw an error on a type.
+	
+
+***o Metacompiler can precompile Java files. These precompiled files need to support the passing in of javac paramters. The most important one is -g which builds the classes with debug info, so they can work in a debugger!
+
+***o Netbeans build error - After you run the metacompiler, when you create new symbols/labels in the .mjava file - ones that haven't existed in a .matrix or .schema file, Netbeans doesn't see that the symbol files have been updated. So, when you go to build in Netbeans, it will complain that the newly created symbols are missing! you have to go to the symbol files and change them and then save them before you can build.
+
+The reason for this is because the symbols were created in the last stage of metacompiliation, and for some reason, if Netbeans is open, it won't see the last update to these symbol files.
+
+
+
+
+MATRIX ACCESS OPERATOR Related features: _______________________________________________________________________________
+
+***o Matrix access operators should be generalized! not just for accessing matrices, but for PIPING! meaning, the Groovy/Java	piping features that has methods that work on collections.
+   * Actually, subset creation operators are pretty good for piping, but move this more toward using closures instead??? (meaning, replace subset operator with closures. hmm....)
+
+***o the filters maybe should be Closure! (while still allowing references). Research this (because, I think I use *{ } for closures and :{ } for sets
+
+***o it'd be nice if for sets you could quickly specify the set type, so you could change the characteristics of the set:
+:<int, List>{  } - is a set of int's where the set is not a set really, but a List object.
+   - problem is, now, you can't be sure what operations a set support! does this matter though? because when you create it, you'll know. hmmm... seems like it does matter, especially for large applications.
+
+
+________________________________________________________________________________________________________________________
+
+MATRIX FEATURES
+________________________________________________________________________________________________________________________
+
+***o Allow annotations blocks anywhere - for now, only allowed at end of method. but, what if you have a large method and need one in the middle of the method? think over this one, because maybe this is something we shouldn't allow... (for JSP's it's helpful, but really, we shouldn't encourage messy programming
+
+________________________________________________________________________________________________________________________
+***o Parameter Maps not finished - need to add partita actions for it - 2/18/10
+	* Also, Matrix descriptor has settings that can be passed in by parameter map (such as PersistentMatrix. capture these in partita actions
+***o Static Parameter Maps should use specialized fieldsets - 12/4/09
+	Will have better performance.
+
+***o in schema, be able to define that a descriptor MUST have a label.
+
+***o change the name of the class, MatrixSet, to something like MpSet. MatrixSet implies that it holds matrices.
+    - don't forget to fix the docuemtnation when you do this fix.
+
+
+***o NEED TO CREATE MORE TOOLS:
+	1. Sequence diagram of generating a matrix access
+	2. Sequence diagram of generating a continued access with a Desc Var (very complex)
+	3. Things are so complex in the metacompiler that we need the 'asserts' used back in the day of C++ as a sanity check!!!
+	   I think they have these in Java too.
+	
+**o Documentation - Add a section to the tutorial on: Major Features/Tools of Hierarchy and on "When to Use Hierarchy" and on Performance. Also, later in the guide add a full chapter that expands on this too. This structure for teaching is taken from the chapter structure from "7 Databases in 7 Weeks." 
+
+**o FEATURE: Processing language for matrices.
+	- create a processing language for matrices that is either more 'functional' like XSL (but better - better performance, more control, easier to work with, easier to read...). Or, a processing language that lets you create Domain-Specific Languages.
+
+___________________________________________________________________________________________________________
+LABELS
+**o FEATURE - add support for descriptors with multi-set labels. The labels in the multi-set must still be unique throughout the other sibling descriptor labels.
+
+		   POSITION {+`Default`, +`Normal` }: { 6, 0, 17, 86 };
+		   POSITION +`Extended`: { 6, 0, 109, 86 };
+
+**o FEATURE - research best way to access descriptors with multi part labels. Need a solution that is very flexible for many different label situations. Here's one I personally ran across
+	/** 
+	  * A nav group label can be a single label, or have two parts. For example:
+	  *    `Hierarchy Page-Nav`.`Has ProgExperience` 
+	  * The first part of the name is the main, nav group name. 
+	  * The second part is PROG_EXP property, which can have two values:
+	  *    `Has ProgExperience`, or `No ProgExperience`
+	  * You should check for both navgroups with single and two part labels
+	  */
+	DESCRIPTOR<Unconventional.Content->NAV.GROUP> navGroup_Desc = null;
+	navGroup_Desc = Unconventional.Content->NAV.GROUP[pageHeader_NavDesc:>NavGroup_Label];
+	if (navGroup_Desc == null) {
+		// check for the two part descriptor
+		List<String> labelParts = Arrays.asList((pageHeader_NavDesc:>NavGroup_Label).toString(), user_HasProgExpSelector_Label.toString());
+		Label twoPart_NavGroupLabel = appControl.symbolControl.multiPartSymbol_Factory.createNew_Label(labelParts, 1, false);
+		navGroup_Desc = Unconventional.Content->NAV.GROUP[twoPart_NavGroupLabel];
+	}
+
+___________________________________________________________________________________________________________
+
+**o For annotation detection on methods, it doesn't distinguish between matrix access, and a _matrix access type_ in a Descriptor var!
+
+
+***o In .mjava files, you can't access a schema like a matrix:
+        
+        SchemaInfo_Descriptor newsStory_SchemaInfo = (SchemaInfo_Descriptor)News.Schema->NEWS->NEWS.STORY;
+
+     Have to add schema detection code the matrix access code gen
+
+
+
+**o mjava file: if a method doesn't have an annotation handler, automatically insert the default one.
+   why? because it's easy to forget to add it in.
+
+    
+
+***o Need to decide whether to add the appControl package import automatically to embedded java files that aren't in the app control package.
+	- currently, the package isn't added, have to do it manually.
+	- what possible problems could arise if we do auto add it? for instance, maybe the embedded java file needs to import a
+	- different appControl package.
+
+***o Maybe collect the paths of all generated java files. And on a clean, delete the files in the list!
+
+
+***o in your embedded mjava files, if you access a field that has some imported type, you manually have to add in the field's type. It'd be nice if the metacompiler added it in automatically for you - 12/29/10
+
+	- ex. 
+	// you need to manually add in the import for the ConcurrentMap into the embedded java file.
+	MyMatrix->`item`->MY.DESC:>myFieldWithConcurrentMapType; 
+	
+***o Don't allow schema FIELD.NAMES field sets to have symbols anymore (just descriptor tag names). 
+	Should be pretty easy. - 1-4 hours.
+
+***o Automate the rest of the testing:
+	- single compile each of the "test setup.java" files in the main Hierarchy project's test/main package (or whatever package it is.
+	- automate the TestGeneration Project
+     
+
+
+
+
+***o pulling schemas and matrices from jars
+
+
+**o SymbolCreator_Action phase doesn't support gathering sym info about interfaces and annotated interfaces. Currently,
+      the LangSymbolCreator_Action class is just throw an UnsupportedLanguageFeature exception.
+
+	
+**o Errors:
+	- more useful metacompiler errors with line number
+	- better error handling strategy over all (read up on them)
+**o XML support - pull xml documents into matrix (dynamic matrices of course, but will static matrices support this two? or maybe create tool to translate XML schema into matrix schema?)
+
+**o Relational Database support - create schema and descriptor processors for getting and putting database info.
+
+**o Descriptor Access Types - casts, and simple methods - 4 days
+
+
+**o write the File SymbolTable out to code. - 6 days
+**o Collect type info doesn't support the implicitly included package, java.lang.*; - .5 day
+
+
+**o Test Static access annotations - 12/23/09
+	Already tested dynamic, but to test static, probably need to add a "remove_ChildDescriptor()" method to Descriptor class.
+	
+
+o remove the Junit.jar included in Partita main project classpath - 9/16/09
+	 Very Annoying - the TestUtilities_3_TestTheMatrix class is used by both the main project tests and the generation test project test, so to share it, it is in the Partita main project. AND, this class actually contains junit asserts, and since the class is currently in the Partita main project, the project must include the Junit.jar in the class path. remove this if you can.
+	
+
+	
+
+**o Add NULL field value to matrix grammar  - 12/3/09
+	Also need to implement the action for this - it should be treated as a "Special Value", so primitives can be set to null.
+
+
+**o may remove, or make configurable, the usage of two part labels in descriptors. - 2/18/10
+	Why? kind of bloats the descriptor, with all these extra indexes, making it much slower. Really examine how useful this feature is. 
+
+**o Need to create a Custom doubly-linked, LinkedList for descriptors - 2/18/2010
+	Why? because we want to be able to do constant time removals and inserts of child descriptors (by descriptor id). * We need a custom, doubly-linked linkedlist, so we can create an hash from desc id to linked list node, and do a constant time remove/insert.
+	- so, also need to create/modify remove/insert functions. 
+**o Evaluate all the usages of HashMaps/MultiMaps - 2/15/2010
+**o Allow user in schema to set the type of map used in a descriptor for it's child descriptors.
+
+	Hashes are the best choice when you know the number of elements that will be inserted before hand. Why? because then you can avoid any Hash resize() operations. So, maybe, the best usage of Hash Map may be for static matrices that don't add new descriptors. And, for dynamic matrices and static matrices that can add new descriptors, may want to use a treeMap instead.
+	- but, look into what performance is of maps that do "dynamic resizing / dynamic rehashing"
+
+
+**o MatrixProgramming Pages MetaCompiler - lots of work
+
+**o PartitaSetings - turn into a non-static object - 2/18/10
+
+**o Symbol Sets - that work similar to enums - ~10/08
+	a good example of where this is needed is in the DescriptorCreation_CodeGenerator.generate_CreateDescriptor(Symbol buildingMatrixOrSchemaElem). 
+	this should only be limited to a few values, but this is hard to tell
+	
+**o Matrix access using descriptor id's - 2/18/10
+	myMatrix->[1]->[3]:>[4]
+
+* o Fix the SchemaPath name - it's not being created correctly	- 2/19/10
+	
+	
+**o Accessing with a second Accessor: Continuation and label Vars.  - 10/30/09
+	Need to go back to the requirements doc on Accessing Matrices and fill in the details about using a second access argument (i only added in examples of how to do this).
+
+**o Matrix access by both Descriptor Tag Name and Label - 10/5/09
+	Ex. MyMatrix->ITEM `FIrst Name`
+	     and
+	    MyMatrix->[ITEM `First Name`]
+	    
+
+
+
+
+**o Symbols, DescTags, and Labels Design - should the Symbol interface be the base of all symbols?
+
+	Currently, there is a Symbol _class_ that is the base for all symbols (such as DescTag and Labels), and a Symbol_Base interface that really is just a secondary interface in case you need a base reference var that can be a plain symbol, a desctag or a label object.
+	BUT, in terms of design, what we really want is the Symbol_Base interface to be renamed Symbol, and for it the be the base for all symbol types (meaning, you never work through a Symbol class variable anymore, and this class would probably be made to have package level access-protection).
+	
+	Why? it would simplify the design of the Symbol classes
+	
+	What's the problem? performance question. right now, the Symbol class has public vars that you can access (like "name" and "name_IdentFormat"). These need to be high performance. Need to do tests to see if the inlined getMethod versions of these vars have any major performance hits. If not, modify code to use the Symbol interface as the primary symbol class/interface.
+	
+**o backtik symbols - `my symbol` - are these always labels? 
+	Because they are a great syntax for symbols too, better than :"my symbol" - but honestly, that's not bad. hmm.... maybe they are really labels, but labels are symbols, so you an use them in the same situations as symbols. only problem is you can't compare a label with a symbol and expect to get the equality if they have the same name, because they are different objects.
+
+**o Field Values - uses a Value Array instead of a switch statement to access values. Test performance!!! - ~2/09
+
+
+
+o Symbols and Descriptor Tag Names ( and maybe Labels too) are not separate classes, but just one class, symbols - 4/10
+	- the problem is that you can not compare symbol objects to descriptorTagName objects:
+	
+		if (myDesc.descTagName == :FORM.REQUIRED) ...  // CURRENTLTY WRONG! these are symbols
+		
+	  because these are two separate objects. And, more generally, if you want to create descTagName objects, you can't just create a symbol:
+	    
+	    // CURRENTLTY WRONG! these are symbols
+	    myMethodThatTakesProcessesDescTagNames(:FORM, :CONTROL);  
+	    
+	  It'd be nice if this syntax actually worked, because the current solution is to introduce a new symbol for creating descTagNames. 
+	  
+	- SOLUTION: Maybe get rid of the DescriptorTagName_Single and DescriptorTagName_Multi classes, and have DescritporTgaNames actually be symbols, except these symbols objects have a flag that indicate if the symbol is a descriptorTagName, a symbol, or both.
+	 
+	    
+		
+o Create validDescriptors() methods - 10/24/09
+	When you acess a matrix, each access should do a quick check of the descriptor methods.
+
+o ExecutionInfo not correct - 10/5/09
+	Combine the old version and the new. There should be one variable to check the type of result returned: information, error, or both. And then, information and error results should be enum sets.
+
+o In partitaActions - Descriptor Head set - create the code for this. - 11/30/09
+	This is where you can specify multiple descriptors in a set, so they all have the same children
+	
+	
+o Implement Ditto, Ditto_Prev, and Continuation of field values - 12/2/09
+	In the file, DescriptorCreation_CodeGenerator_FieldSetWorker, implement these three field value operators.
+
+	
+o SchemaInfo_FieldSet.getSchemaInfo_DescTagName_FullPath_IdentFormat() - 9/15/09
+
+	This method is used to create the names of Specialized FieldSets. The problem is that the current method is not returning the full path, all the way down to the schema it belongs to. Fixing this though may require lots of changes elsewhere, like the FieldSetTuple_Specialized generator stuff.
+	
+	
+	 
+ 	
+
+o Matrix and Schema access files - 10/7/09
+	Just like the Symbols, can access Matrices and Schemas through there MatrixControl and SchemaControl objects. But, to speed up access, should also generate a Matrix / Schema access file, maybe take the SymbolFile_Generator and generalize it so that it can also to the same for Matrix and Schemas? BUT, seems like Matrix and Schemas should have there own file generator (cause it so different than symbols) and then, have some shared utilities between them. This is probably the better option because evne if it's doable now to have one generator do all there, in the future, they may need to split apart anyways.
+
+
+o Schema 4 Schema - should have specialized field sets, like FIELD.NAMES and FIELD.TYPES - 10/18/09
+	And, these specialized fieldsets should be used by the DescriptorCodeGen in it's output code.
+	
+____________________________________________________________________________________________________ 
+
+COMPLETED / FIXED
+____________________________________________________________________________________________________ 
+
+
+**o In an embedded file, importing a matrix to use (currently, only those in the same package work) - 2 days - DONE
+	*** I think this is done!!!
+
+**o Multi-item access filters - still need to be implemented - ~11/10/09 - DONE!
+
+**o Refactor PartitaCompiler_Actions - 12/23/09 - DONE
+	It's too big. break into smaller parts.
+
+**o move the generated static-access methods from the matrix files to a separate (shared?) matrix access file - 12/8/09
+	Why? Makes the matrix files more portable and reuseable - DONE
+
+o _10_FieldSetTupleSpecialized_TestGenerator_Test - 9/15/09 - DONE
+ 	This needs to delete all the generated files (both java and class)  before it regenerates them.
+
+**o Descriptor Name Resolution operator - prevent Name conflicts - 10/5/09 - DONE
+	Ex. full name of a tag to be used in name conflict resolution:
+
+	    com.abstractsystems::WEB.FORM::FORM.SELECT->OPTION   
+
+	       or
+
+	    SCHEMA mySchema = com.abstractsystems::WEB.FORM;
+	    SchemaInfo_Descriptor sI_desc = mySchema::FORM.SELECT->OPTION
+	    
+
+**o Matrix Schema-Usage Tree - 10/5/09 - DONE
+	Create this tree as a kind of cache, so the meta compiler doesn't have to build to actual matrix if the user doesn't want to. NOTE: this should be an metacompiler option (use the Schema-Usage Tree or the actual Matrix itself).
+
+**o Matrix static access can have one dynamic element, the label name - 10/5/09 - DONE
+	Ex. MyMatrix->ITEM labelVar   // NOTE, in static access, must have the descriptor tag name too if using a label var
+**o DescTagName creation! add this in next! - 5/25/10 - DONE
+
+**o Descriptor vars with DescriptorPaths: - 2/19/10    - 5/25/10 - DONE
+	DESCRIPTOR<MyMatrix->ITEM->FORM.REQUIRED> descvar;
+	
+	This is pretty important. So you can pass descriptors to methods, and still be doing static access. 
+
+	How will it work? you specify a matrix access (with no labels) in a Desc var, and the metacomiler will use the flattened matrix to get the flattened descriptor for it.
+	
+	Tasks:
+	
+	- create DESCRIPTOR<Matrix access expr w/ no labels> var - grammar (not bad)  - partita actions (not bad, cause will just be a Descriptor, nothing special. 
+	- create a method stack for java methods
+	- create a variables declarations index
+		o When put in DESCRIPTOR<Matrix access expr> var, need to add in Matrix access expr too
+		
+	- modify partita actions for matrix access - does anything need to be done??
+	- modify DescriptorAccess_CodeGen so it now checks to see if the first accessor is a matrix, or a Descriptor var!!
+
+**o metacompiler setup: - 1-2 days
+	- paths
+	- automatic dir cleanup and creation
+	- passing java parameters to compilers
+
+****o the netbeans jar achiver creates a Manifest file with the class paths already included. It expects that there's a lib sub directory 
+      that has the commons jar. this is not necessary!!! figure out how to remove this!!!
+    - 12/17/10
+    - I didn't find out how to remove this dependency. If the -jar option is used, then you have to use the classpath in the 
+      manifest.
+
+****o Label Access through a descVar not working. 2 day
+    For example:
+	DESCRIPTOR<MyMatrix->ITEM> descItem = MyMatrix->`my item`;
+	print(descItem->PAGE.CONTENT[`Registration`]:>Text);  // BUG! this doesn't work
+	- DONE 12/18/10
+***o Of the the exceptions that's thrown by the metacompiler needs to give more info. It's the error where
+	the access code could not find the child access in the parent. It needs to provide the current path to 
+	the parent and the expected child.
+	
+	It's: DescriptorAccess_CodeGen.java line 700
+	- DONE 12/18/10
+
+***o The errors that are printed out should be ordered differently. 
+	FIRST, it prints out the exception chain with messages
+	THEN, it prints out the full stack trace
+	- DONE 12/18/10
+
+***o Imports for schema files need to add the import list to the specialized fieldsets: 1-4 hours - 11/2010
+	- DONE 12/29/10
+
+***o the matrix parser doesn't suppport member variable access off a matrix access using parens:
+	(descVar:>myfield).myVar (like the 'class' var) - 12/29/10
+	- Not a Bug, it works, I was just trying to do a .class access off an object. 
+
+***o In a matrix, when you "import SCHEMA mypackage::MYSCHEMA;" and then "USES (MYSCHEMA)", the simple name doesn't work. You need to use the full schema name: "USES (mypackage::MYSCHEMA)"     
+	- DONE: ~ 5/11
+**o embedded file: automatically add matrix imports, app control import, and appControl and executeControl objects.
+	- DONE 6/22/11
+	
+***o in embedded files, static methods don't support matrix access - the reason is because annotations method handlers need a object to be passed in. currently, that's the embedded class object. but, for static methods, they need to access the static class vars. this is a little tricky, how do you pass these in to a method? use reflection?
+	- DONE 8/22/2011
+
+o can't do a dynamic desc access using a _Descriptor Tag Name_. Only works with DescriptorTags currently. 11-16-2011
+        Label testLabel = `Test`.`Label`;
+        resultSymbol = Test.Matrix->`Two`.`Part Label`->FORM.REQUIRED[testLabel]:>IsRequired;
+        
+    -DONE 11/30/2011	

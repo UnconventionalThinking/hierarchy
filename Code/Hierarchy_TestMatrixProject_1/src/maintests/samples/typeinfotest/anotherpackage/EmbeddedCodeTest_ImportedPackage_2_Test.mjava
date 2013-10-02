@@ -1,0 +1,111 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package maintests.samples.typeinfotest.anotherpackage;
+
+
+import java.util.*;
+
+import maintests.samples.typeinfotest.*;
+
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/*  Try to import Test.Matrix from app control package */
+import MATRIX maintests.samples.typeinfotest::Test.Matrix;
+import MATRIX maintests.samples.typeinfotest::Test.Matrix2;
+
+/*  Try to import Test.Matrix from your own package package */
+import MATRIX maintests.samples.typeinfotest.anotherpackage::Test.Matrix3;
+
+
+/**
+ * This is another import test. Here, we are testing:
+ * 1. to see if you can import from embedded code that's not in the appcontrol package.
+ * 2. testing importing from the appcontrol package and from non app-control packages too.
+ */
+public class EmbeddedCodeTest_ImportedPackage_2_Test {
+
+
+    static String requiredImagePath_Expected;
+    static Symbol isRequired_Expected;
+    static Symbol NotRequired_Expected;
+
+
+
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+
+        requiredImagePath_Expected = "/images/isRequired";
+        isRequired_Expected = :IsRequired;
+        NotRequired_Expected = +:NotRequired;
+
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {}
+    @Before
+    public void setUp() { }
+    @After
+    public void tearDown() {}
+
+
+    /**
+     */
+    @Test
+    public void testImportedMatrixAccess() throws Exception {
+
+        //  Static Access Tests ________________________________________________________________________________________
+
+        //  Static Access test field RequiredImagePath
+        String resultString = Test.Matrix->`First Name`->FORM.REQUIRED:>RequiredImagePath;
+        assertEquals(requiredImagePath_Expected, resultString);
+
+        //  Dynamic Access test field RequiredImagePath from Test.Matrix2
+        Symbol resultSymbol = (Symbol)Test.Matrix2->[`test item`]->[:%TEST.DESC]:>[:%testField1];
+        assertEquals(:testSym1, resultSymbol);
+
+
+        //  accessing matrix by full path shoudl still work
+        FieldSet formRequired_FieldSet = (maintests.samples.typeinfotest::Test.Matrix-<*1>`First Name`->maintests.samples.typeinfotest::WEB.FORM::FORM.REQUIRED).get_FieldSet();
+        assertEquals(true, formRequired_FieldSet.is_SpecializedFieldSet());
+        resultSymbol = ((FieldSetTuple__maintests$__$samples$__$typeinfotest$_CC_$WEB$__$FORM$_S_$FORM$__$REQUIRED)formRequired_FieldSet)
+                                                                                                            .get_IsRequired(executeInfo);
+        assertEquals(isRequired_Expected, resultSymbol);
+
+
+        //  Static Access test field RequiredImagePath
+        resultString = Test.Matrix3->`First Name`->FORM.REQUIRED:>RequiredImagePath;
+        assertEquals(requiredImagePath_Expected, resultString);
+
+
+
+        ANNOTATIONS {
+
+            DEFAULT {
+                return null;
+            }
+        }
+
+    }
+
+
+
+}

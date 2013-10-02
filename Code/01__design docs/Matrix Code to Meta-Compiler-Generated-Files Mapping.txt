@@ -1,0 +1,63 @@
+Matrix-Code to "Meta-Compiler Generated Files" Mapping
+____________________________________________________________________________________________________
+
+purpose: this doc describes where each piece of generated Code should be placed in which files.
+
+____________________________________________________________________________________________________
+
+1. Matrix Files
+    should have:
+    a. "Static Access Methods" Code - which contain "Annotated Method Calls". Annotated Method Calls are done the the _Caller_ object (which is the "Embedded Code Object")
+
+    *** IMPORTANT ** Each static matrix access method must be correctly added to its associated matrix file! For each static matrix access method, the metacompiler must figure out what matrix it is associated to, and add the access method to that matrix's codeFile_Generator
+    
+2. Emdedded Files
+	each embedded file shoud have:
+	a. "Annotation interface" File - this is not shared by embedded files, each embedded file has its own with all its annotation method siguatres. Because of this, the name the embedded file will be used in the annotation name.
+	
+	b. "Annotation Handlers" Code - the code for the annotation handlers should be added to the translated embedded file.
+
+
+3. DynMethods File
+	* each embbed files has its own dynMethods file.
+	
+	
+	
+	        codeGenerators_MatrixAccess.annotationCall_CodeGen.increment_AccessIndex();
+
+
+		// for each matrix access file, create the annotations handler code.
+		codeGenerators_MatrixAccess.annotationHandlers_CodeGen.add_CodeForAnnotationHandler(
+   			codeGenerators_MatrixAccess.annotationCall_CodeGen.get_AccessIndex(),
+   			new CodeBuilder("\t\t// do nothing\n\t\treturn null;\n"));
+        CodeBuilder annotationHandlers = 
+ 			annotationHandlers_CodeGen.generate_AnnotationHandlers(annotationsInterface_FileGen);
+
+
+       // generate the annotations interface
+        annotationsInterface_FileGen._2_generateClass(outputResults);
+        annotationsInterface_FileGen.writeToFile(PartitaSettings.generationTestProj_matrixPackage_Dir, PartitaSettings.DEBUG);
+
+
+        matrixFileGen._1_set_Package("com.abstractsystems.matrix");
+        matrixFileGen._1_set_SchemaOrMatrixNameLabel(matrixName_Parts, 1);
+        matrixFileGen._1_set_MatrixConstructionCode(codeBuilder);
+        matrixFileGen._2_add_MatrixClassCode(schemaSetScopeStack_OutVarName, matrix_OutVarName, outputResults);
+        
+        
+        matrixFileGen._3_add_SchemaOrMatrix_AccessCode(codeBuilder_MatrixAccessMethods_Static, outputResults);
+        
+        
+        dynMethodsFileGen._1_add_DynMethodsCode(codeBuilder_MatrixAccessMethods_Dyn);
+
+
+       // generate the dynMethods class.
+        dynMethodsFileGen._2_generateClass(outputResults);
+        dynMethodsFileGen.writeToFile(PartitaSettings.generationTestProj_matrixPackage_Dir, PartitaSettings.DEBUG);
+
+
+
+
+        matrixFileGen.writeToFile(PartitaSettings.generationTestProj_matrixPackage_Dir, PartitaSettings.DEBUG);
+
+

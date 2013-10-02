@@ -1,0 +1,107 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package maintests.samples.typeinfotest;
+
+import java.util.*;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+
+
+public class EmbeddedCodeTest {
+
+
+    static String requiredImagePath_Expected;
+    static Symbol isRequired_Expected;
+    static Symbol NotRequired_Expected;
+
+    static Symbol testSym1_Expected;
+    static int testField2_Expected;
+
+
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+
+        requiredImagePath_Expected = "/images/isRequired";
+        isRequired_Expected = :IsRequired;
+        NotRequired_Expected = +:NotRequired;
+
+        testSym1_Expected = :testSym1;
+        testField2_Expected = 6;
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void tearDown() {
+    }
+
+
+
+    @Test
+    public void testAccess() throws Exception {
+
+        //  Static Access Tests ________________________________________________________________________________________
+
+        //  Static Access test field RequiredImagePath
+        String resultString = Test.Matrix->`First Name`->maintests.samples.typeinfotest::WEB.FORM::FORM.REQUIRED:>RequiredImagePath;
+        assertEquals(requiredImagePath_Expected, resultString);
+
+        //  Dynamic Access test field RequiredImagePath
+        Symbol resultSymbol = (Symbol)Test.Matrix2->[`test item`]->[:%TEST.DESC]:>[:%testField1];
+        assertEquals(:testSym1, resultSymbol);
+
+        resultSymbol = (Symbol)Test.Matrix2_1->[`test item`]->[:%TEST.DESC]:>[:%testField1];
+        assertEquals(+:testSym2, resultSymbol);
+
+        //  Test Specialized fieldsets
+        FieldSet formRequired_FieldSet = (Test.Matrix-<*1>`First Name`->maintests.samples.typeinfotest::WEB.FORM::FORM.REQUIRED).get_FieldSet();
+        assertEquals(true, formRequired_FieldSet.is_SpecializedFieldSet());
+        resultSymbol = ((FieldSetTuple__maintests$__$samples$__$typeinfotest$_CC_$WEB$__$FORM$_S_$FORM$__$REQUIRED)formRequired_FieldSet)
+                                                                                                            .get_IsRequired(executeInfo);
+        assertEquals(isRequired_Expected, resultSymbol);
+
+
+
+
+
+        ANNOTATIONS {
+            *1 {
+                return +:"1.0";
+
+            }
+
+            DEFAULT {
+                return null;
+            }
+        }
+
+    }
+
+
+
+}

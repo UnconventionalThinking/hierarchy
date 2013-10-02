@@ -1,0 +1,129 @@
+Java "Variable Declaration" Related Productions
+_________________________________________________________________________________________
+
+These will be used by the Matrix types like VAR, REF, SET, and SET<type>. No modifications need to be made to these productions. You probably don't need to da anything but pass the code string through. Why? because VAR's, REF's, and SEt's all act like objects, and will be taken care of by the variable_declarators production.
+
+Oh, but do you need to add these var's to the matrix symbol table? if so, then you need to implement them to some degree.
+_________________________________________________________________________________________
+
+block_statement =
+    {variable_declaration} local_variable_declaration_statement |
+    {class_declaration}    class_declaration |
+    {statement}            statement;
+    
+for_init =
+    {statement}            statement_expression_list |
+    {variable_declaration} local_variable_declaration;
+
+
+
+local_variable_declaration_statement =
+    local_variable_declaration semi;
+
+local_variable_declaration =
+    {primitive} [modifiers]:modifier* primitive_type [dims]:dim* variable_declarators |
+    
+    {reference} [modifiers]:modifier* identifier 
+        [additional_identifiers]:additional_identifier* 	
+		[type_components]:type_component* type_arguments? [dims]:dim* variable_declarators;
+
+
+variable_declarators =
+    {one}                             variable_declarator |
+    {many} variable_declarators comma variable_declarator;
+
+variable_declarator =
+    {simple}      identifier [dims]:dim* |
+    {initializer} identifier [dims]:dim* assign variable_initializer;
+
+variable_initializer =
+    {expression} expression |
+    {identifier} identifier [additional_identifiers]:additional_identifier* |
+    {array}      array_initializer;
+
+array_initializer =
+    l_brc variable_initializers? comma? r_brc;
+
+variable_initializers =
+    {one}                              variable_initializer |
+    {many} variable_initializers comma variable_initializer;
+
+
+
+
+
+
+
+additional_identifier =
+    dot identifier;
+
+modifier =
+    {abstract}     abstract |
+    {annotation}   annotation |
+    {final}        final |
+    {native}       native |
+    {private}      private |
+    {protected}    protected |
+    {public}       public |
+    {static}       static |
+    {strictfp}     strictfp |
+    {synchronized} synchronized |
+    {transient}    transient |
+    {volatile}     volatile;
+
+
+
+primitive_type =
+    {numeric} numeric_type |
+    {boolean} boolean;
+numeric_type =
+    {integral} integral_type |
+    {floating} floating_point_type;
+
+
+
+
+
+type_component =
+    type_arguments [additional_identifiers]:additional_identifier+;
+
+type_arguments =
+    {gt}   lt actual_type_argument_list gt |
+    {shr}  lt actual_type_argument_list_shr shr |
+    {ushr} lt actual_type_argument_list_ushr ushr;
+        
+    
+    
+actual_type_argument_list =
+    {one}                                  actual_type_argument |
+    {many} actual_type_argument_list comma actual_type_argument;
+
+actual_type_argument_list_shr =
+    {one}                                  actual_type_argument_shr |
+    {many} actual_type_argument_list comma actual_type_argument_shr;
+
+actual_type_argument_list_ushr =
+    {one}                                  actual_type_argument_ushr |
+    {many} actual_type_argument_list comma actual_type_argument_ushr;
+
+actual_type_argument_list_ushr_no_gt =
+    {one}                                  actual_type_argument_ushr_no_gt |
+    {many} actual_type_argument_list comma actual_type_argument_ushr_no_gt;
+
+
+actual_type_argument =
+    {primitive} primitive_type [dims]:dim+ |
+    {reference} identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* |
+    {wildcard}  wildcard;
+
+actual_type_argument_shr =
+    {reference} identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_shr_no_gt |
+    {wildcard}  wildcard_shr;
+
+actual_type_argument_ushr =
+    {reference} identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt_gt |
+    {wildcard}  wildcard_ushr;
+
+actual_type_argument_ushr_no_gt =
+    {reference} identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments_ushr_no_gt |
+    {wildcard}  wildcard_ushr_no_gt;

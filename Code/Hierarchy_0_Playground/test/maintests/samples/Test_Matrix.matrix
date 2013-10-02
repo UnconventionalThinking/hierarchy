@@ -1,0 +1,61 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package maintests.samples;
+
+// _____________________________________________________________________________________________________________________
+//
+//  Matrix Tests
+// _____________________________________________________________________________________________________________________
+
+
+MATRIX.NEW Test.Matrix USES (WEB.FORM) /*: { IsPersistentMatrix => :IsPersistent }*/ {
+
+    `First Name` {
+        FORM.REQUIRED: { +:IsRequired, TestConstants.RequiredImagePath, 5, 6 };
+    }
+
+    `Last Name` {
+        FORM.REQUIRED: { +:NotRequired, "/images/isRequired", 5, 6 };
+    }
+
+
+    `Two`.`Part Label` {
+        FORM.REQUIRED +`Test`.`Label`: { +:IsRequired, TestConstants.RequiredImagePath, 5, 6 };
+    }
+
+    /* used for testing nested descriptors with labels (for the flattened matrix) */
+    FORM.SELECTOR {
+
+        `item 1` {
+            FORM.REQUIRED: { :IsRequired, "required stuff", 22 };
+        }
+        `item 2` {
+            FORM.REQUIRED: { :NotRequired, "more required stuff", 23 };
+        }
+
+
+        /*  test having many different types of child descriptors (ITEM, FORM.REQUIRED, OPTION)
+        /*  test having multiple, unique descriptors */
+        FORM.REQUIRED +`1`: { +:IsRequired, "required stuff", 22 };
+        FORM.REQUIRED +`2`: { +:IsRequired, "required stuff", 22 };
+        /*  test having multiple, non-unique descriptors */
+        OPTION: { "California", "CA" };
+        OPTION: { "Colorado", "CO" };
+        OPTION: { "Michigan", "MI", +:Selected };
+
+    }
+
+}
+

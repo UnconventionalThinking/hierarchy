@@ -1,0 +1,270 @@
+Java Expression and Statement Hierarchy
+________________________________________
+  
+  //  use expressions in things like matrix fields. in java, it's used as method parameters, and the condensed, 
+  //  if-then-else: <cond> ? expression : identifier
+  
+  expression =
+    assignment_expression;
+
+  //  And, just so you have method invocation handy, here it is:
+  method_invocation = 
+  	{simple} identifier [additional_identifiers]:additional_identifier* l_par argument_list? r_par |
+    {primary}    primary dot non_wild_type_arguments? identifier l_par argument_list? r_par |
+    
+    {super}      super_token dot non_wild_type_arguments? identifier l_par argument_list? r_par |
+    {class_name} [identifier1]:identifier [additional_identifiers]:additional_identifier* [dot1]:dot super_token 
+    	[dot2]:dot non_wild_type_arguments? [identifier2]:identifier l_par argument_list? r_par |
+    {type_name}  [identifier1]:identifier [additional_identifiers]:additional_identifier*                               
+    	dot non_wild_type_arguments  [identifier2]:identifier l_par argument_list? r_par;
+
+  argument_list =
+    {one_ex}                      expression |
+    {one_id}                      identifier [additional_identifiers]:additional_identifier* |
+    {many_ex} argument_list comma expression |
+    {many_id} argument_list comma identifier [additional_identifiers]:additional_identifier*;
+
+
+
+
+
+  block_statement =
+    {variable_declaration} local_variable_declaration_statement |
+    {class_declaration}    class_declaration |
+    {statement}            statement;
+
+
+
+  statement =
+    {no_trail}   statement_without_trailing_substatement |
+    {label}      labeled_statement |
+    {if}         if_then_statement |
+    {if_else}    if_then_else_statement |
+    {while_loop} while_statement |
+    {for_loop}   for_statement;
+
+  statement_without_trailing_substatement =
+    {block}                  block |
+    {empty_statement}        empty_statement |
+    {expression_statement}   expression_statement |
+    {assert_statement}       assert_statement |
+    {switch_statement}       switch_statement |
+    {do_statement}           do_statement |
+    {break_statement}        break_statement |
+    {continue_statement}     continue_statement |
+    {return_statement}       return_statement |
+    {synchronized_statement} synchronized_statement |
+    {throw_statement}        throw_statement |
+    {try_statement}          try_statement;
+
+  expression_statement =
+    statement_expression semi;
+
+
+  statement_expression =
+    {assignment}        assignment |
+    {pre_increment}     pre_increment_expression |
+    {pre_decrement}     pre_decrement_expression |
+    {post_increment}    post_increment_expression |
+    {post_decrement}    post_decrement_expression |
+    {method_invocation} method_invocation |
+    {instance_creation} class_instance_creation_expression;
+
+
+  assignment =
+    {expression} left_hand_side assignment_operator assignment_expression |
+    {identifier} left_hand_side assignment_operator identifier [additional_identifiers]:additional_identifier*;
+
+
+
+  left_hand_side =
+    {identifier} identifier [additional_identifiers]:additional_identifier* |
+    {field}      field_access |
+    {array}      array_access;
+
+
+  assignment_expression =
+    {conditional} conditional_expression |
+    {assignment}  assignment;
+
+
+
+
+  variable_initializer =
+    {expression} expression |
+    {identifier} identifier [additional_identifiers]:additional_identifier* |
+    {array}      array_initializer |
+    
+	//  **MATRIX** 
+	{mj_outside_included} mp_outside_included_expression_related_prod
+	;
+
+  array_access =
+    {primary_ex}    primary_no_new_array                                                      l_bkt expression                                                                r_bkt |
+    {primary_id}    primary_no_new_array                                                      l_bkt               identifier  [additional_identifiers]:additional_identifier* r_bkt |
+    {identifier_ex}               identifier  [additional_identifiers]:additional_identifier* l_bkt expression                                                                r_bkt |
+    {identifier_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* l_bkt [identifier2]:identifier [additional_identifiers2]:additional_identifier* r_bkt;
+
+
+  if_then_statement =
+    {expression} if l_par expression                                                 r_par statement |
+    {identifier} if l_par identifier [additional_identifiers]:additional_identifier* r_par statement;
+
+  if_then_else_statement =
+    {expression} if l_par expression                                                 r_par statement_no_short_if else statement |
+    {identifier} if l_par identifier [additional_identifiers]:additional_identifier* r_par statement_no_short_if else statement;
+
+  while_statement =
+    {expression} while l_par expression                                                 r_par statement |
+    {identifier} while l_par identifier [additional_identifiers]:additional_identifier* r_par statement;
+
+  if_then_else_statement_no_short_if =
+    {expression} if l_par expression                                                 r_par [statement_no_short_if1]:statement_no_short_if else [statement_no_short_if2]:statement_no_short_if |
+    {identifier} if l_par identifier [additional_identifiers]:additional_identifier* r_par [statement_no_short_if1]:statement_no_short_if else [statement_no_short_if2]:statement_no_short_if;
+
+  while_statement_no_short_if =
+    {expression} while l_par expression                                                 r_par statement_no_short_if |
+    {identifier} while l_par identifier [additional_identifiers]:additional_identifier* r_par statement_no_short_if;
+
+  for_statement_no_short_if =
+    {empty}      for l_par for_init? [semi1]:semi                                                            [semi2]:semi for_update? r_par statement_no_short_if |
+    {expression} for l_par for_init? [semi1]:semi expression                                                 [semi2]:semi for_update? r_par statement_no_short_if |
+    {identifier} for l_par for_init? [semi1]:semi identifier [additional_identifiers]:additional_identifier* [semi2]:semi for_update? r_par statement_no_short_if;
+
+  assert_statement =
+    {one_ex}    assert               expression                                                  semi |
+    {one_id}    assert               identifier [additional_identifiers]:additional_identifier*  semi |
+    {two_ex_ex} assert [expression1]:expression                                                  colon [expression2]:expression semi |
+    {two_ex_id} assert               expression                                                  colon               identifier  [additional_identifiers]:additional_identifier* semi |
+    {two_id_ex} assert               identifier  [additional_identifiers]:additional_identifier* colon expression                                                                semi |
+    {two_id_id} assert [identifier1]:identifier [additional_identifiers1]:additional_identifier* colon [identifier2]:identifier [additional_identifiers2]:additional_identifier* semi;
+
+  switch_statement =
+    {expression} switch l_par expression                                                 r_par switch_block |
+    {identifier} switch l_par identifier [additional_identifiers]:additional_identifier* r_par switch_block;
+
+  do_statement =
+    {expression} do statement while l_par expression                                                 r_par semi |
+    {identifier} do statement while l_par identifier [additional_identifiers]:additional_identifier* r_par semi;
+
+  basic_for_statement =
+    {empty}      for l_par for_init? [semi1]:semi                                                            [semi2]:semi for_update? r_par statement |
+    {expression} for l_par for_init? [semi1]:semi expression                                                 [semi2]:semi for_update? r_par statement |
+    {identifier} for l_par for_init? [semi1]:semi identifier [additional_identifiers]:additional_identifier* [semi2]:semi for_update? r_par statement;
+  enhanced_for_statement =
+    {primitive_expression} for l_par [modifiers]:modifier* primitive_type                                                                                                              [dims]:dim*               identifier colon expression                                                                r_par statement |
+    {primitive_identifier} for l_par [modifiers]:modifier* primitive_type                                                                                                              [dims]:dim* [identifier1]:identifier colon [identifier2]:identifier  [additional_identifiers]:additional_identifier* r_par statement |
+    {reference_expression} for l_par [modifiers]:modifier* [identifier1]:identifier  [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* [identifier2]:identifier colon expression                                                                r_par statement |
+    {reference_identifier} for l_par [modifiers]:modifier* [identifier1]:identifier [additional_identifiers1]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* [identifier2]:identifier colon [identifier3]:identifier [additional_identifiers2]:additional_identifier* r_par statement;
+
+
+  dim_expr =
+    {expression} l_bkt expression                                                 r_bkt |
+    {identifier} l_bkt identifier [additional_identifiers]:additional_identifier* r_bkt;
+
+
+  synchronized_statement =
+    {expression} synchronized l_par expression                                                 r_par block |
+    {identifier} synchronized l_par identifier [additional_identifiers]:additional_identifier* r_par block;
+
+  throw_statement =
+    {expression} throw expression                                                 semi |
+    {identifier} throw identifier [additional_identifiers]:additional_identifier* semi;
+
+
+
+  return_statement =
+    {empty}      return                                                            semi |
+    {expression} return expression                                                 semi |
+    {identifier} return identifier [additional_identifiers]:additional_identifier* semi |
+    
+    //  **MATRIX** 
+    {mj_outside_included} return mp_outside_included_expression_related_prod semi;
+    
+    
+
+
+  //  NOTE: this is the expression: "<condition> ? <true value> : <false value>"
+  conditional_expression =
+    {simple}         conditional_or_expression |
+    {qmark_or_ex_or} conditional_or_expression qmark expression colon conditional_expression |
+    {qmark_or_ex_id} conditional_or_expression qmark expression colon identifier  [additional_identifiers]:additional_identifier* |
+    {qmark_or_id_or} conditional_or_expression qmark identifier  [additional_identifiers]:additional_identifier* colon conditional_expression |
+    {qmakr_or_id_id} conditional_or_expression qmark [identifier1]:identifier [additional_identifiers1]:additional_identifier* colon [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {qmakr_id_ex_or} identifier  [additional_identifiers]:additional_identifier* qmark expression colon conditional_expression |
+    {qmakr_id_ex_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* qmark expression colon [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {qmakr_id_id_or} [identifier1]:identifier [additional_identifiers1]:additional_identifier* qmark [identifier2]:identifier [additional_identifiers2]:additional_identifier* colon conditional_expression |
+    {qmakr_id_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* qmark [identifier2]:identifier [additional_identifiers2]:additional_identifier* colon [identifier3]:identifier [additional_identifiers3]:additional_identifier*;
+
+
+
+
+... (more expression like equality, inequality, greater than or equal...)
+
+
+
+  postfix_expression =
+    {post_increment} post_increment_expression |
+    {post_decrement} post_decrement_expression |
+    
+	//  **MATRIX** MODIFICATION - from 'primary' to 'pre-primary'
+	{mj_pass_through}        mp_pre_primary;
+
+
+
+
+  //  **MATRIX** ADDED PRODUCTION - pass through to allow matrix_access to sit above primary
+  //  The reason you need this is because normally, you want the matrix_access production to be apart of
+  //  primary, but primary is a "mix and match" production, that can recusively build using method calls, or
+  //  field access... the problem is that the descriptor tag names of matrix_access conflict with field access.
+  mp_pre_primary = 
+	//  **MATRIX** ADDED PRODUCTIONS
+	{mj_matrix_access} matrix_access |
+	{primary} primary;
+	
+	
+  primary =
+    {no_array} primary_no_new_array |
+    {array}    array_creation_expression;
+
+
+
+  primary_no_new_array =
+    {literal}    literal |
+    {primitive}  primitive_type                                             [dims]:dim* dot class_token |
+    {reference}  identifier [additional_identifiers]:additional_identifier* [dims]:dim* dot class_token |
+    {void}       void dot class_token |
+    {this}       this |
+    {class}      identifier [additional_identifiers]:additional_identifier* dot this |
+    {expression} l_par expression                                                 r_par |
+    {identifier} l_par identifier [additional_identifiers]:additional_identifier* r_par |
+    {instance}   class_instance_creation_expression |
+    {field}      field_access |
+    {method}     method_invocation |
+    {array}      array_access |
+    
+	//  **MATRIX** ADDED PRODUCTIONS
+	{mj_set_creation} set_instance_creation |
+	//  subset creation - wherever method invocation is, subset creation is too
+	{mj_subset_creation} subset_creation |
+	{mj_it_var} it_variable |
+
+	{mj_closure} code_closure |
+	
+	{mj_symbol_parens} l_par mp_symbol_useage r_par |
+	{mj_matrix_element_creation_parens} l_par matrix_element_creation r_par
+	;
+
+
+
+
+  field_access =
+    {primary} 			primary dot identifier |
+    {super} 			super_token dot identifier |
+    {reference_super} 	[identifier1]:identifier [additional_identifiers]:additional_identifier* [dot1]:dot super_token [dot2]:dot [identifier2]:identifier;
+
+  array_access =
+    {primary_ex}    primary_no_new_array l_bkt expression r_bkt |
+    {primary_id}    primary_no_new_array l_bkt identifier  [additional_identifiers]:additional_identifier* r_bkt |
+    {identifier_ex} identifier [additional_identifiers]:additional_identifier* l_bkt expression r_bkt |
+    {identifier_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* l_bkt [identifier2]:identifier [additional_identifiers2]:additional_identifier* r_bkt;

@@ -1,0 +1,503 @@
+
+-pre-init:
+
+-init-private:
+
+-init-user:
+
+-init-project:
+
+-init-macrodef-property:
+
+-do-init:
+
+-post-init:
+
+-init-check:
+
+-init-ap-cmdline-properties:
+
+-init-macrodef-javac-with-processors:
+
+-init-macrodef-javac-without-processors:
+
+-init-macrodef-javac:
+
+-init-macrodef-junit:
+
+-init-debug-args:
+
+-init-macrodef-nbjpda:
+
+-init-macrodef-debug:
+
+-init-macrodef-java:
+
+-init-presetdef-jar:
+
+-init-ap-cmdline-supported:
+
+-init-ap-cmdline:
+
+init:
+
+-deps-jar-init:
+   [delete] Deleting: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\build\built-jar.properties
+
+deps-jar:
+
+-warn-already-built-jar:
+[propertyfile] Updating property file: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\build\built-jar.properties
+
+-check-call-dep:
+
+-maybe-call-dep:
+
+-pre-init:
+
+-init-private:
+
+-init-user:
+
+-init-project:
+
+-init-macrodef-property:
+
+-do-init:
+
+-post-init:
+
+-init-check:
+
+-init-ap-cmdline-properties:
+
+-init-macrodef-javac-with-processors:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:javac
+
+-init-macrodef-javac-without-processors:
+
+-init-macrodef-javac:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:depend
+
+-init-macrodef-junit:
+
+-init-debug-args:
+
+-init-macrodef-nbjpda:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/1:nbjpdastart
+
+-init-macrodef-debug:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:debug
+
+-init-macrodef-java:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/1:java
+
+-init-presetdef-jar:
+
+-init-ap-cmdline-supported:
+
+-init-ap-cmdline:
+
+init:
+
+-deps-jar-init:
+
+deps-jar:
+
+-warn-already-built-jar:
+[propertyfile] Updating property file: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\build\built-jar.properties
+
+-check-automatic-build:
+
+-clean-after-automatic-build:
+
+-verify-automatic-build:
+
+-pre-pre-compile:
+
+-pre-compile:
+
+-copy-persistence-xml:
+
+-compile-depend:
+
+-do-compile:
+    [javac] Compiling 1 source file to C:\Projects\Hierarchy\Code\Hierarchy\build\classes
+
+-post-compile:
+
+compile:
+
+-pre-jar:
+
+-pre-pre-jar:
+
+-do-jar-with-manifest:
+
+-do-jar-without-manifest:
+
+-do-jar-with-mainclass:
+
+-init-macrodef-copylibs:
+
+-do-jar-with-libraries-and-splashscreen:
+
+-do-jar-with-libraries:
+ [copylibs] Copy libraries to C:\Projects\Hierarchy\Code\Hierarchy\dist\lib.
+ [copylibs] Building jar: C:\Projects\Hierarchy\Code\Hierarchy\dist\Hierarchy.jar
+     [echo] To run this application from the command line without Ant, try:
+     [echo] java -jar "C:\Projects\Hierarchy\Code\Hierarchy\dist\Hierarchy.jar"
+
+-post-jar:
+
+jar:
+
+-check-call-dep:
+
+-maybe-call-dep:
+
+-pre-init:
+
+-init-private:
+
+-init-user:
+
+-init-project:
+
+-init-macrodef-property:
+
+-do-init:
+
+-post-init:
+
+-init-check:
+
+-init-ap-cmdline-properties:
+
+-init-macrodef-javac-with-processors:
+
+-init-macrodef-javac-without-processors:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:javac
+
+-init-macrodef-javac:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:depend
+
+-init-macrodef-junit:
+
+-init-debug-args:
+
+-init-macrodef-nbjpda:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/1:nbjpdastart
+
+-init-macrodef-debug:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:debug
+
+-init-macrodef-java:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/1:java
+
+-init-presetdef-jar:
+
+-init-ap-cmdline-supported:
+
+-init-ap-cmdline:
+
+init:
+
+-deps-jar-init:
+
+deps-jar:
+
+-warn-already-built-jar:
+[propertyfile] Updating property file: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\build\built-jar.properties
+
+-check-call-dep:
+
+-maybe-call-dep:
+
+-check-automatic-build:
+
+-clean-after-automatic-build:
+
+-verify-automatic-build:
+
+-pre-pre-compile:
+
+-pre-compile:
+
+-copy-persistence-xml:
+
+-compile-depend:
+
+-do-compile:
+
+-post-compile:
+
+compile:
+
+-pre-jar:
+
+-pre-pre-jar:
+
+-do-jar-with-manifest:
+
+-do-jar-without-manifest:
+
+-do-jar-with-mainclass:
+
+-init-macrodef-copylibs:
+
+-do-jar-with-libraries-and-splashscreen:
+
+-do-jar-with-libraries:
+ [copylibs] Copy libraries to C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence_Main\dist\lib.
+     [echo] To run this application from the command line without Ant, try:
+     [echo] java -jar "C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence_Main\dist\Hierarchy_TestPersistence_Main.jar"
+
+-post-jar:
+
+jar:
+
+-check-automatic-build:
+
+-clean-after-automatic-build:
+
+-verify-automatic-build:
+
+-pre-pre-compile:
+
+-pre-compile:
+
+-copy-persistence-xml:
+
+-compile-depend:
+
+-do-compile:
+
+-post-compile:
+
+compile:
+
+-pre-pre-compile-test:
+
+-pre-compile-test:
+
+-compile-test-depend:
+
+-do-compile-test:
+
+-post-compile-test:
+
+compile-test:
+
+run-PersistTest-03-Server:
+     [echo] ____________________________________________________________________
+     [echo] 
+     [echo]  Run the Persistent Server Junit Test
+     [echo]  PersistTest_03_Server__CheckNewPersistedMatrix
+     [echo] ____________________________________________________________________
+     [echo]  Copy over the "ServerStarted" file lock, to let the client ant script know that the server has finished building and is starting up, so the client can proceed 
+     [copy] Copying 1 file to C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence_Main\testresults
+    [junit] Testsuite: net.unconventionalthinking.hierarchy.persistence.PersistTest_03_Server__CheckNewPersistedMatrix
+    [junit] Tests run: 1, Failures: 0, Errors: 0, Time elapsed: 26.361 sec
+    [junit] 
+    [junit] ------------- Standard Output ---------------
+    [junit] setting up server for a run with an existing matrix.
+    [junit] Starting PersistentMatrices Server
+    [junit]   Using properties file: ../Hierarchy_TestPersistence1_Server/test/net/unconventionalthinking/hierarchy/persistence/PersistTest_Server.properties
+    [junit] Loaded metacompiler file located at: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\test\net\unconventionalthinking\hierarchy\persistence\PersistTest_Server.properties
+    [junit] Setting up Server using Configurator
+    [junit] Curr Base Directory of Meta-code Source (include package dir) is: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\src_meta
+    [junit] Curr Directory of Meta-code Source (include package dir) is: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\src_meta\maintests\samples\persistenceclient
+    [junit] 
+    [junit] Starting Server...
+    [junit] 
+    [junit] _________________________________________________________________________________________________________________
+    [junit] Metacompiling the Server's code.
+    [junit]   Meta-Src base-dir path [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\src_meta]
+    [junit]   Meta-Build dest-dir path [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\matrix_build\build1_meta]
+    [junit]   Final-Build dest-dir path [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\matrix_build\build2_final]
+    [junit] _________________________________________________________________________________________________________________
+    [junit] Cleaning:
+    [junit] Done!
+    [junit] 
+    [junit] Javac Version info: javac 1.6.0_21
+    [junit] 
+    [junit] Classpath of the Metacompiler's JVM:
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy/dist/Hierarchy.jar
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy_TestPersistence1_Server/build/test/classes/
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy_TestPersistence1_Server/build/classes/
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy_TestPersistence_Main/build/test/classes/
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy_TestPersistence_Main/build/classes/
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy_TestPersistence1_Server/
+    [junit]    - /C:/Program%20Files%20(x86)/Java/jre6/lib/ext/QTJava.zip
+    [junit]    - /C:/java/apps/apache-ant-1.8.1/lib/ant-launcher.jar
+    [junit]    - /C:/java/apps/apache-ant-1.8.1/lib/ant.jar
+    [junit]    - /C:/java/apps/apache-ant-1.8.1/lib/ant-junit.jar
+    [junit] 
+    [junit] 
+    [junit] 
+    [junit] MetaCompiling Schema Code:
+    [junit] Output is:
+    [junit] Note: maintests\samples\persistenceclient\AppControl.java uses unchecked or unsafe operations.
+    [junit] Note: Recompile with -Xlint:unchecked for details.
+    [junit] done! 2 schema files compiled.
+    [junit] 
+    [junit] 
+    [junit] Generate FieldSets:
+    [junit] First, Load the appControl to create the schemas
+    [junit] Output is:
+    [junit] Note: maintests\samples\persistenceclient\AppControl.java uses unchecked or unsafe operations.
+    [junit] Note: Recompile with -Xlint:unchecked for details.
+    [junit] done! 3 specialized fieldsets compiled.
+    [junit] 
+    [junit] 
+    [junit] 
+    [junit] MetaCompiling Matrix Code:
+    [junit]    - Metacompiling Matrix [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\src_meta\maintests\samples\persistenceclient/Test$__$Matrix.matrix], Is Persistent Matrix [true]
+    [junit]    - Metacompiling Matrix [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\src_meta\maintests\samples\persistenceclient\otherpackage/Test$__$Matrix2.matrix], Is Persistent Matrix [true]
+    [junit] 
+    [junit] Generate FieldSets:
+    [junit] First, Load the appControl to create the schemas
+    [junit] done! 3 specialized fieldsets generated.
+    [junit] 
+    [junit] Output is:
+    [junit] Note: maintests\samples\persistenceclient\AppControl.java uses unchecked or unsafe operations.
+    [junit] Note: Recompile with -Xlint:unchecked for details.
+    [junit] done! 2 matrices compiled.
+    [junit] 
+    [junit] 
+    [junit] 
+    [junit] MetaCompiling Embedded Java Files:
+    [junit] 
+    [junit] Generate FieldSets:
+    [junit] First, Load the appControl to create the schemas
+    [junit] done! 3 specialized fieldsets generated.
+    [junit] 
+    [junit] 
+    [junit] 
+    [junit] Compiling Generated Java-Files into Class files:
+    [junit] Output is:
+    [junit] Note: maintests\samples\persistenceclient\AppControl.java uses unchecked or unsafe operations.
+    [junit] Note: Recompile with -Xlint:unchecked for details.
+    [junit]     Compiled metafiles into final class files.
+    [junit] 
+    [junit] done! 0 embedded files meta-compiled.
+    [junit] 
+    [junit] 
+    [junit] ... End of Metacompilation
+    [junit] _________________________________________________________________________________________________________________
+    [junit] 
+    [junit] 
+    [junit] Loading Persistent Matices:
+    [junit]    Added matrix [maintests.samples.persistenceclient::Test.Matrix] to persistentMatrix index
+    [junit]    Added matrix [maintests.samples.persistenceclient.otherpackage::Test.Matrix2] to persistentMatrix index
+    [junit]    ... done! There were 2 persistent matrices out of 2 total matrices.
+    [junit] 
+    [junit] Starting RMI Service - Registry connection Settings:
+    [junit]    host: 127.0.0.1, port: -1
+    [junit] 
+    [junit] 
+    [junit] ...Finished Starting Server.
+    [junit] 
+    [junit] checkNewPersistedMatrix_Test
+    [junit] Testing updated matrix with name: Test.Matrix
+    [junit] Done!
+    [junit] Testing updated matrix with name: Test.Matrix2
+    [junit] Done!
+    [junit] 
+    [junit] _________________________________________________________________________________________________________________
+    [junit] Metacompiling the Server's code.
+    [junit]   Meta-Src base-dir path [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\src_meta]
+    [junit]   Meta-Build dest-dir path [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\matrix_build\build1_meta]
+    [junit]   Final-Build dest-dir path [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\matrix_build\build2_final]
+    [junit] _________________________________________________________________________________________________________________
+    [junit] Cleaning:
+    [junit] Done!
+    [junit] 
+    [junit] Javac Version info: javac 1.6.0_21
+    [junit] 
+    [junit] Classpath of the Metacompiler's JVM:
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy/dist/Hierarchy.jar
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy_TestPersistence1_Server/build/test/classes/
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy_TestPersistence1_Server/build/classes/
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy_TestPersistence_Main/build/test/classes/
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy_TestPersistence_Main/build/classes/
+    [junit]    - /C:/Projects/Hierarchy/Code/Hierarchy_TestPersistence1_Server/
+    [junit]    - /C:/Program%20Files%20(x86)/Java/jre6/lib/ext/QTJava.zip
+    [junit]    - /C:/java/apps/apache-ant-1.8.1/lib/ant-launcher.jar
+    [junit]    - /C:/java/apps/apache-ant-1.8.1/lib/ant.jar
+    [junit]    - /C:/java/apps/apache-ant-1.8.1/lib/ant-junit.jar
+    [junit] 
+    [junit] 
+    [junit] 
+    [junit] MetaCompiling Schema Code:
+    [junit] Output is:
+    [junit] Note: maintests\samples\persistenceclient\AppControl.java uses unchecked or unsafe operations.
+    [junit] Note: Recompile with -Xlint:unchecked for details.
+    [junit] done! 2 schema files compiled.
+    [junit] 
+    [junit] 
+    [junit] Generate FieldSets:
+    [junit] First, Load the appControl to create the schemas
+    [junit] Output is:
+    [junit] Note: maintests\samples\persistenceclient\AppControl.java uses unchecked or unsafe operations.
+    [junit] Note: Recompile with -Xlint:unchecked for details.
+    [junit] done! 3 specialized fieldsets compiled.
+    [junit] 
+    [junit] 
+    [junit] 
+    [junit] MetaCompiling Matrix Code:
+    [junit]    - Metacompiling Matrix [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\src_meta\maintests\samples\persistenceclient/Test$__$Matrix.matrix], Is Persistent Matrix [true]
+    [junit]    - Metacompiling Matrix [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\src_meta\maintests\samples\persistenceclient\otherpackage/Test$__$Matrix2.matrix], Is Persistent Matrix [true]
+    [junit] 
+    [junit] Generate FieldSets:
+    [junit] First, Load the appControl to create the schemas
+    [junit] done! 3 specialized fieldsets generated.
+    [junit] 
+    [junit] Output is:
+    [junit] Note: maintests\samples\persistenceclient\AppControl.java uses unchecked or unsafe operations.
+    [junit] Note: Recompile with -Xlint:unchecked for details.
+    [junit] done! 2 matrices compiled.
+    [junit] 
+    [junit] 
+    [junit] 
+    [junit] MetaCompiling Embedded Java Files:
+    [junit] 
+    [junit] Generate FieldSets:
+    [junit] First, Load the appControl to create the schemas
+    [junit] done! 3 specialized fieldsets generated.
+    [junit] 
+    [junit] 
+    [junit] 
+    [junit] Compiling Generated Java-Files into Class files:
+    [junit] Output is:
+    [junit] Note: maintests\samples\persistenceclient\AppControl.java uses unchecked or unsafe operations.
+    [junit] Note: Recompile with -Xlint:unchecked for details.
+    [junit]     Compiled metafiles into final class files.
+    [junit] 
+    [junit] done! 0 embedded files meta-compiled.
+    [junit] 
+    [junit] 
+    [junit] ... End of Metacompilation
+    [junit] _________________________________________________________________________________________________________________
+    [junit] 
+    [junit] 
+    [junit] Loading Persistent Matices:
+    [junit]    Added matrix [maintests.samples.persistenceclient.otherpackage::Test.Matrix2] to persistentMatrix index
+    [junit]    Added matrix [maintests.samples.persistenceclient::Test.Matrix] to persistentMatrix index
+    [junit]    ... done! There were 2 persistent matrices out of 2 total matrices.
+    [junit] 
+    [junit] Updating the client src. Copying the Server files to the client:
+    [junit]    Copying server Meta-Src from [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\src_meta] to client dir [ ../Hierarchy_TestPersistence2_Client/src]
+    [junit]    Copying server Meta-Build files from [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\matrix_build\build1_meta] to client dir [ ../Hierarchy_TestPersistence2_Client/src]
+    [junit]    Copying server Final-Build files from [C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\matrix_build\build2_final] to client dir [ ../Hierarchy_TestPersistence2_Client/build/classes]
+    [junit]    ...Done!
+    [junit] ShutDown requested:
+    [junit]    Trying to stop the Server's RMI service...
+    [junit]    ...Done!
+    [junit]    Shutting Down the inbox monitor thread... request made (async call).
+    [junit] ...Test stopped.
+    [junit] ------------- ---------------- ---------------
+
+BUILD SUCCESSFUL
+Total time: 35 seconds

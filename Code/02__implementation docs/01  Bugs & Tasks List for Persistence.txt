@@ -1,0 +1,75 @@
+
+**o PERSISTENCE BUGS & TASKS
+	- Need to create doc that outlines what meta-src files get copied and when (from client to server, from server to client...)
+
+
+	- Need to testing for the locking on the server, especially when it updates the matrix files.
+
+	
+	- If an server update operation fails, 
+	   - it should send the error back to the client. HOW IS THIS COORDINATED!!!
+	      - coordination is very important. Because if a client operation succeeds (like a setField() command),
+	        but the server version of the operation fails, the client will probably have moved on!!!
+	   - currently, server dies when exception is thrown. this should not happen!!
+
+	- before code is copied from the server to the client, should deltree the old code first (same with the server to
+	  the client direction).
+	** Double check the chunk file stuff. Is there going to be a race condition? when a chunk is copied to the inbox,
+	   is the server able to somehow read the chunk during the copy operation???
+	   
+
+	*** Persistent Matrix Client is a CACHE! - turn the persistent matrix that's running on the client into a cache! the architecture for this caching should be the same as what's done for highly, multi-processor systems and how they work with shared memory. Same problem arises: if some data chagnes, how do you keep data consistency across multiple caches? (because for Hierarchy, each database client has a persistent matrix, and so each database client is its own, cache memory!)
+		- Cache can be in memory data structure, OR data-structure can be swapped out with a in-memory DB (running in same JVM)! All the matrix data and descriptors is stored in the in-memory db!
+	
+	*** change persistence to DYNAMICALLY build the client matrix (instead of taking the updated matrix file from the server). In fact, is it possible to do the entire thing dynamically? so both the client and the server have no matrix file ever?
+
+	- Client communicates with server using a session bean (does server need to communicate with client?) - 3/28/10
+
+
+	- support two types of transactions - 7/27/2012
+		o transactions done with Java locking (probably don't have to do much, just be able to support two phase commits
+		o transactions done where the matrices can lock parts of the matrices, so that other clients can't modify until the current client is done. BUT, this also needs be support DISTRIBUTED TRANSACTIONS so that all the first-class clients will lock parts of their matrices too (maybe use a transaction server?)
+			- also, maybe support sometype of monitor pattern for matrices, so accessing matrices will automatically do locking. the monitor access methods should be able to be created by the dev.
+	
+	- support transactions - 3/28/10
+		o values not commited until values are logged (two phase commit)
+		o server does not process a set of commands until it sees a closeCommand or a closeTransction
+		o orphaned commands
+		o rollback set (sends a cancel command/transaction to log), which on the server side, simply removes the associated commands from the orphaned/pending command index
+	- greater fault tolerance - 3/28/10
+		o support the client or server being killed at anytime, and being able to start back up
+		o Support Self-monitoring - the server can monitor itself and if the processing thread crashes, it can restart itself.
+		o dealing with incomplete commands (transactions should take care of that)
+		o dealing with invalid commands (for instance, ones that got cut off because the client stop running)
+		
+		
+	- Hierarchical Storage - 7/27/2012
+		o matrices should have custom algorithms that support moving parts of the matrix to RAM, or to disk, or to the Persistence server, or even to a medium-term storage persistence server (one that can still be accessed live, but is a bit slow), or even to long-term storage.
+		o And, the algorithms should be very customizable, but easy to do.
+		o Also, their should be great tools to:
+			- View/Debug the movement of information
+			- Profile the access times
+			- Log the mvment of info
+			- Monitor the mvmt of info in realtime.
+			- Give a performance summary to id trouble areas.
+			
+	- Matrices should support Polygot persistence
+		
+
+	- And all these features, transactions, hierarchical storage, Hibernate-like Object relational mapping, ploygot persistence - all of these should be easy to use, but powerful and flexible. This means they should be easy to use right out of the box, but allow you to override the defaults and really customize it to suit almost any need, at any scale! This means in many cases, you can swap out/override the library's implementation for a custom one
+	
+		** Good defaults, but overrideable and customizable **
+		o goal is to allow all these features to be able to scale to huge volumes (like facebook and twitter.
+		** They should be designed to be able to be used in distributed systems!!! - sharded data, mapreduce, replicated data...
+		o LAYERED API - RISC and CISC layers - to be customizable, the "tools/api's" that are given to developers so they can customize what's going on should be RISC like: sets of well chosen, smaller functions that developers know how they will work. On top of this layer, can offer CISC like functions. But, these should be separated out into a TOP LAYER API!!! 
+		
+	- Persistence Client and Server logging
+	
+	- A lot more Junit tests:
+	   	o first, for the current persistence tests, create an Ant script to run
+	   	o next, continue on with the persistence tests. Client test step "4" should start to send more chunks
+	   	
+		o test that has updates happening as the client is swapping out log for a new chunk!
+		
+		o starting server with different variations of valid and invalid controls, with different variations of chunks that have been processed and not processed
+		o near real world test

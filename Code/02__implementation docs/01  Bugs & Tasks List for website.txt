@@ -1,0 +1,17 @@
+Bug List
+
+____________
+
+o *** DEFAULT CHILD PAGE should not be set using child page id (-1 is given to the default child page). 
+	This is bad as the default child page may change, which means we must set the child page id of the new default to -1 change the old default child-page to another id (id's should never change!). 
+
+o IE 8 compatibilty problem - causes the right side of the table to be misaligned, bumped out on the side.
+       To fix, I added a tag:
+       
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+        
+       This is an important tag, Internet Explorer 8 tries to be more compatible with current standards. But, IE 8 is
+             doing something different with html, possible with empty cells rows. So, to make IE 8 emulate IE 7, use this meta tag. 
+             The problem this solves deals with the floating image header in the hierarchy product pages. if you dont' use this tag, then 
+             the underlying table is misaligned and is bumped out a bit on the right side. This tag solves this problem. But, in the future,
+             I need to fix this bug by turning this tag off and figuring out what is incompatible with the html.

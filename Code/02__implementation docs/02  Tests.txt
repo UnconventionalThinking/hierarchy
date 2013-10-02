@@ -1,0 +1,6 @@
+Test you should do before release
+_________________________________
+
+1. Test build and running on both unix and windows
+
+2. Test creating a new matrix project from scratch. Easy?

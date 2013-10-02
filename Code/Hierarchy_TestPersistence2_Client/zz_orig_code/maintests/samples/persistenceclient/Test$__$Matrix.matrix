@@ -1,0 +1,54 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package maintests.samples.persistenceclient;
+
+
+import SCHEMA net.unconventional.persistence::MATRIXPROG.PERSISTENCE;
+
+
+// _____________________________________________________________________________________________________________________
+//
+//  Matrix Tests
+// _____________________________________________________________________________________________________________________
+
+
+MATRIX.NEW Test.Matrix USES (WEB.FORM, net.unconventional.persistence::MATRIXPROG.PERSISTENCE): { /*IsPersistentMatrix => +:IsPersistent*/ }  {
+
+	//  ** TEMPORARY ** - In the future, will use the persistence matrix setting
+	MATRIXPROG.PERSISTENCE.SETTINGS: { :IsPersistent };
+
+
+    `First Name` {
+        FORM.REQUIRED: { +:IsRequired, "/images/isRequired", 5, 6 };
+    }
+
+    `Last Name` {
+        FORM.REQUIRED: { +:NotRequired, "/images/isRequired", 5, 6 };
+    }
+
+
+    /* used for testing nested descriptors with labels (for the flattened matrix) */
+    FORM.SELECTOR {
+        `item 1` {
+            FORM.REQUIRED: { :IsRequired, "stuff", 22 };
+        }
+        `item 2` {
+            FORM.REQUIRED: { :NotRequired, "more stuff", 23 };
+        }
+
+    }
+
+}
+

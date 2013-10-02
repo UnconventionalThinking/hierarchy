@@ -1,0 +1,34 @@
+
+
+                	int CASE_NUM_SPLIT = 1500;
+                	if (this.action[1] < CASE_NUM_SPLIT)
+	                	parse_switch1(this.action[1]);
+	                else
+	                	parse_switch2(this.action[1]);
+                	
+
+                	
+                	
+    private void parse_switch1(int caseNum) throws ParserException, LexerException, IOException {
+       	switch(caseNum)
+        {        
+        
+		    
+		    
+		}	
+	}
+	
+	
+	
+	
+	
+	
+    private void parse_switch2(int caseNum) throws ParserException, LexerException, IOException {
+       	switch(caseNum)
+        {
+
+
+		    
+		}	
+	}
+	

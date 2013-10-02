@@ -1,0 +1,1 @@
+java -Xmn400m -jar ../dist/Partita.jar -cp ../dist/lib/sablecc.jar -f ../testdata/input2.txt

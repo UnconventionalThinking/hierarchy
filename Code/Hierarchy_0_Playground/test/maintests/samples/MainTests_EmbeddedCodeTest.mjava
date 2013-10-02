@@ -1,0 +1,106 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package maintests.samples;
+
+import java.util.*;
+
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+
+public class MainTests_EmbeddedCodeTest {
+
+
+    static String requiredImagePath_Expected ;
+    static Symbol isRequired_Expected;
+    static Symbol NotRequired_Expected;
+
+    static Symbol testSym1_Expected;
+    static int testField2_Expected;
+
+
+    private DESCRIPTOR<Test.Matrix->FORM.SELECTOR->ITEM> testDescField_Item;
+    boolean enteredFilter = false;
+
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+
+        requiredImagePath_Expected = TestConstants.RequiredImagePath;
+        isRequired_Expected = :IsRequired;
+        NotRequired_Expected = +:NotRequired;
+
+        testSym1_Expected = +:testSym1;
+        testField2_Expected = 6;
+
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {}
+    @Before
+    public void setUp() {}
+    @After
+    public void tearDown() {}
+
+
+
+
+    @Test
+    public void testAccess() throws Exception {
+
+        //  Static Access Tests ________________________________________________________________________________________
+/*
+        //  Static Access test field RequiredImagePath
+        String resultString = Test.Matrix->`First Name`->maintests.samples::WEB.FORM::FORM.REQUIRED:>RequiredImagePath;
+        assertEquals(requiredImagePath_Expected, resultString);
+
+        //  Static DescTag w/ 2-Part, DynLabel Access test
+        Label twoPartLabel = `Two`.`Part Label`;
+        Symbol resultSymbol = Test.Matrix->ITEM[twoPartLabel]->FORM.REQUIRED:>IsRequired;
+        assertEquals(isRequired_Expected, resultSymbol);
+*/
+
+        //  Another Static DescTag w/ 2-Part, DynLabel Access test
+        Label testLabel = +`Test`.`Label`;
+        Symbol resultSymbol = Test.Matrix->`Two`.`Part Label`->FORM.REQUIRED[testLabel]:>IsRequired;
+        assertEquals(isRequired_Expected, resultSymbol);
+
+        //  Static DescTag w/ DynLabel Access test through a desc var
+        testLabel = +`Test`.`Label`;
+        DESCRIPTOR<Test.Matrix->ITEM> testDescVar = Test.Matrix->`Two`.`Part Label`;
+        resultSymbol = testDescVar->FORM.REQUIRED[testLabel]:>IsRequired;
+        assertEquals(isRequired_Expected, resultSymbol);
+
+
+        ANNOTATIONS {
+      
+            DEFAULT {
+                return null;
+            }
+
+        }
+
+    }
+
+
+
+}

@@ -1,0 +1,27 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package maintests . samples . persistenceclient . otherpackage ;
+import SCHEMA net . unconventional . persistence :: MATRIXPROG . PERSISTENCE ;
+import SCHEMA maintests . samples . persistenceclient :: WEB . FORM ;
+MATRIX Test.Matrix2 USES (maintests . samples . persistenceclient :: WEB . FORM , net . unconventional . persistence :: MATRIXPROG . PERSISTENCE ) {
+	net.unconventional.persistence::MATRIXPROG.PERSISTENCE::MATRIXPROG.PERSISTENCE.SETTINGS: {  +:IsPersistent  };
+	+`First Name` {
+		maintests.samples.persistenceclient::WEB.FORM::FORM.REQUIRED: {  +:IsRequired, "*** TEST PATH 1t ***", 222222, 333333  };
+	}
+	+`Company Name` {
+		maintests.samples.persistenceclient::WEB.FORM::FORM.REQUIRED: {  +:IsRequired, "/images/isRequired", 55, 66  };
+	}
+	maintests.samples.persistenceclient::WEB.FORM::FORM.SELECTOR +`my`.`formSelector`;
+}

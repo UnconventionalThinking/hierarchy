@@ -1,0 +1,145 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package maintests.samples;
+
+
+/*
+* KEY:
+* ITEM {
+*     PAGE.INFO:  { +:Name_NoSpaces, +:Page_ID, +:Title, +:BlurbText, +:LNav_Href, +:LNav_Image, +:LNav_IsActive }
+*     NEWS {
+*         NEWS.STORY: { +:NewsItem_ID, +:Title, +:DateText, +:Story_Blurb, +:Story_Text }
+*     }
+* }
+*/
+
+
+
+MATRIX.NEW Abstract.Content USES (maintests.samples::Web.Content)  {
+
+    `Home` {
+        PAGE.INFO: { "home", 0, "Home",
+                     "We build good software. We provide software consulting for many areas of industry: financial, automotive, software retailers, and other forms of technology and business. And, we develop our own software products to help improve our world. We truly enjoy developing software that enhances your quality of life.",
+                     "","", false };
+        NEWS {
+            NEWS.STORY: {"N-Dimensional Architecture",
+                "Research and Development on N-Dimensional Architecture Yields New Meta-Compiler for Java",
+                "December 1<sup>st</sup>, 2009",
+                "We have been researching theories on system architecture for over four years and are nearly ready to show the results of our countless days working late into the night. We have created a meta-compiler for Java with which developers can create systems designed with the principles of N-Dimensional Architecture. Traditionally, when software developers use the ideas of 3-tier architectures, they organize their systems using one design characteristic. N-Dimensional Architecture is a new technique for designing software systems that organize them using more than one characteristic at the same time. The resulting systems are simplier to understand, but more flexible for future changes and for handling systems that are larger and more complex. The first major features to roll out will be the meta-compiler for the Matrix data-structure and for Matrix-Programming. We plan to release an alpha version for customers to preview in early 2010!"
+            };
+            NEWS.STORY: {"Vanso",
+                "Creating a High-Volume, Bulk SMS-Message Sender for Vanso ",
+                "December 1<sup>st</sup>, 2009",
+                "We're creating a bulk message sender for txt messages that uses surprisingly little resources while being able to send millions of messages per hour! This little, mighty server is being implemented in SMPP and Java. "
+            };
+            NEWS.STORY: {"Rubbermaid",
+                "Building Web Services and Content Management Systems for Rubbermaid",
+                "February 20<sup>th</sup>, 2007",
+                "We are currently working to help Rubbermaid to securely connect to their clients and partners using web services. We are also working with them to create an easy to use but powerful interface for managing the content on their site, <a href ='http://www.rcpworksmarter.com'>http://www.rcpworksmarter.com</a>."
+            };
+            NEWS.STORY: {"Unisys",
+                "Building Web Services for the Unisys Corporation!",
+                "June 24<sup>th</sup>, 2006",
+                "We have formed a new relationship with the Unisys Corporation. One of our developers is helping Unisys build a hand-writing recognition-system for the banking industry. This system will be a web service that will save financial corporations millions in overhead for many of their transactions. Unisys is one of the top banking computing-services in the world."
+            };
+            NEWS.STORY: {"Opening",
+                         "Abstract Systems opens its doors with its first project!",
+                         "May, 2006",
+                         "It has taken a great deal of work, but Abstract Systems is now ready to provide customers with great " +
+                         "service " +
+                         "and innovative products. " +
+                         "Abstract Systems was formed by three seasoned, software-development specialists and one skilled and highly respected, sales and marketing manager." +
+                         " And, we have already received our first project! We are currently working on sales and production tracking software for a large furniture manufacturer."
+            };
+
+        }
+    }
+
+
+    `Services` {
+        PAGE.INFO: { "services", 1, "Services",
+                     "We believe in developing the best software possible. We do our best to find software developers with only the best skill and experience in their fields. All our Developers, Architects, Managers, Requirements Modelers and Testers believe that focusing on good quality software development will save you time and money.   Fewer problems, fewer headaches. More features and innovation.",
+                     "","", false };
+
+    }
+
+
+	`Research`  {
+        PAGE.INFO: { "research", 2, "Research",
+             "New ideas, ground-breaking products, and better techniques. Our first goal in research is to find new and useful ideas for our software products. Great ideas make great products. Our second goal is to find innovative methods to build software better and quicker. Better methods for building software allows developers to focus more on creating and less on fixing problems.",
+             "","", false};
+
+        NEWS {
+            NEWS.STORY: {"NDA",
+                "N-Dimensional Architecture with Scaling",
+                null,
+                "We are currently researching a new form of multi-dimensional software architecture. Traditional architectures are typically one dimensional. Some of the most well know one-dimensional architectures are <b>3-Tier</b> and <b>MVC</b> architectures*. These one-dimensional architectures organize a system based on only one characteristic of the system, object behavior (is the object a \"view\" object? or is it a \"model\" object?). Multi-dimensional architectures organize a system based on more than one characteristic of a system simultaneously (one of the most well known is Multi-Dimensional Separation of Concerns - MDSOC)." +
+                "<p>" +
+                "One of the toughest challenges in designing large systems is managing the great deal of complexity from the numerous objects and all their different relationships. Multi-dimensional architectures better manage this complexity by allowing architects to organize these objects in multiple ways. The goal is that the developers of these systems should more easily understand the system organization, reducing the learning curve and thus, development time. We are researching a new form of multi-dimensional architecture called N-Dimensional Architecture with Scaling. We hope this work will provide software architects and developers with new, beneficial ways of designing their software systems." +
+                "<br><br><br>*Note: Many software architects consider MVC and 3-Tier Architecture to be relatively very different, operating at two different levels of a system architecture. If you think of these two as they do, they can even be used together in the same system."
+            };
+        }
+
+    }
+
+
+	`Products`  {
+        PAGE.INFO: { "products", 3, "Products",
+             "We truly enjoy creating good software. Many applications are slow, crash or have poorly designed features. Bad applications make users sad. Building software that is powerful and easy to use, and reliable and responsive takes a lot of hard work, but we feel the greatest satisfaction in seeing our users happy. ",
+             "","", false};
+
+        NEWS {
+            NEWS.STORY: {
+                "Matrix",
+                "Abstract-Systems Matrix-Programming for N-Dimensional Architecture ",
+                null,
+                "Based on our research in multi-dimensional architectures, we are creating a software-architecture design-application that " +
+                "we believe will be of great benefit to architects and developers. Architects will design systems that are organized " +
+                "as N-Dimensional Architectures using powerful visual design tools. And, Developers will use our architectural " +
+                "libraries for Java and .Net to implement these N-Dimensional Architectures in their code. Both the architecture " +
+                "and the code of the system will be easier to understand compared to current 3-tier systems. In addition, developers will be able " +
+                "to add their future enhancements to these N-Dimensional systems with less time and effort." +
+                "<br><br>We plan to have a beta system available for download at the middle of 2010."
+            };
+        }
+    }
+
+
+
+	`People`  {
+        PAGE.INFO: { "people", 4, "People",
+             "No materials, no machinery, no factories. More than almost any industry, good software development requires good people. We believe in finding the right person for the job. Dedicated, skilled employees are invaluable. And, we believe in treating them that way.",
+             "","", false};
+
+
+        // { +:Person_ID, +:Name, +:Title, +:Role, +:Email, +:Description }
+        PEOPLE {
+            PERSON.INFO: {"Peter",
+                    "Peter Joh",
+                    "Head of Technology & Business Strategies",
+                    "Software Engineer & Consultant",
+                     null,
+                    "Peter has led the development of large applications for various sectors of industry.  His experience ranges from developing hand writing applications at Microsoft to leading a requirements team on adding predictive modeling to State Farm's claims-processing system. This core system processed a majority of their insurance claims ($100's millions of dollars in claims annually). He has a Bachelor's degree in Computer Science from the University of Michigan and has consulted for Ford, GM, Chrysler, and ABC News. He is currently researching concepts in multi-dimensional, software architecture. Specifically, on how to use them to solve many of the problems found in the development of our current systems."
+            };
+        }
+    }
+	`Contact`  {
+        PAGE.INFO: { "contactus", 5, "Contact Us",
+             "Please feel free to contact us",
+             "","", false};
+    }
+
+}
+

@@ -1,0 +1,181 @@
+
+	
+Re: How to obtain the line number of AST node?
+Click to flag this post
+
+by Etienne Gagnon Nov 24, 2006; 09:54am :: Rate this Message: - Use ratings to moderate (?)
+
+Reply | Print | View Threaded | Show Only this Message
+Hi Antti,
+
+There is no simple solution to the general problem of assigning line
+numbers to intermediate AST nodes.  (Yes, there are simplistic
+solutions, but they wouldn't achieve the desired result in many cases).
+
+The normal solution that I usually recommend to my students (and which
+works very well) is to keep enough tokens in the AST to give intuitive
+error messages.  So, for example, I keep the "(" preceding the
+conditional expression of "if" statements and the operator of binary
+expressions in my ASTs.  This results in slightly bigger ASTs, but you
+still get rid of many spurious tokens.
+
+Etienne
+
+Antti Virtanen wrote:
+
+> Howdy!
+>
+> I'm a bit puzzled as I could not find a way to get the line number of
+> the AST nodes. The token classes have getLine() since they derive from
+> Token, but after AST translation some AST nodes do not contain any
+> tokens. AST node classes are derived from Node, which does not have
+> getLine() so the line number seems to be forgotten in the translatation.
+> What to do now? There are nodes which can span multiple lines, but it
+> would be enough to get the starting line. This seems a bit strange since
+> I'm not the only one with this need, so it's possible I have missed
+> something.
+... [show rest of quote]
+... [show rest of quote]
+-- 
+Etienne M. Gagnon, Ph.D.            http://www.info2.uqam.ca/~egagnon/
+SableVM:                                       http://www.sablevm.org/
+SableCC:                                       http://www.sablecc.org/
+
+
+_______________________________________________
+SableCC-user mailing list
+SableCC-user@...
+http://sablecc.org/lists/control/listinfo/sablecc-user
+
+signature.asc (264 bytes) Download Attachment
+
+	
+Re: How to obtain the line number of AST node?
+Click to flag this post
+
+by Niklas Matthies Nov 24, 2006; 10:11am :: Rate this Message: - Use ratings to moderate (?)
+
+Reply | Print | View Threaded | Show Only this Message
+On Fri 2006-11-24 at 15:43h, Antti Virtanen wrote on sablecc-user:
+> Howdy!
+>
+> I'm a bit puzzled as I could not find a way to get the line number
+> of the AST nodes. The token classes have getLine() since they derive
+> from Token, but after AST translation some AST nodes do not contain
+> any tokens. AST node classes are derived from Node, which does not
+> have getLine() so the line number seems to be forgotten in the
+> translatation. What to do now?
+
+Yes, that's a deficiency I encountered as well. Even when all nodes
+contain tokens, you get wrong positional info unless _all_ original
+tokens are retained in the AST. For example in nodes corresponding to
+expressions like "-1" and "(x + 1) * f(y)", when the tokens "-", "("
+and ")" are not retained in the AST, then the positional extent of
+those nodes is wrongly determined as that of "1" and "x + 1) * f(y".
+
+Another peeve I have is that the position (character index) in the
+stream is not made available. To find the position of a specific token
+in the input, one has to parse the input externally for newlines to
+find the correct line.
+
+Furthermore, determining position info for the nodes by writing an
+analysis which propagates the information from the leaf nodes (tokens)
+up to the other nodes can be quite tedious, because you have to write
+dedicated code for each node type.
+
+I patched my version of SableCC so that the Node class has a method
+
+    public void apply(ChildVisitor visitor);
+
+where ChildVisitor is an inner interface of class Node defined as
+
+    public interface ChildVisitor
+    {
+        public void accept(Node child);
+        public void accept(List<? extends Node> children);
+    }
+
+(Unlike Étienne, I happen to prefer the original GoF "visitor"
+nomenclature. ;))
+
+(I abused the "ToString" macro in alternatives.txt for implementing
+apply(ChildVisitor) for each node type. Given apply(ChildVisitor),
+toString can then be implemented generically in Node using an
+appropriate ToStringChildVisitor.)
+
+Then I added moved the "pos" and "line" members from the Token class
+to the Node class and also added "endPos" and "endLine" members along
+with a method updatePositionInfo() which updates these members for
+this node (and for all its descendants) using an PositionUpdateVisitor
+that implements ChildVisitor.
+
+-- Niklas Matthies
+
+_______________________________________________
+SableCC-user mailing list
+SableCC-user@...
+http://sablecc.org/lists/control/listinfo/sablecc-user
+
+	
+Re: How to obtain the line number of AST node?
+Click to flag this post
+
+by Antti Virtanen-2 Nov 26, 2006; 08:55am :: Rate this Message: - Use ratings to moderate (?)
+
+Reply | Print | View Threaded | Show Only this Message
+On Fri, 24 Nov 2006, Niklas Matthies wrote:
+
+>> I'm a bit puzzled as I could not find a way to get the line number
+>> of the AST nodes. The token classes have getLine() since they derive
+>> from Token, but after AST translation some AST nodes do not contain
+>> any tokens. AST node classes are derived from Node, which does not
+>> have getLine() so the line number seems to be forgotten in the
+>> translatation. What to do now?
+>
+> Yes, that's a deficiency I encountered as well. Even when all nodes
+> contain tokens, you get wrong positional info unless _all_ original
+> tokens are retained in the AST.
+... [show rest of quote]
+
+This is kind of contradictory to the idea of the AST translation, which I
+like very much compared to the "traditional" compiler generators (like
+CUP + JFlex).
+
+> Furthermore, determining position info for the nodes by writing an
+> analysis which propagates the information from the leaf nodes (tokens)
+> up to the other nodes can be quite tedious, because you have to write
+> dedicated code for each node type.
+
+I cooked a bit ugly hack, but it works well for me at the moment. I
+suppose it might solve the issue for some other people too so here it is.
+This is not a general solution to the problem, use at your own peril :)
+
+I make a new Node-class after the sablecc is run and put this
+extension there:
+
+     public Node() { startLine = parser.Parser.last_line; }
+
+     private int startLine;
+     public int getStartLine() { return startLine;}
+
+Since Node is always similar (unless sablecc version changes) and does not
+depend on the syntax, this can be a simple copy operation. Parser.java
+needs to be adjusted accordingly and this is a bit trickier. Since my
+stuff needs to work only on my university's Solaris system this is done
+by putting the following in build.xml:
+
+         <exec executable="sed" output="protoparser">
+           <arg line="-e 's/private\ int\ last_line/public\ static\ int\ last_line/g' classes/parser/Parser.java"/>
+         </exec>
+         <move tofile="classes/parser/Parser.java">
+         <fileset dir=".">
+         <include name="protoparser"/>
+         </fileset>
+         </move>
+
+Sed simply replaces "private int last_line" with "public static int
+last_line" and creates a new file which then replaces the original. This
+is fine for me, but will not work in every situation. Naturally there can
+be only one instance of Parser at a given moment and this does not help
+getting line number information over multiple lines, but in my case these
+are not required.

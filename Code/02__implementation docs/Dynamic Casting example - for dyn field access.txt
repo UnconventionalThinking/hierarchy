@@ -1,0 +1,209 @@
+Dynamic casting Example
+
+        
+    package biz.happycat;
+     
+    public class CastingTest
+    {
+      public void castV5()
+      {
+        MyClass a = new MyDerivedClass();
+     
+        try{Object b = Class.forName("biz.happycat.MyDerivedClass").cast(a);} 
+        catch (ClassNotFoundException e){e.printStackTrace();}
+      }
+    }
+     
+    class MyClass
+    {
+    	public int a;
+    }
+    class MyDerivedClass
+    extends MyClass
+    {
+    	public int b;
+    }
+
+
+
+//  From Java 6 documentation _________________________________________
+Class.cast()
+
+public T cast(Object obj)
+
+    Casts an object to the class or interface represented by this Class object.
+
+    Parameters:
+        obj - the object to be cast 
+    Returns:
+        the object after casting, or null if obj is null 
+    Throws:
+        ClassCastException - if the object is not null and is not assignable to the type T.
+    Since:
+        1.5
+
+
+
+____________________________________________________________________
+from
+http://www.cretesoft.com/archive/newsletter.do?issue=127&locale=en_US
+____________________________________________________________________
+
+
+Casting like a Tiger
+by Dr. Heinz M. Kabutz
+Abstract:
+Java 5 adds a new way of casting that does not show compiler warnings or errors. Yet another way to shoot yourself in the foot?
+
+
+Before we start, have you noticed how Java is striving towards the C Programming Language? We now have static imports, enums and varargs. So as a joke, we'll define a Stdio class. This must be in a package, so that we can statically import the functions.
+
+package com.cretesoft.c; // must be in a package
+
+ public class  Stdio {
+   public static void  printf(String format, Object... args) {
+    System.out.printf(format, args);
+  }
+}
+  
+
+To make the example fun, we make the interface Alien and the concrete classes Octopus and SeaSlug that implement Alien. The 30cm SeaSlug was another incredibly weird creature, flapping various appendages whilst creeping over the rocks.
+
+public interface Alien {
+  void swim();
+  void glow();
+}
+
+import static com.cretesoft.c.Stdio.printf;
+
+public class Octopus implements Alien {
+  public void swim() {
+    printf("Squirting water from my head.\n");
+  }
+  public void glow() {
+    printf("I'll be brown, no, yellow, no green.\n");
+  }
+}
+
+import static com.cretesoft.c.Stdio.printf;
+
+public class SeaSlug implements Alien {
+  public void swim() {
+    printf("Flap various appendages.\n");
+  }
+  public void glow() {
+    printf("Glow with a yellow hue.\n");
+  }
+}
+  
+
+Class.cast()
+
+In the past, the following cast was illegal and caused a compilation error:
+
+    String s = "42";
+    Integer i = (Integer)s;
+  
+
+Since Java 5, there is a new way of casting that does not emit a warning. Each class has a cast() method that does so without causing compiler errors:
+
+    String s = "42";
+    Integer i = Integer.class.cast(s);
+  
+
+Pre-Java 5, you would have had to first cast the String to an Object, and then down to an Integer, to get the compiler to shut up:
+
+    String s = "42";
+    Integer i = (Integer)((Object)s);
+  
+
+Of course, this cast will always fail, and anyone who uses the Class.cast() method in this way is in need of some R&R in Crete.
+Where is Class.cast() useful?
+
+The Class.cast() method is used in only one place in JDK 1.5, but in nine places in JDK 1.6. Its popularity is growing! A place where it makes sense is with filtering of collections. Let's say we have a collection of objects, and we want to make a subset of the collection containing only Aliens. Here is a class that does that for you:
+
+import java.util.*;
+
+public class CollectionFilter {
+  /**
+   * Filters the src collection and puts the objects matching the
+   * clazz into the dest collection.
+   */
+  public static <T> void filter(Class<T> clazz,
+                                Collection<?> src,
+                                Collection<T> dest) {
+    for (Object o : src) {
+      if (clazz.isInstance(o)) {
+        dest.add(clazz.cast(o));
+      }
+    }
+  }
+
+  /**
+   * Filters the src collection and puts all matching objects into
+   * an ArrayList, which is then returned.
+   */
+  public static <T> Collection<T> filter(Class<T> clazz,
+                                         Collection<?> src) {
+    Collection<T> result = new ArrayList<T>();
+    filter(clazz, src, result);
+    return result;
+  }
+}
+  
+
+If instead of the Class.cast() method, we do an explicit cast: dest.add((T)o) it causes the following warning:
+
+    CollectionFilter.java:13: warning: [unchecked] unchecked cast
+    found   : java.lang.Object
+    required: T
+            dest.add((T)o);
+                        ^
+    1 warning
+  
+
+Here is an example of how it can be used to filter out the aliens in the sea:
+
+import java.util.*;
+
+public class StavrosLagoon {
+  public static void main(String[] args) {
+    Collection<Object> sea = new ArrayList<Object>();
+    sea.add("seaweed");
+    sea.add(new Octopus());
+    sea.add("rock");
+    sea.add("fish");
+    sea.add(new Octopus());
+    sea.add("sand");
+    sea.add(new SeaSlug());
+    sea.add("starfish");
+
+    Collection<Alien> aliens =
+        CollectionFilter.filter(Alien.class, sea);
+    for (Alien alien : aliens) {
+      alien.swim();
+      alien.glow();
+    }
+  }
+}
+  
+
+There are a few other places where the Class.cast() can be useful. One of these is in generating dynamic proxy instances if you want to avoid having to deal with the unchecked cast warning.
+
+Another interesting new method in Java 5 is the Class.asSubClass() method. We can use that when we have a class object that we want to bind to a specific subclass instance, like this:
+
+public class SeaSlugTest {
+  public static void main(String[] args) throws Exception {
+    Class<?> someClass = Class.forName("SeaSlug");
+    Class<? extends Alien> clz = someClass.asSubclass(Alien.class);
+    Alien alien = clz.newInstance();
+    alien.glow();
+  }
+}
+  
+
+It is good to be back in Cape Town. Had to take my Alfa Romeo for its 100'000km service, which went smoothly. I still think that the Alfa Romeo is the best value-for-money car that you can buy, especially if you enjoy driving but have to watch your budget. Their reliability has improved drastically in the last few years. Mine has certainly earned her keep. Just a pity about the speeding fines ...
+
+Kind regards
+
+Heinz 

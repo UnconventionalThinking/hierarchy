@@ -1,0 +1,40 @@
+/* Copyright 2012, 2013 Unconventional Thinking
+ *
+ * This file is part of Hierarchy.
+ *
+ * Hierarchy is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License 
+ * as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ *
+ * Hierarchy is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with Hierarchy.  
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+
+package com.williespetstore;
+import java.util.Date;
+import java.text.DateFormat;
+
+MATRIX WilliesPetstore.Content USES (News.Schema) {
+
+  NEWS: {"HomePage News Blurbs"} {
+
+    NEWS.STORY +`Adopt a Pet`: {
+      DateFormat.getDateInstance().parse("March 17, 2010"),
+      "Adopt a Pet",
+      "Your chance to adopt a lonely doggie is right " +
+      "around the corner. Come by Willie's Pets on Sunday " +
+      "to find the personality that's your perfect match!"
+    };
+
+    NEWS.STORY +`Fanciful Dog Food`: {
+      DateFormat.getDateInstance().parse("March 10, 2010"),
+      "20% off Fanciful Dog Spread",
+      "For one day only, come and pick up your tub of " +
+      "Fanciful Dog Spread! A truly refined and tasteful " +
+      "topping your dog will dream about."
+    };
+  }
+
+}

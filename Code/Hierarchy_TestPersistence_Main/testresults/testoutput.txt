@@ -1,0 +1,314 @@
+
+-pre-init:
+
+-init-private:
+
+-init-user:
+
+-init-project:
+
+-init-macrodef-property:
+
+-do-init:
+
+-post-init:
+
+-init-check:
+
+-init-ap-cmdline-properties:
+
+-init-macrodef-javac-with-processors:
+
+-init-macrodef-javac-without-processors:
+
+-init-macrodef-javac:
+
+-init-macrodef-junit:
+
+-init-debug-args:
+
+-init-macrodef-nbjpda:
+
+-init-macrodef-debug:
+
+-init-macrodef-java:
+
+-init-presetdef-jar:
+
+-init-ap-cmdline-supported:
+
+-init-ap-cmdline:
+
+init:
+
+-deps-jar-init:
+   [delete] Deleting: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\build\built-jar.properties
+
+deps-jar:
+
+-warn-already-built-jar:
+[propertyfile] Updating property file: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\build\built-jar.properties
+
+-check-call-dep:
+
+-maybe-call-dep:
+
+-pre-init:
+
+-init-private:
+
+-init-user:
+
+-init-project:
+
+-init-macrodef-property:
+
+-do-init:
+
+-post-init:
+
+-init-check:
+
+-init-ap-cmdline-properties:
+
+-init-macrodef-javac-with-processors:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:javac
+
+-init-macrodef-javac-without-processors:
+
+-init-macrodef-javac:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:depend
+
+-init-macrodef-junit:
+
+-init-debug-args:
+
+-init-macrodef-nbjpda:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/1:nbjpdastart
+
+-init-macrodef-debug:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:debug
+
+-init-macrodef-java:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/1:java
+
+-init-presetdef-jar:
+
+-init-ap-cmdline-supported:
+
+-init-ap-cmdline:
+
+init:
+
+-deps-jar-init:
+
+deps-jar:
+
+-warn-already-built-jar:
+[propertyfile] Updating property file: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\build\built-jar.properties
+
+-check-automatic-build:
+
+-clean-after-automatic-build:
+
+-verify-automatic-build:
+
+-pre-pre-compile:
+
+-pre-compile:
+
+-copy-persistence-xml:
+
+-compile-depend:
+
+-do-compile:
+    [javac] Compiling 1 source file to C:\Projects\Hierarchy\Code\Hierarchy\build\classes
+
+-post-compile:
+
+compile:
+
+-pre-jar:
+
+-pre-pre-jar:
+
+-do-jar-with-manifest:
+
+-do-jar-without-manifest:
+
+-do-jar-with-mainclass:
+
+-init-macrodef-copylibs:
+
+-do-jar-with-libraries-and-splashscreen:
+
+-do-jar-with-libraries:
+ [copylibs] Copy libraries to C:\Projects\Hierarchy\Code\Hierarchy\dist\lib.
+ [copylibs] Building jar: C:\Projects\Hierarchy\Code\Hierarchy\dist\Hierarchy.jar
+     [echo] To run this application from the command line without Ant, try:
+     [echo] java -jar "C:\Projects\Hierarchy\Code\Hierarchy\dist\Hierarchy.jar"
+
+-post-jar:
+
+jar:
+
+-check-call-dep:
+
+-maybe-call-dep:
+
+-pre-init:
+
+-init-private:
+
+-init-user:
+
+-init-project:
+
+-init-macrodef-property:
+
+-do-init:
+
+-post-init:
+
+-init-check:
+
+-init-ap-cmdline-properties:
+
+-init-macrodef-javac-with-processors:
+
+-init-macrodef-javac-without-processors:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:javac
+
+-init-macrodef-javac:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:depend
+
+-init-macrodef-junit:
+
+-init-debug-args:
+
+-init-macrodef-nbjpda:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/1:nbjpdastart
+
+-init-macrodef-debug:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/3:debug
+
+-init-macrodef-java:
+Trying to override old definition of task http://www.netbeans.org/ns/j2se-project/1:java
+
+-init-presetdef-jar:
+
+-init-ap-cmdline-supported:
+
+-init-ap-cmdline:
+
+init:
+
+-deps-jar-init:
+
+deps-jar:
+
+-warn-already-built-jar:
+[propertyfile] Updating property file: C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\build\built-jar.properties
+
+-check-call-dep:
+
+-maybe-call-dep:
+
+-check-automatic-build:
+
+-clean-after-automatic-build:
+
+-verify-automatic-build:
+
+-pre-pre-compile:
+
+-pre-compile:
+
+-copy-persistence-xml:
+
+-compile-depend:
+
+-do-compile:
+
+-post-compile:
+
+compile:
+
+-pre-jar:
+
+-pre-pre-jar:
+
+-do-jar-with-manifest:
+
+-do-jar-without-manifest:
+
+-do-jar-with-mainclass:
+
+-init-macrodef-copylibs:
+
+-do-jar-with-libraries-and-splashscreen:
+
+-do-jar-with-libraries:
+ [copylibs] Copy libraries to C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence_Main\dist\lib.
+     [echo] To run this application from the command line without Ant, try:
+     [echo] java -jar "C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence_Main\dist\Hierarchy_TestPersistence_Main.jar"
+
+-post-jar:
+
+jar:
+
+-check-automatic-build:
+
+-clean-after-automatic-build:
+
+-verify-automatic-build:
+
+-pre-pre-compile:
+
+-pre-compile:
+
+-copy-persistence-xml:
+
+-compile-depend:
+
+-do-compile:
+
+-post-compile:
+
+compile:
+
+-pre-pre-compile-test:
+
+-pre-compile-test:
+
+-compile-test-depend:
+
+-do-compile-test:
+
+-post-compile-test:
+
+compile-test:
+
+run-PersistTest-02-Server:
+     [echo] ____________________________________________________________________
+     [echo] 
+     [echo]  Run the Persistent Server Junit Test
+     [echo]  PersistTest_02_Server__BasicEndToEndTest
+     [echo] ____________________________________________________________________
+     [echo]  First, delete the old junit results
+     [echo]  Now, copy over the "ServerStarted" file lock, to let the client ant script know that the server has finished building and is starting up, so the client can proceed 
+     [copy] Copying 1 file to C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence_Main\testresults
+    [junit] Testsuite: net.unconventionalthinking.hierarchy.persistence.PersistTest_02_Server__BasicEndToEndTest
+    [junit] Testsuite: net.unconventionalthinking.hierarchy.persistence.PersistTest_02_Server__BasicEndToEndTest
+    [junit] Tests run: 1, Failures: 0, Errors: 1, Time elapsed: 0 sec
+    [junit] 
+    [junit] Testcase: net.unconventionalthinking.hierarchy.persistence.PersistTest_02_Server__BasicEndToEndTest:BeforeFirstTest:	Caused an ERROR
+    [junit] Forked Java VM exited abnormally. Please note the time in the report does not reflect the time until the VM exit.
+    [junit] junit.framework.AssertionFailedError: Forked Java VM exited abnormally. Please note the time in the report does not reflect the time until the VM exit.
+    [junit] 
+    [junit] 
+
+BUILD FAILED
+C:\Projects\Hierarchy\Code\Hierarchy_TestPersistence1_Server\build.xml:96: Test net.unconventionalthinking.hierarchy.persistence.PersistTest_02_Server__BasicEndToEndTest failed (crashed)
+
+Total time: 15 seconds

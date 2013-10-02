@@ -1,0 +1,318 @@
+  // Expressions _____________________________________________________________________________________________________
+
+
+
+  assignment =
+    {expression} left_hand_side assignment_operator assignment_expression |
+    {identifier} left_hand_side assignment_operator identifier [additional_identifiers]:additional_identifier*;
+
+
+
+  conditional_expression =
+    {simple}         conditional_or_expression |
+    {qmark_or_ex_or} conditional_or_expression                                                 qmark expression                                                                colon conditional_expression |
+    {qmark_or_ex_id} conditional_or_expression                                                 qmark expression                                                                colon               identifier  [additional_identifiers]:additional_identifier* |
+    {qmark_or_id_or} conditional_or_expression                                                 qmark               identifier  [additional_identifiers]:additional_identifier* colon conditional_expression |
+    {qmakr_or_id_id} conditional_or_expression                                                 qmark [identifier1]:identifier [additional_identifiers1]:additional_identifier* colon [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {qmakr_id_ex_or}               identifier  [additional_identifiers]:additional_identifier* qmark expression                                                                colon conditional_expression |
+    {qmakr_id_ex_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* qmark expression                                                                colon [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {qmakr_id_id_or} [identifier1]:identifier [additional_identifiers1]:additional_identifier* qmark [identifier2]:identifier [additional_identifiers2]:additional_identifier* colon conditional_expression |
+    {qmakr_id_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* qmark [identifier2]:identifier [additional_identifiers2]:additional_identifier* colon [identifier3]:identifier [additional_identifiers3]:additional_identifier*;
+    
+
+  conditional_or_expression =
+    {simple}                                                                                          conditional_and_expression |
+    {bar_bar_or_or} conditional_or_expression                                                 bar_bar conditional_and_expression |
+    {bar_bar_or_id} conditional_or_expression                                                 bar_bar               identifier  [additional_identifiers]:additional_identifier* |
+    {bar_bar_id_or}               identifier  [additional_identifiers]:additional_identifier* bar_bar conditional_and_expression |
+    {bar_bar_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* bar_bar [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+    
+    
+ 
+ 
+  conditional_and_expression =
+    {simple}                                                                                          inclusive_or_expression |
+    {amp_amp_an_or} conditional_and_expression                                                amp_amp inclusive_or_expression |
+    {amp_amp_an_id} conditional_and_expression                                                amp_amp               identifier  [additional_identifiers]:additional_identifier* |
+    {amp_amp_id_or}               identifier  [additional_identifiers]:additional_identifier* amp_amp inclusive_or_expression |
+    {amp_amp_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* amp_amp [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+
+  inclusive_or_expression =
+    {simple}                                                                                  exclusive_or_expression |
+    {bar_or_or} inclusive_or_expression                                                   bar exclusive_or_expression |
+    {bar_or_id} inclusive_or_expression                                                   bar               identifier  [additional_identifiers]:additional_identifier* |
+    {bar_id_or}               identifier  [additional_identifiers]:additional_identifier* bar exclusive_or_expression |
+    {bar_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* bar [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+    
+
+
+
+
+  exclusive_or_expression =
+    {simple}                                                                                      and_expression |
+    {caret_or_an} exclusive_or_expression                                                   caret and_expression |
+    {caret_or_id} exclusive_or_expression                                                   caret               identifier  [additional_identifiers]:additional_identifier* |
+    {caret_id_an}               identifier  [additional_identifiers]:additional_identifier* caret and_expression |
+    {caret_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* caret [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+
+
+
+  and_expression =
+    {simple}                                                                                  equality_expression |
+    {amp_an_eq} and_expression                                                            amp equality_expression |
+    {amp_an_id} and_expression                                                            amp               identifier  [additional_identifiers]:additional_identifier* |
+    {amp_id_eq}               identifier  [additional_identifiers]:additional_identifier* amp equality_expression |
+    {amp_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* amp [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+
+
+  equality_expression =
+    {simple}                                                                                  relational_expression |
+    {eq_eq_re}  equality_expression                                                       eq  relational_expression |
+    {eq_eq_id}  equality_expression                                                       eq                identifier  [additional_identifiers]:additional_identifier* |
+    {eq_id_re}                identifier  [additional_identifiers]:additional_identifier* eq  relational_expression |
+    {eq_id_id}  [identifier1]:identifier [additional_identifiers1]:additional_identifier* eq  [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {neq_eq_re} equality_expression                                                       neq relational_expression |
+    {neq_eq_id} equality_expression                                                       neq               identifier  [additional_identifiers]:additional_identifier* |
+    {neq_id_re}               identifier  [additional_identifiers]:additional_identifier* neq relational_expression |
+    {neq_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* neq [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+
+
+  relational_expression =
+    {simple}                                                                                                                     shift_expression |
+    {lt_sh_sh}                [shift_expression1]:shift_expression                                      lt   [shift_expression2]:shift_expression |
+    {lt_sh_id}                                    shift_expression                                      lt                 identifier  [additional_identifiers]:additional_identifier* |
+    {lt_id_sh}                              identifier  [additional_identifiers]:additional_identifier* lt                       shift_expression |
+    {lt_id_id}                [identifier1]:identifier [additional_identifiers1]:additional_identifier* lt   [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {gt_sh_sh}                [shift_expression1]:shift_expression                                      gt   [shift_expression2]:shift_expression |
+    {gt_sh_id}                                    shift_expression                                      gt                 identifier  [additional_identifiers]:additional_identifier* |
+    {gt_id_sh}                              identifier  [additional_identifiers]:additional_identifier* gt                       shift_expression |
+    {gt_id_id}                [identifier1]:identifier [additional_identifiers1]:additional_identifier* gt   [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {lteq_sh_sh}              [shift_expression1]:shift_expression                                      lteq [shift_expression2]:shift_expression |
+    {lteq_sh_id}                                  shift_expression                                      lteq               identifier  [additional_identifiers]:additional_identifier* |
+    {lteq_id_sh}                            identifier  [additional_identifiers]:additional_identifier* lteq                     shift_expression |
+    {lteq_id_id}              [identifier1]:identifier [additional_identifiers1]:additional_identifier* lteq [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {gteq_sh_sh}              [shift_expression1]:shift_expression                                      gteq [shift_expression2]:shift_expression |
+    {gteq_sh_id}                                  shift_expression                                      gteq               identifier  [additional_identifiers]:additional_identifier* |
+    {gteq_id_sh}                            identifier  [additional_identifiers]:additional_identifier* gteq                     shift_expression |
+    {gteq_id_id}              [identifier1]:identifier [additional_identifiers1]:additional_identifier* gteq [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {instanceof_sh_primitive} shift_expression                                                          instanceof primitive_type [dims]:dim+ |
+    {instanceof_sh_reference} shift_expression                                                          instanceof               identifier  [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* |
+    {instanceof_id_primitive}               identifier  [additional_identifiers]:additional_identifier* instanceof primitive_type [dims]:dim+ |
+    {instanceof_id_reference} [identifier1]:identifier [additional_identifiers1]:additional_identifier* instanceof [identifier2]:identifier [additional_identifiers2]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim*;
+
+
+
+  shift_expression =
+    {simple}                                                                                    additive_expression |
+    {shl_sh_ad}  shift_expression                                                          shl  additive_expression |
+    {shl_sh_id}  shift_expression                                                          shl                identifier  [additional_identifiers]:additional_identifier* |
+    {shl_id_ad}                identifier  [additional_identifiers]:additional_identifier* shl  additive_expression |
+    {shl_id_id}  [identifier1]:identifier [additional_identifiers1]:additional_identifier* shl  [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {shr_sh_ad}  shift_expression                                                          shr  additive_expression |
+    {shr_sh_id}  shift_expression                                                          shr                identifier  [additional_identifiers]:additional_identifier* |
+    {shr_id_ad}                identifier  [additional_identifiers]:additional_identifier* shr  additive_expression |
+    {shr_id_id}  [identifier1]:identifier [additional_identifiers1]:additional_identifier* shr  [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {ushr_sh_ad} shift_expression                                                          ushr additive_expression |
+    {ushr_sh_id} shift_expression                                                          ushr               identifier  [additional_identifiers]:additional_identifier* |
+    {ushr_id_ad}               identifier  [additional_identifiers]:additional_identifier* ushr additive_expression |
+    {ushr_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* ushr [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+    
+
+  additive_expression =
+    {simple}                                                                                       multiplicative_expression |
+    {plus_ad_mu}   additive_expression                                                       plus  multiplicative_expression |
+    {plus_ad_id}   additive_expression                                                       plus                identifier  [additional_identifiers]:additional_identifier* |
+    {plus_id_mu}                 identifier  [additional_identifiers]:additional_identifier* plus  multiplicative_expression |
+    {plus_id_id}   [identifier1]:identifier [additional_identifiers1]:additional_identifier* plus  [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {minus_ad_mu}  additive_expression                                                       minus multiplicative_expression |
+    {minus_ad_id}  additive_expression                                                       minus               identifier  [additional_identifiers]:additional_identifier* |
+    {minus_id_mu}                identifier  [additional_identifiers]:additional_identifier* minus multiplicative_expression |
+    {minus_id_id}  [identifier1]:identifier [additional_identifiers1]:additional_identifier* minus [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+    
+    
+  multiplicative_expression =
+    {simple}                                                                                          unary_expression |
+    {star_mu_un}    multiplicative_expression                                                 star    unary_expression |
+    {star_mu_id}    multiplicative_expression                                                 star                  identifier  [additional_identifiers]:additional_identifier* |
+    {star_id_un}                  identifier  [additional_identifiers]:additional_identifier* star    unary_expression |
+    {star_id_id}    [identifier1]:identifier [additional_identifiers1]:additional_identifier* star    [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {slash_mu_un}   multiplicative_expression                                                 slash   unary_expression |
+    {slash_mu_id}   multiplicative_expression                                                 slash                 identifier  [additional_identifiers]:additional_identifier* |
+    {slash_id_un}                 identifier  [additional_identifiers]:additional_identifier* slash   unary_expression |
+    {slash_id_id}   [identifier1]:identifier [additional_identifiers1]:additional_identifier* slash   [identifier2]:identifier [additional_identifiers2]:additional_identifier* |
+    {percent_mu_un} multiplicative_expression                                                 percent unary_expression |
+    {percent_mu_id} multiplicative_expression                                                 percent               identifier  [additional_identifiers]:additional_identifier* |
+    {percent_id_un}               identifier  [additional_identifiers]:additional_identifier* percent unary_expression |
+    {percent_id_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* percent [identifier2]:identifier [additional_identifiers2]:additional_identifier*;
+
+
+  unary_expression =
+   {pre_increment}    pre_increment_expression |
+   {pre_decrement}    pre_decrement_expression |
+   {plus_expression}  plus  unary_expression |
+   {plus_identifier}  plus  identifier [additional_identifiers]:additional_identifier* |
+   {minus_expression} minus unary_expression |
+   {minus_identifier} minus identifier [additional_identifiers]:additional_identifier* |
+   {unary}            unary_expression_not_plus_minus;
+
+
+    
+  pre_increment_expression =
+    {expression} plus_plus unary_expression |
+    {identifier} plus_plus identifier [additional_identifiers]:additional_identifier*;
+
+  pre_decrement_expression =
+    {expression} minus_minus unary_expression |
+    {identifier} minus_minus identifier [additional_identifiers]:additional_identifier*;
+
+  post_increment_expression =
+    {expression} postfix_expression                                         plus_plus |
+    {identifier} identifier [additional_identifiers]:additional_identifier* plus_plus;
+
+  post_decrement_expression =
+    {expression} postfix_expression                                         minus_minus |
+    {identifier} identifier [additional_identifiers]:additional_identifier* minus_minus;
+
+
+
+
+
+
+
+  primary_no_new_array =
+    {literal}    literal |
+    {primitive}  primitive_type                                             [dims]:dim* dot class_token |
+    {reference}  identifier [additional_identifiers]:additional_identifier* [dims]:dim* dot class_token |
+    {void}       void dot class_token |
+    {this}       this |
+    {class}      identifier [additional_identifiers]:additional_identifier* dot this |
+    {expression} l_par expression                                                 r_par |
+    {identifier} l_par identifier [additional_identifiers]:additional_identifier* r_par |
+    {instance}   class_instance_creation_expression |
+    {field}      field_access |
+    {method}     method_invocation |
+    {array}      array_access |
+    
+		
+	//  **MATRIX** ADDED PRODUCTIONS
+	{mp_set_creation} set_instance_creation |
+	//  subset creation - wherever method invocation is, subset creation is too
+	{mp_subset_creation} subset_creation |
+	
+	{mp_symbol_parens} l_par mp_symbol_useage r_par |
+	{matrix_element_creation_parens} l_par matrix_element_creation r_par
+    ;
+
+    
+  // STATEMENTS _____________________________________________________________________________________________________
+
+  if_then_statement =
+    {expression} if l_par expression                                                 r_par statement |
+    {identifier} if l_par identifier [additional_identifiers]:additional_identifier* r_par statement;
+
+  if_then_else_statement =
+    {expression} if l_par expression                                                 r_par statement_no_short_if else statement |
+    {identifier} if l_par identifier [additional_identifiers]:additional_identifier* r_par statement_no_short_if else statement;
+
+  while_statement =
+    {expression} while l_par expression                                                 r_par statement |
+    {identifier} while l_par identifier [additional_identifiers]:additional_identifier* r_par statement;
+
+
+
+
+
+
+  assert_statement =
+    {one_ex}    assert               expression                                                  semi |
+    {one_id}    assert               identifier [additional_identifiers]:additional_identifier*  semi |
+    {two_ex_ex} assert [expression1]:expression                                                  colon [expression2]:expression semi |
+    {two_ex_id} assert               expression                                                  colon               identifier  [additional_identifiers]:additional_identifier* semi |
+    {two_id_ex} assert               identifier  [additional_identifiers]:additional_identifier* colon expression                                                                semi |
+    {two_id_id} assert [identifier1]:identifier [additional_identifiers1]:additional_identifier* colon [identifier2]:identifier [additional_identifiers2]:additional_identifier* semi;
+
+  switch_statement =
+    {expression} switch l_par expression                                                 r_par switch_block |
+    {identifier} switch l_par identifier [additional_identifiers]:additional_identifier* r_par switch_block;
+
+  switch_label =
+    {expression} case constant_expression                                        colon |
+    {identifier} case identifier [additional_identifiers]:additional_identifier* colon |
+    {default}    default                                                         colon;
+
+  do_statement =
+    {expression} do statement while l_par expression                                                 r_par semi |
+    {identifier} do statement while l_par identifier [additional_identifiers]:additional_identifier* r_par semi;
+
+
+
+  return_statement =
+    {empty}      return                                                            semi |
+    {expression} return expression                                                 semi |
+    {identifier} return identifier [additional_identifiers]:additional_identifier* semi;
+    
+    
+    
+  basic_for_statement =
+    {empty}      for l_par for_init? [semi1]:semi                                                            [semi2]:semi for_update? r_par statement |
+    {expression} for l_par for_init? [semi1]:semi expression                                                 [semi2]:semi for_update? r_par statement |
+    {identifier} for l_par for_init? [semi1]:semi identifier [additional_identifiers]:additional_identifier* [semi2]:semi for_update? r_par statement;
+
+  enhanced_for_statement =
+    {primitive_expression} for l_par [modifiers]:modifier* primitive_type                                                                                                              [dims]:dim*               identifier colon expression                                                                r_par statement |
+    {primitive_identifier} for l_par [modifiers]:modifier* primitive_type                                                                                                              [dims]:dim* [identifier1]:identifier colon [identifier2]:identifier  [additional_identifiers]:additional_identifier* r_par statement |
+    {reference_expression} for l_par [modifiers]:modifier* [identifier1]:identifier  [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* [identifier2]:identifier colon expression                                                                r_par statement |
+    {reference_identifier} for l_par [modifiers]:modifier* [identifier1]:identifier [additional_identifiers1]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim* [identifier2]:identifier colon [identifier3]:identifier [additional_identifiers2]:additional_identifier* r_par statement;
+
+
+  if_then_else_statement_no_short_if =
+    {expression} if l_par expression                                                 r_par [statement_no_short_if1]:statement_no_short_if else [statement_no_short_if2]:statement_no_short_if |
+    {identifier} if l_par identifier [additional_identifiers]:additional_identifier* r_par [statement_no_short_if1]:statement_no_short_if else [statement_no_short_if2]:statement_no_short_if;
+
+  while_statement_no_short_if =
+    {expression} while l_par expression                                                 r_par statement_no_short_if |
+    {identifier} while l_par identifier [additional_identifiers]:additional_identifier* r_par statement_no_short_if;
+
+  for_statement_no_short_if =
+    {empty}      for l_par for_init? [semi1]:semi                                                            [semi2]:semi for_update? r_par statement_no_short_if |
+    {expression} for l_par for_init? [semi1]:semi expression                                                 [semi2]:semi for_update? r_par statement_no_short_if |
+    {identifier} for l_par for_init? [semi1]:semi identifier [additional_identifiers]:additional_identifier* [semi2]:semi for_update? r_par statement_no_short_if;
+
+
+
+
+  argument_list =
+    {one_ex}  expression |
+    {one_id}  identifier [additional_identifiers]:additional_identifier* |
+    {many_ex} argument_list comma expression |
+    {many_id} argument_list comma identifier [additional_identifiers]:additional_identifier* |
+    
+	//  **MATRIX** 
+	{one_mp_outside_included} mp_outside_included_expression_related_prod |
+	{many_mp_outside_included} argument_list comma mp_outside_included_expression_related_prod
+    ;
+    
+  variable_initializer =
+    {expression} expression |
+    {identifier} identifier [additional_identifiers]:additional_identifier* |
+    {array}      array_initializer;
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  

@@ -1,0 +1,10 @@
+Matrix, Common-Bugs Journal
+____________________________
+
+BUG: When you metacompile or run a matrix app, a Matrix has wrong values
+SYMPTOMS:
+	o During metacompilation or when an app runs, a Matrix has wrong values. 
+	
+POSSIBLE CAUSES:
+	o Meta-Compiled Java code is in current project's path! 
+		- What can happen is in some way, the metacompiled Java code is in the current project's classpath. So, when the application is metacompiled or run, any newly metacompiled version of the Java code can not be loaded into the metacompiler or the running JVM. The reason for this is because the JVM has a "primary" class loader. On startup of the JVM, this primary classloader will load all the classes in the classpath. And, if you update a class file that was already loaded by the primary classloader, and then try to dynamically load it, you will NOT getting the updated version of the class file! The primary loaded class cannot be dynamically replaced.

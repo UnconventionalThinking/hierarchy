@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.6.5
+Created-By: 1.5.0_14-b03 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-Name: Restlet Extension - Net
+Bundle-SymbolicName: org.restlet.ext.net
+Bundle-Version: 2.0.0.RC2
+Bundle-Vendor: Noelios Technologies
+Export-Package: org.restlet.ext.net,org.restlet.ext.net.internal
+Import-Package: org.restlet,org.restlet.data,org.restlet.engine,org.re
+ stlet.engine.application,org.restlet.engine.component,org.restlet.eng
+ ine.http,org.restlet.engine.local,org.restlet.engine.security,org.res
+ tlet.engine.util,org.restlet.representation,org.restlet.resource,org.
+ restlet.service,org.restlet.util
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+
+Name: org.restlet.ext.net
+Implementation-Title: org.restlet.ext.net
+Implementation-Version: 2.0 Release Candidate 2 (build 0)
+Implementation-Vendor: Noelios Technologies
+

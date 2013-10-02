@@ -1,0 +1,10 @@
+<* @hello.child:child:`as asdf #@#$ f` /*>
+
+<*@hi*>
+<*/@hi*>
+
+
+<*@OUTPUT:hi:ho.ho /*>
+<*@OUTPUT:stuff.hi:junk *>
+
+<*/@OUTPUT*>

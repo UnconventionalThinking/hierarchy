@@ -1,0 +1,9 @@
+
+	//  test a matrix
+    public static void main(String[] args) throws Exception {
+        construct(AppControl.appControl, AppControl.appControl.executionInfo);
+        StringBuilder str = new StringBuilder();
+        matrix.print(str, 1, true);
+        System.out.println("***\n" + str);
+
+    }

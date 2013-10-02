@@ -1,0 +1,60 @@
+Java "Field and Array Access" Related Productions
+________________________________________________________________________________________________________________________
+
+These will be referenced by Matrix access productions
+________________________________________________________________________________________________________________________
+
+  expression =
+    assignment_expression;
+
+  assignment_expression =
+    {conditional} conditional_expression |
+    {assignment}  assignment;
+
+  assignment =
+    {expression} left_hand_side assignment_operator assignment_expression |
+    {identifier} left_hand_side assignment_operator identifier [additional_identifiers]:additional_identifier*;
+
+  left_hand_side =
+    {identifier} identifier [additional_identifiers]:additional_identifier* |
+    {field}      field_access |
+    {array}      array_access;
+    
+  field_access =
+    {primary}      primary            dot               identifier |
+    {super}        super_token        dot               identifier |
+    {reference_super} [identifier1]:identifier [additional_identifiers]:additional_identifier* [dot1]:dot super_token [dot2]:dot [identifier2]:identifier;
+ 
+   array_access =
+    {primary_ex}    primary_no_new_array l_bkt expression r_bkt |
+    {primary_id}    primary_no_new_array l_bkt identifier  [additional_identifiers]:additional_identifier* r_bkt |
+    {identifier_ex} identifier  [additional_identifiers]:additional_identifier* l_bkt expression                                                                r_bkt |
+    {identifier_id} [identifier1]:identifier [additional_identifiers1]:additional_identifier* l_bkt [identifier2]:identifier [additional_identifiers2]:additional_identifier* r_bkt;
+
+
+  primary_no_new_array =
+    {literal}    literal |
+    {primitive}  primitive_type [dims]:dim* dot class_token |
+    {reference}  identifier [additional_identifiers]:additional_identifier* [dims]:dim* dot class_token |
+    {void}       void dot class_token |
+    {this}       this |
+    {class}      identifier [additional_identifiers]:additional_identifier* dot this |
+    {expression} l_par expression                                                 r_par |
+    {identifier} l_par identifier [additional_identifiers]:additional_identifier* r_par |
+    {instance}   class_instance_creation_expression |
+    {field}      field_access |
+    {method}     method_invocation |
+    {array}      array_access;
+ 
+ 
+   primary =
+    {no_array} primary_no_new_array |
+    {array}    array_creation_expression;
+    
+    
+   array_creation_expression =
+    {primitive}             new primitive_type                                                                                               [dim_exprs]:dim_expr+ [dims]:dim* |
+    {reference}             new identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dim_exprs]:dim_expr+ [dims]:dim* |
+    {primitive_initializer} new primitive_type                                                                                               [dims]:dim+ array_initializer |
+    {reference_initializer} new identifier [additional_identifiers]:additional_identifier* [type_components]:type_component* type_arguments? [dims]:dim+ array_initializer;
+
