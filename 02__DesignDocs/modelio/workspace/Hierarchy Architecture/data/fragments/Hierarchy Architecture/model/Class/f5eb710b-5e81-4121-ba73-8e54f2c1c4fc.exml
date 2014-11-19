@@ -1,0 +1,90 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="PersistentMatrix_ChunkMonitor_TaskWrapper" version="3">
+  <DEPS>
+    <ID name="PersistentMatrix_ChunkMonitor_TaskWrapper" mc="Class" uid="f5eb710b-5e81-4121-ba73-8e54f2c1c4fc"/>
+    <EXTID name="ChunkMonitor_ChunkProcessor" mc="Interface" uid="78568524-23c1-47c9-b7d7-856c7323c97c"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="PersistentMatrix_ChunkMonitor_TaskWrapper" mc="Class" uid="f5eb710b-5e81-4121-ba73-8e54f2c1c4fc"/>
+    <PID name="hierarchy architecture" mc="Package" uid="a9579748-9e65-441b-b6d0-adfb24629f06"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[PersistentMatrix_ChunkMonitor_TaskWrapper]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedEnd">
+        <OBJECT>
+          <ID name="chunkMonitor_ChunkProcessor" mc="AssociationEnd" uid="bd2f8f8f-d365-49d3-89f7-c1eabcc92e75"/>
+          <PID name="PersistentMatrix_ChunkMonitor_TaskWrapper" mc="Class" uid="f5eb710b-5e81-4121-ba73-8e54f2c1c4fc"/>
+          <ATTRIBUTES>
+            <ATT name="Aggregation">KindIsComposition</ATT>
+            <ATT name="IsChangeable">true</ATT>
+            <ATT name="Changeable">ReadWrite</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[chunkMonitor_ChunkProcessor]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="ChunkMonitor_ChunkProcessor" mc="Interface" uid="78568524-23c1-47c9-b7d7-856c7323c97c"/>
+            </LINK>
+            <COMP relation="Opposite">
+              <OBJECT>
+                <ID name="" mc="AssociationEnd" uid="0ffa2f59-264e-4897-bad0-886b2315f936"/>
+                <PID name="PersistentMatrix_ChunkMonitor_TaskWrapper" mc="Class" uid="f5eb710b-5e81-4121-ba73-8e54f2c1c4fc"/>
+                <ATTRIBUTES>
+                  <ATT name="Aggregation">KindIsAssociation</ATT>
+                  <ATT name="IsChangeable">true</ATT>
+                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="IsDerived">false</ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="IsClass">false</ATT>
+                  <ATT name="IsAbstract">false</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Opposite">
+                    <COMPID name="chunkMonitor_ChunkProcessor" mc="AssociationEnd" uid="bd2f8f8f-d365-49d3-89f7-c1eabcc92e75"/>
+                  </COMP>
+                  <COMP relation="Association">
+                    <OBJECT>
+                      <ID name="" mc="Association" uid="2f835b09-115b-4e3f-9de8-171a6301ad7f"/>
+                      <PID name="PersistentMatrix_ChunkMonitor_TaskWrapper" mc="Class" uid="f5eb710b-5e81-4121-ba73-8e54f2c1c4fc"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Association">
+              <COMPID name="" mc="Association" uid="2f835b09-115b-4e3f-9de8-171a6301ad7f"/>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

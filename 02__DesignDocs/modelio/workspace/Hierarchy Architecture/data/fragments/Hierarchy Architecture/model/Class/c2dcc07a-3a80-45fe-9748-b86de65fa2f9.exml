@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="PerstentMatrixManager_Server RemoteServce" version="3">
+  <DEPS>
+    <ID name="PerstentMatrixManager_Server RemoteServce" mc="Class" uid="c2dcc07a-3a80-45fe-9748-b86de65fa2f9"/>
+    <EXTID name="PerstentMatrixManagerServer RemoteMethods" mc="Interface" uid="fa44383a-ac53-4d4f-bb73-2f523d843efc"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="PerstentMatrixManager_Server RemoteServce" mc="Class" uid="c2dcc07a-3a80-45fe-9748-b86de65fa2f9"/>
+    <PID name="hierarchy architecture" mc="Package" uid="a9579748-9e65-441b-b6d0-adfb24629f06"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[PerstentMatrixManager_Server RemoteServce]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Realized">
+        <OBJECT>
+          <ID name="InterfaceRealization" mc="InterfaceRealization" uid="6385d0d1-5c3c-4d76-9b21-954665588256"/>
+          <PID name="PerstentMatrixManager_Server RemoteServce" mc="Class" uid="c2dcc07a-3a80-45fe-9748-b86de65fa2f9"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[InterfaceRealization]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Implemented">
+              <ID name="PerstentMatrixManagerServer RemoteMethods" mc="Interface" uid="fa44383a-ac53-4d4f-bb73-2f523d843efc"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

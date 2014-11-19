@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ChunkMonitor_ChunkProcessor" version="3">
+  <DEPS>
+    <ID name="ChunkMonitor_ChunkProcessor" mc="Interface" uid="78568524-23c1-47c9-b7d7-856c7323c97c"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="ChunkMonitor_ChunkProcessor" mc="Interface" uid="78568524-23c1-47c9-b7d7-856c7323c97c"/>
+    <PID name="hierarchy architecture" mc="Package" uid="a9579748-9e65-441b-b6d0-adfb24629f06"/>
+    <ATTRIBUTES>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">true</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[ChunkMonitor_ChunkProcessor]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

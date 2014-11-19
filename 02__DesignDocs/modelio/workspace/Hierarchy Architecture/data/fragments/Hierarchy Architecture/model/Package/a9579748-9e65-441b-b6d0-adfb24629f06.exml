@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="hierarchy architecture" version="3">
+  <DEPS>
+    <ID name="hierarchy architecture" mc="Package" uid="a9579748-9e65-441b-b6d0-adfb24629f06"/>
+    <COMPID name="(PersistMatrixManagerClient Anonymous Class)" mc="Class" uid="0bde1f76-02ba-45ab-889f-0bd5829dc9a1"/>
+    <COMPID name="(PersistentMatrixManagerServer Anonoymous Class)" mc="Class" uid="e5837b15-de4c-44e6-aeeb-237ed15be2d5"/>
+    <COMPID name="ChunkMonitor_ChunkProcessor" mc="Interface" uid="78568524-23c1-47c9-b7d7-856c7323c97c"/>
+    <COMPID name="CommandDecoder" mc="Class" uid="14534fc8-1e37-47c8-86a5-12e38bc800d8"/>
+    <COMPID name="CommandEncoder" mc="Class" uid="20d16608-3cbb-477f-87d2-3ab04903a0d3"/>
+    <COMPID name="CommandEncoder_Descriptor" mc="Class" uid="8bd79f15-4b5c-4e46-a65e-686632394d82"/>
+    <COMPID name="Hierarchy-Persistence Class-diagram - Client" mc="ClassDiagram" uid="20ca2028-524d-48bc-8215-bff65a396d8d"/>
+    <COMPID name="Hierarchy-Persistence Class-diagram - Server" mc="ClassDiagram" uid="2c99c43f-5678-46ed-a24e-1162e0c7ea13"/>
+    <COMPID name="Hierarchy_Metacompiler" mc="Class" uid="4ecb2c36-c552-4f6f-8ee3-546d7414647e"/>
+    <COMPID name="Matrix" mc="Class" uid="834f2758-d5b5-4615-95c4-7274e9604676"/>
+    <COMPID name="MatrixControl" mc="Class" uid="826309ba-f3ca-4c6d-be96-8afff1a21958"/>
+    <COMPID name="ObjectIndex" mc="Class" uid="baed4256-9032-4039-88df-b42a4b82ac4c"/>
+    <COMPID name="PersistenceMatricesManager" mc="Class" uid="baa6220d-3912-404c-a880-ae3d1a99c237"/>
+    <COMPID name="PersistentMatrix_ChunkMonitor_TaskWrapper" mc="Class" uid="f5eb710b-5e81-4121-ba73-8e54f2c1c4fc"/>
+    <COMPID name="PerstentMatrixManagerServer RemoteMethods" mc="Interface" uid="fa44383a-ac53-4d4f-bb73-2f523d843efc"/>
+    <COMPID name="PerstentMatrixManager_Client" mc="Class" uid="759b7009-de04-4d83-9d90-a9c70fecca6b"/>
+    <COMPID name="PerstentMatrixManager_Server" mc="Class" uid="d95ee30a-6e61-4d57-8c46-eee6d4fabe75"/>
+    <COMPID name="PerstentMatrixManager_Server RemoteServce" mc="Class" uid="c2dcc07a-3a80-45fe-9748-b86de65fa2f9"/>
+    <COMPID name="PerstentMatrixManager_Server_RemoteMethods" mc="Interface" uid="1e1aca39-5a49-4519-84a7-e3c0a7558a8c"/>
+    <COMPID name="UpdateLog_Reader" mc="Class" uid="56e47d62-44f4-433c-adfa-710082f31a0a"/>
+    <COMPID name="UpdateLog_Writer" mc="Class" uid="c0acb8dd-4613-4218-bb8a-c383ef48345f"/>
+    <COMPID name="overview diagram" mc="ClassDiagram" uid="6dd8a941-071d-4a87-b2e0-c29ae0f430d1"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="hierarchy architecture" mc="Package" uid="a9579748-9e65-441b-b6d0-adfb24629f06"/>
+    <PID name="Hierarchy Architecture" mc="Project" uid="5552bc96-97c2-463c-a96b-bbf116cf0c34"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[hierarchy architecture]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="PersistenceMatricesManager" mc="Class" uid="baa6220d-3912-404c-a880-ae3d1a99c237"/>
+        <COMPID name="PersistentMatrix_ChunkMonitor_TaskWrapper" mc="Class" uid="f5eb710b-5e81-4121-ba73-8e54f2c1c4fc"/>
+        <COMPID name="ChunkMonitor_ChunkProcessor" mc="Interface" uid="78568524-23c1-47c9-b7d7-856c7323c97c"/>
+        <COMPID name="Hierarchy_Metacompiler" mc="Class" uid="4ecb2c36-c552-4f6f-8ee3-546d7414647e"/>
+        <COMPID name="Matrix" mc="Class" uid="834f2758-d5b5-4615-95c4-7274e9604676"/>
+        <COMPID name="(PersistentMatrixManagerServer Anonoymous Class)" mc="Class" uid="e5837b15-de4c-44e6-aeeb-237ed15be2d5"/>
+        <COMPID name="PerstentMatrixManager_Server" mc="Class" uid="d95ee30a-6e61-4d57-8c46-eee6d4fabe75"/>
+        <COMPID name="PerstentMatrixManager_Server RemoteServce" mc="Class" uid="c2dcc07a-3a80-45fe-9748-b86de65fa2f9"/>
+        <COMPID name="UpdateLog_Reader" mc="Class" uid="56e47d62-44f4-433c-adfa-710082f31a0a"/>
+        <COMPID name="CommandDecoder" mc="Class" uid="14534fc8-1e37-47c8-86a5-12e38bc800d8"/>
+        <COMPID name="PerstentMatrixManagerServer RemoteMethods" mc="Interface" uid="fa44383a-ac53-4d4f-bb73-2f523d843efc"/>
+        <COMPID name="ObjectIndex" mc="Class" uid="baed4256-9032-4039-88df-b42a4b82ac4c"/>
+        <COMPID name="(PersistMatrixManagerClient Anonymous Class)" mc="Class" uid="0bde1f76-02ba-45ab-889f-0bd5829dc9a1"/>
+        <COMPID name="PerstentMatrixManager_Client" mc="Class" uid="759b7009-de04-4d83-9d90-a9c70fecca6b"/>
+        <COMPID name="PerstentMatrixManager_Server_RemoteMethods" mc="Interface" uid="1e1aca39-5a49-4519-84a7-e3c0a7558a8c"/>
+        <COMPID name="CommandEncoder" mc="Class" uid="20d16608-3cbb-477f-87d2-3ab04903a0d3"/>
+        <COMPID name="UpdateLog_Writer" mc="Class" uid="c0acb8dd-4613-4218-bb8a-c383ef48345f"/>
+        <COMPID name="CommandEncoder_Descriptor" mc="Class" uid="8bd79f15-4b5c-4e46-a65e-686632394d82"/>
+        <COMPID name="MatrixControl" mc="Class" uid="826309ba-f3ca-4c6d-be96-8afff1a21958"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="overview diagram" mc="ClassDiagram" uid="6dd8a941-071d-4a87-b2e0-c29ae0f430d1"/>
+        <COMPID name="Hierarchy-Persistence Class-diagram - Server" mc="ClassDiagram" uid="2c99c43f-5678-46ed-a24e-1162e0c7ea13"/>
+        <COMPID name="Hierarchy-Persistence Class-diagram - Client" mc="ClassDiagram" uid="20ca2028-524d-48bc-8215-bff65a396d8d"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

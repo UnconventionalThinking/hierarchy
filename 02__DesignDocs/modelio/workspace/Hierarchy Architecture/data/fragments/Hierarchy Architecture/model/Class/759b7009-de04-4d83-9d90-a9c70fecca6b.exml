@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="PerstentMatrixManager_Client" version="3">
+  <DEPS>
+    <ID name="PerstentMatrixManager_Client" mc="Class" uid="759b7009-de04-4d83-9d90-a9c70fecca6b"/>
+    <EXTID name="CommandEncoder" mc="Class" uid="20d16608-3cbb-477f-87d2-3ab04903a0d3"/>
+    <EXTID name="PerstentMatrixManager_Server_RemoteMethods" mc="Interface" uid="1e1aca39-5a49-4519-84a7-e3c0a7558a8c"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="PerstentMatrixManager_Client" mc="Class" uid="759b7009-de04-4d83-9d90-a9c70fecca6b"/>
+    <PID name="hierarchy architecture" mc="Package" uid="a9579748-9e65-441b-b6d0-adfb24629f06"/>
+    <ATTRIBUTES>
+      <ATT name="IsActive">false</ATT>
+      <ATT name="IsMain">false</ATT>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[PerstentMatrixManager_Client]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedOperation">
+        <OBJECT>
+          <ID name="createNewChunkIfNeeded" mc="Operation" uid="5b2d7f3a-956e-49b8-91aa-3ec1ce8ee51e"/>
+          <PID name="PerstentMatrixManager_Client" mc="Class" uid="759b7009-de04-4d83-9d90-a9c70fecca6b"/>
+          <ATTRIBUTES>
+            <ATT name="Concurrency">false</ATT>
+            <ATT name="Final">false</ATT>
+            <ATT name="Passing">MethodOut</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[createNewChunkIfNeeded]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedEnd">
+        <OBJECT>
+          <ID name="commandEncoder" mc="AssociationEnd" uid="ba8f4d43-e35b-43a0-8e6f-e1fbb47d878b"/>
+          <PID name="PerstentMatrixManager_Client" mc="Class" uid="759b7009-de04-4d83-9d90-a9c70fecca6b"/>
+          <ATTRIBUTES>
+            <ATT name="Aggregation">KindIsComposition</ATT>
+            <ATT name="IsChangeable">true</ATT>
+            <ATT name="Changeable">ReadWrite</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"><![CDATA[commandEncoder]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="CommandEncoder" mc="Class" uid="20d16608-3cbb-477f-87d2-3ab04903a0d3"/>
+            </LINK>
+            <COMP relation="Opposite">
+              <OBJECT>
+                <ID name="" mc="AssociationEnd" uid="53b3c649-19dc-4a51-99bf-a91cb99cd696"/>
+                <PID name="PerstentMatrixManager_Client" mc="Class" uid="759b7009-de04-4d83-9d90-a9c70fecca6b"/>
+                <ATTRIBUTES>
+                  <ATT name="Aggregation">KindIsAssociation</ATT>
+                  <ATT name="IsChangeable">true</ATT>
+                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="IsDerived">false</ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="IsClass">false</ATT>
+                  <ATT name="IsAbstract">false</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Opposite">
+                    <COMPID name="commandEncoder" mc="AssociationEnd" uid="ba8f4d43-e35b-43a0-8e6f-e1fbb47d878b"/>
+                  </COMP>
+                  <COMP relation="Association">
+                    <OBJECT>
+                      <ID name="" mc="Association" uid="d15a4170-dddf-479b-a80d-6786a00c2eac"/>
+                      <PID name="PerstentMatrixManager_Client" mc="Class" uid="759b7009-de04-4d83-9d90-a9c70fecca6b"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Association">
+              <COMPID name="" mc="Association" uid="d15a4170-dddf-479b-a80d-6786a00c2eac"/>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="Realized">
+        <OBJECT>
+          <ID name="InterfaceRealization" mc="InterfaceRealization" uid="58c29685-7763-4875-ac0a-a093866b01c3"/>
+          <PID name="PerstentMatrixManager_Client" mc="Class" uid="759b7009-de04-4d83-9d90-a9c70fecca6b"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[InterfaceRealization]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Implemented">
+              <ID name="PerstentMatrixManager_Server_RemoteMethods" mc="Interface" uid="1e1aca39-5a49-4519-84a7-e3c0a7558a8c"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

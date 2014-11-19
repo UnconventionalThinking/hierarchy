@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Hierarchy Architecture" version="3">
+  <DEPS>
+    <ID name="Hierarchy Architecture" mc="Project" uid="5552bc96-97c2-463c-a96b-bbf116cf0c34"/>
+    <COMPID name="Hierarchy Architecture" mc="DiagramSet" uid="4d362c62-7d4d-433e-a14f-c7b5dc70eed0"/>
+    <COMPID name="hierarchy architecture" mc="Package" uid="a9579748-9e65-441b-b6d0-adfb24629f06"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Hierarchy Architecture" mc="Project" uid="5552bc96-97c2-463c-a96b-bbf116cf0c34"/>
+    <ATTRIBUTES>
+      <ATT name="ProjectContext"></ATT>
+      <ATT name="ProjectDescr"></ATT>
+      <ATT name="Name"><![CDATA[Hierarchy Architecture]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="DiagramRoot">
+        <COMPID name="Hierarchy Architecture" mc="DiagramSet" uid="4d362c62-7d4d-433e-a14f-c7b5dc70eed0"/>
+      </COMP>
+      <COMP relation="Model">
+        <COMPID name="hierarchy architecture" mc="Package" uid="a9579748-9e65-441b-b6d0-adfb24629f06"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

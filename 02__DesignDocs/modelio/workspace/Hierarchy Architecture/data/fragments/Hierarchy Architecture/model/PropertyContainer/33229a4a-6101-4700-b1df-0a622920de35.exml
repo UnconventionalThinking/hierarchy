@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Hierarchy Architecture" version="3">
+  <DEPS>
+    <ID name="Hierarchy Architecture" mc="PropertyContainer" uid="33229a4a-6101-4700-b1df-0a622920de35"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Hierarchy Architecture" mc="PropertyContainer" uid="33229a4a-6101-4700-b1df-0a622920de35"/>
+    <PID name="Hierarchy Architecture" mc="AnalystProject" uid="031b27aa-a310-49b0-ad9d-046922fa205c"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[Hierarchy Architecture]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

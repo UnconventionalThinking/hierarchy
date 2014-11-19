@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="PerstentMatrixManager_Server_RemoteMethods" version="3">
+  <DEPS>
+    <ID name="PerstentMatrixManager_Server_RemoteMethods" mc="Interface" uid="1e1aca39-5a49-4519-84a7-e3c0a7558a8c"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="PerstentMatrixManager_Server_RemoteMethods" mc="Interface" uid="1e1aca39-5a49-4519-84a7-e3c0a7558a8c"/>
+    <PID name="hierarchy architecture" mc="Package" uid="a9579748-9e65-441b-b6d0-adfb24629f06"/>
+    <ATTRIBUTES>
+      <ATT name="IsElementary">false</ATT>
+      <ATT name="IsAbstract">true</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[PerstentMatrixManager_Server_RemoteMethods]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>
