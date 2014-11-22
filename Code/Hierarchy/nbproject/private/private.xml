@@ -170,56 +170,15 @@
     </editor-bookmarks>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0">
         <file>
-            <url>src/com/abstractsystems/partita/PartitaMetaCompiler.java</url>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator.java</url>
             <bookmark id="0">
                 <name/>
-                <line>307</line>
+                <line>281</line>
                 <key/>
             </bookmark>
             <bookmark id="0">
                 <name/>
-                <line>538</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>762</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/partita/langsymboltable/LangSymbolTable_Actions.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>431</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>609</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>754</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>919</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>1393</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCreation_CodeGenerator.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>441</line>
+                <line>552</line>
                 <key/>
             </bookmark>
         </file>
@@ -232,79 +191,25 @@
             </bookmark>
         </file>
         <file>
-            <url>src/net/unconventionalthinking/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator.java</url>
+            <url>src/com/abstractsystems/partita/Partita.grammar</url>
             <bookmark id="0">
                 <name/>
-                <line>386</line>
+                <line>526</line>
                 <key/>
             </bookmark>
             <bookmark id="0">
                 <name/>
-                <line>515</line>
+                <line>786</line>
                 <key/>
             </bookmark>
             <bookmark id="0">
                 <name/>
-                <line>700</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/partita/compileractions/LangSymbolTableActions__SymCreator.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>152</line>
+                <line>902</line>
                 <key/>
             </bookmark>
             <bookmark id="0">
                 <name/>
-                <line>1009</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>1065</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>1852</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/net/unconventionalthinking/hierarchy/compileractions/HierarchyActions.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>479</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>1869</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>1878</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>3547</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>281</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>552</line>
+                <line>992</line>
                 <key/>
             </bookmark>
         </file>
@@ -333,91 +238,6 @@
             <bookmark id="0">
                 <name/>
                 <line>1393</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/net/unconventionalthinking/seraphim/compileractions/SeraphimActions.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>2613</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>2708</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>2924</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/partita/PartitaCompiler_Actions.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>655</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>1065</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>1463</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>1682</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>1884</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>3197</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>3580</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/matrix/SchemaFactory.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>87</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator__MultiAccess.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>137</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>199</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/matrix/metacompiler/codegen/InMemorySchemaOrMatrix_Descriptor_Actual.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>6</line>
                 <key/>
             </bookmark>
         </file>
@@ -460,41 +280,51 @@
             </bookmark>
         </file>
         <file>
-            <url>src/com/abstractsystems/partita/compileractions/PartitaActionsBase_2_MainBase.java</url>
+            <url>src/com/abstractsystems/partita/compileractions/LangSymbolTableActions__SymCreator.java</url>
             <bookmark id="0">
                 <name/>
-                <line>345</line>
+                <line>152</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1009</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1065</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1852</line>
                 <key/>
             </bookmark>
         </file>
         <file>
-            <url>src/net/unconventionalthinking/hierarchy/langsymboltable/LangSymbolTable_File.java</url>
+            <url>src/com/abstractsystems/partita/PartitaMetaCompiler.java</url>
             <bookmark id="0">
                 <name/>
-                <line>231</line>
+                <line>307</line>
                 <key/>
             </bookmark>
             <bookmark id="0">
                 <name/>
-                <line>408</line>
+                <line>538</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>762</line>
                 <key/>
             </bookmark>
         </file>
         <file>
-            <url>src/net/unconventionalthinking/hierarchy/Hierarchy.grammar</url>
+            <url>src/net/unconventionalthinking/matrix/SchemaFactory.java</url>
             <bookmark id="0">
                 <name/>
-                <line>558</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>711</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>749</line>
+                <line>86</line>
                 <key/>
             </bookmark>
         </file>
@@ -508,66 +338,6 @@
             <bookmark id="0">
                 <name/>
                 <line>280</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCodeGenerator_SchemaAndMatrixActualBuilder.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>6</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCodeGenerator_SchemaAndMatrixBuilder.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>6</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/com/abstractsystems/partita/langsymboltable/LangSymbolTableActions__SymCreator.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>325</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>503</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>676</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>846</line>
-                <key/>
-            </bookmark>
-            <bookmark id="0">
-                <name/>
-                <line>1328</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>src/net/unconventionalthinking/matrix/SchemaFactory.java</url>
-            <bookmark id="0">
-                <name/>
-                <line>86</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
-            <url>test/maintests/samples/MainTests_EmbeddedCodeTest.mjava</url>
-            <bookmark id="0">
-                <name/>
-                <line>178</line>
                 <key/>
             </bookmark>
         </file>
@@ -620,7 +390,79 @@
             </bookmark>
         </file>
         <file>
-            <url>src/com/abstractsystems/matrix/metacompiler/codegen/InMemory_SchemaAndMatrixBuilder_Actual.java</url>
+            <url>src/net/unconventionalthinking/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>386</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>515</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>700</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/Hierarchy.grammar</url>
+            <bookmark id="0">
+                <name/>
+                <line>558</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>711</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>749</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCreation_CodeGenerator.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>441</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/langsymboltable/LangSymbolTableActions__SymCreator.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>325</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>503</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>676</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>846</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1328</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCodeGenerator_SchemaAndMatrixActualBuilder.java</url>
             <bookmark id="0">
                 <name/>
                 <line>6</line>
@@ -628,25 +470,141 @@
             </bookmark>
         </file>
         <file>
-            <url>src/com/abstractsystems/partita/Partita.grammar</url>
+            <url>src/com/abstractsystems/partita/langsymboltable/LangSymbolTable_Actions.java</url>
             <bookmark id="0">
                 <name/>
-                <line>526</line>
+                <line>431</line>
                 <key/>
             </bookmark>
             <bookmark id="0">
                 <name/>
-                <line>786</line>
+                <line>609</line>
                 <key/>
             </bookmark>
             <bookmark id="0">
                 <name/>
-                <line>902</line>
+                <line>754</line>
                 <key/>
             </bookmark>
             <bookmark id="0">
                 <name/>
-                <line>992</line>
+                <line>919</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1393</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCodeGenerator_SchemaAndMatrixBuilder.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>6</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/InMemorySchemaOrMatrix_Descriptor_Actual.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>6</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/PartitaCompiler_Actions.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>655</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1065</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1463</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1682</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1884</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>3197</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>3580</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/seraphim/compileractions/SeraphimActions.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>2613</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>2708</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>2924</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>test/maintests/samples/MainTests_EmbeddedCodeTest.mjava</url>
+            <bookmark id="0">
+                <name/>
+                <line>178</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/compileractions/HierarchyActions.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>479</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1869</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1878</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>3547</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/SchemaFactory.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>87</line>
                 <key/>
             </bookmark>
         </file>
@@ -663,5 +621,53 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/langsymboltable/LangSymbolTable_File.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>231</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>408</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator__MultiAccess.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>137</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>199</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/InMemory_SchemaAndMatrixBuilder_Actual.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>6</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/PartitaActionsBase_2_MainBase.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>345</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="Hierarchy">
+            <file>file:/Users/admin/Projects/Hierarchy/Code/Hierarchy/build.xml</file>
+            <file>file:/Users/admin/Projects/Hierarchy/Code/Hierarchy/src/net/unconventionalthinking/hierarchy/persistence/PersistentMatricesManager.java</file>
+        </group>
+    </open-files>
 </project-private>

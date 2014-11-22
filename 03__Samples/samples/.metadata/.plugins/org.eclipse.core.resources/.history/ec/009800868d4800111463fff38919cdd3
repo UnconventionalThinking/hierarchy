@@ -1,0 +1,39 @@
+package com.williespetstore;
+
+import MATRIX com.williespetstore::WilliesPetstore.Content;
+
+
+public class WilliesPetStoreConsoleApp {
+
+
+    public static void main(String[] args) {
+        WilliesPetStoreConsoleApp petstoreConsoleApp = new WilliesPetStoreConsoleApp();
+        petstoreConsoleApp.printHomePage();
+    }
+
+    public void printHomePage() {
+
+        System.out.println("Willie's Pets and Things");
+        System.out.println("");
+        System.out.println("news!!!:");
+
+
+        for(DESCRIPTOR<WilliesPetstore.Content->NEWS->NEWS.STORY>  newsStoryDesc :
+            WilliesPetstore.Content->NEWS->NEWS.STORY{*}) {
+
+            System.out.println(newsStoryDesc:>Title);
+            System.out.println("_________________________________________________________");
+            System.out.println((newsStoryDesc:>StoryDate).toString());
+            System.out.println(newsStoryDesc:>StoryContent + "\n");
+        }
+
+        ANNOTATIONS {
+            DEFAULT {
+               return null;
+            }
+        }
+    }
+
+}
+
+

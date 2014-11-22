@@ -1,0 +1,46 @@
+package com . williespetstore ;
+import net . unconventionalthinking . lang . * ;
+import net . unconventionalthinking . matrix . * ;
+import net . unconventionalthinking . matrix . symbols . * ;
+import com . williespetstore . app . * ;
+public  class WilliesPetStoreConsoleApp implements WilliesPetStoreConsoleApp__Annotations {
+	static AppControl_Base appControl = AppControl . initializeApp ( ) ;
+	;
+	static ExecutionInfo executeInfo = appControl . executionInfo ;
+	public static void main ( String [ ] args ) {
+		WilliesPetStoreConsoleApp petstoreConsoleApp = new WilliesPetStoreConsoleApp ( ) ;
+		petstoreConsoleApp . printHomePage ( ) ;
+		
+	}
+	public void printHomePage ( ) {
+		System . out . println ( "Willie's Pets and Things" ) ;
+		System . out . println ( "" ) ;
+		System . out . println ( "news:" ) ;
+		for ( net.unconventionalthinking.matrix.Descriptor newsStoryDesc : WilliesPetStoreConsoleApp__MatrixWorker.accessMatrix_WilliesPetstore$__$Content__10(executeInfo, this, AppSymbols_DescTagName.NEWS$__$STORY)) {
+			System . out . println ( WilliesPetStoreConsoleApp__MatrixWorker.accessMatrix___11(executeInfo, newsStoryDesc, this)) ;
+			System . out . println ( "_________________________________________________________" ) ;
+			System . out . println ( ( WilliesPetStoreConsoleApp__MatrixWorker.accessMatrix___12(executeInfo, newsStoryDesc, this)) . toString ( ) ) ;
+			System . out . println ( WilliesPetStoreConsoleApp__MatrixWorker.accessMatrix___13(executeInfo, newsStoryDesc, this)+ "\n" ) ;
+			
+		}
+		
+	}
+	
+	public Object annotationHandler_1(ExecutionInfo executeInfo, 
+		boolean annotationReference_Exists, Symbol annotationRef_Base, int annotationRef_AccessCounter,
+		int childAccessIndex, AnnotationParameters.AccessType accessType, AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam, 
+		Descriptor rootAccessDescriptor, Descriptor currAccessors_ParentDescriptor, MatrixSet<Descriptor> currAccessors_ParentDescriptorSet, 
+		boolean passingInException, Exception e, Pair<Object, Object>... childAccessor_Pairs) {
+
+		
+		//  Default:
+				return null ;
+
+
+	}
+
+
+
+
+
+}

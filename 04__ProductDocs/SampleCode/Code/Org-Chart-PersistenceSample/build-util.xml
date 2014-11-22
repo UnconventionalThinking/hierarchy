@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project name="PersistentMatrix_WebSample" default="instructions" basedir=".">
+
+    <!--  ** MODIFY THIS PATH **
+          point it to your own tomcat 6 server -->
+    <property name="tomcat.home" value="C:\java\servers\apache-tomcat-6.0.29"/>
+
+    <property name="server.propertiesfile.name" value="server-matrix-persistence.properties"/>
+    <property name="server.propertiesfile.dir" value="./"/>
+    <property name="server.propertiesfile.path" value="${server.propertiesfile.dir}/${server.propertiesfile.name}"/>
+    <property name="server.metabuild.finalbuild" value="server/matrix_build/build2_final"/>
+
+    <property name="client.propertiesfile.name" value="client-matrix-persistence.properties"/>
+    <property name="client.propertiesfile.dir" value="web/WEB-INF"/>
+    <property name="client.propertiesfile.path" value="${client.propertiesfile.dir}/${client.propertiesfile.name}"/>
+    <property file="${client.propertiesfile.path}"/>
+
+    <property name="hierarchy.jar.path" value="${hierarchy.jar.dir}/Hierarchy.jar"/>
+
+    <property name="webapp.path" value="web"/>
+    <property name="javasrc.path" value="src/java"/>
+
+    <property name="meta.build.path" value="meta-build"/>
+    <property name="meta.build.mjsp.path" value="${meta.build.path}/mjsp"/>
+
+
+
+    <path id="tomcat.compile.classpath">
+        <pathelement location="${webapp.path}/WEB-INF/classes"/>
+        <fileset dir="${webapp.path}/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${tomcat.home}/lib"/>
+        <fileset dir="${tomcat.home}/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${tomcat.home}/bin">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <import file="${tomcat.home}/bin/catalina-tasks.xml"/>
+
+
+
+    <target name="clean" depends="clean-metabuild"/>
+
+
+    <target name="instructions">
+        <echo/>
+        <echo>To run this example, please view the readme doc located in this project's folder. </echo>
+        <echo/>
+    </target>
+
+
+    <!-- __________________________________________________________________________________________________________________________________ -->
+    <!--                                                                                                                                    -->
+    <!--   PERSISTENCE SETUP TASKS (To be run before build and running the website  -->
+    <!-- __________________________________________________________________________________________________________________________________ -->
+
+
+    <target name="start-server">
+
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <echo>Start the persitence server </echo>
+        <echo>  NOTE: If you haven't done so, you need to start the rmi server: </echo>
+        <echo>    rmiregistry -J-classpath -J.&gt;path to hierarchy.jar&lt; </echo>
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <java classname="net.unconventionalthinking.hierarchy.persistence.PersistentMatricesExecutor_Server"
+            fork="true">
+             <classpath>
+                <pathelement location="${hierarchy.jar.path}"/>
+                <pathelement path="${server.metabuild.finalbuild}"/>
+             </classpath>
+
+             <!-- Pass in the path to the properties file  -->
+            <arg value="-propfilepath"/>
+            <arg value="${server.propertiesfile.path}"/>
+        </java>
+        <echo/>
+
+    </target>
+
+
+    <target name="update-client">
+
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <echo>Update client's source from server </echo>
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <java classname="net.unconventionalthinking.hierarchy.persistence.PersistentMatricesExecutor_Client"
+            fork="true" failonerror="true">
+             <classpath>
+                <pathelement location="${hierarchy.jar.path}"/>
+             </classpath>
+
+             <!-- Pass in the path to the properties file  -->
+            <arg value="-propfilepath"/>
+            <arg value="${client.propertiesfile.path}"/>
+            <arg value="-updateClientMetaSrc"/>
+        </java>
+
+    </target>
+
+    <target name="reset-persistence">
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <echo>Reset Persistence:</echo>
+        <echo>Put the system back to a clean state, returning the persisted matrices </echo>
+        <echo>to their initial state with the data they started with.</echo>
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+
+        
+        <property name="server.controlfiles.basedir" location="work/server/matrix_data/serialization_ChunkTest_ServerControl"/>
+
+        <property name="server.metasrc.basedir" location="work/server/src_meta"/>
+        <property name="server.metabuild.basedir" location="work/server/matrix_build"/>
+        <property name="server.metabuild.metabuild.basedir" location="work/server/matrix_build/build1_meta"/>
+        <property name="server.metabuild.buildfinal.basedir" location="work/server/matrix_build/build2_final"/>
+
+
+        <property name="client.metasrc.orig.basedir" location="src-original/java"/>
+
+
+
+        <echo>Reset the Server - Deleting control and meta build directories...</echo>
+        <delete failonerror="true" includeEmptyDirs="true">
+            <!-- delete the root folder for the server control files -->
+            <fileset dir="${server.controlfiles.basedir}"/>
+            <!-- delete any existing chunk, update files -->
+            <fileset dir="${persist.server.logfilechunk.inbox.dir}" includes="*"/>
+        </delete>
+
+        <!-- recreate the control files, base directory -->
+        <mkdir dir="${server.controlfiles.basedir}"/>
+
+
+        <delete failonerror="true" includeEmptyDirs="true">
+            <fileset dir="${server.metasrc.basedir}" />
+            <fileset dir="${server.metabuild.basedir}" />
+        </delete>
+
+        <!-- recreate the meta build directories -->
+        <mkdir dir="${server.metasrc.basedir}"/>
+
+        <mkdir dir="${server.metabuild.basedir}"/>
+        <mkdir dir="${server.metabuild.metabuild.basedir}"/>
+        <mkdir dir="${server.metabuild.buildfinal.basedir}"/>
+
+        <echo>... done!</echo>
+        <echo/>
+        <echo/>
+
+        <echo>Reset the Client - Deleting update log and build dir...</echo>
+        <echo>    NOTE: If the reset operation fails here, then</echo>
+        <echo>    it probably means the update.log file is locked by the </echo>
+        <echo>    the web server. Shut it down first! </echo>
+        <echo/>
+
+        <delete failonerror="true" >
+            <!-- delete any existing chunk, update files -->
+            <fileset dir="${persist.client.updatelog.dir}" includes="*"/>
+
+            <!-- delete the build directory -->
+            <fileset dir="build"/>
+        </delete>
+        <echo>... done!</echo>
+        <echo/>
+
+        <echo>Copy the original versions of the persistent matrices to the client src.</echo>
+        <copy todir="${source.metacode.basedir}" failonerror="true" overwrite="true">
+            <fileset dir="${client.metasrc.orig.basedir}"/>
+        </copy>
+        <echo>... done!</echo>
+        <echo/>
+
+        
+    </target>
+
+
+    <target name="switch-property-files-to-template">
+        <echo>Swtich the client/server property files to the template versions</echo>
+        <echo/>
+        <copy file="${server.propertiesfile.path}.template" tofile="${server.propertiesfile.path}" overwrite="true" failonerror="true"/>
+
+        <copy file="${client.propertiesfile.path}.template" tofile="${client.propertiesfile.path}" overwrite="true" failonerror="true"/>
+
+    </target>
+
+    <target name="switch-property-files-to-local">
+        <echo>Swtich the client/server property files to the local versions</echo>
+        <echo/>
+        <copy file="${server.propertiesfile.path}.local" tofile="${server.propertiesfile.path}" overwrite="true" failonerror="true"/>
+
+        <copy file="${client.propertiesfile.path}.local" tofile="${client.propertiesfile.path}" overwrite="true" failonerror="true"/>
+
+    </target>
+
+
+    <!-- __________________________________________________________________________________________________________________________________ -->
+    <!--                                                                                                                                    -->
+    <!--   WEB-PROJECT META-COMPILATION TASKS -->
+    <!-- __________________________________________________________________________________________________________________________________ -->
+
+
+    <target name="web-build" depends="clean,copyMjsp.and.Rename,jspc,renameAndCopy.GeneratedJspJavafiles,metacompile">
+    </target>
+
+
+
+    <target name="copyMjsp.and.Rename">
+        <!-- we need to find all the mjsp files, copy them to their own dir, and rename their extensions to .jsp.
+             The reason we need to rename the extensions to .jsp is because the Jasper JSP compiler only looks for files with .jsp -->
+
+        <copy todir="${meta.build.mjsp.path}/">
+            <fileset dir="${webapp.path}" includes="**/*.mjsp" casesensitive="false"/>
+            <globmapper from="*.mjsp" to="*.jsp" casesensitive="false"/>
+        </copy>
+
+        <!-- need to copy over the web-inf dir for Jasper. It needs at least the web.xml -->
+        <copy todir="${meta.build.mjsp.path}/WEB-INF">
+            <fileset dir="${webapp.path}/WEB-INF" />
+        </copy>
+    </target>
+
+
+
+    <target name="jspc">
+        <!-- compile jsp files into java files
+             NOTE: the Add mappings to web.xml is now NOT working for some reason.
+             webXml="${meta.build.mjsp.path}/WEB-INF/web.xml"
+             addWebXmlMappings="false"
+        -->
+        <jasper
+             validateXml="false"
+             uriroot="${meta.build.mjsp.path}"
+             webXmlFragment="${meta.build.mjsp.path}/WEB-INF/generated_web.xml"
+             outputDir="${meta.build.mjsp.path}/WEB-INF/src"/>
+
+    </target>
+
+
+
+
+    <target name="renameAndCopy.GeneratedJspJavafiles">
+
+        <!-- Recursively rename .java files to .mjava -->
+        <move todir="${meta.build.mjsp.path}/WEB-INF/src">
+            <fileset dir="${meta.build.mjsp.path}/WEB-INF/src" includes="**/*.java"/>
+            <globmapper from="*.java" to="*.mjava"/>
+        </move>
+
+        <!-- Recursively copy mjava files to the src dir -->
+        <copy todir="${javasrc.path}">
+            <fileset dir="${meta.build.mjsp.path}/WEB-INF/src"/>
+        </copy>
+
+
+        <!-- Copy over the modified generated_web.xml to the webapp dir-->
+        <copy todir="${webapp.path}/WEB-INF" >
+            <fileset file="${meta.build.mjsp.path}/WEB-INF/generated_web.xml" casesensitive="false"/>
+        </copy>
+
+    </target>
+
+
+    <target name="metacompile">
+        <echo>Metacompiling files</echo>
+
+        <!-- The -jar option will use the classpath defined in the jar's manifest, which relies on the dependent jars, commons-collection-#.#.#.jar
+             and sablecc.jar, being in the 'lib' dir relative to the dir where Hierarchy.jar is located. -->
+        <java jar="${hierarchy.jar.path}" fork="true" failonerror="true" >
+            <arg value="-mpropfile"/>
+            <arg file="${client.propertiesfile.path}"/>
+        </java>
+
+
+    </target>
+
+
+
+    <!-- this is not used, but just in case if the future we want to actually compile the final Java files into classes files, it's left here -->
+    <target name="compile">
+
+        <mkdir dir="${webapp.path}/WEB-INF/classes"/>
+        <mkdir dir="${webapp.path}/WEB-INF/lib"/>
+
+        <javac destdir="${webapp.path}/WEB-INF/classes"
+           optimize="off" debug="on" failonerror="false" srcdir="${webapp.path}/WEB-INF/src" excludes="**/*.smap"
+           classpathref="tomcat.compile.classpath">
+
+            <include name="**" />
+            <exclude name="tags/**" />
+        </javac>
+
+    </target>
+
+
+
+
+    <target name="clean-metabuild">
+        <delete failonerror="false">
+            <fileset dir="${webapp.path}/WEB-INF/src"/>
+        </delete>
+        <delete failonerror="false">
+            <fileset dir="${meta.build.path}"/>
+        </delete>
+        <delete failonerror="false">
+            <!-- Delete any previous metacompilied-jsp, java-files -->
+            <fileset dir="${javasrc.path}/org/apache/jsp"/>
+        </delete>
+
+
+        <echo>cleaning generated java files that were added back into the source directory, ${source.metacode.basedir}</echo>
+        <delete failonerror="false">
+            <!-- Delete the generated java-files in the source directory.
+                ONLY DELETE THE GENERATED FILES! - Generated java files have a special token string at the top. -->
+            <fileset dir="${source.metacode.basedir}" includes="**/*.java">
+                <contains text="~*~*~Matrix Meta-Compiled File~*~*~" casesensitive="yes"/>
+            </fileset>
+        </delete>
+    </target>
+
+</project>

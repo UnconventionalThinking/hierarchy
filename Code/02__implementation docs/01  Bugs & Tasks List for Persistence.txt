@@ -33,7 +33,10 @@
 	
 	- support transactions - 3/28/10
 		o values not commited until values are logged (two phase commit)
+		o server does not proces	o values not commited until values are logged (two phase commit)
 		o server does not process a set of commands until it sees a closeCommand or a closeTransction
+		o orphaned commands
+		o rollback set (sends a cancel command/transaction to log), which on the server side, simply removes the associated commands from the orphaned/pending command indexs a set of commands until it sees a closeCommand or a closeTransction
 		o orphaned commands
 		o rollback set (sends a cancel command/transaction to log), which on the server side, simply removes the associated commands from the orphaned/pending command index
 	- greater fault tolerance - 3/28/10

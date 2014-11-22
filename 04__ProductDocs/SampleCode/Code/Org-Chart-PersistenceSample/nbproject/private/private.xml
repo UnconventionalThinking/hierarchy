@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1">
+        <file>
+            <url>web/admin.mjsp</url>
+            <line>186</line>
+        </file>
+    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="4">
+        <file>
+            <url>web/index.mjsp</url>
+            <bookmark id="4">
+                <name/>
+                <line>196</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/Temp/Code/Org-Chart-PersistenceSample/src/java/com/mycompany/hr/OrgChart.matrix</file>
+        <file>file:/C:/Temp/Code/Org-Chart-PersistenceSample/web/index.mjsp</file>
+        <file>file:/C:/Temp/Code/Org-Chart-PersistenceSample/src/java/com/mycompany/hr/OrgChartPrinter.mjava</file>
+        <file>file:/C:/Temp/Code/Org-Chart-PersistenceSample/build.xml</file>
+    </open-files>
+</project-private>

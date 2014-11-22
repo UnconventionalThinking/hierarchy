@@ -1,0 +1,66 @@
+package samples ;
+import net . unconventionalthinking . lang . * ;
+import net . unconventionalthinking . matrix . * ;
+import net . unconventionalthinking . matrix . symbols . * ;
+import samples . matrix . app . * ;
+public  class SimpleEmbeddedFile implements SimpleEmbeddedFile__Annotations {
+	static AppControl_Base appControl = samples . matrix . app . AppControl . initializeApp ( ) ;
+	;
+	static ExecutionInfo executeInfo = appControl . executionInfo ;
+	public static void main ( String [ ] args ) throws Exception {
+		SimpleEmbeddedFile simpleEmbeddedFile = new SimpleEmbeddedFile ( ) ;
+		simpleEmbeddedFile . printMatrix ( ) ;
+		
+	}
+	public void printMatrix ( ) {
+		net.unconventionalthinking.matrix.Descriptor daveyInfo = SimpleEmbeddedFile__MatrixWorker.accessMatrix_Simple$__$Matrix__15(executeInfo, this);
+		System . out . println ( "Here's Davey's info:" ) ;
+		System . out . println ( "  Name:" + SimpleEmbeddedFile__MatrixWorker.accessMatrix___16(executeInfo, daveyInfo, this)+ " " + SimpleEmbeddedFile__MatrixWorker.accessMatrix___17(executeInfo, daveyInfo, this)) ;
+		System . out . println ( "    Age:" + SimpleEmbeddedFile__MatrixWorker.accessMatrix___18(executeInfo, daveyInfo, this)) ;
+		System . out . println ( "\n\nNow, let's print out all the people in the matrix:" ) ;
+		for ( net.unconventionalthinking.matrix.Descriptor person : SimpleEmbeddedFile__MatrixWorker.accessMatrix_Simple$__$Matrix__19(executeInfo, this, AppSymbols_DescTagName.PERSON)) {
+			System . out . println ( "  Name:" + SimpleEmbeddedFile__MatrixWorker.accessMatrix___20(executeInfo, person, this)+ " " + SimpleEmbeddedFile__MatrixWorker.accessMatrix___21(executeInfo, person, this)) ;
+			System . out . println ( "    Age:" + SimpleEmbeddedFile__MatrixWorker.accessMatrix___22(executeInfo, person, this)) ;
+			
+		}
+		System . out . println ( "\n\nLastly, let's pass a descriptor as a method parameter:" ) ;
+		testPassingDescriptor ( SimpleEmbeddedFile__MatrixWorker.accessMatrix_Simple$__$Matrix__23(executeInfo, this)) ;
+		
+	}
+	public void testPassingDescriptor ( net.unconventionalthinking.matrix.Descriptor person ) {
+		System . out . println ( "  Name:" + SimpleEmbeddedFile__MatrixWorker.accessMatrix___24(executeInfo, person, this)+ " " + SimpleEmbeddedFile__MatrixWorker.accessMatrix___25(executeInfo, person, this)) ;
+		System . out . println ( "    Age:" + SimpleEmbeddedFile__MatrixWorker.accessMatrix___26(executeInfo, person, this)) ;
+		
+	}
+	
+	public Object annotationHandler_1(ExecutionInfo executeInfo, 
+		boolean annotationReference_Exists, Symbol annotationRef_Base, int annotationRef_AccessCounter,
+		int childAccessIndex, AnnotationParameters.AccessType accessType, AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam, 
+		Descriptor rootAccessDescriptor, Descriptor currAccessors_ParentDescriptor, MatrixSet<Descriptor> currAccessors_ParentDescriptorSet, 
+		boolean passingInException, Exception e, Pair<Object, Object>... childAccessor_Pairs) {
+
+		
+		//  Default:
+				return null ;
+
+
+	}
+
+	public Object annotationHandler_2(ExecutionInfo executeInfo, 
+		boolean annotationReference_Exists, Symbol annotationRef_Base, int annotationRef_AccessCounter,
+		int childAccessIndex, AnnotationParameters.AccessType accessType, AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam, 
+		Descriptor rootAccessDescriptor, Descriptor currAccessors_ParentDescriptor, MatrixSet<Descriptor> currAccessors_ParentDescriptorSet, 
+		boolean passingInException, Exception e, Pair<Object, Object>... childAccessor_Pairs) {
+
+		
+		//  Default:
+				return null ;
+
+
+	}
+
+
+
+
+
+}

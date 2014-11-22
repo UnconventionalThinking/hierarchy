@@ -1,0 +1,53 @@
+#  Properties file for the Sample Matrix Web project 
+#  ** In paths, use forward slashes, \u2018/\u2019, in both unix and windows **
+
+#  Set the path to the Hierarchy.jar directory.
+#hierarchy.jar.dir=C:/Projects/Hierarchy/03__Samples/bin
+hierarchy.jar.dir=/home/saegeun/Desktop/Hierarchy_beta2/bin
+
+#  Set the path to the javac directory.
+#javac.dir=C:/Program Files/Java/jdk1.6.0_21/bin
+javac.dir=/usr/local/java/jdk1.6.0_21/bin
+
+ 
+
+#  Set the class path used in All Phases of metacompilation
+classpath.allphases=
+#  Set the class path used in the Java Phase of metacompilation
+classpath.java.phase=
+#  Set the class path used in the Schema Phase of metacompilation
+classpath.schema.phase=
+#  Set the class path used in the Matrix Phase of metacompilation
+classpath.matrix.phase=
+#  Set the class path used in the Embedded Phase of metacompilation
+classpath.embedded.phase=
+
+
+#  Set the location of base dir of the matrix source (in other words, the base dir of your project which has the matrix, schema, & embedded code files)
+source.metacode.basedir=src
+#  Set the package name that the Matrix application classes will be placed
+matrix.appclasses.package=com.williespetstore.app
+#  Set the path the the base directory where the intermediate, meta build files (generated java files) will be placed.
+#  Sometimes, it's useful to point this back to the 'source.metacode.basedir', so that the generated java files are placed back into the src directory.
+build.meta.basedir=src
+#  Set the path the the base directory where the final class files will be placed.
+build.final.basedir=build
+
+#  Set whether to the final stage of compilation: Compiling the java files from the meta phase into the final class files. Default is true;
+compileMetaFiles.into.finalClassFiles=true
+#  Set whether to clean the build meta and build final directories before metacompilation (true or false)
+clean=false
+
+# Set whether before any metacompilation is done, to compile all the Java files in the src first. These compiled Java classes will be available
+# to the schemas/matrices/embedded code. If this setting is false, then use the 'initiallyCompileJavaCode.SelectedClassesList' instead. Default is false.
+# NOTE: You typically SHOULD NOT use this (so set to false), and instead, specify exactly the list of classes to initially compile using the
+# 'initiallyCompileJavaCode.SelectedClassesList' setting.
+initiallyCompileAllJavaCode=false
+# If you want to want to individually select which classes to initially compile, set the previous setting, 'initiallyCompileAllJavaCode' to false
+# (or leave empty), and supply the list of classes that you wanted the be initially compiled using this setting. Use full class names with packages,
+# and separated by commas.
+#   For ex. initiallyCompileJavaCode.SelectedClassesList = mypackage.myclass, mypackage.myclass2
+initiallyCompileJavaCode.SelectedClassesList=
+
+# If there's an error, print out the internal stack trace of the error.
+printVerboseErrors=false

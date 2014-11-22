@@ -1,0 +1,31 @@
+package com.williespetstore;
+
+import java.util.Date;
+import java.text.DateFormat;
+
+import SCHEMA net.unconventional.persistence::MATRIXPROG.PERSISTENCE;
+
+
+MATRIX WilliesPetstore.Content USES (News.Schema, MATRIXPROG.PERSISTENCE) {
+
+	//  ** TEMPORARY ** - In the future, will use the persistence matrix setting
+	MATRIXPROG.PERSISTENCE.SETTINGS: { :IsPersistent };
+
+
+    NEWS: {"HomePage News Blurbs"} {
+
+        NEWS.STORY +`Fanciful Dog Food`: {
+            "March 10, 2010", "20% off Fanciful Dog Spread",
+            "For one day only, come and pick up your tub of Fanciful Dog Spread! A truly refined and tasteful " +
+            "topping your dog will dream about."
+        };
+
+        NEWS.STORY +`Adopt a Pet`: { 
+            "March 17, 2010", "Adopt a Pet",
+            "Your chance to adopt a lonely doggie is right around the corner. Come by Willie's Pets on Sunday to find " +
+            "the personality that's a perfect match for you!"
+        };
+
+    }
+
+}

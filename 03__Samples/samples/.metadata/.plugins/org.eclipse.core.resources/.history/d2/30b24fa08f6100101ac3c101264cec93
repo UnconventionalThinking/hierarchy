@@ -1,0 +1,105 @@
+package org . apache . jsp ;
+import javax . servlet . * ;
+import javax . servlet . http . * ;
+import javax . servlet . jsp . * ;
+import java . text . SimpleDateFormat ;
+import java . text . Format ;
+import java . util . Date ;
+import net . unconventionalthinking . lang . * ;
+import net . unconventionalthinking . matrix . * ;
+import net . unconventionalthinking . matrix . symbols . * ;
+import com . williespetstore . app . * ;
+public  final  class index_jsp extends org . apache . jasper . runtime . HttpJspBase  implements org . apache . jasper . runtime . JspSourceDependent , index_jsp__Annotations {
+	AppControl_Base appControl = com . williespetstore . app . AppControl . initializeApp ( ) ;
+	ExecutionInfo executeInfo = appControl . executionInfo ;
+	private static final JspFactory _jspxFactory = JspFactory . getDefaultFactory ( ) ;
+	private static java . util . List _jspx_dependants ;
+	private javax . el . ExpressionFactory _el_expressionfactory ;
+	private org . apache . AnnotationProcessor _jsp_annotationprocessor ;
+	public Object getDependants ( ) {
+		return _jspx_dependants ;
+		
+	}
+	public void _jspInit ( ) {
+		_el_expressionfactory  = _jspxFactory . getJspApplicationContext ( getServletConfig ( ) . getServletContext ( ) ) . getExpressionFactory ( ) ;
+		_jsp_annotationprocessor  = ( org . apache . AnnotationProcessor ) getServletConfig ( ) . getServletContext ( ) . getAttribute ( org . apache . AnnotationProcessor . class . getName ( ) ) ;
+		
+	}
+	public void _jspDestroy ( ) {
+		
+	}
+	public void _jspService ( HttpServletRequest request , HttpServletResponse response ) throws java . io . IOException , ServletException {
+		PageContext pageContext = null ;
+		HttpSession session = null ;
+		ServletContext application = null ;
+		ServletConfig config = null ;
+		JspWriter out = null ;
+		Object page = this ;
+		JspWriter _jspx_out = null ;
+		PageContext _jspx_page_context = null ;
+		try {
+			response . setContentType ( "text/html;charset=UTF-8" ) ;
+			pageContext  = _jspxFactory . getPageContext ( this , request , response , null , true , 8192 , true ) ;
+			_jspx_page_context  = pageContext;
+			application  = pageContext . getServletContext ( ) ;
+			config  = pageContext . getServletConfig ( ) ;
+			session  = pageContext . getSession ( ) ;
+			out  = pageContext . getOut ( ) ;
+			_jspx_out  = out;
+			out . write ( "\n\n\n\n\n\n\n<!--  Import the generated application control classes -->\n\n\n\n\n\n\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n   \"http://www.w3.org/TR/html4/loose.dtd\">\n\n\n" ) ;
+			out . write ( "\n\n<html>\n    <head>\n        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n        <title>JSP Page</title>\n    </head>\n    <body>\n        <font face=\"arial\">\n\n            <h1>Willie's Pets and Things</h1>\n            <b><i>news:</i></b><p>\n\n            " ) ;
+			Format dateFormatter = new SimpleDateFormat ( "MMMMM, d yyyy" ) ;
+			for ( net.unconventionalthinking.matrix.Descriptor newsStoryDesc : index_jsp__MatrixWorker.accessMatrix_WilliesPetstore$__$Content__14(executeInfo, this, AppSymbols_DescTagName.NEWS$__$STORY)) {
+				out . write ( "\n\n                <div style=\"width:500px;\">\n                    <b>" ) ;
+				out . print ( index_jsp__MatrixWorker.accessMatrix___15(executeInfo, newsStoryDesc, this)) ;
+				out . write ( "</b><br>\n                    <i>" ) ;
+				out . print ( dateFormatter . format ( index_jsp__MatrixWorker.accessMatrix___16(executeInfo, newsStoryDesc, this)) ) ;
+				out . write ( "</i><br>\n                    " ) ;
+				out . print ( index_jsp__MatrixWorker.accessMatrix___17(executeInfo, newsStoryDesc, this)) ;
+				out . write ( "<br>\n                    <br><br>\n                </div>\n            " ) ;
+				
+			}
+			out . write ( "\n\n        </font>\n    </body>\n</html>\n\n" ) ;
+			out . write ( '\n' ) ;
+			
+		}
+		catch ( Throwable t ) {
+			if ( ! ( t instanceof SkipPageException ) ) {
+				out  = _jspx_out;
+				if ( out != null && out . getBufferSize ( ) != 0 ) try {
+					out . clearBuffer ( ) ;
+					
+				}
+				catch ( java . io . IOException e ) {
+					
+				}
+				if ( _jspx_page_context != null ) _jspx_page_context . handlePageException ( t ) ;
+				
+			}
+			
+		}
+		finally {
+			_jspxFactory . releasePageContext ( _jspx_page_context ) ;
+			
+		}
+		
+	}
+	
+	public Object annotationHandler_3(ExecutionInfo executeInfo, 
+		boolean annotationReference_Exists, Symbol annotationRef_Base, int annotationRef_AccessCounter,
+		int childAccessIndex, AnnotationParameters.AccessType accessType, AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam, 
+		Descriptor rootAccessDescriptor, Descriptor currAccessors_ParentDescriptor, MatrixSet<Descriptor> currAccessors_ParentDescriptorSet, 
+		boolean passingInException, Exception e, Pair<Object, Object>... childAccessor_Pairs) {
+
+		
+		//  Default:
+				return null ;
+
+
+	}
+
+
+
+
+
+}

@@ -1,0 +1,15 @@
+package com.mycompany.hr;
+
+
+MATRIX OrgChart USES (OrgChart.Schema) {
+
+   EMPLOYEE +`id1`: { "Bill Smith", "CEO" } {
+      EMPLOYEE +`id2`: { "Jill Hughs", "CFO" } {
+         EMPLOYEE +`id3`: { "Paul Taylor", "Head of Accounting" };
+      }
+      EMPLOYEE +`id4`: { "John Jones", "CTO" } {
+         EMPLOYEE +`id5`: { "RJ Gill", "Head of Operations" };
+         EMPLOYEE +`id6`: { "Sally Ryan", "Head or Engineering" };
+     }
+   }
+}

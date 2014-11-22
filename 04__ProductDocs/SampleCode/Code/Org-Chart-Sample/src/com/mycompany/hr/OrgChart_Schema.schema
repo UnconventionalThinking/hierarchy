@@ -1,0 +1,14 @@
+package com.mycompany.hr;
+
+
+SCHEMA OrgChart.Schema {
+
+	DESCRIPTOR +:%EMPLOYEE {
+
+		FIELD.NAMES: 	{ +:%FullName, +:%Title};
+		FIELD.TYPES:  	{ :String, :String};
+
+		FIELD.DEFAULTS:	{ null, null};
+    }
+
+}

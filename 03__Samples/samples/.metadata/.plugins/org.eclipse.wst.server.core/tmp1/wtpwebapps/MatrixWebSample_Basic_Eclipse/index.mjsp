@@ -1,0 +1,47 @@
+<%-- 
+    Document   : index
+    Created on : Jul 1, 2010, 7:33:21 PM
+    Author     : peterjoh
+--%>
+
+<%@page import="net.unconventionalthinking.lang.*"%>
+<%@page import="net.unconventionalthinking.matrix.*"%>
+<%@page import="net.unconventionalthinking.matrix.symbols.*"%>
+<%@page import="maintests.samples.*"%>
+
+<%@page import="MATRIX maintests.samples::Registration.Form"%>
+
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<%!
+    AppControl_Base appControl =  maintests.samples.AppControl.initializeApp();
+    ExecutionInfo executeInfo = appControl.executionInfo;
+
+%>
+
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+        requiredImagePath = <%=Registration.Form->`First Name`->FORM.REQUIRED:>RequiredImagePath%> <br>
+    </body>
+</html>
+
+<%
+
+
+    ANNOTATIONS {
+
+        DEFAULT {
+            return null;
+        }
+    }
+%>

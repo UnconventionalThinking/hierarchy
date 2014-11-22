@@ -1,0 +1,4 @@
+#Tomcat publish data
+#Wed Apr 06 19:08:16 PDT 2011
+org.eclipse.jst.jee.server\:/binary\:C\:\\Projects\\Hierarchy\\03__Samples\\SampleProjects\\MatrixWebSample_Basic_Eclipse\\WebContent\\WEB-INF\\lib\\Hierarchy.jar=WEB-INF/lib/Hierarchy.jar
+org.eclipse.jst.jee.server\:/binary\:C\:\\Projects\\Hierarchy\\03__Samples\\SampleProjects\\MatrixWebSample_Basic_Eclipse\\WebContent\\WEB-INF\\lib\\sablecc.jar=WEB-INF/lib/sablecc.jar

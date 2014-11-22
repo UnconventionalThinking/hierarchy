@@ -1,0 +1,51 @@
+package com.williespetstore;
+
+
+MATRIX WebForm.Registration USES (Web.Form, Database) {
+
+	`First Name` {
+		FORM.DISPLAYTEXT: { "First Name", "Please enter in your first name" };
+		FORM.REQUIRED: { +:IsRequired };
+		FORM.CONTROL.TEXTBOX { 30 };
+		//  Table, column name, type
+   		DB.COLUMN: { +:Customer, +:First_Name, :String };
+	}
+	`Last Name` {
+		FORM.DISPLAYTEXT: { "Last Name", "Please enter in your last name" };
+		FORM.REQUIRED: { +:IsRequired };
+		FORM.INPUT.TEXTBOX { 30 };
+   		DB.COLUMN: { +:Customer, +:Last_Name, :String };
+	}
+	`Gender` {
+		FORM.DISPLAYTEXT: { "Gender", "Please select your gender" };
+		FORM.REQUIRED: { +:IsRequired };
+		FORM.CONTROL.RADIOBOX { 
+		 	RADIO.ITEM { "Male", "Male",:Checked }; 
+		 	RADIO.ITEM { "Female", "Female" }; 
+		}
+   		DB.COLUMN: { :Customer, +:Gender, :"int" };
+	}
+	`Address 1` {
+		FORM.DISPLAYTEXT: { "Address 1", "Please enter in your home address" };
+		FORM.REQUIRED: { +:IsRequired };
+		FORM.CONTROL.TEXTBOX { 60 };
+		DB.COLUMN: { +:Customer, +:Address1, :String };
+	} 
+	`Address 2` {
+		FORM.DISPLAYTEXT: { "Address 2", "Please enter the second line of your home address" };
+		FORM.REQUIRED: { +:IsRequired };
+		FORM.CONTROL.TEXTBOX { 60 };
+		DB.COLUMN: { +:Customer, +:Address2, :String };
+	} 
+
+
+	`State` {
+		FORM.DISPLAYTEXT:  { "State" , "Choose your state"  };
+		FORM.REQUIRED: { +:IsRequired };
+		FORM.SELECT { 
+			OPTION: { "AL", "Alaska", :Selected };
+			OPTION: { "AZ", "Arizona" };
+		}
+		DB.COLUMN: { +:Customer, +:State, :String };
+	}
+}

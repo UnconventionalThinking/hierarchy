@@ -1,0 +1,21 @@
+package com.mycompany.hr;
+import samples.matrix.app.*;
+
+public class OrgChartTester {
+
+    public static void main(String[] args) throws Exception  {
+
+        System.out.println("\n\nJohn Jones' employees\n_________________________________");
+
+        for (DESCRIPTOR<OrgChart->EMPLOYEE->EMPLOYEE->EMPLOYEE> employee : 
+              OrgChart->`id1`->`id4`->EMPLOYEE{*}) {
+            System.out.println("  o " + employee:>FullName + " - " + employee:>Title);
+        }
+        System.out.println("\n");
+
+        ANNOTATIONS {
+            DEFAULT { return null; }
+        }
+    }
+
+}

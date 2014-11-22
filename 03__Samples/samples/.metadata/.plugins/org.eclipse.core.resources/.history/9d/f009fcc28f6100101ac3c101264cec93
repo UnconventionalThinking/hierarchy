@@ -1,0 +1,228 @@
+package com.williespetstore;
+
+import net.unconventionalthinking.exceptions.*;
+import net.unconventionalthinking.matrix.*;
+import java.util.Arrays;
+import net.unconventionalthinking.lang.*;
+import net.unconventionalthinking.matrix.symbols.*;
+import maintests.samples.AppSymbols_DescTagName;
+import maintests.samples.AppSymbols_SchemaName;
+import maintests.samples.AppSymbols;
+import maintests.samples.AppSymbols_DescTag;
+import maintests.samples.AppSymbols_MatrixName;
+import maintests.samples.AppSymbols_Label;
+import net.unconventionalthinking.matrix.metacompiler.codegen.Exception_MetaCompilerError;
+import maintests.samples.AppControl;
+import java.util.LinkedList;
+
+
+
+
+public class News$__$Schema implements SchemaContainer {
+
+	public static SchemaInfo_Schema schema;
+
+
+	public static SchemaInfo_Schema construct(AppControl_Base appControl, ExecutionInfo executeInfo)
+		throws Exception_MatrixRuntime_Checked {
+
+		LinkedList<MatrixSet<SchemaInfo_Schema>> schemaSet_ScopeStack = new LinkedList<MatrixSet<SchemaInfo_Schema>>();
+
+
+		//  Creating a Schema with name, `News`.`Schema`__________________________________________________
+		try {
+			schemaSet_ScopeStack.add(new MatrixSet<SchemaInfo_Schema>().add(
+				appControl.schemaControl.schemaFactory.get_BaseSchema(executeInfo),
+				appControl.schemaControl.schemaForSchema
+			));
+		} catch (Exception e) {
+			throw new Exception_MatrixRuntime_Checked("while trying to create a new Matrix Or Schema descriptor with the name, `News`.`Schema`," + 
+				" tried to add the Base Schema to the scope stack, but had an error creating it (see inner exception).", e);
+		}
+
+		MatrixSet<SchemaInfo_Schema> descriptor0$_X_$SCHEMA$_X_$__UsesSchemaSet;
+		Descriptor descriptor0$_X_$SCHEMA;
+
+		try {
+			descriptor0$_X_$SCHEMA$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>().add(appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA));
+			descriptor0$_X_$SCHEMA = (Descriptor)appControl.schemaControl.schemaFactory.createNew_Schema(executeInfo, AppSymbols_Label.News$__$Schema, AppSymbols_DescTagName.com$__$williespetstore, true, descriptor0$_X_$SCHEMA$_X_$__UsesSchemaSet, null, true);
+			schemaSet_ScopeStack.add(descriptor0$_X_$SCHEMA$_X_$__UsesSchemaSet);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, SCHEMA::SCHEMA, and with label, `News`.`Schema`, but had an error", e);
+		}
+
+
+		//  Creating a SchemaInfo_Descriptor with descriptor tag with label, NEWS__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor1$_X_$DESCRIPTOR$_X_$__UsesSchemaSet;
+		Descriptor descriptor1$_X_$DESCRIPTOR;
+
+		try {
+			descriptor1$_X_$DESCRIPTOR$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor1$_X_$DESCRIPTOR = (Descriptor)appControl.schemaControl.schemaFactory.createNew_SchemaInfoDescriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$DESCRIPTOR), appControl.symbolControl.multiPartSymbol_Factory.createNew_Label(Arrays.asList("NEWS"), 0, true), descriptor1$_X_$DESCRIPTOR$_X_$__UsesSchemaSet, descriptor0$_X_$SCHEMA);
+			schemaSet_ScopeStack.add(descriptor1$_X_$DESCRIPTOR$_X_$__UsesSchemaSet);
+			((SchemaInfo_Descriptor)descriptor0$_X_$SCHEMA).addChild_SchemaInfoDescriptor(executeInfo, (SchemaInfo_Descriptor)descriptor1$_X_$DESCRIPTOR);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, DESCRIPTOR::DESCRIPTOR, and with label, NEWS, but had an error", e);
+		}
+
+
+		//  Creating a Field Descriptor for a schema with the name, FIELD.NAMES::FIELD.NAMES__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor2$_X_$FIELD_NAMES$_X_$__UsesSchemaSet;
+		Descriptor descriptor2$_X_$FIELD_NAMES;
+
+		try {
+			descriptor2$_X_$FIELD_NAMES$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor2$_X_$FIELD_NAMES = (Descriptor)appControl.matrixControl.matrixFactory.createNew_Descriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$DESCRIPTOR).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$FIELD$__$NAMES), null, descriptor2$_X_$FIELD_NAMES$_X_$__UsesSchemaSet, descriptor1$_X_$DESCRIPTOR);
+			FieldSet descriptor2$_X_$FIELD_NAMES$_X_$__FieldSet = descriptor2$_X_$FIELD_NAMES.get_FieldSet_Tuple(executeInfo);
+			descriptor2$_X_$FIELD_NAMES$_X_$__FieldSet.setField(executeInfo, 0, AppSymbols_DescTagName.NewsSectionName );
+			schemaSet_ScopeStack.add(descriptor2$_X_$FIELD_NAMES$_X_$__UsesSchemaSet);
+			((SchemaInfo_Descriptor)descriptor1$_X_$DESCRIPTOR).addChild_SchemaInfo_FieldDescriptor(executeInfo, descriptor2$_X_$FIELD_NAMES);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, FIELD.NAMES::FIELD.NAMES, and with an empty label, but had an error", e);
+		}
+
+
+		//  Creating a Field Descriptor for a schema with the name, FIELD.TYPES::FIELD.TYPES__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor3$_X_$FIELD_TYPES$_X_$__UsesSchemaSet;
+		Descriptor descriptor3$_X_$FIELD_TYPES;
+
+		try {
+			descriptor3$_X_$FIELD_TYPES$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor3$_X_$FIELD_TYPES = (Descriptor)appControl.matrixControl.matrixFactory.createNew_Descriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$DESCRIPTOR).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$FIELD$__$TYPES), null, descriptor3$_X_$FIELD_TYPES$_X_$__UsesSchemaSet, descriptor1$_X_$DESCRIPTOR);
+			FieldSet descriptor3$_X_$FIELD_TYPES$_X_$__FieldSet = descriptor3$_X_$FIELD_TYPES.get_FieldSet_Tuple(executeInfo);
+			descriptor3$_X_$FIELD_TYPES$_X_$__FieldSet.setField(executeInfo, 0, AppSymbols.String );
+			schemaSet_ScopeStack.add(descriptor3$_X_$FIELD_TYPES$_X_$__UsesSchemaSet);
+			((SchemaInfo_Descriptor)descriptor1$_X_$DESCRIPTOR).addChild_SchemaInfo_FieldDescriptor(executeInfo, descriptor3$_X_$FIELD_TYPES);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, FIELD.TYPES::FIELD.TYPES, and with an empty label, but had an error", e);
+		}
+
+
+		//  Creating a SchemaInfo_Descriptor with descriptor tag with label, `NEWS`.`STORY`__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor4$_X_$DESCRIPTOR$_X_$__UsesSchemaSet;
+		Descriptor descriptor4$_X_$DESCRIPTOR;
+
+		try {
+			descriptor4$_X_$DESCRIPTOR$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor4$_X_$DESCRIPTOR = (Descriptor)appControl.schemaControl.schemaFactory.createNew_SchemaInfoDescriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$DESCRIPTOR), appControl.symbolControl.multiPartSymbol_Factory.createNew_Label(Arrays.asList("NEWS", "STORY"), 0, true), descriptor4$_X_$DESCRIPTOR$_X_$__UsesSchemaSet, descriptor1$_X_$DESCRIPTOR);
+			schemaSet_ScopeStack.add(descriptor4$_X_$DESCRIPTOR$_X_$__UsesSchemaSet);
+			((SchemaInfo_Descriptor)descriptor1$_X_$DESCRIPTOR).addChild_SchemaInfoDescriptor(executeInfo, (SchemaInfo_Descriptor)descriptor4$_X_$DESCRIPTOR);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, DESCRIPTOR::DESCRIPTOR, and with label, `NEWS`.`STORY`, but had an error", e);
+		}
+
+
+		//  Creating a Field Descriptor for a schema with the name, FIELD.NAMES::FIELD.NAMES__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor5$_X_$FIELD_NAMES$_X_$__UsesSchemaSet;
+		Descriptor descriptor5$_X_$FIELD_NAMES;
+
+		try {
+			descriptor5$_X_$FIELD_NAMES$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor5$_X_$FIELD_NAMES = (Descriptor)appControl.matrixControl.matrixFactory.createNew_Descriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$DESCRIPTOR).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$FIELD$__$NAMES), null, descriptor5$_X_$FIELD_NAMES$_X_$__UsesSchemaSet, descriptor4$_X_$DESCRIPTOR);
+			FieldSet descriptor5$_X_$FIELD_NAMES$_X_$__FieldSet = descriptor5$_X_$FIELD_NAMES.get_FieldSet_Tuple(executeInfo);
+			descriptor5$_X_$FIELD_NAMES$_X_$__FieldSet.setField(executeInfo, 0, AppSymbols_DescTagName.StoryDate );
+			descriptor5$_X_$FIELD_NAMES$_X_$__FieldSet.setField(executeInfo, 1, AppSymbols_DescTagName.Title );
+			descriptor5$_X_$FIELD_NAMES$_X_$__FieldSet.setField(executeInfo, 2, AppSymbols_DescTagName.StoryContent );
+			schemaSet_ScopeStack.add(descriptor5$_X_$FIELD_NAMES$_X_$__UsesSchemaSet);
+			((SchemaInfo_Descriptor)descriptor4$_X_$DESCRIPTOR).addChild_SchemaInfo_FieldDescriptor(executeInfo, descriptor5$_X_$FIELD_NAMES);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, FIELD.NAMES::FIELD.NAMES, and with an empty label, but had an error", e);
+		}
+
+
+		//  Creating a Field Descriptor for a schema with the name, FIELD.DESC::FIELD.DESC__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor6$_X_$FIELD_DESC$_X_$__UsesSchemaSet;
+		Descriptor descriptor6$_X_$FIELD_DESC;
+
+		try {
+			descriptor6$_X_$FIELD_DESC$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor6$_X_$FIELD_DESC = (Descriptor)appControl.matrixControl.matrixFactory.createNew_Descriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$DESCRIPTOR).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$FIELD$__$DESC), null, descriptor6$_X_$FIELD_DESC$_X_$__UsesSchemaSet, descriptor4$_X_$DESCRIPTOR);
+			FieldSet descriptor6$_X_$FIELD_DESC$_X_$__FieldSet = descriptor6$_X_$FIELD_DESC.get_FieldSet_Tuple(executeInfo);
+			descriptor6$_X_$FIELD_DESC$_X_$__FieldSet.setField(executeInfo, 0, "The date of the story" );
+			descriptor6$_X_$FIELD_DESC$_X_$__FieldSet.setField(executeInfo, 1, "The title of the story" );
+			descriptor6$_X_$FIELD_DESC$_X_$__FieldSet.setField(executeInfo, 2, "The content of the story" );
+			schemaSet_ScopeStack.add(descriptor6$_X_$FIELD_DESC$_X_$__UsesSchemaSet);
+			((SchemaInfo_Descriptor)descriptor4$_X_$DESCRIPTOR).addChild_SchemaInfo_FieldDescriptor(executeInfo, descriptor6$_X_$FIELD_DESC);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, FIELD.DESC::FIELD.DESC, and with an empty label, but had an error", e);
+		}
+
+
+		//  Creating a Field Descriptor for a schema with the name, FIELD.TYPES::FIELD.TYPES__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor7$_X_$FIELD_TYPES$_X_$__UsesSchemaSet;
+		Descriptor descriptor7$_X_$FIELD_TYPES;
+
+		try {
+			descriptor7$_X_$FIELD_TYPES$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor7$_X_$FIELD_TYPES = (Descriptor)appControl.matrixControl.matrixFactory.createNew_Descriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$DESCRIPTOR).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$FIELD$__$TYPES), null, descriptor7$_X_$FIELD_TYPES$_X_$__UsesSchemaSet, descriptor4$_X_$DESCRIPTOR);
+			FieldSet descriptor7$_X_$FIELD_TYPES$_X_$__FieldSet = descriptor7$_X_$FIELD_TYPES.get_FieldSet_Tuple(executeInfo);
+			descriptor7$_X_$FIELD_TYPES$_X_$__FieldSet.setField(executeInfo, 0, AppSymbols.java_util_Date );
+			descriptor7$_X_$FIELD_TYPES$_X_$__FieldSet.setField(executeInfo, 1, AppSymbols.String );
+			descriptor7$_X_$FIELD_TYPES$_X_$__FieldSet.setField(executeInfo, 2, AppSymbols.String );
+			schemaSet_ScopeStack.add(descriptor7$_X_$FIELD_TYPES$_X_$__UsesSchemaSet);
+			((SchemaInfo_Descriptor)descriptor4$_X_$DESCRIPTOR).addChild_SchemaInfo_FieldDescriptor(executeInfo, descriptor7$_X_$FIELD_TYPES);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, FIELD.TYPES::FIELD.TYPES, and with an empty label, but had an error", e);
+		}
+
+
+		//  Creating a Field Descriptor for a schema with the name, FIELD.DEFAULTS::FIELD.DEFAULTS__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor8$_X_$FIELD_DEFAULTS$_X_$__UsesSchemaSet;
+		Descriptor descriptor8$_X_$FIELD_DEFAULTS;
+
+		try {
+			descriptor8$_X_$FIELD_DEFAULTS$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor8$_X_$FIELD_DEFAULTS = (Descriptor)appControl.matrixControl.matrixFactory.createNew_Descriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$DESCRIPTOR).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.net$__$unconventionalthinking$__$matrix$_CC_$SCHEMA$95$FOR$95$SCHEMA$_CC_$FIELD$__$DEFAULTS), null, descriptor8$_X_$FIELD_DEFAULTS$_X_$__UsesSchemaSet, descriptor4$_X_$DESCRIPTOR);
+			FieldSet descriptor8$_X_$FIELD_DEFAULTS$_X_$__FieldSet = descriptor8$_X_$FIELD_DEFAULTS.get_FieldSet_Tuple(executeInfo);
+			descriptor8$_X_$FIELD_DEFAULTS$_X_$__FieldSet.setField(executeInfo, 0, null );
+			descriptor8$_X_$FIELD_DEFAULTS$_X_$__FieldSet.setField(executeInfo, 1, null );
+			descriptor8$_X_$FIELD_DEFAULTS$_X_$__FieldSet.setField(executeInfo, 2, null );
+			schemaSet_ScopeStack.add(descriptor8$_X_$FIELD_DEFAULTS$_X_$__UsesSchemaSet);
+			((SchemaInfo_Descriptor)descriptor4$_X_$DESCRIPTOR).addChild_SchemaInfo_FieldDescriptor(executeInfo, descriptor8$_X_$FIELD_DEFAULTS);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, FIELD.DEFAULTS::FIELD.DEFAULTS, and with an empty label, but had an error", e);
+		}
+
+
+		//  Initialize the Schema:
+		try {
+			((SchemaInfo_Descriptor)descriptor0$_X_$SCHEMA).initialize_SchemaInfo(executeInfo, appControl.symbolControl, appControl.schemaControl.schemaControl_Info);
+
+		} catch (Exception_SchemaInfo e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to initialize the Schema named, News$__$Schema, but had an error.", e);
+		}
+		schema = (SchemaInfo_Schema)descriptor0$_X_$SCHEMA;
+
+		return (SchemaInfo_Schema)descriptor0$_X_$SCHEMA;
+	}
+
+
+
+
+	public Class<?> get_AppControl_Class() throws ClassNotFoundException {
+		return maintests.samples.AppControl.class;
+	}
+	public AppControl_Base initialize_AppControl() { return initialize_AppControl(null, false); }
+	public AppControl_Base initialize_AppControl(boolean running_AppControl_forMetacompilation) { return initialize_AppControl(null, running_AppControl_forMetacompilation); }
+	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl) { return initialize_AppControl(existing_AppControl, false); }
+	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl, boolean running_AppControl_forMetacompilation) {
+		if (existing_AppControl != null)
+			return maintests.samples.AppControl.initializeApp(existing_AppControl, running_AppControl_forMetacompilation);
+		else
+			return maintests.samples.AppControl.initializeApp(running_AppControl_forMetacompilation);
+	}
+
+	public AppControl_Base get_AppControl() {
+		return maintests.samples.AppControl.appControl;
+	}
+
+}

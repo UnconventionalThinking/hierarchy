@@ -1,9 +1,15 @@
 Bug List
 
 ____________
+***o Netbeans build error - After you run the metacompiler, when you create new symbols/labels in the .mjava file - ones that haven't existed in a .matrix or .schema file, Netbeans doesn't see that the symbol files have been updated. So, when you go to build in Netbeans, it will complain that the newly created symbols are missing! you have to go to the symbol files and change them and then save them before you can build.
+
+The reason for this is because the symbols were created in the last stage of metacompiliation, and for some reason, if Netbeans is open, it won't see the last update to these symbol files.
+
 
 ***o Schema Bug - if have too few columns in the FIELD.TYPES compared to the FIELD.NAMES, the metacompiler throws out
      a null pointer. detect all manner of schema problems dealing with number of field values.
+     
+     
 ***o Fix Netbeans in Linux web sample Run! - doesn't work, you get an exception:
         Servlet org.apache.jsp.index_jsp is not available
      You can do a "Deploy" instead, this works, but not the run. Why?
@@ -73,10 +79,6 @@ _____________________________________________________________________________
 
 ***o Metacompiler can precompile Java files. These precompiled files need to support the passing in of javac paramters. The most important one is -g which builds the classes with debug info, so they can work in a debugger!
 
-***o Netbeans build error - After you run the metacompiler, when you create new symbols/labels in the .mjava file - ones that haven't existed in a .matrix or .schema file, Netbeans doesn't see that the symbol files have been updated. So, when you go to build in Netbeans, it will complain that the newly created symbols are missing! you have to go to the symbol files and change them and then save them before you can build.
-
-The reason for this is because the symbols were created in the last stage of metacompiliation, and for some reason, if Netbeans is open, it won't see the last update to these symbol files.
-
 
 
 
@@ -100,7 +102,7 @@ ________________________________________________________________________________
 ***o Allow annotations blocks anywhere - for now, only allowed at end of method. but, what if you have a large method and need one in the middle of the method? think over this one, because maybe this is something we shouldn't allow... (for JSP's it's helpful, but really, we shouldn't encourage messy programming
 
 ________________________________________________________________________________________________________________________
-***o Parameter Maps not finished - need to add partita actions for it - 2/18/10
+***o Parameter Maps not finished - need to add compiler actions for it - 2/18/10
 	* Also, Matrix descriptor has settings that can be passed in by parameter map (such as PersistentMatrix. capture these in partita actions
 ***o Static Parameter Maps should use specialized fieldsets - 12/4/09
 	Will have better performance.
@@ -211,9 +213,6 @@ ________________________________________________________________________________
 **o Collect type info doesn't support the implicitly included package, java.lang.*; - .5 day
 
 
-**o Test Static access annotations - 12/23/09
-	Already tested dynamic, but to test static, probably need to add a "remove_ChildDescriptor()" method to Descriptor class.
-	
 
 o remove the Junit.jar included in Partita main project classpath - 9/16/09
 	 Very Annoying - the TestUtilities_3_TestTheMatrix class is used by both the main project tests and the generation test project test, so to share it, it is in the Partita main project. AND, this class actually contains junit asserts, and since the class is currently in the Partita main project, the project must include the Junit.jar in the class path. remove this if you can.

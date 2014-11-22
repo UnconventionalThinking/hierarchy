@@ -1,0 +1,209 @@
+package com.williespetstore;
+
+
+import net.unconventionalthinking.exceptions.*;
+import net . unconventionalthinking . matrix . * ;
+
+import net.unconventionalthinking.matrix.*;
+import com . williespetstore . app . * ;
+
+import net.unconventionalthinking.lang.*;
+import net.unconventionalthinking.matrix.symbols.*;
+import maintests.samples.AppSymbols_DescTagName;
+import maintests.samples.AppSymbols_SchemaName;
+import maintests.samples.AppSymbols;
+import net . unconventionalthinking . lang . * ;
+
+import maintests.samples.AppSymbols_DescTag;
+import maintests.samples.AppSymbols_MatrixName;
+import maintests.samples.AppSymbols_Label;
+import net.unconventionalthinking.matrix.metacompiler.codegen.Exception_MetaCompilerError;
+import net . unconventionalthinking . matrix . symbols . * ;
+
+import maintests.samples.AppControl;
+
+
+
+public class WilliesPetStoreConsoleApp__MatrixWorker {
+
+
+
+	public static MatrixSet<Descriptor> accessMatrix_WilliesPetstore$__$Content__10(ExecutionInfo executeInfo, WilliesPetStoreConsoleApp__Annotations callerObj, DescriptorTagName accessParam_1__value1) {
+
+		//  Static Field Access by Static Descriptor Tag Name, NEWS.
+		Descriptor Descriptor__27__STATIC__DTAGNAME_NEWS = null;
+
+		if (DescriptorUtilities.validDescriptors(executeInfo, com.williespetstore.WilliesPetstore$__$Content.matrix)) {
+			try{
+				Descriptor__27__STATIC__DTAGNAME_NEWS = com.williespetstore.WilliesPetstore$__$Content.matrix.get_ChildDescriptor(executeInfo, AppSymbols_DescTagName.NEWS);
+			} catch (Exception e) {
+				executeInfo.setErrorException(e);
+			}
+
+		} else { // end of if (validDescriptors())
+			executeInfo.addErrorInfo(ExecutionInfo.ErrorType.AccessedDescriptorThatWasNotFound);
+		}
+
+		// Error handling code
+		if (executeInfo.get_HadError()) {
+			AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam = new AnnotationParameters_AccessReturnType_OutParam();
+			Object annotateRetVal = callerObj.annotationHandler_1(executeInfo, false, null, 0, 0, AnnotationParameters.AccessType.Descriptor, accessReturnType_OutParam, com.williespetstore.WilliesPetstore$__$Content.matrix, com.williespetstore.WilliesPetstore$__$Content.matrix, null, true, executeInfo.getErrorException(), new Pair<Object, Object>(AppSymbols_DescTagName.NEWS, null));
+
+			if (executeInfo.get_HadError() && executeInfo.containsError(ExecutionInfo.ErrorType.AbortAccess)) 
+				throw new ExceptRuntime_MatrixAccessError("Was trying the first access of the Matrix named com.williespetstore.WilliesPetstore$__$Content.matrix but had an error. The annotation handler tried to process this error but was not able to.");
+
+			if (accessReturnType_OutParam != null && accessReturnType_OutParam.returnType == AnnotationParameters.AccessReturnType.accessorValue)
+				Descriptor__27__STATIC__DTAGNAME_NEWS = (Descriptor)annotateRetVal;
+			else // accessReturnType_OutParam.returnType == AnnotationParameters.AccessReturnType.accessValue)
+				return (MatrixSet<Descriptor>)annotateRetVal;
+		}
+
+
+
+		//  Multi Access with access expression: AppSymbols_DescTagName.NEWS$__$STORY.
+		MatrixSet<Descriptor> DescriptorSet__28__MULTI_ACCESS = new MatrixSet<Descriptor>();
+		if (DescriptorUtilities.validDescriptors(executeInfo, Descriptor__27__STATIC__DTAGNAME_NEWS)) {
+			try{
+				Descriptor__27__STATIC__DTAGNAME_NEWS.get_ChildDescriptors(executeInfo,accessParam_1__value1, DescriptorSet__28__MULTI_ACCESS);
+			} catch (Exception e) {
+				executeInfo.setErrorException(e);
+			}
+
+		} else { // end of if (validDescriptors())
+			executeInfo.addErrorInfo(ExecutionInfo.ErrorType.AccessedDescriptorThatWasNotFound);
+		}
+
+		// Error handling code
+		if (executeInfo.get_HadError()) {
+			AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam = new AnnotationParameters_AccessReturnType_OutParam();
+			Object annotateRetVal = callerObj.annotationHandler_1(executeInfo, false, null, 1, 1, AnnotationParameters.AccessType.DescriptorSet, accessReturnType_OutParam, com.williespetstore.WilliesPetstore$__$Content.matrix, Descriptor__27__STATIC__DTAGNAME_NEWS, null, true, executeInfo.getErrorException(), new Pair<Object, Object>(AppSymbols_DescTagName.NEWS, null), new Pair<Object, Object>(accessParam_1__value1, null));
+
+			if (executeInfo.get_HadError() && executeInfo.containsError(ExecutionInfo.ErrorType.AbortAccess)) 
+				throw new ExceptRuntime_MatrixAccessError("Was trying the second access of the Matrix named com.williespetstore.WilliesPetstore$__$Content.matrix but had an error. The annotation handler tried to process this error but was not able to.");
+
+			if (accessReturnType_OutParam != null && accessReturnType_OutParam.returnType == AnnotationParameters.AccessReturnType.accessorValue)
+				DescriptorSet__28__MULTI_ACCESS = (MatrixSet<Descriptor>)annotateRetVal;
+			else // accessReturnType_OutParam.returnType == AnnotationParameters.AccessReturnType.accessValue)
+				return (MatrixSet<Descriptor>)annotateRetVal;
+		}
+
+
+
+		return DescriptorSet__28__MULTI_ACCESS;
+
+	}
+
+
+
+
+
+	//  Continued Access
+	public static String accessMatrix___11(ExecutionInfo executeInfo, Descriptor descriptor, WilliesPetStoreConsoleApp__Annotations callerObj) {
+
+
+		//  Static Field Access by Static Descriptor Tag Name, Title.
+		if (DescriptorUtilities.validDescriptors(executeInfo, descriptor)) {
+			try{
+				if (descriptor.has_FieldSet()) {
+					return ((maintests.samples.FieldSetTuple__com$__$williespetstore$_CC_$News$__$Schema$_S_$NEWS$_S_$NEWS$__$STORY)descriptor.get_FieldSet()).get_Title(executeInfo);
+				} else {
+					executeInfo.addErrorInfo(ExecutionInfo.ErrorType.AccessedFieldButNoFieldSetExists);
+				}
+
+			} catch (Exception e) {
+				executeInfo.setErrorException(e);
+			}
+
+		} else { // end of if (validDescriptors())
+			executeInfo.addErrorInfo(ExecutionInfo.ErrorType.AccessedDescriptorThatWasNotFound);
+		}
+
+		// Error handling code
+		AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam = new AnnotationParameters_AccessReturnType_OutParam();
+		Object annotateRetVal = callerObj.annotationHandler_1(executeInfo, false, null, 0, 0, AnnotationParameters.AccessType.Field, accessReturnType_OutParam, descriptor, descriptor, null, true, executeInfo.getErrorException(), new Pair<Object, Object>(AppSymbols_DescTagName.Title, null));
+
+		if (executeInfo.get_HadError() && executeInfo.containsError(ExecutionInfo.ErrorType.AbortAccess)) 
+			throw new ExceptRuntime_MatrixAccessError("Was trying the first access of the Matrix named descriptor but had an error. The annotation handler tried to process this error but was not able to.");
+
+		return (String)annotateRetVal;
+
+	}
+
+
+
+
+
+	//  Continued Access
+	public static java.util.Date accessMatrix___12(ExecutionInfo executeInfo, Descriptor descriptor, WilliesPetStoreConsoleApp__Annotations callerObj) {
+
+
+		//  Static Field Access by Static Descriptor Tag Name, StoryDate.
+		if (DescriptorUtilities.validDescriptors(executeInfo, descriptor)) {
+			try{
+				if (descriptor.has_FieldSet()) {
+					return ((maintests.samples.FieldSetTuple__com$__$williespetstore$_CC_$News$__$Schema$_S_$NEWS$_S_$NEWS$__$STORY)descriptor.get_FieldSet()).get_StoryDate(executeInfo);
+				} else {
+					executeInfo.addErrorInfo(ExecutionInfo.ErrorType.AccessedFieldButNoFieldSetExists);
+				}
+
+			} catch (Exception e) {
+				executeInfo.setErrorException(e);
+			}
+
+		} else { // end of if (validDescriptors())
+			executeInfo.addErrorInfo(ExecutionInfo.ErrorType.AccessedDescriptorThatWasNotFound);
+		}
+
+		// Error handling code
+		AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam = new AnnotationParameters_AccessReturnType_OutParam();
+		Object annotateRetVal = callerObj.annotationHandler_1(executeInfo, false, null, 0, 0, AnnotationParameters.AccessType.Field, accessReturnType_OutParam, descriptor, descriptor, null, true, executeInfo.getErrorException(), new Pair<Object, Object>(AppSymbols_DescTagName.StoryDate, null));
+
+		if (executeInfo.get_HadError() && executeInfo.containsError(ExecutionInfo.ErrorType.AbortAccess)) 
+			throw new ExceptRuntime_MatrixAccessError("Was trying the first access of the Matrix named descriptor but had an error. The annotation handler tried to process this error but was not able to.");
+
+		return (java.util.Date)annotateRetVal;
+
+	}
+
+
+
+
+
+	//  Continued Access
+	public static String accessMatrix___13(ExecutionInfo executeInfo, Descriptor descriptor, WilliesPetStoreConsoleApp__Annotations callerObj) {
+
+
+		//  Static Field Access by Static Descriptor Tag Name, StoryContent.
+		if (DescriptorUtilities.validDescriptors(executeInfo, descriptor)) {
+			try{
+				if (descriptor.has_FieldSet()) {
+					return ((maintests.samples.FieldSetTuple__com$__$williespetstore$_CC_$News$__$Schema$_S_$NEWS$_S_$NEWS$__$STORY)descriptor.get_FieldSet()).get_StoryContent(executeInfo);
+				} else {
+					executeInfo.addErrorInfo(ExecutionInfo.ErrorType.AccessedFieldButNoFieldSetExists);
+				}
+
+			} catch (Exception e) {
+				executeInfo.setErrorException(e);
+			}
+
+		} else { // end of if (validDescriptors())
+			executeInfo.addErrorInfo(ExecutionInfo.ErrorType.AccessedDescriptorThatWasNotFound);
+		}
+
+		// Error handling code
+		AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam = new AnnotationParameters_AccessReturnType_OutParam();
+		Object annotateRetVal = callerObj.annotationHandler_1(executeInfo, false, null, 0, 0, AnnotationParameters.AccessType.Field, accessReturnType_OutParam, descriptor, descriptor, null, true, executeInfo.getErrorException(), new Pair<Object, Object>(AppSymbols_DescTagName.StoryContent, null));
+
+		if (executeInfo.get_HadError() && executeInfo.containsError(ExecutionInfo.ErrorType.AbortAccess)) 
+			throw new ExceptRuntime_MatrixAccessError("Was trying the first access of the Matrix named descriptor but had an error. The annotation handler tried to process this error but was not able to.");
+
+		return (String)annotateRetVal;
+
+	}
+
+
+
+
+
+
+}

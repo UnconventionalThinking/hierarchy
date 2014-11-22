@@ -1,0 +1,59 @@
+//  Web.Form Sample Schema 
+//  *NEEDS TO BE SYNTAX CHECKED!!!!
+// _______________________________________________________________________________
+
+package org.projecthierarchy.web;
+
+
+SCHEMA Web.Form {
+
+	DESCRIPTOR +:%FORM.DISPLAYTEXT {
+
+		FIELD.NAMES: 	{ +:%Name, +:%HelpText };
+		FIELD.DESC:  	{ "This is the name of the field that will be displayed", 
+						  "This the help text that can optionally be displayed, often if the user hovers over the field" };
+		FIELD.TYPES:  	{ :"String", :"String" };
+
+		
+	}
+
+	DESCRIPTOR +:%FORM.REQUIRED {
+
+		FIELD.NAMES: 	{ +:%IsRequiredField, +:%RequiredImagePath, +:%ImageHeight`, +:%ImageWidth };
+		FIELD.DESC:  	{ "Is this field required?", "The path to the image for required fields", 
+						"The height of the image", "The width of the image" };
+		FIELD.TYPES:  	{ :Symbol, :"String", :"int", :"int" };
+
+		FIELD.DEFAULTS:	{ +:NotRequired, "/images/required.gif", 5, 6 };
+	}
+
+
+
+	DESCRIPTOR +:%FORM.CONTROL.RADIOBOX {
+		
+		DESCRIPTOR +:%RADIO.ITEM {
+			FIELD.NAMES:    { +:%DisplayName, +:%Value, +:%Checked };
+			FIELD.TYPES:    { :"String", :"String", :Symbol };
+
+			FIELD.DEFAULTS: { null, null, +:NotChecked };
+		}
+	}
+
+	//  Drop-Down Menu
+	DESCRIPTOR +:%FORM.CONTROL.SELECT {
+	
+		DESCRIPTOR +:%OPTION {
+			FIELD.NAMES: 	{ +:%Name, +:%Value, +:%Selected };
+			FIELD.TYPES:  	{ :"String", :"String", :Symbol };
+
+			FIELD.DEFAULTS:	{ null, null, +:%NotSelected };
+		}
+	}
+		
+}
+
+
+
+
+
+	

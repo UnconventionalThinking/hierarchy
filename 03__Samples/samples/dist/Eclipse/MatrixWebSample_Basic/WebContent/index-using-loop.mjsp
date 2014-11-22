@@ -1,0 +1,43 @@
+<%@page import="MATRIX maintests.samples::Registration.Form"%>
+
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <h1>Sample Registration Form</h1>
+        This code uses a for loop!<p>
+
+        <form>
+
+            <%
+            for (DESCRIPTOR<Registration.Form->ITEM> formInputItemDescriptor : Registration.Form->ITEM{*}) { %>
+                <%=formInputItemDescriptor.get_Label().getSymbol().get_Name_no_backtiks()%>
+                <input type="text" name="<%=formInputItemDescriptor.get_Label().getSymbol().get_Name_no_backtiks()%>">
+                <%
+                if (formInputItemDescriptor->FORM.REQUIRED:>IsRequired == :IsRequired) { %>
+                    <font color="red">*</font>
+                <% } %>
+                <br>
+            <% } %>
+        </form>
+    </body>
+</html>
+
+<%
+
+
+    ANNOTATIONS {
+
+        DEFAULT {
+            return null;
+        }
+    }
+%>

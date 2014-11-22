@@ -1,0 +1,24 @@
+package com.williespetstore;
+
+import java.util.Date;
+import java.text.DateFormat;
+
+
+MATRIX WilliesPetstore.Content USES (News.Schema) {
+
+    NEWS: {"HomePage News Blurbs"} {
+
+        NEWS.STORY +`Adopt a Pet`: { 
+            DateFormat.getDateInstance().parse("March 17, 2010"), "Adopt a Pet",
+            "Your chance to adopt a lonely doggie is right around the corner. Come by Willie's Pets on Sunday to find " +
+            "the personality that's a perfect match for you!"
+        };
+
+        NEWS.STORY +`Fanciful Dog Food`: {
+            DateFormat.getDateInstance().parse("March 10, 2010"), "20% off Fanciful Dog Spread",
+            "For one day only, come and pick up your tub of Fanciful Dog Spread! A truly refined and tasteful " +
+            "topping your dog will dream about."
+        };
+    }
+
+}

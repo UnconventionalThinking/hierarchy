@@ -1,0 +1,2 @@
+To build any of these sample projects (EXCEPT for the Persistence sample project!), please use the instructions found in the introduction of the "Hierarchy Developer Guide" document that was included in the Hierarchy zip archive.
+Thanks!

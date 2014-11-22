@@ -1,0 +1,29 @@
+package maintests.samples;
+
+
+
+SCHEMA WEB.FORM {
+	DESCRIPTOR +`FORM`.`REQUIRED` {
+
+		FIELD.NAMES: 	{ +:IsRequired, +:RequiredImagePath, +:ImageHeight, +:ImageWidth };
+
+		FIELD.DESC:  	{ "Is this field required?", "What is the path to the image that marks required fields",
+						"The height of the image", "The width of the image" };
+		FIELD.TYPES:  	{ :Symbol, :"String", :"int", :"int" };
+
+		FIELD.DEFAULTS:	{ +:NotRequired, "/images/required.gif", 6, 7 };
+
+    }
+
+
+	DESCRIPTOR +`FORM`.`SELECTOR` {
+        DESCRIPTOR +`OPTION` {
+            FIELD.NAMES: 	{ +:Name, +:Value, +:Selected };
+            FIELD.TYPES:  	{ :String, :String, :Symbol /* ${ +:Selected, +:NotSelected}*/ };
+
+            FIELD.DEFAULTS:	{ null, null, +:NotSelected };
+        }
+    }
+
+}
+

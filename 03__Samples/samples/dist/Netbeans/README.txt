@@ -1,0 +1,3 @@
+To build any of these sample projects (EXCEPT for the Persistence sample project!), please use the instructions found in the introduction of the "Hierarchy Developer Guide" document that was included in the Hierarchy zip archive.
+
+The instructions for building the PersistentMatrix_WebSample is in the "PersistentMatrix_WebSample - Readme.txt" file, found in the directory this project. Please take a look at this file. Thanks!

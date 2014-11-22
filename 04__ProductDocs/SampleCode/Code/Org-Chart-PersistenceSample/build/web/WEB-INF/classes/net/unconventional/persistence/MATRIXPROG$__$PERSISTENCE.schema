@@ -1,0 +1,19 @@
+package net.unconventional.persistence;
+
+SCHEMA MATRIXPROG.PERSISTENCE {
+
+	DESCRIPTOR +:%MATRIXPROG.PERSISTENCE.SETTINGS {
+
+		FIELD.NAMES: 	{ +:%IsPersistentMatrix };
+
+		FIELD.DESC:  	{ "Is this matrix persistent?" };
+		FIELD.TYPES:  	{ :Symbol };
+
+		FIELD.DEFAULTS:	{ +:IsNotPersistent };
+
+    }
+
+
+
+}
+

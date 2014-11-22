@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This line is to create a reference to the "generated_web.xml" file, so it can be included in the web.xml file -->
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+    <servlet-class>org.apache.jsp.index_jsp</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>org.apache.jsp.index_jsp</servlet-name>
+    <url-pattern>/index.jsp</url-pattern>
+  </servlet-mapping>
+</web-app>

@@ -1,0 +1,13 @@
+package com.mycompany.hr;
+
+
+public class EmployeeNode {
+    
+    public EmployeeNode(DESCRIPTOR<OrgChart->EMPLOYEE> employeeDesc, int rowLevel) {
+        this.employeeDesc = employeeDesc;
+        this.rowLevel = rowLevel;
+    }
+
+    public DESCRIPTOR<OrgChart->EMPLOYEE> employeeDesc;
+    public int rowLevel;
+}

@@ -1,0 +1,53 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.Format"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.util.Iterator"%>
+
+<%@page import="MATRIX com.williespetstore::WilliesPetstore.Content"%>
+
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <body>
+        <font face="arial">
+            <div style="text-align:right"><a href="admin.jsp">administer this page</a></div><p>
+
+            <h1>Willie's Pets and Things</h1>
+            <b><i>news:</i></b><p>
+
+            <%
+            //  NOT USED - Need persitenceMatrix Generator to support serializing complex Java objects before we can use the date obj
+            // Format dateFormatter = new SimpleDateFormat("MMMMM, d yyyy");
+
+            Iterator<Descriptor> newsStory_ReverseIter = (WilliesPetstore.Content->NEWS->NEWS.STORY{*}).reverseIterator();
+            while(newsStory_ReverseIter.hasNext()) {
+                DESCRIPTOR<WilliesPetstore.Content->NEWS->NEWS.STORY>  newsStoryDesc = newsStory_ReverseIter.next();
+                %>
+
+                <div style="width:500px;">
+                    <b><%=newsStoryDesc:>Title%></b><br>
+                    <i><%=newsStoryDesc:>StoryDate%></i><br>
+                    <%=newsStoryDesc:>StoryContent%><br>
+                    <br><br>
+                </div>
+            <%}%>
+
+        </font>
+    </body>
+</html>
+
+<%
+    ANNOTATIONS {
+        DEFAULT {
+            return null;
+        }
+    }
+%>

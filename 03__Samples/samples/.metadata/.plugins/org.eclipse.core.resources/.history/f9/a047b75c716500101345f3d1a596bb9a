@@ -1,0 +1,43 @@
+package samples;
+
+import net.unconventionalthinking.exceptions.*;
+import net . unconventionalthinking . matrix . * ;
+
+import samples.matrix.app.AppSymbols_MatrixName;
+import net.unconventionalthinking.matrix.*;
+import samples.matrix.app.AppControl;
+import net.unconventionalthinking.lang.*;
+import samples.matrix.app.AppSymbols;
+import net.unconventionalthinking.matrix.symbols.*;
+import samples.matrix.app.AppSymbols_SchemaName;
+import net . unconventionalthinking . lang . * ;
+
+import samples.matrix.app.AppSymbols_Label;
+import samples . matrix . app . * ;
+
+import samples.matrix.app.AppSymbols_DescTag;
+import net.unconventionalthinking.matrix.metacompiler.codegen.Exception_MetaCompilerError;
+import net . unconventionalthinking . matrix . symbols . * ;
+
+import samples.matrix.app.AppSymbols_DescTagName;
+
+
+
+
+public interface SimpleEmbeddedFile__Annotations {
+
+	public Object annotationHandler_1(ExecutionInfo executeInfo, 
+		boolean annotationReference_Exists, Symbol annotationRef_Base, int annotationRef_AccessCounter,
+		int childAccessIndex, AnnotationParameters.AccessType accessType, AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam, 
+		Descriptor rootAccessDescriptor, Descriptor currAccessors_ParentDescriptor, MatrixSet<Descriptor> currAccessors_ParentDescriptorSet, 
+		boolean passingInException, Exception e, Pair<Object, Object>... childAccessor_Pairs);
+
+	public Object annotationHandler_2(ExecutionInfo executeInfo, 
+		boolean annotationReference_Exists, Symbol annotationRef_Base, int annotationRef_AccessCounter,
+		int childAccessIndex, AnnotationParameters.AccessType accessType, AnnotationParameters_AccessReturnType_OutParam accessReturnType_OutParam, 
+		Descriptor rootAccessDescriptor, Descriptor currAccessors_ParentDescriptor, MatrixSet<Descriptor> currAccessors_ParentDescriptorSet, 
+		boolean passingInException, Exception e, Pair<Object, Object>... childAccessor_Pairs);
+
+
+
+}

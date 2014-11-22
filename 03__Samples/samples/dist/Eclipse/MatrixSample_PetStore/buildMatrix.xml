@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project name="Simple Matrix Sample Project Metacompilation" default="metacompile" basedir=".">
+
+
+    <property file="hierarchy.properties"/>
+    <property name="hierarchy.jar.path" value="${hierarchy.jar.dir}/Hierarchy.jar"/>
+
+    <!-- The path to the directory of the generated appcontrol java files -->
+    <property name="build.appclasses.package.path" value="${build.meta.basedir}/samples/matrix/app"/>
+
+
+    <target name="metacompile">
+        <echo>Metacompiling files</echo>
+
+        <!-- The -jar option will use the classpath defined in the jar's manifest, which relies on the dependent jars, commons-collection-#.#.#.jar
+             and sablecc.jar, being in the 'lib' dir relative to the dir where Hierarchy.jar is located. -->
+        <java jar="${hierarchy.jar.path}" fork="true" >
+            <arg value="-mpropfile"/>
+            <arg file="hierarchy.properties"/>
+        </java>
+
+    </target>
+
+
+    <target name="clean">
+
+        <echo>cleaning app control files in ${build.appclasses.package.path}</echo>
+        <delete failonerror="false">
+            <!-- Delete the generated appcontrol java-files -->
+            <fileset dir="${build.appclasses.package.path}" includes="**/*.java">
+                <contains text="~*~*~Matrix Meta-Compiled File~*~*~" casesensitive="yes"/>
+            </fileset>
+        </delete>
+
+        <echo>cleaning generated java files that were added back into the source directory, ${source.metacode.basedir}</echo>
+        <delete failonerror="false">
+            <!-- Delete the generated java-files in the source directory.
+                ONLY DELETE THE GENERATED FILES! - Generated java files have a special token string at the top. -->
+            <fileset dir="${source.metacode.basedir}" includes="**/*.java">
+                <contains text="~*~*~Matrix Meta-Compiled File~*~*~" casesensitive="yes"/>
+            </fileset>
+        </delete>
+
+        <echo>cleaning project build dir</echo>
+	  	<delete failonerror="false" dir="${build.final.basedir}" />
+	
+    </target>
+
+
+</project>

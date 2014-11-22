@@ -1,0 +1,76 @@
+
+Web.Form Sample Schema 
+*NEEDS TO BE SYNTAX CHECKED!!!!
+_______________________________________________________________________________
+
+
+package org.projecthierarchy.web;
+
+
+SCHEMA Web.Form {
+
+	DESCRIPTOR +:%FORM.REQUIRED {
+
+		FIELD.NAMES: 	{ +:%IsRequiredField, +:%RequiredImagePath, +:%ImageHeight`, +:%ImageWidth };
+		FIELD.DESC:  	{ "Is this field required?", "What is the path to the image that marks required fields", 
+						"The height of the image", "The width of the image" };
+		FIELD.TYPES:  	{ :Symbol, :"String", :"int", :"int" };
+
+		FIELD.DEFAULTS:	{ +:NotRequired, "/images/required.gif", 5, 6 };
+	}
+
+
+
+	DESCRIPTOR +:%FORM.CONTROL.RADIOBOX {
+		
+		DESCRIPTOR +:%RADIO.ITEM {
+			FIELD.NAMES: 	{ +:%DisplayName, +:%Value, +:%Checked };
+			FIELD.TYPES:  	{ :"String", :"String", :Symbol };
+
+			FIELD.DEFAULTS:	{ null, null, +:NotChecked };
+		}
+	}
+
+		
+}
+
+
+
+
+
+
+package com.williespetstore;
+
+MATRIX WebForm.Registration USES (Web.Form, Database) {
+
+	`First Name` {
+		FORM.REQUIRED: { +:IsRequired };
+		FORM.CONTROL.TEXTBOX { 30 };
+		HELP.TEXT: { "Please enter in your first name" };
+		//  Table, column name, type
+   		DB.COLUMN: { +:Customer, +:First_Name, :String };
+	}
+	`Last Name` {
+		FORM.REQUIRED: { +:IsRequired };
+		FORM.INPUT.TEXTBOX { 30 };
+		HELP.TEXT: { "Please enter in your last name" };
+   		DB.COLUMN: { +:Customer, +:Last_Name, :String };
+	}
+	`Gender` {
+		FORM.REQUIRED: { +:IsRequired };
+		FORM.CONTROL.RADIOBOX { "GenderRadioBox" } {
+		 	RADIO.ITEM { "Male", "Male",:Checked }; 
+		 	RADIO.ITEM { "Female", "Female" }; 
+		}
+		HELP.TEXT: { "Please select your gender" };
+   		DB.COLUMN: { :Customer, +:Gender, :"int" };
+	}
+	`Address 1` {
+		FORM.REQUIRED: { +:IsRequired };
+		FORM.CONTROL.TEXTBOX { 60 };
+		HELP.TEXT: { "Please enter in your home address" };
+		DB.COLUMN: { +:Customer, +:Address1, :String };
+	} 
+
+
+}

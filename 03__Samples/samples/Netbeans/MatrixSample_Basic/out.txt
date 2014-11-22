@@ -1,0 +1,532 @@
+Buildfile: C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\build.xml
+
+-pre-init:
+
+-init-private:
+
+-init-user:
+
+-init-project:
+
+-init-macrodef-property:
+
+-do-init:
+
+-post-init:
+
+-init-check:
+
+-init-ap-cmdline-properties:
+
+-init-macrodef-javac-with-processors:
+
+-init-macrodef-javac-without-processors:
+
+-init-macrodef-javac:
+
+-init-macrodef-junit:
+
+-init-debug-args:
+
+-init-macrodef-nbjpda:
+
+-init-macrodef-debug:
+
+-init-macrodef-java:
+
+-init-presetdef-jar:
+
+-init-ap-cmdline-supported:
+
+-init-ap-cmdline:
+
+init:
+
+-deps-jar-init:
+   [delete] Deleting: C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\build\built-jar.properties
+
+deps-jar:
+
+-warn-already-built-jar:
+[propertyfile] Updating property file: C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\build\built-jar.properties
+
+-check-automatic-build:
+
+-clean-after-automatic-build:
+
+-verify-automatic-build:
+
+-pre-pre-compile:
+
+-pre-compile:
+
+-copy-persistence-xml:
+
+-compile-depend:
+
+-do-compile:
+    [javac] Compiling 10 source files to C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\build\classes
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:3: package net.unconventionalthinking.exceptions does not exist
+    [javac] import net.unconventionalthinking.exceptions.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:6: package net.unconventionalthinking.matrix does not exist
+    [javac] import net.unconventionalthinking.matrix.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:9: package net.unconventionalthinking.lang does not exist
+    [javac] import net.unconventionalthinking.lang.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:10: package net.unconventionalthinking.matrix.symbols does not exist
+    [javac] import net.unconventionalthinking.matrix.symbols.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:14: package net.unconventionalthinking.matrix.metacompiler.codegen does not exist
+    [javac] import net.unconventionalthinking.matrix.metacompiler.codegen.Exception_MetaCompilerError;
+    [javac]                                                              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:21: cannot find symbol
+    [javac] symbol: class MatrixContainer
+    [javac] public class Simple$__$Matrix implements MatrixContainer {
+    [javac]                                          ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:23: cannot find symbol
+    [javac] symbol  : class Matrix
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public static Matrix matrix;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:26: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public static Matrix construct(AppControl_Base appControl, ExecutionInfo executeInfo)
+    [javac] 	                               ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:26: cannot find symbol
+    [javac] symbol  : class ExecutionInfo
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public static Matrix construct(AppControl_Base appControl, ExecutionInfo executeInfo)
+    [javac] 	                                                           ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:26: cannot find symbol
+    [javac] symbol  : class Matrix
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public static Matrix construct(AppControl_Base appControl, ExecutionInfo executeInfo)
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:27: cannot find symbol
+    [javac] symbol  : class Exception_MatrixRuntime_Checked
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 		throws Exception_MatrixRuntime_Checked {
+    [javac] 		       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:122: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public AppControl_Base initialize_AppControl() { return initialize_AppControl(null, false); }
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:123: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public AppControl_Base initialize_AppControl(boolean running_AppControl_forMetacompilation) { return initialize_AppControl(null, running_AppControl_forMetacompilation); }
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:124: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl) { return initialize_AppControl(existing_AppControl, false); }
+    [javac] 	                                             ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:124: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl) { return initialize_AppControl(existing_AppControl, false); }
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:125: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl, boolean running_AppControl_forMetacompilation) {
+    [javac] 	                                             ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:125: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl, boolean running_AppControl_forMetacompilation) {
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Matrix.java:132: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Matrix
+    [javac] 	public AppControl_Base get_AppControl() {
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:3: package net.unconventionalthinking.exceptions does not exist
+    [javac] import net.unconventionalthinking.exceptions.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:6: package net.unconventionalthinking.matrix does not exist
+    [javac] import net.unconventionalthinking.matrix.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:9: package net.unconventionalthinking.lang does not exist
+    [javac] import net.unconventionalthinking.lang.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:10: package net.unconventionalthinking.matrix.symbols does not exist
+    [javac] import net.unconventionalthinking.matrix.symbols.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:14: package net.unconventionalthinking.matrix.metacompiler.codegen does not exist
+    [javac] import net.unconventionalthinking.matrix.metacompiler.codegen.Exception_MetaCompilerError;
+    [javac]                                                              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:21: cannot find symbol
+    [javac] symbol: class SchemaContainer
+    [javac] public class Simple$__$Schema implements SchemaContainer {
+    [javac]                                          ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:23: cannot find symbol
+    [javac] symbol  : class SchemaInfo_Schema
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public static SchemaInfo_Schema schema;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:26: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public static SchemaInfo_Schema construct(AppControl_Base appControl, ExecutionInfo executeInfo)
+    [javac] 	                                          ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:26: cannot find symbol
+    [javac] symbol  : class ExecutionInfo
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public static SchemaInfo_Schema construct(AppControl_Base appControl, ExecutionInfo executeInfo)
+    [javac] 	                                                                      ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:26: cannot find symbol
+    [javac] symbol  : class SchemaInfo_Schema
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public static SchemaInfo_Schema construct(AppControl_Base appControl, ExecutionInfo executeInfo)
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:27: cannot find symbol
+    [javac] symbol  : class Exception_MatrixRuntime_Checked
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 		throws Exception_MatrixRuntime_Checked {
+    [javac] 		       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:146: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public AppControl_Base initialize_AppControl() { return initialize_AppControl(null, false); }
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:147: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public AppControl_Base initialize_AppControl(boolean running_AppControl_forMetacompilation) { return initialize_AppControl(null, running_AppControl_forMetacompilation); }
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:148: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl) { return initialize_AppControl(existing_AppControl, false); }
+    [javac] 	                                             ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:148: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl) { return initialize_AppControl(existing_AppControl, false); }
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:149: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl, boolean running_AppControl_forMetacompilation) {
+    [javac] 	                                             ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:149: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl, boolean running_AppControl_forMetacompilation) {
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\Simple$__$Schema.java:156: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.Simple$__$Schema
+    [javac] 	public AppControl_Base get_AppControl() {
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:5: package net.unconventionalthinking.lang does not exist
+    [javac] import net.unconventionalthinking.lang.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:7: package net.unconventionalthinking.reflection does not exist
+    [javac] import net.unconventionalthinking.reflection.MethodInvoker;
+    [javac]                                             ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:9: package net.unconventionalthinking.matrix does not exist
+    [javac] import net.unconventionalthinking.matrix.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:10: package net.unconventionalthinking.matrix.symbols does not exist
+    [javac] import net.unconventionalthinking.matrix.symbols.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:11: package net.unconventionalthinking.exceptions does not exist
+    [javac] import net.unconventionalthinking.exceptions.*; 
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:14: cannot find symbol
+    [javac] symbol: class AppControl_Base
+    [javac] public class AppControl extends AppControl_Base { 
+    [javac]                                 ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:27: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	public static synchronized AppControl_Base initializeApp() {
+    [javac] 	                           ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:36: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	public static synchronized AppControl_Base initializeApp(boolean running_AppControl_forMetacompilation) {
+    [javac] 	                           ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:54: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	public static synchronized AppControl_Base initializeApp(AppControl_Base parent_AppControl) {
+    [javac] 	                                                         ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:54: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	public static synchronized AppControl_Base initializeApp(AppControl_Base parent_AppControl) {
+    [javac] 	                           ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:64: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	public static synchronized AppControl_Base initializeApp(AppControl_Base parent_AppControl, boolean running_AppControl_forMetacompilation) {
+    [javac] 	                                                         ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:64: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	public static synchronized AppControl_Base initializeApp(AppControl_Base parent_AppControl, boolean running_AppControl_forMetacompilation) {
+    [javac] 	                           ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:79: cannot find symbol
+    [javac] symbol  : class Exception_SymbolCreation
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 		throws Exception_SymbolCreation, Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked {
+    [javac] 		       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:79: cannot find symbol
+    [javac] symbol  : class Exception_Descriptor
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 		throws Exception_SymbolCreation, Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked {
+    [javac] 		                                 ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:79: cannot find symbol
+    [javac] symbol  : class Exception_InvalidArgumentPassed
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 		throws Exception_SymbolCreation, Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked {
+    [javac] 		                                                       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:79: cannot find symbol
+    [javac] symbol  : class Exception_SchemaInfo
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 		throws Exception_SymbolCreation, Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked {
+    [javac] 		                                                                                        ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:79: cannot find symbol
+    [javac] symbol  : class Exception_MatrixRuntime_Checked
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 		throws Exception_SymbolCreation, Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked {
+    [javac] 		                                                                                                              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:103: cannot find symbol
+    [javac] symbol  : class AppControl_Base
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	public AppControl(AppControl_Base parent_AppControl, boolean running_AppControl_forMetacompilation) 
+    [javac] 	                  ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:104: cannot find symbol
+    [javac] symbol  : class Exception_SymbolCreation
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 		throws Exception_SymbolCreation, Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked {
+    [javac] 		       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:104: cannot find symbol
+    [javac] symbol  : class Exception_Descriptor
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 		throws Exception_SymbolCreation, Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked {
+    [javac] 		                                 ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:104: cannot find symbol
+    [javac] symbol  : class Exception_InvalidArgumentPassed
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 		throws Exception_SymbolCreation, Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked {
+    [javac] 		                                                       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:104: cannot find symbol
+    [javac] symbol  : class Exception_SchemaInfo
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 		throws Exception_SymbolCreation, Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked {
+    [javac] 		                                                                                        ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:104: cannot find symbol
+    [javac] symbol  : class Exception_MatrixRuntime_Checked
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 		throws Exception_SymbolCreation, Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked {
+    [javac] 		                                                                                                              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:128: cannot find symbol
+    [javac] symbol  : class Exception_Descriptor
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	throws Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked  {
+    [javac] 	       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:128: cannot find symbol
+    [javac] symbol  : class Exception_InvalidArgumentPassed
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	throws Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked  {
+    [javac] 	                             ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:128: cannot find symbol
+    [javac] symbol  : class Exception_SchemaInfo
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	throws Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked  {
+    [javac] 	                                                              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:128: cannot find symbol
+    [javac] symbol  : class Exception_MatrixRuntime_Checked
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	throws Exception_Descriptor, Exception_InvalidArgumentPassed, Exception_SchemaInfo, Exception_MatrixRuntime_Checked  {
+    [javac] 	                                                                                    ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:161: cannot find symbol
+    [javac] symbol  : class Exception_SymbolCreation
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	public void initialize_Symbols() throws Exception_SymbolCreation {
+    [javac] 	                                        ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:205: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	private void addConstructorForClass(Symbol fieldSetTuple_TypeSymbol, Class fieldSetClass) {
+    [javac] 	                                    ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:223: cannot find symbol
+    [javac] symbol  : class Exception_MatrixRuntime_Checked
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	void initialize_StaticSchemas() throws Exception_MatrixRuntime_Checked {
+    [javac] 	                                       ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java:229: cannot find symbol
+    [javac] symbol  : class Exception_MatrixRuntime_Checked
+    [javac] location: class samples.matrix.app.AppControl
+    [javac] 	void initialize_StaticMatrices() throws Exception_MatrixRuntime_Checked {
+    [javac] 	                                        ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:4: package net.unconventionalthinking.lang does not exist
+    [javac] import net.unconventionalthinking.lang.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:5: package net.unconventionalthinking.matrix.symbols does not exist
+    [javac] import net.unconventionalthinking.matrix.symbols.*;
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:6: package net.unconventionalthinking.exceptions does not exist
+    [javac] import net.unconventionalthinking.exceptions.*; 
+    [javac] ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:11: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol ContinuationType;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:13: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol byte$_sym_$;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:15: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol short$_sym_$;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:17: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol int$_sym_$;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:19: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol long$_sym_$;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:21: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol float$_sym_$;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:23: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol double$_sym_$;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:25: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol char$_sym_$;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:27: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol boolean$_sym_$;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:29: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol String;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:31: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol Object;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:33: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol Schema;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:35: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol Matrix;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:37: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol Descriptor;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:39: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol FieldSet;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:41: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol Field;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:43: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol Symbol;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:45: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol DescriptorTagName;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:47: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol Label;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:49: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol DescriptorTag;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:51: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol MatrixName;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:53: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol SchemaName;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:55: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol DescriptorPath;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:57: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol SchemaPath;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:59: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol MatrixSet;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:61: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol MatrixSet$60$Descriptor$62$;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:63: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol MatrixSet$60$Object$62$;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:65: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol DEFAULT;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:67: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol IsPersistentMatrix;
+    [javac] 	              ^
+    [javac] C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppSymbols.java:69: cannot find symbol
+    [javac] symbol  : class Symbol
+    [javac] location: class samples.matrix.app.AppSymbols
+    [javac] 	public static Symbol NotPersistentMatrix;
+    [javac] 	              ^
+    [javac] Note: C:\Projects\Hierarchy\03__Samples\SampleProjects\MatrixSample_Basic\src\samples\matrix\app\AppControl.java uses unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] 100 errors

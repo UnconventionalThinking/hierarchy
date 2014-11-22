@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : buildJSP.xml
+    Created on : July 1, 2010, 7:50 PM
+    Author     : peterjoh
+    Description:
+        Purpose of the document follows.
+-->
+
+<project name="Webapp Matrix Metacompilation" default="all" basedir=".">
+
+    <!--  ** MODIFY THIS PATH **
+          point it to your own tomcat 6 server -->
+	<!--  <property name="tomcat.home" value="C:\java\servers\apache-tomcat-6.0.29"/> -->
+	<property name="tomcat.home" value="/home/saegeun/Applications/apache-tomcat-6.0.32"/>
+
+    <property file="hierarchy_metacompilation.properties"/>
+    <property name="hierarchy.jar.path" value="${hierarchy.jar.dir}/Hierarchy.jar"/>
+    <property name="hierarchy.metacompilation.propertiesfile.path" value="hierarchy_metacompilation.properties"/>
+
+
+
+    <property name="webapp.path" value="WebContent"/>
+    <property name="javasrc.path" value="src"/>
+
+
+    <property name="meta.build.path" value="meta-build"/>
+    <property name="meta.build.mjsp.path" value="${meta.build.path}/mjsp"/>
+
+
+    <path id="tomcat.compile.classpath">
+        <pathelement location="${webapp.path}/WEB-INF/classes"/>
+        <fileset dir="${webapp.path}/WEB-INF/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${tomcat.home}/lib"/>
+        <fileset dir="${tomcat.home}/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${tomcat.home}/bin">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <import file="${tomcat.home}/bin/catalina-tasks.xml"/>
+
+
+    <target name="all" depends="clean,copyMjsp.and.Rename,jspc,renameAndCopy.GeneratedJspJavafiles,metacompile">
+    </target>
+
+
+
+    <target name="copyMjsp.and.Rename">
+        <!-- we need to find all the mjsp files, copy them to their own dir, and rename their extensions to .jsp.
+             The reason we need to rename the extensions to .jsp is because the Jasper JSP compiler only looks for files with .jsp -->
+
+        <copy todir="${meta.build.mjsp.path}/">
+            <fileset dir="${webapp.path}" includes="**/*.mjsp" casesensitive="false"/>
+            <globmapper from="*.mjsp" to="*.jsp" casesensitive="false"/>
+        </copy>
+
+        <!-- need to copy over the web-inf dir for Jasper. It needs at least the web.xml -->
+        <copy todir="${meta.build.mjsp.path}/WEB-INF">
+            <fileset dir="${webapp.path}/WEB-INF" />
+        </copy>
+    </target>
+
+
+
+    <target name="jspc">
+        <!-- compile jsp files into java files 
+             NOTE: the Add mappings to web.xml is now NOT working for some reason.
+             webXml="${meta.build.mjsp.path}/WEB-INF/web.xml"
+             addWebXmlMappings="false"
+        -->
+        <jasper
+             validateXml="false"
+             uriroot="${meta.build.mjsp.path}"
+             webXmlFragment="${meta.build.mjsp.path}/WEB-INF/generated_web.xml"
+             outputDir="${meta.build.mjsp.path}/WEB-INF/src"/>
+
+    </target>
+
+
+
+
+    <target name="renameAndCopy.GeneratedJspJavafiles">
+
+        <!-- Recursively rename .java files to .mjava -->
+        <move todir="${meta.build.mjsp.path}/WEB-INF/src">
+            <fileset dir="${meta.build.mjsp.path}/WEB-INF/src" includes="**/*.java"/>
+            <globmapper from="*.java" to="*.mjava"/>
+        </move>
+
+        <!-- Recursively copy mjava files to the src dir -->
+        <copy todir="${javasrc.path}">
+            <fileset dir="${meta.build.mjsp.path}/WEB-INF/src"/>
+        </copy>
+
+        
+        <!-- Copy over the modified generated_web.xml to the webapp dir-->
+        <copy todir="${webapp.path}/WEB-INF" >
+            <fileset file="${meta.build.mjsp.path}/WEB-INF/generated_web.xml" casesensitive="false"/>
+        </copy>
+
+    </target>
+
+
+    <target name="metacompile">
+        <echo>Metacompiling files</echo>
+
+        <!-- The -jar option will use the classpath defined in the jar's manifest, which relies on the dependent jars, commons-collection-#.#.#.jar
+             and sablecc.jar, being in the 'lib' dir relative to the dir where Hierarchy.jar is located. -->
+        <java jar="${hierarchy.jar.path}" fork="true" >
+            <arg value="-mpropfile"/>
+            <arg file="hierarchy_metacompilation.properties"/>
+        </java>
+
+        
+    </target>
+
+
+
+    <!-- this is not used, but just in case if the future we want to actually compile the final Java files into classes files, it's left here -->
+    <target name="compile">
+
+        <mkdir dir="${webapp.path}/WEB-INF/classes"/>
+        <mkdir dir="${webapp.path}/WEB-INF/lib"/>
+
+        <javac destdir="${webapp.path}/WEB-INF/classes"
+           optimize="off" debug="on" failonerror="false" srcdir="${webapp.path}/WEB-INF/src" excludes="**/*.smap"
+           classpathref="tomcat.compile.classpath">
+              
+            <include name="**" />
+            <exclude name="tags/**" />
+        </javac>
+
+    </target>
+
+
+
+
+
+    <target name="clean">
+        <delete failonerror="false">
+            <fileset dir="${webapp.path}/WEB-INF/src"/>
+        </delete>
+        <delete failonerror="false">
+            <fileset dir="${meta.build.path}"/>
+        </delete>
+        <delete failonerror="false">
+            <!-- Delete any previous metacompilied-jsp, java-files -->
+            <fileset dir="${javasrc.path}/org/apache/jsp"/>
+        </delete>
+
+
+        <echo>cleaning generated java files that were added back into the source directory, ${source.metacode.basedir}</echo>
+        <delete failonerror="false">
+            <!-- Delete the generated java-files in the source directory.
+                ONLY DELETE THE GENERATED FILES! - Generated java files have a special token string at the top. -->
+            <fileset dir="${source.metacode.basedir}" includes="**/*.java">
+                <contains text="~*~*~Matrix Meta-Compiled File~*~*~" casesensitive="yes"/>
+            </fileset>
+        </delete>
+    </target>
+
+
+    <echo>cleaning project build dir</echo>
+  	<delete failonerror="false" dir="${build.final.basedir}" />
+
+</project>

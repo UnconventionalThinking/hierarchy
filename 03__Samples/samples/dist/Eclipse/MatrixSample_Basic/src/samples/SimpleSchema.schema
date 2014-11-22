@@ -1,0 +1,16 @@
+package samples;
+
+
+
+SCHEMA Simple.Schema {
+
+	DESCRIPTOR +:%PERSON {
+
+		FIELD.NAMES: 	{ +:%FirstName, +:%LastName, +:%Age };
+		FIELD.TYPES:  	{ :String, :String, :"int"};
+
+		FIELD.DEFAULTS:	{ null, null, -1 };
+
+    }
+
+}

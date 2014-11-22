@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project name="Build Samples release" default="all" basedir=".">
+
+    <property name="netbeans.samples.proj.dir" value="Netbeans"/>
+    <property name="eclipse.samples.proj.dir" value="Eclipse"/>
+    
+    <property name="dist.dir" value="dist"/>
+
+
+	<property name="samples.main.dir" value=".."/>
+	<property name="samples.bin.dir" value="${samples.main.dir}/bin"/>
+	<property name="hierarchy.mainproject.dir" value="../../Code/Hierarchy"/>
+
+
+	<target name="all" depends="setup-persistence-sample-project, clean, update-hierarchy-jar, package"/>
+	
+
+
+	<target name="setup-persistence-sample-project">
+	
+       	<!--  We need to reset the persisted matrices using the sample persist proj's ant task. But, first, we need to 
+       	      use the local versions of the property files. -->
+        <subant target="switch-property-files-to-local">
+            <fileset dir="${netbeans.samples.proj.dir}/PersistentMatrix_WebSample" includes="build-util.xml"/>
+        </subant>
+
+        <!-- reset-persistence needs the build directory to exist -->
+        <mkdir dir="${netbeans.samples.proj.dir}/PersistentMatrix_WebSample/build"/>
+        <subant target="reset-persistence">
+            <fileset dir="${netbeans.samples.proj.dir}/PersistentMatrix_WebSample" includes="build-util.xml"/>
+        </subant>
+        
+        <subant target="switch-property-files-to-template">
+            <fileset dir="${netbeans.samples.proj.dir}/PersistentMatrix_WebSample" includes="build-util.xml"/>
+        </subant>
+	</target>
+	
+	
+    <target name="clean">
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <echo>Clean all Netbean samples</echo>
+        <echo>____________________________________________________________________</echo>
+
+        <subant target="clean">
+            <fileset dir="${netbeans.samples.proj.dir}/MatrixSample_Basic" includes="build.xml"/>
+        </subant>
+        <subant target="clean">
+            <fileset dir="${netbeans.samples.proj.dir}/MatrixSample_PetStore" includes="build.xml"/>
+        </subant>
+        <subant target="clean">
+            <fileset dir="${netbeans.samples.proj.dir}/MatrixWebSample_Basic" includes="build.xml"/>
+        </subant>
+        <subant target="clean">
+            <fileset dir="${netbeans.samples.proj.dir}/MatrixWebSample_PetStore" includes="build.xml"/>
+        </subant>
+        
+        <subant target="clean">
+            <fileset dir="${netbeans.samples.proj.dir}/PersistentMatrix_WebSample" includes="build.xml"/>
+        </subant>
+        
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <echo>Clean all Eclipse samples</echo>
+        <echo>____________________________________________________________________</echo>
+
+        <subant target="clean">
+            <fileset dir="${eclipse.samples.proj.dir}/MatrixSample_Basic" includes="buildMatrix.xml"/>
+        </subant>
+		<delete dir="${eclipse.samples.proj.dir}/MatrixSample_Basic/build"/>
+		
+        <subant target="clean">
+            <fileset dir="${eclipse.samples.proj.dir}/MatrixSample_PetStore" includes="buildMatrix.xml"/>
+        </subant>
+		<delete dir="${eclipse.samples.proj.dir}/MatrixSample_PetStore/build"/>
+
+        <subant target="clean">
+            <fileset dir="${eclipse.samples.proj.dir}/MatrixWebSample_Basic" includes="buildJSP.xml"/>
+        </subant>
+		<delete dir="${eclipse.samples.proj.dir}/MatrixWebSample_Basic/build"/>
+		
+        <subant target="clean">
+            <fileset dir="${eclipse.samples.proj.dir}/MatrixWebSample_PetStore" includes="buildJSP.xml"/>
+        </subant>
+		<delete dir="${eclipse.samples.proj.dir}/MatrixWebSample_PetStore/build"/>
+        
+    </target>
+
+
+	<target name="update-hierarchy-jar">
+        <subant target="jar">
+            <fileset dir="${hierarchy.mainproject.dir}" includes="build.xml"/>
+        </subant>
+		<delete dir="${samples.bin.dir}" failonerror="true"/>
+		<mkdir dir="${samples.bin.dir}"/>
+		<copy todir="${samples.bin.dir}" failonerror="true" overwrite="true">
+			<fileset dir="${hierarchy.mainproject.dir}/dist"/>
+		</copy>
+	</target>
+
+
+
+    <target name="package">
+
+		<delete dir="${dist.dir}"/>
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${dist.dir}/Netbeans" />
+		<mkdir dir="${dist.dir}/Eclipse" />
+		
+        <echo>____________________________________________________________________</echo>
+        <echo/>
+        <echo>Copy all Netbeans and Eclipse samples into distribution dir.</echo>
+        <echo>____________________________________________________________________</echo>
+        
+		<copy todir="${dist.dir}/Netbeans" failonerror="true">
+			<fileset dir="${netbeans.samples.proj.dir}"/>
+		</copy>
+
+		<!-- Delete the Persistence Server Temp project -->
+		<delete dir="${dist.dir}/Netbeans/PersistentMatrix_WebSample_Server_TEMP" failonerror="true"/>
+		
+		<copy todir="${dist.dir}/Eclipse">
+			<fileset dir="${eclipse.samples.proj.dir}"/>
+		</copy>
+
+    </target>
+
+    
+</project>

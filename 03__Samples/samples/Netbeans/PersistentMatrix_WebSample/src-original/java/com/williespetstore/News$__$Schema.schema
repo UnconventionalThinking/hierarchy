@@ -1,0 +1,18 @@
+package com.williespetstore;
+
+
+SCHEMA News.Schema {
+
+   DESCRIPTOR +:%NEWS {
+        FIELD.NAMES: { +:%NewsSectionName };
+        FIELD.TYPES: { :String };
+
+        DESCRIPTOR +:%NEWS.STORY {
+
+            FIELD.NAMES: { +:%StoryDate, +:%Title, +:%StoryContent };
+            FIELD.DESC: { "The date of the story", "The title of the story", "The content of the story" };
+            FIELD.TYPES: { :String, :String, :String };
+            FIELD.DEFAULTS: { null, " ", " " };
+        }
+    }
+}

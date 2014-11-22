@@ -1,0 +1,150 @@
+package com.mycompany.app;
+
+
+
+
+//  DESCRIPTOR VAR'S with explicit access types
+
+public class myWebApp {
+
+	PrintWriter out;
+
+
+	public myWebApp(PrintWriter out) {
+		this.out = out;
+	}
+	
+	public void createWebForm() {
+		
+		//   DESC VAR with matrix access type
+		for (DESCRIPTOR<MyMatrix->ITEM> item : MyMatrix->ITEM{}) {
+			
+			out.print("<tr><td>");
+			//  DESC VAR with Schema path
+			DESCRIPTOR<WEB.FORM::FORM.REQUIRED> formRequired = itemDesc->FORM.REQUIRED;
+			
+			if (formRequired:>IsRequired) {
+				out.print("<img src='" + formRequired:>RequiredImagePath + "' height=" + formRequired:>ImageHeight + " width=" + formRequired:>ImageWidth + ">");
+			} else {
+				out.print("&nbsp;");
+			}
+			
+			out.print("</td>");
+			
+			
+			printOutLabel(itemDesc->FORM.LABEL);
+			
+			processFormControlType(itemDesc.getChildDescriptor_DescTagStartsWith(:%FORM, :%CONTROL));
+		}
+	
+	}
+	
+	//  OPTION 1: DESCRIPTOR VAR with matrix access type
+	// public void printOutLabel(DESCRIPTOR<MyMatrix->ITEM->FORM.LABEL> labelDescriptor) 	
+	
+	//  OPTION 2: DESCRIPTOR VAR with full path schema-path
+	public void printOutLabel(DESCRIPTOR<com.abstractsystems::WEB.FORM::FORM.LABEL> labelDescriptor) {
+		out.print("<td>");
+		out.print(labelDescriptor:>Label);
+		out.print("</td><td>");
+		out.print(labelDescriptor:>DescriptionText);
+		out.print("</td>");
+	}
+	
+	
+	//  Don't know the specific type of descriptor yet
+	public void processFormControlType(DESCRIPTOR formControlDesc) {
+	
+		out.print("<td>");
+		if (formControl.descTagName == :%FORM.CONTROL.TEXT) {
+			DESCRIPTOR<WEB:FORM::FORM.CONTROL.TEXT> textControl = formControl;
+			out.print("<input type='text' name=" + textControl:>Name + ".... (html code for text) ... ");
+			
+		} else if (formControl.descTagName == :%FORM.CONTROL.SELECT) {
+			DESCRIPTOR<WEB:FORM::FORM.CONTROL.SELECT> selectControl = formControl;
+			out.print("<select name=" + selectControl:>Name + ".... (html code for select) ... ");
+		
+		
+		} else if ... (more "else if's" on the control type)...
+		
+		}
+		out.print("</td>");
+	}
+	
+}
+
+
+
+
+____________________________________________________________________________________________________
+
+
+
+//  DESCRIPTOR VAR'S with implicit access types
+
+public class myWebApp {
+
+	PrintWriter out;
+
+
+	public myWebApp(PrintWriter out) {
+		this.out = out;
+	}
+	
+	public void createWebForm() {
+		
+		//   DESC VAR with implicit matrix access type
+		for (DESCRIPTOR item : MyMatrix->ITEM{}) {
+			
+			out.print("<tr><td>");
+			//  DESC VAR with implicit access type
+			DESCRIPTOR formRequired = itemDesc->FORM.REQUIRED;
+			
+			if (formRequired:>IsRequired) {
+				out.print("<img src='" + formRequired:>RequiredImagePath + "' height=" + formRequired:>ImageHeight + " width=" + formRequired:>ImageWidth + ">");
+			} else {
+				out.print("&nbsp;");
+			}
+			
+			out.print("</td>");
+			
+			
+			printOutLabel(itemDesc->FORM.LABEL);
+			
+			processFormControlType(itemDesc.getChildDescriptor_DescTagStartsWith(:%FORM, :%CONTROL));
+		}
+	
+	}
+	
+	
+	
+	//  DESCRIPTOR VAR with full path schema-path
+	public void printOutLabel(DESCRIPTOR<com.abstractsystems::WEB.FORM::FORM.LABEL> labelDescriptor) {
+		out.print("<td>");
+		out.print(labelDescriptor:>Label);
+		out.print("</td><td>");
+		out.print(labelDescriptor:>DescriptionText);
+		out.print("</td>");
+	}
+	
+	
+	//  Don't know the specific type of descriptor yet, cannot be implied
+	public void processFormControlType(DESCRIPTOR formControlDesc) {
+	
+		out.print("<td>");
+		if (formControl.descTagName == :%FORM.CONTROL.TEXT) {
+			DESCRIPTOR<WEB:FORM::FORM.CONTROL.TEXT> textControl = formControl;
+			out.print("<input type='text' name=" + textControl:>Name + ".... (html code for text) ... ");
+			
+		} else if (formControl.descTagName == :%FORM.CONTROL.SELECT) {
+			DESCRIPTOR<WEB:FORM::FORM.CONTROL.SELECT> selectControl = formControl;
+			out.print("<select name=" + selectControl:>Name + ".... (html code for select) ... ");
+		
+		
+		} else if ... (more "else if's" on the control type)...
+		
+		}
+		out.print("</td>");
+	}
+	
+}

@@ -1,0 +1,14 @@
+package com . mycompany . hr ;
+import SCHEMA net . unconventional . persistence :: MATRIXPROG . PERSISTENCE ;
+MATRIX OrgChart USES (OrgChart . Schema , MATRIXPROG . PERSISTENCE ) {
+	net.unconventional.persistence::MATRIXPROG.PERSISTENCE::MATRIXPROG.PERSISTENCE.SETTINGS: {  +:IsPersistent  };
+	com.mycompany.hr::OrgChart.Schema::EMPLOYEE +`id1`: {  "Bill Smith", "CEO"  } {
+		com.mycompany.hr::OrgChart.Schema::EMPLOYEE +`id2`: {  "Jill Hughs", "CFO"  } {
+			com.mycompany.hr::OrgChart.Schema::EMPLOYEE +`id3`: {  "Paul Taylor", "Head of Accounting"  };
+		}
+		com.mycompany.hr::OrgChart.Schema::EMPLOYEE +`id4`: {  "John Jones", "CTO"  } {
+			com.mycompany.hr::OrgChart.Schema::EMPLOYEE +`id5`: {  "RJ Gill", "Head of Operations"  };
+			com.mycompany.hr::OrgChart.Schema::EMPLOYEE +`id6`: {  "Sally Ryan", "Head or Engineering"  };
+		}
+	}
+}

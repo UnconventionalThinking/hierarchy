@@ -1,0 +1,12 @@
+package samples;
+
+
+MATRIX Simple.Matrix USES (Simple.Schema) {
+
+    PERSON +`Bob`.`Marley`: { "Bob", "Marley", 12 };
+
+    PERSON +`Davey`.`Jones`: { "Davey", "Jones", 33 };
+
+    PERSON +`Jill`.`Daniels`: { "Jill", "Daniels", 1 };
+
+}

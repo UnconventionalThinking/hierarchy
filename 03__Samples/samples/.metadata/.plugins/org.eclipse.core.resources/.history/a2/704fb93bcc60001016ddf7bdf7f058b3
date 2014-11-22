@@ -1,0 +1,18 @@
+package maintests.samples;
+
+
+
+
+MATRIX Registration.Form USES (WEB.FORM)  {
+
+    `First Name` {
+        FORM.REQUIRED: { +:IsRequired, "/images/isRequired", 5, 6 };
+    }
+
+    `Last Name` {
+        FORM.REQUIRED: { +:NotRequired, "/images/isRequired", 5, 6 };
+    }
+
+
+}
+

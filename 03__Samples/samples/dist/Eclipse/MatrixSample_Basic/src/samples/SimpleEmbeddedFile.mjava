@@ -1,0 +1,50 @@
+package samples;
+
+
+
+public class SimpleEmbeddedFile {
+
+
+    public static void main(String[] args) throws Exception  {
+        SimpleEmbeddedFile simpleEmbeddedFile = new SimpleEmbeddedFile();
+
+        simpleEmbeddedFile.printMatrix();
+    }
+
+    public void printMatrix() {
+        DESCRIPTOR<Simple.Matrix->PERSON> daveyInfo = Simple.Matrix->`Davey`.`Jones`;
+
+        System.out.println("Here's Davey's info:");
+        System.out.println("  Name:" + daveyInfo:>FirstName + " " + daveyInfo:>LastName);
+        System.out.println("    Age:" + daveyInfo:>Age);
+
+        System.out.println("\n\nNow, let's print out all the people in the matrix:");
+        for (DESCRIPTOR<Simple.Matrix->PERSON> person : Simple.Matrix->PERSON{*}) {
+            System.out.println("  Name:" + person:>FirstName + " " + person:>LastName);
+            System.out.println("    Age:" + person:>Age);
+        }
+
+        System.out.println("\n\nLastly, let's pass a descriptor as a method parameter:");
+        testPassingDescriptor(Simple.Matrix->`Jill`.`Daniels`);
+
+        ANNOTATIONS {
+            DEFAULT {
+                return null;
+            }
+        }
+    }
+
+
+    //  **NOTE**: Currently, can not use a "DESCRIPTOR variable with access type" as a method parameter if the embedded class file is in a
+    //  separate jar file!! You can only use "DESCRIPTOR variable with access type" as a method parameter if the file is in the current
+    //  project (meaining it's being metacompiled, and not being accessed from a jar).
+    //
+    //  You CAN use regular DESCIPTOR variables (with no access type) as method parameters, just not ones with access types.
+    //  This is a limitation of the Hierarchy metacompiler and will be fixed in the near future.
+    public void testPassingDescriptor(DESCRIPTOR<Simple.Matrix->PERSON> person) {
+        System.out.println("  Name:" + person:>FirstName + " " + person:>LastName);
+        System.out.println("    Age:" + person:>Age);
+
+        ANNOTATIONS { DEFAULT { return null; } }
+    }
+}

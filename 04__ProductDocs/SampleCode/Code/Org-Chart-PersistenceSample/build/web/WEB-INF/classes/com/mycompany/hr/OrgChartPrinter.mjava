@@ -1,0 +1,143 @@
+package com.mycompany.hr;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
+import net.unconventionalthinking.exceptions.Exception_InvalidArgumentPassed;
+
+
+
+public class OrgChartPrinter {
+
+    int depthOfTree = 0;
+
+    Deque<EmployeeNode> currNodeProcessing_Queue = new ArrayDeque<EmployeeNode>();
+    Deque<EmployeeNode> buildTable_Queue = new ArrayDeque<EmployeeNode>();
+
+    
+
+    public static void main(String args[]) throws Exception {
+        
+        OrgChartPrinter orgChartPrinter = new OrgChartPrinter();
+        System.out.println(orgChartPrinter.print());
+    }
+
+    public StringBuilder print() throws Exception_InvalidArgumentPassed {
+
+        int numColumns = pass1_CalculateNumColumnsForNode(OrgChart->`id1`, 1);
+        // System.out.println("Num Columns = " + numColumns + ", tree depth = " + depthOfTree);
+
+        pass2_CreateBuildTableQueue();
+        StringBuilder out = pass3_PrintTable();
+
+        return out;
+
+        ANNOTATIONS {
+            DEFAULT { return null; }
+        }
+    }
+
+
+    public int pass1_CalculateNumColumnsForNode(DESCRIPTOR<OrgChart->EMPLOYEE> currEmployee, int currTreeDepth) throws Exception_InvalidArgumentPassed {
+        
+        if (currTreeDepth > depthOfTree)
+            depthOfTree = currTreeDepth;
+
+        if (currEmployee.get_ChildDescriptors_Size(executeInfo) == 0) {
+            currEmployee:>NumColumns = 1;
+            return 1;
+
+        } else {
+            int sum_ChildNumCols = 0;
+
+            for (DESCRIPTOR<OrgChart->EMPLOYEE> childEmployee : currEmployee->EMPLOYEE{*}) {
+                sum_ChildNumCols = sum_ChildNumCols + pass1_CalculateNumColumnsForNode(childEmployee, currTreeDepth + 1);
+            }
+
+            currEmployee:>NumColumns = sum_ChildNumCols;
+
+            return sum_ChildNumCols;
+        }
+
+        ANNOTATIONS {
+            DEFAULT { return null; }
+        }
+    }
+
+    public void pass2_CreateBuildTableQueue() throws Exception_InvalidArgumentPassed {
+        
+        //  Add the top level employee node the the processing queue to start everything off
+        EmployeeNode rootEmployeeNode = new EmployeeNode(OrgChart->`id1`, 1);
+        currNodeProcessing_Queue.addLast(rootEmployeeNode);
+        buildTable_Queue.addLast(rootEmployeeNode);
+
+        for (EmployeeNode currEmployee = currNodeProcessing_Queue.pollFirst(); 
+             currEmployee != null; 
+             currEmployee = currNodeProcessing_Queue.pollFirst()) {
+
+            if (currEmployee.employeeDesc != null &&
+                currEmployee.employeeDesc.get_ChildDescriptors_Size(executeInfo) > 0) {
+                
+                for (DESCRIPTOR<OrgChart->EMPLOYEE> childEmployeeDesc : currEmployee.employeeDesc.get_ChildDescriptors_List(executeInfo)) {
+                    EmployeeNode childEmployeeNode = new EmployeeNode(childEmployeeDesc, currEmployee.rowLevel + 1);
+
+                    currNodeProcessing_Queue.addLast(childEmployeeNode);
+                    buildTable_Queue.addLast(childEmployeeNode);
+                }
+
+            } else {
+                if (currEmployee.rowLevel + 1 <= depthOfTree) {
+                    EmployeeNode childEmployeeNode = new EmployeeNode(null, currEmployee.rowLevel + 1);
+                    currNodeProcessing_Queue.addLast(childEmployeeNode);
+                    buildTable_Queue.addLast(childEmployeeNode);
+                }
+            }
+        }
+
+
+        ANNOTATIONS {
+            DEFAULT { return null; }
+        }
+    }
+
+
+    public StringBuilder pass3_PrintTable() {
+        
+        StringBuilder out = new StringBuilder();
+        EmployeeNode prevEmployeeNode = null;
+ 
+        for (EmployeeNode currEmployeeNode = buildTable_Queue.pollFirst(); 
+             currEmployeeNode != null; 
+             currEmployeeNode = buildTable_Queue.pollFirst()) {
+             
+             if (prevEmployeeNode == null || (currEmployeeNode.rowLevel != prevEmployeeNode.rowLevel))
+                out.append("<tr>\n");
+
+             DESCRIPTOR<OrgChart->EMPLOYEE> currEmployeeDesc = currEmployeeNode.employeeDesc;
+
+             int colSpan = currEmployeeDesc != null ? (Integer)currEmployeeDesc:>NumColumns : 1;
+
+             if (currEmployeeDesc != null) {
+                out.append("\t<td colspan='" + colSpan + "' style='text-align: center; border:solid;'>\n");
+                out.append("\t\t<b>" + currEmployeeDesc:>FullName + "</b><br>\n");
+                out.append("\t\t" + currEmployeeDesc:>Title + " (<i>" + currEmployeeDesc.get_Label().toString() + "</i>)\n");
+             } else {
+                 out.append("\t<td colspan='" + colSpan + "' style='text-align: center; '>\n");
+                 out.append("\t\t&nbsp;\n");
+             }
+             out.append("\t</td>\n");
+
+
+             // it compares the curr node's rowlevel with the next node (buildTable_Queue.peekFirst().rowLevel)
+             if (buildTable_Queue.size() == 0  || (currEmployeeNode.rowLevel != buildTable_Queue.peekFirst().rowLevel))
+                out.append("</tr>\n");
+
+             prevEmployeeNode = currEmployeeNode;
+        }
+
+        return out;
+
+        ANNOTATIONS {
+            DEFAULT { return null; }
+        }
+    }
+}

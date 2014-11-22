@@ -1,0 +1,136 @@
+package samples;
+
+import net.unconventionalthinking.exceptions.*;
+import samples.matrix.app.AppSymbols_MatrixName;
+import samples.matrix.app.AppControl;
+import net.unconventionalthinking.matrix.*;
+import java.util.Arrays;
+import samples.matrix.app.AppSymbols;
+import net.unconventionalthinking.lang.*;
+import net.unconventionalthinking.matrix.symbols.*;
+import samples.matrix.app.AppSymbols_SchemaName;
+import samples.matrix.app.AppSymbols_Label;
+import samples.matrix.app.AppSymbols_DescTag;
+import net.unconventionalthinking.matrix.metacompiler.codegen.Exception_MetaCompilerError;
+import samples.matrix.app.AppSymbols_DescTagName;
+import java.util.LinkedList;
+
+
+
+
+public class Simple$__$Matrix implements MatrixContainer {
+
+	public static Matrix matrix;
+
+
+	public static Matrix construct(AppControl_Base appControl, ExecutionInfo executeInfo)
+		throws Exception_MatrixRuntime_Checked {
+
+		LinkedList<MatrixSet<SchemaInfo_Schema>> schemaSet_ScopeStack = new LinkedList<MatrixSet<SchemaInfo_Schema>>();
+
+		//  Creating a Matrix with name, `Simple`.`Matrix`__________________________________________________
+		try {
+			schemaSet_ScopeStack.add(new MatrixSet<SchemaInfo_Schema>().add(
+				appControl.schemaControl.schemaFactory.get_BaseSchema(executeInfo),
+				appControl.schemaControl.schemaForSchema
+			));
+		} catch (Exception e) {
+			throw new Exception_MatrixRuntime_Checked("while trying to create a new Matrix Or Schema descriptor with the name, `Simple`.`Matrix`," + 
+				" tried to add the Base Schema to the scope stack, but had an error creating it (see inner exception).", e);
+		}
+
+		MatrixSet<SchemaInfo_Schema> descriptor5$_X_$MATRIX$_X_$__UsesSchemaSet;
+		Descriptor descriptor5$_X_$MATRIX;
+
+		try {
+			descriptor5$_X_$MATRIX$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>().add(appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.samples$_CC_$Simple$__$Schema));
+			descriptor5$_X_$MATRIX = (Descriptor)appControl.matrixControl.matrixFactory.createNew_Matrix(executeInfo, AppSymbols_Label.Simple$__$Matrix, AppSymbols_DescTagName.samples, true, descriptor5$_X_$MATRIX$_X_$__UsesSchemaSet, null, true);
+			schemaSet_ScopeStack.add(descriptor5$_X_$MATRIX$_X_$__UsesSchemaSet);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, MATRIX::MATRIX, and with label, `Simple`.`Matrix`, but had an error", e);
+		}
+
+
+		//  Creating a Descriptor with descriptor tag, PERSON::PERSON, and label, `Bob`.`Marley`__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor6$_X_$PERSON$_X_$__UsesSchemaSet;
+		Descriptor descriptor6$_X_$PERSON;
+
+		try {
+			descriptor6$_X_$PERSON$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor6$_X_$PERSON = (Descriptor)appControl.matrixControl.matrixFactory.createNew_Descriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.samples$_CC_$Simple$__$Schema).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.samples$_CC_$Simple$__$Schema$_CC_$PERSON), appControl.symbolControl.multiPartSymbol_Factory.createNew_Label(Arrays.asList("Bob", "Marley"), 0, true), descriptor6$_X_$PERSON$_X_$__UsesSchemaSet, descriptor5$_X_$MATRIX);
+			samples.matrix.app.FieldSetTuple__samples$_CC_$Simple$__$Schema$_S_$PERSON descriptor6$_X_$PERSON$_X_$__FieldSet = (samples.matrix.app.FieldSetTuple__samples$_CC_$Simple$__$Schema$_S_$PERSON)descriptor6$_X_$PERSON.get_FieldSet_Tuple(executeInfo);
+			descriptor6$_X_$PERSON$_X_$__FieldSet.set_FirstName(executeInfo, "Bob" );
+			descriptor6$_X_$PERSON$_X_$__FieldSet.set_LastName(executeInfo, "Marley" );
+			descriptor6$_X_$PERSON$_X_$__FieldSet.set_Age(executeInfo, 12 );
+			schemaSet_ScopeStack.add(descriptor6$_X_$PERSON$_X_$__UsesSchemaSet);
+			descriptor5$_X_$MATRIX.add_ChildDescriptor(executeInfo, descriptor6$_X_$PERSON);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, PERSON::PERSON, and with label, `Bob`.`Marley`, but had an error", e);
+		}
+
+
+		//  Creating a Descriptor with descriptor tag, PERSON::PERSON, and label, `Davey`.`Jones`__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor7$_X_$PERSON$_X_$__UsesSchemaSet;
+		Descriptor descriptor7$_X_$PERSON;
+
+		try {
+			descriptor7$_X_$PERSON$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor7$_X_$PERSON = (Descriptor)appControl.matrixControl.matrixFactory.createNew_Descriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.samples$_CC_$Simple$__$Schema).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.samples$_CC_$Simple$__$Schema$_CC_$PERSON), appControl.symbolControl.multiPartSymbol_Factory.createNew_Label(Arrays.asList("Davey", "Jones"), 0, true), descriptor7$_X_$PERSON$_X_$__UsesSchemaSet, descriptor5$_X_$MATRIX);
+			samples.matrix.app.FieldSetTuple__samples$_CC_$Simple$__$Schema$_S_$PERSON descriptor7$_X_$PERSON$_X_$__FieldSet = (samples.matrix.app.FieldSetTuple__samples$_CC_$Simple$__$Schema$_S_$PERSON)descriptor7$_X_$PERSON.get_FieldSet_Tuple(executeInfo);
+			descriptor7$_X_$PERSON$_X_$__FieldSet.set_FirstName(executeInfo, "Davey" );
+			descriptor7$_X_$PERSON$_X_$__FieldSet.set_LastName(executeInfo, "Jones" );
+			descriptor7$_X_$PERSON$_X_$__FieldSet.set_Age(executeInfo, 33 );
+			schemaSet_ScopeStack.add(descriptor7$_X_$PERSON$_X_$__UsesSchemaSet);
+			descriptor5$_X_$MATRIX.add_ChildDescriptor(executeInfo, descriptor7$_X_$PERSON);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, PERSON::PERSON, and with label, `Davey`.`Jones`, but had an error", e);
+		}
+
+
+		//  Creating a Descriptor with descriptor tag, PERSON::PERSON, and label, `Jill`.`Daniels`__________________________________________________
+		MatrixSet<SchemaInfo_Schema> descriptor8$_X_$PERSON$_X_$__UsesSchemaSet;
+		Descriptor descriptor8$_X_$PERSON;
+
+		try {
+			descriptor8$_X_$PERSON$_X_$__UsesSchemaSet = new MatrixSet<SchemaInfo_Schema>();
+			descriptor8$_X_$PERSON = (Descriptor)appControl.matrixControl.matrixFactory.createNew_Descriptor(executeInfo, appControl.schemaControl.schemaIndex_Find(AppSymbols_SchemaName.samples$_CC_$Simple$__$Schema).getChild_SchemaInfoDescriptor(executeInfo, AppSymbols_DescTag.samples$_CC_$Simple$__$Schema$_CC_$PERSON), appControl.symbolControl.multiPartSymbol_Factory.createNew_Label(Arrays.asList("Jill", "Daniels"), 0, true), descriptor8$_X_$PERSON$_X_$__UsesSchemaSet, descriptor5$_X_$MATRIX);
+			samples.matrix.app.FieldSetTuple__samples$_CC_$Simple$__$Schema$_S_$PERSON descriptor8$_X_$PERSON$_X_$__FieldSet = (samples.matrix.app.FieldSetTuple__samples$_CC_$Simple$__$Schema$_S_$PERSON)descriptor8$_X_$PERSON.get_FieldSet_Tuple(executeInfo);
+			descriptor8$_X_$PERSON$_X_$__FieldSet.set_FirstName(executeInfo, "Jill" );
+			descriptor8$_X_$PERSON$_X_$__FieldSet.set_LastName(executeInfo, "Daniels" );
+			descriptor8$_X_$PERSON$_X_$__FieldSet.set_Age(executeInfo, 1 );
+			schemaSet_ScopeStack.add(descriptor8$_X_$PERSON$_X_$__UsesSchemaSet);
+			descriptor5$_X_$MATRIX.add_ChildDescriptor(executeInfo, descriptor8$_X_$PERSON);
+
+		} catch(Exception e) {
+			throw new Exception_MatrixRuntime_Checked("Tried to create a new descriptor with the name, PERSON::PERSON, and with label, `Jill`.`Daniels`, but had an error", e);
+		}
+
+		matrix = (Matrix)descriptor5$_X_$MATRIX;
+
+		return (Matrix)descriptor5$_X_$MATRIX;
+	}
+
+
+
+
+	public Class<?> get_AppControl_Class() throws ClassNotFoundException {
+		return samples.matrix.app.AppControl.class;
+	}
+	public AppControl_Base initialize_AppControl() { return initialize_AppControl(null, false); }
+	public AppControl_Base initialize_AppControl(boolean running_AppControl_forMetacompilation) { return initialize_AppControl(null, running_AppControl_forMetacompilation); }
+	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl) { return initialize_AppControl(existing_AppControl, false); }
+	public AppControl_Base initialize_AppControl(AppControl_Base existing_AppControl, boolean running_AppControl_forMetacompilation) {
+		if (existing_AppControl != null)
+			return samples.matrix.app.AppControl.initializeApp(existing_AppControl, running_AppControl_forMetacompilation);
+		else
+			return samples.matrix.app.AppControl.initializeApp(running_AppControl_forMetacompilation);
+	}
+
+	public AppControl_Base get_AppControl() {
+		return samples.matrix.app.AppControl.appControl;
+	}
+
+}

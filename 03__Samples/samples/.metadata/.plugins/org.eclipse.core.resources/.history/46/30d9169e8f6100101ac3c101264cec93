@@ -1,0 +1,253 @@
+package maintests.samples;
+
+import java.util.*;
+import net.unconventionalthinking.lang.*;
+import net.unconventionalthinking.matrix.symbols.*;
+import net.unconventionalthinking.exceptions.*; 
+
+public class AppSymbols_Label { 
+
+	//  Single Symbols:
+	public static Label SCHEMA;
+	public static final int SCHEMA$_ID_$ = 82;
+	public static Label MATRIX;
+	public static final int MATRIX$_ID_$ = 83;
+	public static Label ITEM;
+	public static final int ITEM$_ID_$ = 84;
+	public static Label DESCRIPTOR;
+	public static final int DESCRIPTOR$_ID_$ = 85;
+	public static Label FIELD;
+	public static final int FIELD$_ID_$ = 86;
+	public static Label NAMES;
+	public static final int NAMES$_ID_$ = 87;
+	public static Label TYPES;
+	public static final int TYPES$_ID_$ = 88;
+	public static Label DESC;
+	public static final int DESC$_ID_$ = 89;
+	public static Label DEFAULTS;
+	public static final int DEFAULTS$_ID_$ = 90;
+	public static Label BASE;
+	public static final int BASE$_ID_$ = 91;
+	public static Label STANDARD;
+	public static final int STANDARD$_ID_$ = 92;
+	public static Label SCHEMA$95$FOR$95$SCHEMA;
+	public static final int SCHEMA$95$FOR$95$SCHEMA$_ID_$ = 93;
+	public static Label TEST;
+	public static final int TEST$_ID_$ = 94;
+	public static Label News;
+	public static final int News$_ID_$ = 143;
+	public static Label Schema;
+	public static final int Schema$_ID_$ = 144;
+	public static Label NEWS;
+	public static final int NEWS$_ID_$ = 147;
+	public static Label STORY;
+	public static final int STORY$_ID_$ = 151;
+	public static Label WilliesPetstore;
+	public static final int WilliesPetstore$_ID_$ = 382;
+	public static Label Content;
+	public static final int Content$_ID_$ = 383;
+	public static Label Adopt$32$a$32$Pet;
+	public static final int Adopt$32$a$32$Pet$_ID_$ = 387;
+	public static Label Fanciful$32$Dog$32$Food;
+	public static final int Fanciful$32$Dog$32$Food$_ID_$ = 388;
+
+
+	//  MultiPart Symbols:
+	public static Label FIELD$__$NAMES;
+	public static final int FIELD$__$NAMES$_ID_$ = 335;
+	public static Label FIELD$__$TYPES;
+	public static final int FIELD$__$TYPES$_ID_$ = 336;
+	public static Label FIELD$__$DESC;
+	public static final int FIELD$__$DESC$_ID_$ = 337;
+	public static Label FIELD$__$DEFAULTS;
+	public static final int FIELD$__$DEFAULTS$_ID_$ = 338;
+	public static Label MATRIX$__$BASE;
+	public static final int MATRIX$__$BASE$_ID_$ = 340;
+	public static Label MATRIX$__$STANDARD;
+	public static final int MATRIX$__$STANDARD$_ID_$ = 341;
+	public static Label News$__$Schema;
+	public static final int News$__$Schema$_ID_$ = 343;
+	public static Label NEWS$__$STORY;
+	public static final int NEWS$__$STORY$_ID_$ = 345;
+	public static Label WilliesPetstore$__$Content;
+	public static final int WilliesPetstore$__$Content$_ID_$ = 385;
+
+
+	//  Initializer for Symbols:
+	public static boolean have_Intialized = false;
+
+
+
+	static void initialize(SymbolControl symbol_Control) throws Exception_InvalidArgumentPassed_Null, Exception_InvalidArgumentPassed,
+		Exception_SymbolCreation, Exception_MultiPartSymbolAccess, Exception_MultiPartSymbolCreation, Exception_MultiPartSymbolCreationOrAccess {
+		initialize(symbol_Control, false);
+	}
+
+	/**
+	 * If you set have_ParentAppControl to true, then the symbolControl you pass in should be from a parent AppControl (which means this class
+	 * and all of the other app control classes for this application context are probably in a jar, being used by a parent application. <p>
+	 *
+	 * What this means is that all the ID fields for this class are INCORRECT!! The Id's for symbols will not be hard coded, but set dynamically.<br>
+	 * What this also means is that for right now, jar files can not have embedded matrix classes methods with matrix accesses that are called from
+	 * a parent application (because matrix access uses these id's).
+	 */
+	static void initialize(SymbolControl symbol_Control, boolean have_ParentAppControl) throws Exception_InvalidArgumentPassed_Null, Exception_InvalidArgumentPassed,
+			Exception_SymbolCreation, Exception_MultiPartSymbolAccess, Exception_MultiPartSymbolCreation, Exception_MultiPartSymbolCreationOrAccess {
+
+		SymbolControl symbolControl = symbol_Control;
+		Symbol_Single_Factory singleSymbol_Factory = symbolControl.singleSymbol_Factory;
+		Symbol_MultiPart_Factory multiPartSymbol_Factory = symbolControl.multiPartSymbol_Factory;
+
+		//  Multipart-Symbol related variables:
+		List<Symbol_Single> newlyCreatedSymbols = new ArrayList<Symbol_Single>();
+		Boolean_Mutable have_Created_New_MultiPartSymbol = new Boolean_Mutable(false);
+		int creation_StartLevel = 0;
+		boolean creation_Has_StaticVersion = true;
+
+		List<String> symbolStrings = null;
+
+
+		//  Single Symbols _________________________________________________________________________
+
+		SCHEMA = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("SCHEMA", true) :
+				singleSymbol_Factory.createNew_Label("SCHEMA", 82, true, null);
+		MATRIX = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("MATRIX", true) :
+				singleSymbol_Factory.createNew_Label("MATRIX", 83, true, null);
+		ITEM = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("ITEM", true) :
+				singleSymbol_Factory.createNew_Label("ITEM", 84, true, null);
+		DESCRIPTOR = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("DESCRIPTOR", true) :
+				singleSymbol_Factory.createNew_Label("DESCRIPTOR", 85, true, null);
+		FIELD = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("FIELD", true) :
+				singleSymbol_Factory.createNew_Label("FIELD", 86, true, null);
+		NAMES = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("NAMES", true) :
+				singleSymbol_Factory.createNew_Label("NAMES", 87, true, null);
+		TYPES = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("TYPES", true) :
+				singleSymbol_Factory.createNew_Label("TYPES", 88, true, null);
+		DESC = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("DESC", true) :
+				singleSymbol_Factory.createNew_Label("DESC", 89, true, null);
+		DEFAULTS = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("DEFAULTS", true) :
+				singleSymbol_Factory.createNew_Label("DEFAULTS", 90, true, null);
+		BASE = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("BASE", true) :
+				singleSymbol_Factory.createNew_Label("BASE", 91, true, null);
+		STANDARD = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("STANDARD", true) :
+				singleSymbol_Factory.createNew_Label("STANDARD", 92, true, null);
+		SCHEMA$95$FOR$95$SCHEMA = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("SCHEMA_FOR_SCHEMA", true) :
+				singleSymbol_Factory.createNew_Label("SCHEMA_FOR_SCHEMA", 93, true, null);
+		TEST = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("TEST", true) :
+				singleSymbol_Factory.createNew_Label("TEST", 94, true, null);
+		News = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("News", true) :
+				singleSymbol_Factory.createNew_Label("News", 143, true, null);
+		Schema = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("Schema", true) :
+				singleSymbol_Factory.createNew_Label("Schema", 144, true, null);
+		NEWS = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("NEWS", true) :
+				singleSymbol_Factory.createNew_Label("NEWS", 147, true, null);
+		STORY = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("STORY", true) :
+				singleSymbol_Factory.createNew_Label("STORY", 151, true, null);
+		WilliesPetstore = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("WilliesPetstore", true) :
+				singleSymbol_Factory.createNew_Label("WilliesPetstore", 382, true, null);
+		Content = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("Content", true) :
+				singleSymbol_Factory.createNew_Label("Content", 383, true, null);
+		Adopt$32$a$32$Pet = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("Adopt a Pet", true) :
+				singleSymbol_Factory.createNew_Label("Adopt a Pet", 387, true, null);
+		Fanciful$32$Dog$32$Food = (have_ParentAppControl) ? singleSymbol_Factory.createNew_Label("Fanciful Dog Food", true) :
+				singleSymbol_Factory.createNew_Label("Fanciful Dog Food", 388, true, null);
+
+
+
+		//  MultiPart Symbols _________________________________________________________________________
+
+		//  `FIELD`.`NAMES`
+		symbolStrings = new ArrayList<String>();
+		symbolStrings.add("FIELD");
+		symbolStrings.add("NAMES");
+
+		FIELD$__$NAMES = (have_ParentAppControl) ? multiPartSymbol_Factory.createNew_Label(symbolStrings, 335, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols) :
+
+				multiPartSymbol_Factory.createNew_Label(symbolStrings, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols);
+
+
+		//  `FIELD`.`TYPES`
+		symbolStrings = new ArrayList<String>();
+		symbolStrings.add("FIELD");
+		symbolStrings.add("TYPES");
+
+		FIELD$__$TYPES = (have_ParentAppControl) ? multiPartSymbol_Factory.createNew_Label(symbolStrings, 336, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols) :
+
+				multiPartSymbol_Factory.createNew_Label(symbolStrings, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols);
+
+
+		//  `FIELD`.`DESC`
+		symbolStrings = new ArrayList<String>();
+		symbolStrings.add("FIELD");
+		symbolStrings.add("DESC");
+
+		FIELD$__$DESC = (have_ParentAppControl) ? multiPartSymbol_Factory.createNew_Label(symbolStrings, 337, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols) :
+
+				multiPartSymbol_Factory.createNew_Label(symbolStrings, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols);
+
+
+		//  `FIELD`.`DEFAULTS`
+		symbolStrings = new ArrayList<String>();
+		symbolStrings.add("FIELD");
+		symbolStrings.add("DEFAULTS");
+
+		FIELD$__$DEFAULTS = (have_ParentAppControl) ? multiPartSymbol_Factory.createNew_Label(symbolStrings, 338, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols) :
+
+				multiPartSymbol_Factory.createNew_Label(symbolStrings, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols);
+
+
+		//  `MATRIX`.`BASE`
+		symbolStrings = new ArrayList<String>();
+		symbolStrings.add("MATRIX");
+		symbolStrings.add("BASE");
+
+		MATRIX$__$BASE = (have_ParentAppControl) ? multiPartSymbol_Factory.createNew_Label(symbolStrings, 340, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols) :
+
+				multiPartSymbol_Factory.createNew_Label(symbolStrings, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols);
+
+
+		//  `MATRIX`.`STANDARD`
+		symbolStrings = new ArrayList<String>();
+		symbolStrings.add("MATRIX");
+		symbolStrings.add("STANDARD");
+
+		MATRIX$__$STANDARD = (have_ParentAppControl) ? multiPartSymbol_Factory.createNew_Label(symbolStrings, 341, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols) :
+
+				multiPartSymbol_Factory.createNew_Label(symbolStrings, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols);
+
+
+		//  `News`.`Schema`
+		symbolStrings = new ArrayList<String>();
+		symbolStrings.add("News");
+		symbolStrings.add("Schema");
+
+		News$__$Schema = (have_ParentAppControl) ? multiPartSymbol_Factory.createNew_Label(symbolStrings, 343, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols) :
+
+				multiPartSymbol_Factory.createNew_Label(symbolStrings, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols);
+
+
+		//  `NEWS`.`STORY`
+		symbolStrings = new ArrayList<String>();
+		symbolStrings.add("NEWS");
+		symbolStrings.add("STORY");
+
+		NEWS$__$STORY = (have_ParentAppControl) ? multiPartSymbol_Factory.createNew_Label(symbolStrings, 345, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols) :
+
+				multiPartSymbol_Factory.createNew_Label(symbolStrings, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols);
+
+
+		//  `WilliesPetstore`.`Content`
+		symbolStrings = new ArrayList<String>();
+		symbolStrings.add("WilliesPetstore");
+		symbolStrings.add("Content");
+
+		WilliesPetstore$__$Content = (have_ParentAppControl) ? multiPartSymbol_Factory.createNew_Label(symbolStrings, 385, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols) :
+
+				multiPartSymbol_Factory.createNew_Label(symbolStrings, creation_StartLevel, creation_Has_StaticVersion, have_Created_New_MultiPartSymbol, newlyCreatedSymbols);
+
+
+		have_Intialized = true;
+	}
+
+
+}

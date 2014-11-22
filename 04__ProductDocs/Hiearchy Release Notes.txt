@@ -1,0 +1,37 @@
+Release 1.00.06 - 01/31/2012
+______________________________
+o Small fix - sample projects now easier to use in Eclipse.
+
+
+Release 1.00.05 - 11/30/2011
+______________________________
+o In .mjava files, fixed bug with "static access using dynamic labels." They only worked with full descriptor tags, and not just a regular descriptor tag. For instance:
+
+	   Label testLabel = `Test`.`Label`;
+	   boolean isRequired = Test.Matrix->MY.DESC[testLabel]:>IsRequired; // was broken! The metacompiler was not able
+	   									//  to do a "dynamic-label" access using the simple descriptor tag name,
+	                                    // "MY.DESC." It only understood it using the full tag name of "MySchema::MY.DESC"
+  
+
+Release 1.00.04 - 09/08/2011
+______________________________
+o Added a great deal to the developer guide (twice as long). Lots of very useful information about how to work with the metacompiler at a practical level.
+o In .mjava files, add support for using matrix accesses in static methods to the metacompiler
+o Small bug fixes to the metacompiler,
+
+
+Release 1.00.03 - 6/24/2011
+______________________________
+o Added in a metacompiler syntax check for one of the most important syntax mistakes, forgetting to add an Annotation Handler in a method that has matrix accesses.
+
+
+Release 1.00.02
+______________________________
+o In embedded Java files, added automatic addition of hierarchy-related imports. This means you don't have to add imports like:
+   import net.unconventional.matrix.*;
+
+to your .mjava files anymore. In addition, the appControl package is auto imported too.
+
+o You can now set the metacompiler to compile all Java files first! You'd typically want to do this because either your schema, matrix, or embedded java files uses some classes for some Java files.
+
+o Fixed Eclipse samples (I think they weren't working in release 1.00.01)
