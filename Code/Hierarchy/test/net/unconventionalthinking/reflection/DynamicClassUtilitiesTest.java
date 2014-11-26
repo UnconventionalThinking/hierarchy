@@ -84,7 +84,7 @@ public class DynamicClassUtilitiesTest {
         fullClassName = "maintests.samples.typeinfotest.anotherpackage.Test$__$Schema";
         expResult = true;
         urls = DynamicClassUtilities.classPath__CreateUrls(
-                new String[] {"../Hierarchy_TestMatrixProject_5_GeneratedProj_forJar/dist/Hierarchy_TestMatrixProject_5_GeneratedProj_forJar.jar" },
+                new String[] {"../Hierarchy_TestMatrixProject_5_JarTests_METABUILD/dist/Hierarchy_TestMatrixProject_5_JarTests_METABUILD.jar" },
                 DynamicClassUtilities.WarningAndError_Settings.Error,
                 Arrays.asList(new String[]{"ERROR:"}) );
         result = DynamicClassUtilities.classPath__ClassExists(urls, fullClassName);

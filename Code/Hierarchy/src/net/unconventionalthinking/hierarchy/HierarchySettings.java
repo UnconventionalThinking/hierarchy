@@ -72,17 +72,9 @@ public class HierarchySettings {
             FileUtilities.convert_DotName_to_Path(appClasses_PackageName); }
 
 
-    //  TODO - ** delete these later!!
-    /*
-    // Unix
-    public static final String test_Javac_Dir = "/System/Library/Frameworks/JavaVM.framework/Versions/1.5.0/Home/bin"; // java 1.5
-    public static final String test_HierarchyJar_Dir = "/Users/peterjoh/Projects/NDA_and_MP/Code/Hierarchy/dist";
-    public static final String Matrix_Projects_Dir = "/Users/peterjoh/Projects/NDA_and_MP/Code";
-     */
-    //  PC
-    public static final String test_Javac_Dir = "C:/Program Files/Java/jdk1.6.0_21/bin";
-    public static final String test_HierarchyJar_Dir = "C:/Projects/Hierarchy/Code/Hierarchy/dist";
-    public static final String Matrix_Projects_Dir = "C:/Projects/Hierarchy/Code";
+    public static final String test_Javac_Dir = HierarchySettings_LocalDefaultValues.test_Javac_Dir;
+    public static final String test_HierarchyJar_Dir = HierarchySettings_LocalDefaultValues.test_HierarchyJar_Dir;
+    public static final String Matrix_Projects_Dir = HierarchySettings_LocalDefaultValues.Matrix_Projects_Dir;
 
     
     public static final String generationtestproject_package = "generationtestproject";

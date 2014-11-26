@@ -98,12 +98,12 @@
 
         <echo>____________________________________________________________________</echo>
         <echo/>
-        <echo>Generate TestMatrix  Project - Jar test</echo>
+        <echo>Generate Test Matrix Project - Jar test</echo>
         <echo>____________________________________________________________________</echo>
 
         <!--  Create the Test Matrix Project Jar. Call its build script.-->
         <subant target="jar">
-            <fileset dir="${Hierarchy_TestMatrixProject_5_GeneratedProj_forJar.proj.dir}" includes="build.xml"/>
+            <fileset dir="${Hierarchy_TestMatrixProject_5_JarTests_METABUILD.proj.dir}" includes="build.xml"/>
         </subant>
         <echo/>
 
@@ -123,18 +123,18 @@
         <echo>____________________________________________________________________</echo>
         <echo/>
         <echo> Test the projects:</echo>
-        <echo> - Hierarchy_TestMatrixProject_2_GeneratedProj_w_TestSrc</echo>
+        <echo> - Hierarchy_TestMatrixProject_2_METABUILD</echo>
         <echo>____________________________________________________________________</echo>
         <subant target="test"  >
-            <fileset dir="${Hierarchy_TestMatrixProject_2_GeneratedProj_w_TestSrc.proj.dir}" includes="build.xml"/>
+            <fileset dir="${Hierarchy_TestMatrixProject_2_METABUILD.proj.dir}" includes="build.xml"/>
         </subant>
         <echo>____________________________________________________________________</echo>
         <echo/>
         <echo> Test the projects:</echo>
-        <echo> - Hierarchy_TestMatrixProject_6_GeneratedProj_forJar_Tester</echo>
+        <echo> - Hierarchy_TestMatrixProject_6_JarTester</echo>
         <echo>____________________________________________________________________</echo>
         <subant target="test"  >
-            <fileset dir="${Hierarchy_TestMatrixProject_6_GeneratedProj_forJar_Tester.proj.dir}" includes="build.xml"/>
+            <fileset dir="${Hierarchy_TestMatrixProject_6_JarTester.proj.dir}" includes="build.xml"/>
         </subant>
 
         <echo/>
@@ -156,11 +156,11 @@
 		<subant target="clean"><fileset dir="${Hierarchy_GenerationTestProject.proj.dir}" includes="build.xml"/></subant>
 
 
-		<subant target="clean"><fileset dir="${Hierarchy_TestMatrixProject_1.proj.dir}" includes="build.xml"/></subant>
-		<subant target="clean"><fileset dir="${Hierarchy_TestMatrixProject_1.metasrc.dir}" includes="build.xml"/></subant>
-		<subant target="clean"><fileset dir="${Hierarchy_TestMatrixProject_2_GeneratedProj_w_TestSrc.proj.dir}" includes="build.xml"/></subant>
-		<subant target="clean"><fileset dir="${Hierarchy_TestMatrixProject_5_GeneratedProj_forJar.proj.dir}" includes="build.xml"/></subant>
-		<subant target="clean"><fileset dir="${Hierarchy_TestMatrixProject_6_GeneratedProj_forJar_Tester.proj.dir}" includes="build.xml"/></subant>
+		<subant target="clean"><fileset dir="${Hierarchy_TestMatrixProject_1_METASRC.proj.dir}" includes="build.xml"/></subant>
+		<subant target="clean"><fileset dir="${Hierarchy_TestMatrixProject_1_METASRC.metabuild.dir}" includes="build.xml"/></subant>
+		<subant target="clean"><fileset dir="${Hierarchy_TestMatrixProject_2_METABUILD.proj.dir}" includes="build.xml"/></subant>
+		<subant target="clean"><fileset dir="${Hierarchy_TestMatrixProject_5_JarTests_METABUILD.proj.dir}" includes="build.xml"/></subant>
+		<subant target="clean"><fileset dir="${Hierarchy_TestMatrixProject_6_JarTester.proj.dir}" includes="build.xml"/></subant>
 
 		<subant target="clean"><fileset dir="${Hierarchy.PersistenceController.proj.dir}" includes="build.xml"/></subant>
 

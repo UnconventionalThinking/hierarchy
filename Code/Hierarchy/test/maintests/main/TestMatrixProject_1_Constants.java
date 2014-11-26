@@ -24,7 +24,7 @@ public class TestMatrixProject_1_Constants {
 
     public final static String HierarchyProject_Path = "../Hierarchy";
     public final static String Hierarchy_GenerationTestProject_Path = "../Hierarchy_GenerationTestProject";
-    public final static String Hierarchy_TestMatrixProject_Path = "../Hierarchy_TestMatrixProject_1";
+    public final static String Hierarchy_TestMatrixProject_Path = "../Hierarchy_TestMatrixProject_1_METASRC";
 
 
     //  ******************************

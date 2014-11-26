@@ -24,17 +24,17 @@ public class TestMatrixProject_6_GeneratedProjForJarTester_Constant {
 
     public final static String HierarchyProject_Path = "../Hierarchy";
     public final static String Hierarchy_GenerationTestProject_Path = "../Hierarchy_GenerationTestProject";
-    public final static String Hierarchy_TestMatrixProject_Path = "../Hierarchy_TestMatrixProject_1";
-    public final static String Hierarchy_TestMatrixProject_5_GeneratedProj_forJar_Path = "../Hierarchy_TestMatrixProject_5_GeneratedProj_forJar";
-    public final static String Hierarchy_TestMatrixProject_Jar_Path = Hierarchy_TestMatrixProject_5_GeneratedProj_forJar_Path + "/dist/Hierarchy_TestMatrixProject_5_GeneratedProj_forJar.jar";
+    public final static String Hierarchy_TestMatrixProject_Path = "../Hierarchy_TestMatrixProject_1_METASRC";
+    public final static String Hierarchy_TestMatrixProject_5_JarTests_METABUILD_Path = "../Hierarchy_TestMatrixProject_5_JarTests_METABUILD";
+    public final static String Hierarchy_TestMatrixProject_Jar_Path = Hierarchy_TestMatrixProject_5_JarTests_METABUILD_Path + "/dist/Hierarchy_TestMatrixProject_5_JarTests_METABUILD.jar";
 
-    public final static String Hierarchy_TestMatrixProject_6_GeneratedProjForJarTester_Path = "../Hierarchy_TestMatrixProject_6_GeneratedProj_forJar_Tester";
+    public final static String Hierarchy_TestMatrixProject_6_JarTester_Path = "../Hierarchy_TestMatrixProject_6_JarTester";
 
 
     //  ******************************
     //    SET THIS TO CORRECT PROJECT!
     //  ******************************
-    public final static String CURR_PROJECT_DIR = Hierarchy_TestMatrixProject_6_GeneratedProjForJarTester_Path;
+    public final static String CURR_PROJECT_DIR = Hierarchy_TestMatrixProject_6_JarTester_Path;
 
 
     public final static String maintests_generatedCode_PackageName = "maintests.samples.jaraccesstests";
