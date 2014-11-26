@@ -3,20 +3,20 @@ Code/Hierarchy/build/
 Code/Hierarchy/dist/
 
 
-#Code/Hierarchy/nbproject
-#Code/Hierarchy_0_Playground/nbproject
-#Code/Hierarchy_1_DocSamples/nbproject
-#Code/Hierarchy_ControllerProject/nbproject
-#Code/Hierarchy_GenerationTestProject/nbproject
-#Code/Hierarchy_TestMatrixProject_1/nbproject
-#Code/Hierarchy_TestMatrixProject_2_GeneratedProj_w_TestSrc/nbproject
-#Code/Hierarchy_TestMatrixProject_5_GeneratedProj_forJar/nbproject
-#Code/Hierarchy_TestMatrixProject_6_GeneratedProj_forJar_Tester/nbproject
-#Code/Hierarchy_TestPersistence1_Server/nbproject
-#Code/Hierarchy_TestPersistence2_Client/nbproject
-#Code/Hierarchy_TestPersistence_Controller/nbproject
-#Code/Hierarchy_TestPersistence_Main/nbproject
-#Code/Hierarchy_Translator_Sandbox/nbproject
+Code/Hierarchy/nbproject
+Code/Hierarchy_0_Playground/nbproject
+Code/Hierarchy_1_DocSamples/nbproject
+Code/Hierarchy_ControllerProject/nbproject
+Code/Hierarchy_GenerationTestProject/nbproject
+Code/Hierarchy_TestMatrixProject_1/nbproject
+Code/Hierarchy_TestMatrixProject_2_GeneratedProj_w_TestSrc/nbproject
+Code/Hierarchy_TestMatrixProject_5_GeneratedProj_forJar/nbproject
+Code/Hierarchy_TestMatrixProject_6_GeneratedProj_forJar_Tester/nbproject
+Code/Hierarchy_TestPersistence1_Server/nbproject
+Code/Hierarchy_TestPersistence2_Client/nbproject
+Code/Hierarchy_TestPersistence_Controller/nbproject
+Code/Hierarchy_TestPersistence_Main/nbproject
+Code/Hierarchy_Translator_Sandbox/nbproject
 
 
 *.class
