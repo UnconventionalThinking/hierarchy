@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1">
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator.java</url>
+            <line>281</line>
+            <line>552</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator__MultiAccess.java</url>
+            <line>137</line>
+            <line>199</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCreation_CodeGenerator.java</url>
+            <line>441</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCodeGenerator_SchemaAndMatrixBuilder.java</url>
+            <line>6</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/PartitaActionsBase_2_MainBase.java</url>
+            <line>345</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/SchemaFactory.java</url>
+            <line>87</line>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/HierarchyMetaCompiler.java</url>
+            <line>344</line>
+            <line>917</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/PartitaActions.java</url>
+            <line>1323</line>
+            <line>1324</line>
+            <line>1667</line>
+            <line>1898</line>
+            <line>2611</line>
+            <line>2838</line>
+            <line>2861</line>
+            <line>2870</line>
+            <line>3093</line>
+        </file>
+        <file>
+            <url>test/maintests/samples/MainTests_EmbeddedCodeTest.mjava</url>
+            <line>178</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/Partita.grammar</url>
+            <line>526</line>
+            <line>786</line>
+            <line>902</line>
+            <line>992</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/LangSymbolTableActions__SymCreator.java</url>
+            <line>152</line>
+            <line>1009</line>
+            <line>1065</line>
+            <line>1852</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/PartitaMetaCompiler.java</url>
+            <line>307</line>
+            <line>538</line>
+            <line>762</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/PartitaCompiler_Actions.java</url>
+            <line>655</line>
+            <line>1065</line>
+            <line>1463</line>
+            <line>1682</line>
+            <line>1884</line>
+            <line>3197</line>
+            <line>3580</line>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/langsymboltable/LangSymbolTable_File.java</url>
+            <line>231</line>
+            <line>408</line>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/compileractions/HierarchyActions.java</url>
+            <line>479</line>
+            <line>1869</line>
+            <line>1878</line>
+            <line>3547</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/langsymboltable/LangSymbolTable_Actions.java</url>
+            <line>431</line>
+            <line>609</line>
+            <line>754</line>
+            <line>919</line>
+            <line>1393</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/PartitaCompiler_Actions.java</url>
+            <line>655</line>
+            <line>1065</line>
+            <line>1463</line>
+            <line>1682</line>
+            <line>1884</line>
+            <line>3197</line>
+            <line>3580</line>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/matrix/SchemaFactory.java</url>
+            <line>86</line>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator.java</url>
+            <line>386</line>
+            <line>515</line>
+            <line>700</line>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/seraphim/compileractions/SeraphimActions.java</url>
+            <line>2613</line>
+            <line>2708</line>
+            <line>2924</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/PartitaActionsWorker_MatrixElementName.java</url>
+            <line>158</line>
+            <line>280</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/InMemory_SchemaAndMatrixBuilder_Actual.java</url>
+            <line>6</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/InMemorySchemaOrMatrix_Descriptor_Actual.java</url>
+            <line>6</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/InMemorySchemaOrMatrix_DescriptorActual.java</url>
+            <line>6</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/langsymboltable/LangSymbolTableActions__SymCreator.java</url>
+            <line>325</line>
+            <line>503</line>
+            <line>676</line>
+            <line>846</line>
+            <line>1328</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCodeGenerator_SchemaAndMatrixActualBuilder.java</url>
+            <line>6</line>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/langsymboltable/LangSymbolTable_Actions__SymCreator.java</url>
+            <line>431</line>
+            <line>609</line>
+            <line>754</line>
+            <line>919</line>
+            <line>1393</line>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/Hierarchy.grammar</url>
+            <line>558</line>
+            <line>711</line>
+            <line>749</line>
+        </file>
+    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0">
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>281</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>552</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/InMemorySchemaOrMatrix_DescriptorActual.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>6</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/Partita.grammar</url>
+            <bookmark id="0">
+                <name/>
+                <line>526</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>786</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>902</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>992</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/langsymboltable/LangSymbolTable_Actions__SymCreator.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>431</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>609</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>754</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>919</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1393</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/PartitaCompiler_Actions.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>655</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1065</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1463</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1682</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1884</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>3197</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>3580</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/LangSymbolTableActions__SymCreator.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>152</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1009</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1065</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1852</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/PartitaMetaCompiler.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>307</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>538</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>762</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/matrix/SchemaFactory.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>86</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/PartitaActionsWorker_MatrixElementName.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>158</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>280</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/PartitaActions.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>1323</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1324</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1667</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1898</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>2611</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>2838</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>2861</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>2870</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>3093</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>386</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>515</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>700</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/Hierarchy.grammar</url>
+            <bookmark id="0">
+                <name/>
+                <line>558</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>711</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>749</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCreation_CodeGenerator.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>441</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/langsymboltable/LangSymbolTableActions__SymCreator.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>325</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>503</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>676</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>846</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1328</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCodeGenerator_SchemaAndMatrixActualBuilder.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>6</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/langsymboltable/LangSymbolTable_Actions.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>431</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>609</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>754</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>919</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1393</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorCodeGenerator_SchemaAndMatrixBuilder.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>6</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/InMemorySchemaOrMatrix_Descriptor_Actual.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>6</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/PartitaCompiler_Actions.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>655</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1065</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1463</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1682</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1884</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>3197</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>3580</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/seraphim/compileractions/SeraphimActions.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>2613</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>2708</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>2924</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>test/maintests/samples/MainTests_EmbeddedCodeTest.mjava</url>
+            <bookmark id="0">
+                <name/>
+                <line>178</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/compileractions/HierarchyActions.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>479</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1869</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>1878</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>3547</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/SchemaFactory.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>87</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/HierarchyMetaCompiler.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>344</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>917</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/net/unconventionalthinking/hierarchy/langsymboltable/LangSymbolTable_File.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>231</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>408</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/DescriptorAccess_CodeGenerator__MultiAccess.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>137</line>
+                <key/>
+            </bookmark>
+            <bookmark id="0">
+                <name/>
+                <line>199</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/matrix/metacompiler/codegen/InMemory_SchemaAndMatrixBuilder_Actual.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>6</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/com/abstractsystems/partita/compileractions/PartitaActionsBase_2_MainBase.java</url>
+            <bookmark id="0">
+                <name/>
+                <line>345</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="Hierarchy">
+            <file>file:/Users/admin/Projects-Local/hierarchy/Code/Hierarchy/test/maintests/main/MainTests_Constants.java</file>
+            <file>file:/Users/admin/Projects-Local/hierarchy/Code/Hierarchy/src/net/unconventionalthinking/hierarchy/HierarchySettings_LocalDefaultValues.java</file>
+            <file>file:/Users/admin/Projects-Local/hierarchy/Code/Hierarchy/test/maintests/main/MainTests_Setup.java</file>
+            <file>file:/Users/admin/Projects-Local/hierarchy/Code/Hierarchy/test/net/unconventionalthinking/hierarchy/langsymboltable/_02_LangSymbolTable_Test.java</file>
+            <file>file:/Users/admin/Projects-Local/hierarchy/Code/Hierarchy/test/maintests/main/TestMatrixProject_6_GeneratedProjForJarTester_Constant.java</file>
+            <file>file:/Users/admin/Projects-Local/hierarchy/Code/Hierarchy/test/maintests/main/TestMatrixProject_6_GeneratedProjForJarTester_Setup.java</file>
+            <file>file:/Users/admin/Projects-Local/hierarchy/Code/Hierarchy/test/net/unconventionalthinking/hierarchy/_10_AnnotationDetection_Tester.java</file>
+            <file>file:/Users/admin/Projects-Local/hierarchy/Code/Hierarchy/src/net/unconventionalthinking/matrix/AppControl_Base.java</file>
+            <file>file:/Users/admin/Projects-Local/hierarchy/Code/Hierarchy/src/net/unconventionalthinking/hierarchy/HierarchySettings.java</file>
+            <file>file:/Users/admin/Projects-Local/hierarchy/Code/Hierarchy/test/maintests/main/TestMatrixProject_1.properties</file>
+        </group>
+    </open-files>
+</project-private>

@@ -3,20 +3,20 @@ Code/Hierarchy/build/
 Code/Hierarchy/dist/
 
 # The netbeans project folder is specific to each dev's system, so ignore them
-#Code/Hierarchy/nbproject
-#Code/Hierarchy_0_Playground/nbproject
-#Code/Hierarchy_1_DocSamples/nbproject
-#Code/Hierarchy_ControllerProject/nbproject
-#Code/Hierarchy_GenerationTestProject/nbproject
-#Code/Hierarchy_TestMatrixProject_1_METASRC/nbproject
-#Code/Hierarchy_TestMatrixProject_2_METABUILD/nbproject
-#Code/Hierarchy_TestMatrixProject_5_JarTests_METABUILD/nbproject
-#Code/Hierarchy_TestMatrixProject_6_JarTester/nbproject
-#Code/Hierarchy_TestPersistence1_Server/nbproject
-#Code/Hierarchy_TestPersistence2_Client/nbproject
-#Code/Hierarchy_TestPersistence_Controller/nbproject
-#Code/Hierarchy_TestPersistence_Main/nbproject
-#Code/Hierarchy_Translator_Sandbox/nbproject
+Code/Hierarchy/nbproject
+Code/Hierarchy_0_Playground/nbproject
+Code/Hierarchy_1_DocSamples/nbproject
+Code/Hierarchy_ControllerProject/nbproject
+Code/Hierarchy_GenerationTestProject/nbproject
+Code/Hierarchy_TestMatrixProject_1_METASRC/nbproject
+Code/Hierarchy_TestMatrixProject_2_METABUILD/nbproject
+Code/Hierarchy_TestMatrixProject_5_JarTests_METABUILD/nbproject
+Code/Hierarchy_TestMatrixProject_6_JarTester/nbproject
+Code/Hierarchy_TestPersistence1_Server/nbproject
+Code/Hierarchy_TestPersistence2_Client/nbproject
+Code/Hierarchy_TestPersistence_Controller/nbproject
+Code/Hierarchy_TestPersistence_Main/nbproject
+Code/Hierarchy_Translator_Sandbox/nbproject
 
 
 *.class
